@@ -1,0 +1,145 @@
+import re
+from datetime import datetime
+from pathlib import Path
+
+
+def _slugify(text: str) -> str:
+    """Convert text to a filesystem-friendly slug."""
+    text = text.strip().lower()
+    text = re.sub(r"[^a-z0-9\s-]", "", text)
+    text = re.sub(r"[\s_-]+", "-", text)
+    return re.sub(r"^-+|-+$", "", text) or "feature"
+
+
+def _find_templates_root(start: Path | None = None) -> Path:
+    """Find templates by walking up from start (or CWD)."""
+    search_origin = start or Path.cwd()
+
+    candidates: list[Path] = []
+    for path in [search_origin, *search_origin.parents]:
+        candidates.append(path / ".nuaa" / "templates")
+        candidates.append(path / "nuaa-kit" / "templates")
+
+    repo_root = Path(__file__).parent.parent.parent
+    candidates.append(repo_root / ".nuaa" / "templates")
+    candidates.append(repo_root / "nuaa-kit" / "templates")
+
+    for candidate in candidates:
+        if candidate.is_dir():
+            return candidate
+
+    raise FileNotFoundError(
+        "Could not locate '.nuaa/templates' or 'nuaa-kit/templates'. "
+        "Run 'nuaa init' first or ensure NUAA templates are available."
+    )
+
+
+def _ensure_nuaa_root(root: Path | None = None) -> Path:
+    """Ensure the 'nuaa' directory exists under the project root."""
+    if root is None:
+        root = Path.cwd()
+    nuaa_root = root / "nuaa"
+    nuaa_root.mkdir(parents=True, exist_ok=True)
+    return nuaa_root
+
+
+def _next_feature_dir(program_name: str, root: Path | None = None) -> tuple[Path, str, str]:
+    """Compute next feature directory and return (path, num_str, slug)."""
+    nuaa_root = _ensure_nuaa_root(root)
+    # Find highest NNN prefix
+    highest = 0
+    for child in nuaa_root.iterdir() if nuaa_root.exists() else []:
+        if child.is_dir():
+            m = re.match(r"^(\d{3})-", child.name)
+            if m:
+                try:
+                    highest = max(highest, int(m.group(1)))
+                except ValueError:
+                    pass
+    next_num = highest + 1
+    num_str = f"{next_num:03d}"
+    slug = _slugify(program_name)
+    feature_dir = nuaa_root / f"{num_str}-{slug}"
+    feature_dir.mkdir(parents=True, exist_ok=True)
+    return feature_dir, num_str, slug
+
+
+def _find_feature_dir_by_program(program_name: str, root: Path | None = None) -> Path | None:
+    """Find an existing feature dir whose slug starts with the program slug."""
+    nuaa_root = _ensure_nuaa_root(root)
+    slug = _slugify(program_name)
+    for child in sorted(nuaa_root.iterdir()) if nuaa_root.exists() else []:
+        pattern = rf"-\b{re.escape(slug)}\b"
+        if child.is_dir() and re.search(pattern, child.name):
+            return child
+    return None
+
+
+def _load_template(name: str) -> str:
+    """Load a template file from the discovered NUAA templates directory."""
+    templates_root = _find_templates_root()
+    path = templates_root / name
+    if not path.exists():
+        raise FileNotFoundError(f"Template not found: {name}")
+    return path.read_text(encoding="utf-8")
+
+
+def _apply_replacements(text: str, mapping: dict[str, str]) -> str:
+    """Apply placeholder replacements for [Placeholders] and {{TOKENS}}."""
+    out = text
+    # Bracket placeholders used in templates
+    bracket_map = {
+        "[Name]": mapping.get("PROGRAM_NAME", ""),
+        "[Description]": mapping.get("TARGET_POPULATION", ""),
+        "[Timeframe]": mapping.get("DURATION", ""),
+        "[Date]": mapping.get("DATE", datetime.now().strftime("%Y-%m-%d")),
+    }
+    for k, v in bracket_map.items():
+        out = out.replace(k, v)
+    # Curly token replacements
+    for k, v in mapping.items():
+        out = out.replace(f"{{{{{k}}}}}", v)
+    return out
+
+
+def _prepend_metadata(text: str, metadata: dict[str, str]) -> str:
+    """Prepend a YAML-style metadata block to markdown text."""
+    lines = ["---"]
+    for k, v in metadata.items():
+        lines.append(f"{k}: {v}")
+    lines.append("---\n")
+    return "\n".join(lines) + text
+
+
+def _write_markdown(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
+def _stamp() -> str:
+    return datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
+
+
+def get_or_create_feature_dir(program_name: str, root: Path | None = None) -> Path:
+    """Return existing feature dir for program or create next one."""
+    found = _find_feature_dir_by_program(program_name, root=root)
+    if found:
+        return found
+    return _next_feature_dir(program_name, root=root)[0]
+
+
+def write_markdown_if_needed(
+    path: Path,
+    content: str,
+    force: bool = False,
+    console=None,
+) -> bool:
+    """Write markdown if needed; prints a message. Returns True if written."""
+    if path.exists() and not force:
+        if console:
+            console.print(f"[yellow]File exists, skipping:[/yellow] {path}")
+        return False
+    _write_markdown(path, content)
+    if console:
+        console.print(f"[green]Created:[/green] {path}")
+    return True

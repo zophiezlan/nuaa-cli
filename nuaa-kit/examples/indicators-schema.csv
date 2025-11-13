@@ -1,0 +1,8 @@
+variable_name,indicator_label,level,type,allowed_values,source,frequency,notes
+sessions_delivered,Sessions delivered,process,integer,,session_log,weekly,Count of unique sessions executed
+participants_engaged_unique,Unique participants engaged,output,integer,,aggregation,weekly,Cumulative unique participants
+knowledge_score_pre,Knowledge score (pre),outcome_short,integer,0-100,survey,baseline,Composite baseline knowledge score
+knowledge_score_post,Knowledge score (post),outcome_short,integer,0-100,survey,end,Same instrument as pre
+knowledge_gain_percent,Knowledge gain %,outcome_short,decimal,,derived,end,(post - pre)/pre*100 (guard divide by zero)
+wellbeing_k10_score,Wellbeing (K10),outcome_medium,integer,10-50,survey,baseline|3m|6m,K10 psychological distress scale
+community_stigma_index,Community stigma index,impact,decimal,,community_survey,baseline|end,Standardized index (method documented separately)

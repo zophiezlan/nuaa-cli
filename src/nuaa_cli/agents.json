@@ -1,0 +1,128 @@
+{
+  "claude": {
+    "name": "Claude Code",
+    "folder": ".claude/commands/",
+    "format": "Markdown",
+    "cli_tool": "claude",
+    "description": "Anthropic's Claude Code CLI",
+    "requires_cli": true,
+    "install_url": "https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool"
+  },
+  "gemini": {
+    "name": "Gemini CLI",
+    "folder": ".gemini/commands/",
+    "format": "TOML",
+    "cli_tool": "gemini",
+    "description": "Google's Gemini CLI",
+    "requires_cli": true,
+    "install_url": "https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md"
+  },
+  "copilot": {
+    "name": "GitHub Copilot",
+    "folder": ".github/agents/",
+    "format": "Markdown",
+    "cli_tool": null,
+    "description": "GitHub Copilot in VS Code",
+    "requires_cli": false,
+    "install_url": null
+  },
+  "cursor-agent": {
+    "name": "Cursor",
+    "folder": ".cursor/rules/",
+    "format": "Markdown",
+    "cli_tool": "cursor-agent",
+    "description": "Cursor CLI",
+    "requires_cli": true,
+    "install_url": "https://cursor.sh/docs/cli"
+  },
+  "qwen": {
+    "name": "Qwen Code",
+    "folder": ".qwen/commands/",
+    "format": "TOML",
+    "cli_tool": "qwen",
+    "description": "Alibaba's Qwen Code CLI",
+    "requires_cli": true,
+    "install_url": "https://help.aliyun.com/document_detail/2601612.html"
+  },
+  "opencode": {
+    "name": "opencode",
+    "folder": ".opencode/command/",
+    "format": "Markdown",
+    "cli_tool": "opencode",
+    "description": "opencode CLI",
+    "requires_cli": true,
+    "install_url": "https://www.opencode.com/docs/cli"
+  },
+  "codex": {
+    "name": "Codex CLI",
+    "folder": ".codex/commands/",
+    "format": "Markdown",
+    "cli_tool": "codex",
+    "description": "Codex CLI",
+    "requires_cli": true,
+    "install_url": "https://www.npmjs.com/package/@openai/codex-cli"
+  },
+  "windsurf": {
+    "name": "Windsurf",
+    "folder": ".windsurf/workflows/",
+    "format": "Markdown",
+    "cli_tool": null,
+    "description": "Windsurf IDE workflows",
+    "requires_cli": false,
+    "install_url": null
+  },
+  "kilocode": {
+    "name": "Kilo Code",
+    "folder": ".kilocode/rules/",
+    "format": "Markdown",
+    "cli_tool": null,
+    "description": "Kilo Code IDE",
+    "requires_cli": false,
+    "install_url": null
+  },
+  "auggie": {
+    "name": "Auggie CLI",
+    "folder": ".augment/rules/",
+    "format": "Markdown",
+    "cli_tool": "auggie",
+    "description": "Auggie CLI",
+    "requires_cli": true,
+    "install_url": "https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md"
+  },
+  "roo": {
+    "name": "Roo Code",
+    "folder": ".roo/rules/",
+    "format": "Markdown",
+    "cli_tool": null,
+    "description": "Roo Code IDE",
+    "requires_cli": false,
+    "install_url": null
+  },
+  "codebuddy": {
+    "name": "CodeBuddy CLI",
+    "folder": ".codebuddy/commands/",
+    "format": "Markdown",
+    "cli_tool": "codebuddy",
+    "description": "CodeBuddy CLI",
+    "requires_cli": true,
+    "install_url": "https://www.npmjs.com/package/codebuddy-cli"
+  },
+  "q": {
+    "name": "Amazon Q Developer CLI",
+    "folder": ".amazonq/prompts/",
+    "format": "Markdown",
+    "cli_tool": "q",
+    "description": "Amazon Q Developer CLI",
+    "requires_cli": true,
+    "install_url": "https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html"
+  },
+  "amp": {
+    "name": "Amp",
+    "folder": ".agents/commands/",
+    "format": "Markdown",
+    "cli_tool": "amp",
+    "description": "Amp CLI",
+    "requires_cli": true,
+    "install_url": "https://docs.amp.computer/cli/overview"
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NUAA Command Flags Schema",
+  "description": "Standard flags for NUAA kit commands and their allowed values. Version 1.1.0 - Updated 2025-11-10",
+  "version": "1.1.0",
+  "type": "object",
+  "properties": {
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "appliesTo": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "design",
+                "propose",
+                "measure",
+                "report",
+                "refine",
+                "document"
+              ]
+            }
+          },
+          "allowedValues": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "default": { "type": ["string", "null"] },
+          "required": { "type": "boolean" }
+        },
+        "required": ["name", "description", "appliesTo", "allowedValues"]
+      }
+    }
+  },
+  "required": ["flags"],
+  "flags": [
+    {
+      "name": "format",
+      "description": "Output register/tone and audience focus.",
+      "appliesTo": ["design", "propose", "measure", "report", "refine"],
+      "allowedValues": [
+        "professional",
+        "professional-peer",
+        "peer-friendly",
+        "funder",
+        "community",
+        "internal",
+        "all"
+      ],
+      "default": "professional-peer",
+      "required": false
+    },
+    {
+      "name": "focus",
+      "description": "Deepen or constrain refinement to a specific content area.",
+      "appliesTo": ["design", "propose", "refine", "measure", "report"],
+      "allowedValues": [
+        "logic-model",
+        "stakeholder-journeys",
+        "evaluation",
+        "budget",
+        "storytelling",
+        "outcomes",
+        "impact",
+        "process",
+        "equity",
+        "risks",
+        "partnerships",
+        "methodology",
+        "narrative"
+      ],
+      "default": null,
+      "required": false
+    },
+    {
+      "name": "depth",
+      "description": "Overall scope of work to produce.",
+      "appliesTo": ["measure", "report", "design"],
+      "allowedValues": ["light", "standard", "comprehensive"],
+      "default": "standard",
+      "required": false
+    },
+    {
+      "name": "participatory",
+      "description": "Degree of participant/peer involvement in design or evaluation.",
+      "appliesTo": ["measure", "design", "report", "document"],
+      "allowedValues": ["light", "standard", "high"],
+      "default": "standard",
+      "required": false
+    },
+    {
+      "name": "methods",
+      "description": "Methodological mix preference for evaluation or reporting.",
+      "appliesTo": ["measure", "report"],
+      "allowedValues": ["quantitative", "qualitative", "mixed"],
+      "default": "mixed",
+      "required": false
+    },
+    {
+      "name": "length",
+      "description": "Document size guideline.",
+      "appliesTo": ["propose", "report"],
+      "allowedValues": ["short", "full"],
+      "default": "full",
+      "required": false
+    },
+    {
+      "name": "mode",
+      "description": "How to present refinements or outputs.",
+      "appliesTo": ["refine"],
+      "allowedValues": ["inline", "diff", "summary"],
+      "default": "inline",
+      "required": false
+    },
+    {
+      "name": "preserve",
+      "description": "Elements that must not be changed during refinement.",
+      "appliesTo": ["refine"],
+      "allowedValues": [
+        "budget-totals",
+        "peer-remuneration-rate",
+        "participant-targets",
+        "logic-model-structure",
+        "key-outcomes",
+        "funder-commitments"
+      ],
+      "default": null,
+      "required": false
+    },
+    {
+      "name": "check-consistency",
+      "description": "Validate alignment across related artifacts.",
+      "appliesTo": ["refine", "design", "propose"],
+      "allowedValues": ["true", "false"],
+      "default": "false",
+      "required": false
+    },
+    {
+      "name": "feedback",
+      "description": "Path to feedback file or inline feedback text.",
+      "appliesTo": ["refine"],
+      "allowedValues": [],
+      "default": null,
+      "required": false,
+      "note": "Accepts file path or inline text string"
+    },
+    {
+      "name": "data-source",
+      "description": "Path to data files (CSV, Excel) for reporting.",
+      "appliesTo": ["report"],
+      "allowedValues": [],
+      "default": null,
+      "required": false,
+      "note": "Accepts file paths to data files"
+    },
+    {
+      "name": "report-type",
+      "description": "Stage or type of evaluation report.",
+      "appliesTo": ["report"],
+      "allowedValues": [
+        "progress",
+        "mid-program",
+        "final",
+        "quarterly",
+        "annual"
+      ],
+      "default": "final",
+      "required": false
+    },
+    {
+      "name": "export",
+      "description": "Export format for final output.",
+      "appliesTo": ["design", "propose", "measure", "report"],
+      "allowedValues": ["markdown", "word", "excel", "pdf", "all"],
+      "default": "markdown",
+      "required": false
+    },
+    {
+      "name": "running-since",
+      "description": "Start date for existing/brownfield program documentation.",
+      "appliesTo": ["document"],
+      "allowedValues": [],
+      "default": null,
+      "required": false,
+      "note": "Date format: YYYY-MM-DD or YYYY-MM"
+    },
+    {
+      "name": "current-participants",
+      "description": "Number of current participants in existing program.",
+      "appliesTo": ["document"],
+      "allowedValues": [],
+      "default": null,
+      "required": false,
+      "note": "Integer value"
+    },
+    {
+      "name": "budget-amount",
+      "description": "Current or proposed budget amount for existing program.",
+      "appliesTo": ["document"],
+      "allowedValues": [],
+      "default": null,
+      "required": false,
+      "note": "Numeric value, currency implied"
+    }
+  ],
+  "usage_examples": [
+    {
+      "command": "design",
+      "example": "/nuaa.design Create peer naloxone program --format=professional --focus=logic-model --depth=comprehensive"
+    },
+    {
+      "command": "propose",
+      "example": "/nuaa.propose Generate funding proposal for stigma reduction program --format=funder --length=full --export=word"
+    },
+    {
+      "command": "measure",
+      "example": "/nuaa.measure Define impact framework for hepatitis C testing --methods=mixed --participatory=high --focus=equity"
+    },
+    {
+      "command": "report",
+      "example": "/nuaa.report Generate final evaluation report --report-type=final --format=all --data-source=data/survey-results.csv"
+    },
+    {
+      "command": "refine",
+      "example": "/nuaa.refine Update logic model --focus=logic-model --mode=diff --preserve=participant-targets --check-consistency=true"
+    },
+    {
+      "command": "document",
+      "example": "/nuaa.document Existing Peer NSP Program --running-since=2020-01 --current-participants=150 --budget-amount=50000"
+    }
+  ],
+  "notes": {
+    "consistency": "All commands should use consistent flag naming and value conventions.",
+    "extensibility": "New flags can be added as commands evolve; maintain backward compatibility.",
+    "validation": "AI agents should validate flag values against this schema before processing.",
+    "combinations": "Multiple flags can be combined; agents should handle conflicts gracefully (e.g., format=peer-friendly + focus=budget may need plain-language budget explanations)."
+  },
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "2025-11-10",
+      "changes": [
+        "Added 'document' command to appliesTo enums",
+        "Expanded format values to include 'funder', 'community', 'internal', 'all'",
+        "Added new flags: mode, preserve, check-consistency, feedback, data-source, report-type, export",
+        "Added brownfield documentation flags: running-since, current-participants, budget-amount",
+        "Expanded focus values to include outcomes, impact, process, equity, risks, partnerships, methodology, narrative",
+        "Added comprehensive usage examples for all commands",
+        "Added notes section for schema governance"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2025-01-01",
+      "changes": [
+        "Initial schema with basic flags: format, focus, depth, participatory, methods, length"
+      ]
+    }
+  ]
+}

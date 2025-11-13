@@ -1,6 +1,6 @@
 # NUAA Kit Changelog
 
-All notable changes to the NUAA adaptation of Spec Kit are documented here. This changelog tracks kit‑specific content (commands, templates, guidance) separate from the core Specify CLI (`pyproject.toml` + `CHANGELOG.md`).
+All notable changes to the NUAA Kit are documented here. This changelog tracks kit‑specific content (commands, templates, guidance) separate from the core NUAA CLI (`pyproject.toml` + `CHANGELOG.md`).
 
 Format: YYYY-MM-DD Semantic grouping (Added / Changed / Removed / Deprecated / Fixed / Security)
 

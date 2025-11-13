@@ -1,43 +1,55 @@
-# NUAA CLI Extension Design (Planning)
+# NUAA CLI Commands
 
-Status: DRAFT
-Target Release Window: Q1 2026 (subject to prioritization)
+Status: ✅ IMPLEMENTED (v0.3.0+)
 
 ## Overview
 
-Add NUAA‑specific subcommands to the Specify CLI to streamline creation of NUAA program design, evaluation, proposal, and reporting artifacts. Goal: reduce manual navigation & copy/paste; enforce consistent scaffolding, flags, and quality checks.
+The NUAA CLI provides first-class subcommands for NUAA program design, evaluation, proposal, and reporting workflows. All commands create structured Markdown artifacts using the templates in `nuaa-kit/templates/` with automatic feature directory scaffolding, slug generation, and metadata stamping.
 
-## Proposed Commands
+## Implemented Commands
 
-| Command                | Purpose                                                            | Primary Inputs                                                | Outputs                                        | Notes                                       |
-| ---------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------- |
-| `specify nuaa init`    | Scaffold NUAA kit structure into an existing repo or new project   | `--path`, `--include-ms365`, `--status`                       | Folder tree, baseline docs, placeholder README | Non‑destructive if folders exist            |
-| `specify nuaa design`  | Generate program design template populated with flag defaults      | Program name, duration, target population, optional `--depth` | `program-design.md` (draft)                    | Wraps AI prompt assembly                    |
-| `specify nuaa measure` | Create evaluation framework from existing design                   | Program name, period, budget                                  | `impact-framework.md`                          | Applies command flag schema                 |
-| `specify nuaa propose` | Produce funding proposal skeleton referencing existing logic model | Program name, funder, amount, duration                        | `proposal.md`                                  | Inserts procurement/funder alignment blocks |
-| `specify nuaa report`  | Generate periodic progress/evaluation report                       | Period, program name, stage                                   | `report.md`                                    | Pulls indicators from dictionary            |
-| `specify nuaa refine`  | Suggest modifications based on measurement findings                | Program name, change summary                                  | Diff set / updated design sections             | Integrates remediation actions log          |
+| Command         | Purpose                                           | Primary Inputs                          | Outputs                        | Status         |
+| --------------- | ------------------------------------------------- | --------------------------------------- | ------------------------------ | -------------- |
+| `nuaa design`   | Generate program design template with logic model | Program name, target, duration          | `program-design.md`, etc.      | ✅ Implemented |
+| `nuaa propose`  | Create funding proposal from template             | Program name, funder, amount, duration  | `proposal.md`                  | ✅ Implemented |
+| `nuaa measure`  | Define or update evaluation framework             | Program name, period, budget            | `impact-framework.md`          | ✅ Implemented |
+| `nuaa document` | Document existing programs (brownfield)           | Program name                            | `existing-program-analysis.md` | ✅ Implemented |
+| `nuaa report`   | Generate report scaffold                          | Program name, `--type` (progress/final) | `report.md`                    | ✅ Implemented |
+| `nuaa refine`   | Record refinement in program changelog            | Program name, `--note`                  | Appends to `CHANGELOG.md`      | ✅ Implemented |
 
-(Initial implementation may restrict scope to `init` + one artifact command.)
+## Implementation Details
 
-## Command Contract Examples
+### Feature Directory Scaffolding
 
-### `specify nuaa init`
+All commands use automatic feature numbering:
 
-- Inputs: `--path` (default `.`), `--include-ms365` (bool), `--status` (initial status label), `--force` (overwrite placeholders)
-- Outputs: Creates `nuaa-kit/` with docs, templates, examples, scripts; returns summary table to console.
-- Error Modes:
-  - Path not writable → abort with message
-  - Existing files conflict without `--force` → skip and list conflicts
-  - Missing Python dependency (future quality scripts) → warn
-- Success Criteria: All required baseline files created or confirmed present; summary lists skipped/created items.
+- `nuaa/001-program-slug/`
+- `nuaa/002-another-program/`
+- etc.
 
-### `specify nuaa design`
+Slugs are automatically generated from program names using snake_case conversion.
 
-- Inputs: `PROGRAM_NAME`, flags (see schema), optional raw context file path
-- Process: Validate flags against `schema.json`, assemble prompt, invoke selected AI agent (future integration), write draft file with front matter `status: draft`.
-- Outputs: Draft `program-design.md`, console summary of sections generated.
-- Edge Cases: Missing required fields → interactive prompt fallback; unsupported flag value → validation error.
+### Command Examples
+
+```bash
+# Create a comprehensive program design
+nuaa design "Peer Naloxone Distribution" "people at risk of opioid overdose" "12 months"
+
+# Generate a funding proposal
+nuaa propose "Peer Naloxone Distribution" "NSW Health" "$50000" "12 months"
+
+# Define evaluation framework
+nuaa measure "Peer Naloxone Distribution" "12 months" "$7000"
+
+# Document existing program
+nuaa document "Outreach & Needle Exchange"
+
+# Create progress report
+nuaa report "Peer Naloxone Distribution" --type progress
+
+# Record a refinement
+nuaa refine "Peer Naloxone Distribution" --note "Updated budget after pilot feedback"
+```
 
 ## Flags (Shared)
 
@@ -52,58 +64,52 @@ Pulled from `nuaa-kit/commands/schema.json`:
 
 Validation service will read schema JSON and surface allowed values with suggestions.
 
-## Architecture Sketch
+## Architecture
+
+The NUAA CLI uses modular command registration with shared utilities:
 
 ```text
-[Typer App] --> [nuaa subcommand group] --> [Handlers]
-                                      \--> [Schema Validation Service]
-                                      \--> [Template Renderer]
-                                      \--> [AI Prompt Builder]
-                                      \--> [Placeholder Linter Integration]
+src/nuaa_cli/
+├── __init__.py           # Main Typer app, AGENT_CONFIG
+├── commands/
+│   ├── design.py         # nuaa design
+│   ├── propose.py        # nuaa propose
+│   ├── measure.py        # nuaa measure
+│   ├── document.py       # nuaa document
+│   ├── report.py         # nuaa report
+│   └── refine.py         # nuaa refine
+├── utils.py              # StepTracker, check_tool
+└── scaffold.py           # Template & file helpers
 ```
 
-- Keep NUAA logic isolated in `src/nuaa_cli/nuaa_extension/` package (future) to avoid cluttering root.
-- Late binding of AI agent logic (user may select Claude/Gemini/etc. globally)
-- Ensure no circular imports with existing root `__init__.py`.
+Key helpers:
 
-## Migration / Adoption Plan
+- `get_or_create_feature_dir()` - Auto-numbering and slug generation
+- `write_markdown_if_needed()` - Safe writes with force flag
+- Template discovery from multiple search paths
+- YAML frontmatter prepending
 
-1. Phase 0 (Current): Documentation & planning only.
-2. Phase 1: Implement `specify nuaa init` (non‑destructive scaffolder) + schema validation utility.
-3. Phase 2: Add `design` + `measure` commands using existing templates.
-4. Phase 3: Integrate AI agent selection & prompt generation (respect AGENT_CONFIG).
-5. Phase 4: Add `report` + `refine` commands (requires stable data dictionary workflows).
-6. Phase 5: Add automation layer (readability scoring, stigma scan).
+## Testing
 
-## Quality & Testing Strategy
+Comprehensive test coverage implemented:
 
-- Unit tests for flag validation (allowed values, defaults).
-- Snapshot tests for scaffold output (directory + file names).
-- Lint tests: confirm generated markdown passes markdownlint & placeholder scripts.
-- Future integration tests: simulate program lifecycle (design → measure → report → refine).
+- `tests/test_cli_basic.py` - Command scaffolding tests
+- `tests/test_scaffold_helpers.py` - Feature directory and write logic tests
+- `tests/test_version.py` - Network-mocked version command tests
+- `scripts/python/e2e_smoke_test.py` - End-to-end workflow validation
 
-## Risks & Mitigations
+CI runs lint (Ruff), type checks (mypy), unit tests (pytest), and E2E tests across Windows and Ubuntu.
 
-| Risk                       | Impact               | Mitigation                                         |
-| -------------------------- | -------------------- | -------------------------------------------------- |
-| Scope creep                | Delayed release      | Phase gating, minimal MVP first                    |
-| Template drift             | Inconsistent files   | Central template registry + version tags           |
-| Agent variability          | Inconsistent prompts | Abstract prompt builder; use schema-driven mapping |
-| Overwriting user changes   | Data loss            | Safe writes, diff preview, `--force` option        |
-| Performance lag (AI calls) | Slow UX              | Async execution + caching of prompts               |
+## Roadmap
 
-## Open Questions
+Planned improvements:
 
-- Should `init` optionally import historical versions? (Version pinning)
-- Need for `--license` injection or governance metadata front matter?
-- Extent of automatic indicator hydration from CSV (Phase 3+)
-
-## Future Enhancements
-
-- `specify nuaa audit` for accessibility + stigma scan report
-- `specify nuaa diff` to compare two versions of a design or evaluation framework
-- Telemetry (opt-in) for command usage to prioritise improvement
-
----
-
-This document will evolve before implementation; no code integration performed yet.
+- Direct AI agent invocation for richer validation
+- Enhanced flag validation from schema.json
+- Readability scoring integration
+- Automated stigma language scanning
+- Version pinning for templates
+- Automatic indicator hydration from evaluation data dictionary
+- `nuaa audit` for accessibility and stigma scan reporting
+- `nuaa diff` to compare versions of design or evaluation frameworks
+- Telemetry (opt-in) for command usage analytics

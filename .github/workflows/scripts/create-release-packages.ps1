@@ -3,11 +3,11 @@
 
 <#
 .SYNOPSIS
-    Build Spec Kit template release archives for each supported AI assistant and script type.
+    Build NUAA template release archives for each supported AI assistant and script type.
 
 .DESCRIPTION
     create-release-packages.ps1 (workflow-local)
-    Build Spec Kit template release archives for each supported AI assistant and script type.
+    Build NUAA template release archives for each supported AI assistant and script type.
     
 .PARAMETER Version
     Version string with leading 'v' (e.g., v0.2.0)

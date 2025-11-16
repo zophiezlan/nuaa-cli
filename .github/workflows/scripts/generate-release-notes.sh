@@ -15,12 +15,12 @@ LAST_TAG="$2"
 
 # Get commits since last tag
 if [ "$LAST_TAG" = "v0.0.0" ]; then
-  # Check how many commits we have and use that as the limit
+  # For first release, get all commits (or last 10)
   COMMIT_COUNT=$(git rev-list --count HEAD)
   if [ "$COMMIT_COUNT" -gt 10 ]; then
-    COMMITS=$(git log --oneline --pretty=format:"- %s" HEAD~10..HEAD)
+    COMMITS=$(git log --oneline --pretty=format:"- %s" -n 10)
   else
-    COMMITS=$(git log --oneline --pretty=format:"- %s" HEAD~$COMMIT_COUNT..HEAD 2>/dev/null || git log --oneline --pretty=format:"- %s")
+    COMMITS=$(git log --oneline --pretty=format:"- %s")
   fi
 else
   COMMITS=$(git log --oneline --pretty=format:"- %s" $LAST_TAG..HEAD)

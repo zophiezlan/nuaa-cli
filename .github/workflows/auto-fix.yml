@@ -38,22 +38,22 @@ jobs:
               id: autofix
               run: |
                   echo "Running auto-fixers..."
-                  
+
                   # Run black formatter
                   echo "::group::Black formatter"
                   black src/nuaa_cli tests scripts/python || true
                   echo "::endgroup::"
-                  
+
                   # Run ruff with auto-fix
                   echo "::group::Ruff auto-fix"
                   ruff check --fix src/nuaa_cli tests scripts/python || true
                   echo "::endgroup::"
-                  
+
                   # Run pre-commit hooks
                   echo "::group::Pre-commit hooks"
                   pre-commit run --all-files || true
                   echo "::endgroup::"
-                  
+
                   # Update agent docs if needed
                   echo "::group::Update agent docs"
                   python scripts/python/update_agents_docs.py || true
@@ -84,7 +84,7 @@ jobs:
                   - ruff auto-fixes
                   - pre-commit hooks
                   - agent docs updates
-                  
+
                   [skip ci]"
                   git push
 

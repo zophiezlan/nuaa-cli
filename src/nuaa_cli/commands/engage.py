@@ -23,9 +23,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         program_name: str = typer.Argument(
             ..., help="Program name (used to derive feature folder)"
         ),
-        target_population: str = typer.Argument(
-            ..., help="Target population description"
-        ),
+        target_population: str = typer.Argument(..., help="Target population description"),
         duration: str = typer.Argument(..., help="Planning period (e.g., '12 months')"),
         feature: Optional[str] = typer.Option(
             None, help="Override feature slug (e.g., '001-custom-slug')"
@@ -84,7 +82,5 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                 )
             )
         except Exception as e:
-            console.print(
-                f"[red]Failed to create stakeholder-engagement-plan.md:[/red] {e}"
-            )
+            console.print(f"[red]Failed to create stakeholder-engagement-plan.md:[/red] {e}")
             raise typer.Exit(1)

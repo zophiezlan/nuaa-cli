@@ -26,9 +26,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         target_audience: str = typer.Argument(
             ..., help="Target audience (e.g., 'Peer Workers', 'Volunteers')"
         ),
-        duration: str = typer.Argument(
-            ..., help="Training duration (e.g., '2 days', '8 weeks')"
-        ),
+        duration: str = typer.Argument(..., help="Training duration (e.g., '2 days', '8 weeks')"),
         feature: Optional[str] = typer.Option(
             None, help="Override feature slug (e.g., '001-custom-slug')"
         ),

@@ -20,9 +20,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def event(
-        event_name: str = typer.Argument(
-            ..., help="Event name (e.g., 'Peer Forum Launch')"
-        ),
+        event_name: str = typer.Argument(..., help="Event name (e.g., 'Peer Forum Launch')"),
         event_type: str = typer.Argument(
             ..., help="Event type (e.g., 'Workshop', 'Forum', 'Training')"
         ),

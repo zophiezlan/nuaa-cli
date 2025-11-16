@@ -23,9 +23,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         program_name: str = typer.Argument(
             ..., help="Program name (used to derive feature folder)"
         ),
-        duration: str = typer.Argument(
-            ..., help="Program duration (e.g., '12 months')"
-        ),
+        duration: str = typer.Argument(..., help="Program duration (e.g., '12 months')"),
         feature: Optional[str] = typer.Option(
             None, help="Override feature slug (e.g., '001-custom-slug')"
         ),

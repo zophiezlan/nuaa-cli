@@ -130,26 +130,26 @@ NUAA Programs/
 
 ### Workflow 1: Auto-Save to SharePoint
 
-**Trigger**: New or updated markdown file in NUAA-Kit folder  
-**Action**: Convert to Word/PDF, save to SharePoint program folder  
+**Trigger**: New or updated markdown file in NUAA-Kit folder
+**Action**: Convert to Word/PDF, save to SharePoint program folder
 **Benefit**: Automatic versioning and backup
 
 ### Workflow 2: Approval Process
 
-**Trigger**: New proposal or report marked `status: final`  
-**Action**: Send approval request to [Manager], notify on approval/rejection  
+**Trigger**: New proposal or report marked `status: final`
+**Action**: Send approval request to [Manager], notify on approval/rejection
 **Benefit**: Formalized review and sign-off
 
 ### Workflow 3: Reminder Notifications
 
-**Trigger**: Scheduled (quarterly)  
-**Action**: Send reminder to program coordinators to review/update documentation  
+**Trigger**: Scheduled (quarterly)
+**Action**: Send reminder to program coordinators to review/update documentation
 **Benefit**: Ensures documentation stays current
 
 ### Workflow 4: Budget Alert
 
-**Trigger**: Budget variance >10% in Excel tracker  
-**Action**: Alert program coordinator and finance team  
+**Trigger**: Budget variance >10% in Excel tracker
+**Action**: Alert program coordinator and finance team
 **Benefit**: Early warning of budget issues
 
 **Status**: Design phase. Implementation requires Power Automate license and IT support. Timeline: Q2 2026.
@@ -266,19 +266,19 @@ NUAA Programs/
 
 ## Troubleshooting
 
-**Problem**: Markdown formatting lost when pasting to Word  
+**Problem**: Markdown formatting lost when pasting to Word
 **Solution**: Use "Keep Source Formatting" paste option, or convert markdown to HTML first, then paste
 
-**Problem**: Excel formulas breaking when copying budget tables  
+**Problem**: Excel formulas breaking when copying budget tables
 **Solution**: Copy values only for static snapshots, or use linked workbooks for dynamic updates
 
-**Problem**: SharePoint version history showing too many versions  
+**Problem**: SharePoint version history showing too many versions
 **Solution**: Enable major/minor versioning; only create major versions for significant changes
 
-**Problem**: Teams channel cluttered with notifications  
+**Problem**: Teams channel cluttered with notifications
 **Solution**: Mute non-essential channels, use @mentions for important updates only
 
-**Problem**: Difficulty finding documents in SharePoint  
+**Problem**: Difficulty finding documents in SharePoint
 **Solution**: Use metadata tagging (Program name, Document type, Date), implement folder structure consistently
 
 ---

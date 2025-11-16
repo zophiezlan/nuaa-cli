@@ -24,8 +24,8 @@ if ($Help) {
 $paths = Get-FeaturePathsEnv
 
 # Check if we're on a proper feature branch (only for git repos)
-if (-not (Test-FeatureBranch -Branch $paths.CURRENT_BRANCH -HasGit $paths.HAS_GIT)) { 
-    exit 1 
+if (-not (Test-FeatureBranch -Branch $paths.CURRENT_BRANCH -HasGit $paths.HAS_GIT)) {
+    exit 1
 }
 
 # Ensure the feature directory exists
@@ -33,7 +33,7 @@ New-Item -ItemType Directory -Path $paths.FEATURE_DIR -Force | Out-Null
 
 # Copy design template if it exists, otherwise note it or create empty file
 $template = Resolve-NuaaTemplatePath -RelativePath 'program-design.md' -RepoRoot $paths.REPO_ROOT
-if (Test-Path $template) { 
+if (Test-Path $template) {
     Copy-Item $template $paths.DESIGN -Force
     Write-Output "Copied program design template to $($paths.DESIGN)"
 }
@@ -45,7 +45,7 @@ else {
 
 # Output results
 if ($Json) {
-    $result = [PSCustomObject]@{ 
+    $result = [PSCustomObject]@{
         FEATURE_SPEC = $paths.PROPOSAL
         DESIGN       = $paths.DESIGN
         FEATURE_DIR  = $paths.FEATURE_DIR

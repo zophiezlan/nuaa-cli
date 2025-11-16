@@ -61,7 +61,7 @@ function Find-RepositoryRoot {
 
 function Get-HighestNumberFromSpecs {
     param([string]$NuaaDir)
-    
+
     $highest = 0
     if (Test-Path $NuaaDir) {
         Get-ChildItem -Path $NuaaDir -Directory | ForEach-Object {
@@ -76,7 +76,7 @@ function Get-HighestNumberFromSpecs {
 
 function Get-HighestNumberFromBranches {
     param()
-    
+
     $highest = 0
     try {
         $branches = git branch -a 2>$null
@@ -84,7 +84,7 @@ function Get-HighestNumberFromBranches {
             foreach ($branch in $branches) {
                 # Clean branch name: remove leading markers and remote prefixes
                 $cleanBranch = $branch.Trim() -replace '^\*?\s+', '' -replace '^remotes/[^/]+/', ''
-                
+
                 # Extract feature number if branch matches pattern ###-*
                 if ($cleanBranch -match '^(\d+)-') {
                     $num = [int]$matches[1]
@@ -105,7 +105,7 @@ function Get-NextBranchNumber {
         [string]$ShortName,
         [string]$NuaaDir
     )
-    
+
     # Fetch all remotes to get latest branch info (suppress errors if no remotes)
     try {
         git fetch --all --prune 2>$null | Out-Null
@@ -113,7 +113,7 @@ function Get-NextBranchNumber {
     catch {
         # Ignore fetch errors
     }
-    
+
     # Find remote branches matching the pattern using git ls-remote
     $remoteBranches = @()
     try {
@@ -129,7 +129,7 @@ function Get-NextBranchNumber {
     catch {
         # Ignore errors
     }
-    
+
     # Check local branches
     $localBranches = @()
     try {
@@ -145,7 +145,7 @@ function Get-NextBranchNumber {
     catch {
         # Ignore errors
     }
-    
+
     # Check nuaa directory
     $nuaaDirs = @()
     if (Test-Path $NuaaDir) {
@@ -160,7 +160,7 @@ function Get-NextBranchNumber {
             # Ignore errors
         }
     }
-    
+
     # Combine all sources and get the highest number
     $maxNum = 0
     foreach ($num in ($remoteBranches + $localBranches + $nuaaDirs)) {
@@ -168,14 +168,14 @@ function Get-NextBranchNumber {
             $maxNum = $num
         }
     }
-    
+
     # Return next number
     return $maxNum + 1
 }
 
 function ConvertTo-CleanBranchName {
     param([string]$Name)
-    
+
     return $Name.ToLower() -replace '[^a-z0-9]', '-' -replace '-{2,}', '-' -replace '^-', '' -replace '-$', ''
 }
 $fallbackRoot = (Find-RepositoryRoot -StartDir $PSScriptRoot)
@@ -206,7 +206,7 @@ New-Item -ItemType Directory -Path $nuaaDir -Force | Out-Null
 # Function to generate branch name with stop word filtering and length filtering
 function Get-BranchName {
     param([string]$Description)
-    
+
     # Common stop words to filter out
     $stopWords = @(
         'i', 'a', 'an', 'the', 'to', 'for', 'of', 'in', 'on', 'at', 'by', 'with', 'from',
@@ -215,17 +215,17 @@ function Get-BranchName {
         'this', 'that', 'these', 'those', 'my', 'your', 'our', 'their',
         'want', 'need', 'add', 'get', 'set'
     )
-    
+
     # Convert to lowercase and extract words (alphanumeric only)
     $cleanName = $Description.ToLower() -replace '[^a-z0-9\s]', ' '
     $words = $cleanName -split '\s+' | Where-Object { $_ }
-    
+
     # Filter words: remove stop words and words shorter than 3 chars (unless they're uppercase acronyms in original)
     $meaningfulWords = @()
     foreach ($word in $words) {
         # Skip stop words
         if ($stopWords -contains $word) { continue }
-        
+
         # Keep words that are length >= 3 OR appear as uppercase in original (likely acronyms)
         if ($word.Length -ge 3) {
             $meaningfulWords += $word
@@ -235,7 +235,7 @@ function Get-BranchName {
             $meaningfulWords += $word
         }
     }
-    
+
     # If we have meaningful words, use first 3-4 of them
     if ($meaningfulWords.Count -gt 0) {
         $maxWords = if ($meaningfulWords.Count -eq 4) { 4 } else { 3 }
@@ -282,15 +282,15 @@ if ($branchName.Length -gt $maxBranchLength) {
     # Calculate how much we need to trim from suffix
     # Account for: feature number (3) + hyphen (1) = 4 chars
     $maxSuffixLength = $maxBranchLength - 4
-    
+
     # Truncate suffix
     $truncatedSuffix = $branchSuffix.Substring(0, [Math]::Min($branchSuffix.Length, $maxSuffixLength))
     # Remove trailing hyphen if truncation created one
     $truncatedSuffix = $truncatedSuffix -replace '-$', ''
-    
+
     $originalBranchName = $branchName
     $branchName = "$featureNum-$truncatedSuffix"
-    
+
     Write-Warning "[nuaa] Branch name exceeded GitHub's 244-byte limit"
     Write-Warning "[nuaa] Original: $originalBranchName ($($originalBranchName.Length) bytes)"
     Write-Warning "[nuaa] Truncated to: $branchName ($($branchName.Length) bytes)"
@@ -313,18 +313,18 @@ New-Item -ItemType Directory -Path $featureDir -Force | Out-Null
 
 $template = Resolve-NuaaTemplatePath -RelativePath 'proposal.md' -RepoRoot $repoRoot
 $proposalFile = Join-Path $featureDir 'proposal.md'
-if (Test-Path $template) { 
-    Copy-Item $template $proposalFile -Force 
+if (Test-Path $template) {
+    Copy-Item $template $proposalFile -Force
 }
-else { 
-    New-Item -ItemType File -Path $proposalFile | Out-Null 
+else {
+    New-Item -ItemType File -Path $proposalFile | Out-Null
 }
 
 # Set the NUAA_FEATURE environment variable for the current session
 $env:NUAA_FEATURE = $branchName
 
 if ($Json) {
-    $obj = [PSCustomObject]@{ 
+    $obj = [PSCustomObject]@{
         BRANCH_NAME = $branchName
         SPEC_FILE   = $proposalFile
         FEATURE_NUM = $featureNum
@@ -339,4 +339,3 @@ else {
     Write-Output "HAS_GIT: $hasGit"
     Write-Output "NUAA_FEATURE environment variable set to: $branchName"
 }
-

@@ -14,10 +14,22 @@ def main() -> None:
     cwd = Path.cwd()
     # Run minimal design flow
     run([sys.executable, "-m", "pip", "install", "-e", ".[dev]"])
-    run(["nuaa", "design", "E2E Program", "audience", "12 months"])
     run(
         [
-            "nuaa",
+            sys.executable,
+            "-m",
+            "nuaa_cli",
+            "design",
+            "E2E Program",
+            "audience",
+            "12 months",
+        ]
+    )
+    run(
+        [
+            sys.executable,
+            "-m",
+            "nuaa_cli",
             "propose",
             "E2E Program",
             "NSW Health",
@@ -25,9 +37,29 @@ def main() -> None:
             "12 months",
         ]
     )
-    run(["nuaa", "measure", "E2E Program", "12 months", "$7000"])
-    run(["nuaa", "document", "E2E Program"])
-    run(["nuaa", "report", "E2E Program", "--type", "final"])
+    run(
+        [
+            sys.executable,
+            "-m",
+            "nuaa_cli",
+            "measure",
+            "E2E Program",
+            "12 months",
+            "$7000",
+        ]
+    )
+    run([sys.executable, "-m", "nuaa_cli", "document", "E2E Program"])
+    run(
+        [
+            sys.executable,
+            "-m",
+            "nuaa_cli",
+            "report",
+            "E2E Program",
+            "--type",
+            "final",
+        ]
+    )
 
     # Assert outputs exist
     nuaa_dir = cwd / "nuaa"

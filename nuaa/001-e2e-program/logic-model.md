@@ -1,7 +1,11 @@
+---
+title: E2E Program - Logic Model
+feature: 001-e2e-program
+---
 # Program Logic Model Template
 
-**Program Name**: [Name]
-**Created**: [Date]
+**Program Name**: E2E Program
+**Created**: 2025-11-17
 **Version**: [Number]
 
 ---
@@ -81,19 +85,19 @@ A logic model is a visual representation of how your program works. It shows the
 
 ### Core Program Activities
 
-#### Activity 1: [Name]
+#### Activity 1: E2E Program
 
-- **What**: [Description]
+- **What**: audience
 - **Who**: [Facilitators, participants]
 - **When**: [Frequency, duration]
 - **Where**: [Location, format]
 - **How**: [Methodology, approach]
 
-#### Activity 2: [Name]
+#### Activity 2: E2E Program
 
 [Repeat structure]
 
-#### Activity 3: [Name]
+#### Activity 3: E2E Program
 
 [Repeat structure]
 
@@ -427,8 +431,8 @@ A logic model is a visual representation of how your program works. It shows the
 **Version History**:
 | Version | Date | Changes | Updated By |
 |---------|------|---------|------------|
-| 1.0 | [Date] | Initial model | [Name] |
-| 1.1 | [Date] | [Changes made] | [Name] |
+| 1.0 | 2025-11-17 | Initial model | E2E Program |
+| 1.1 | 2025-11-17 | [Changes made] | E2E Program |
 
 ---
 

@@ -8,17 +8,17 @@ ARGS=()
 
 for arg in "$@"; do
     case "$arg" in
-        --json) 
-            JSON_MODE=true 
+        --json)
+            JSON_MODE=true
             ;;
-        --help|-h) 
+        --help|-h)
             echo "Usage: $0 [--json]"
             echo "  --json    Output results in JSON format"
             echo "  --help    Show this help message"
-            exit 0 
+            exit 0
             ;;
-        *) 
-            ARGS+=("$arg") 
+        *)
+            ARGS+=("$arg")
             ;;
     esac
 done
@@ -53,9 +53,8 @@ if $JSON_MODE; then
         "$PROPOSAL" "$DESIGN" "$FEATURE_DIR" "$CURRENT_BRANCH" "$HAS_GIT"
 else
     echo "PROPOSAL: $PROPOSAL"
-    echo "DESIGN: $DESIGN" 
+    echo "DESIGN: $DESIGN"
     echo "FEATURE_DIR: $FEATURE_DIR"
     echo "BRANCH: $CURRENT_BRANCH"
     echo "HAS_GIT: $HAS_GIT"
 fi
-

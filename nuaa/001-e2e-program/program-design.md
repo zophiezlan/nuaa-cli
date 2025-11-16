@@ -1,9 +1,15 @@
+---
+title: E2E Program - Program Design
+created: 2025-11-17
+feature: 001-e2e-program
+status: draft
+---
 # Program Design Template
 
-**Program Name**: [Name]
-**Target Population**: [Description]
-**Duration**: [Timeframe]
-**Created**: [Date]
+**Program Name**: E2E Program
+**Target Population**: audience
+**Duration**: 12 months
+**Created**: 2025-11-17
 **Status**: Draft
 
 ---
@@ -26,7 +32,7 @@
 
 ## 2. Stakeholder Journey Maps
 
-### Journey 1: Direct Beneficiary - [Description] (Priority: P1)
+### Journey 1: Direct Beneficiary - audience (Priority: P1)
 
 **Profile**: [Demographics, needs, current situation]
 
@@ -64,7 +70,7 @@
 
 ---
 
-### Journey 2: Partner Organization - [Name] (Priority: P2)
+### Journey 2: Partner Organization - E2E Program (Priority: P2)
 
 **Role**: [Referral partner, service provider, funder]
 
@@ -125,12 +131,12 @@
 1. [Activity 1]: [Description, frequency, duration]
    - Who delivers: [Staff, peers, partners]
    - Who participates: [Target group]
-2. [Activity 2]: [Description]
+2. [Activity 2]: audience
 
    - Delivery method: [In-person, online, hybrid]
    - Cultural safety measures: [Specific approaches]
 
-3. [Activity 3]: [Description]
+3. [Activity 3]: audience
    - Harm reduction principles: [How embedded]
    - Accessibility: [Accommodations provided]
 
@@ -367,13 +373,13 @@
 
 **Reviewed by**:
 
-- Consumer Advisory: [Date]
-- Management: [Date]
-- Board (if required): [Date]
+- Consumer Advisory: 2025-11-17
+- Management: 2025-11-17
+- Board (if required): 2025-11-17
 
 **Approved by**: [Name, Role]
-**Date**: [Date]
-**Next Review**: [Date]
+**Date**: 2025-11-17
+**Next Review**: 2025-11-17
 
 ---
 

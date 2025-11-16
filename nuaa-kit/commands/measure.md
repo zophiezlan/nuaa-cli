@@ -302,10 +302,10 @@ Please provide these details and I'll create a comprehensive framework.
 
 The AI will create SMART indicators:
 
-**Specific**: Clear what's measured (not vague)  
-**Measurable**: Can be quantified or clearly observed  
-**Achievable**: Realistic with program resources  
-**Relevant**: Linked to program logic model  
+**Specific**: Clear what's measured (not vague)
+**Measurable**: Can be quantified or clearly observed
+**Achievable**: Realistic with program resources
+**Relevant**: Linked to program logic model
 **Time-bound**: When measured, target timeframe
 
 **Example - Good Indicator**:
@@ -348,15 +348,15 @@ The AI will recommend appropriate methods based on:
 
 Before finalizing, the AI will verify:
 
-✓ **Indicators defined**: Clear indicators at all levels (process, output, outcome, impact)  
-✓ **Methods appropriate**: Data collection methods match indicators and resources  
-✓ **Timeline feasible**: Data collection schedule is realistic  
-✓ **Ethics covered**: Consent, confidentiality, safety, Aboriginal & Torres Strait Islander data sovereignty  
-✓ **Peer involvement**: Peer researchers meaningfully involved, fairly remunerated  
-✓ **Cultural safety**: Trauma-informed, inclusive, culturally responsive  
-✓ **Budget realistic**: Evaluation costs align with resources available  
-✓ **Reporting planned**: Reports for all stakeholders (funder, community, sector)  
-✓ **Useful**: Findings will inform program improvement and future work  
+✓ **Indicators defined**: Clear indicators at all levels (process, output, outcome, impact)
+✓ **Methods appropriate**: Data collection methods match indicators and resources
+✓ **Timeline feasible**: Data collection schedule is realistic
+✓ **Ethics covered**: Consent, confidentiality, safety, Aboriginal & Torres Strait Islander data sovereignty
+✓ **Peer involvement**: Peer researchers meaningfully involved, fairly remunerated
+✓ **Cultural safety**: Trauma-informed, inclusive, culturally responsive
+✓ **Budget realistic**: Evaluation costs align with resources available
+✓ **Reporting planned**: Reports for all stakeholders (funder, community, sector)
+✓ **Useful**: Findings will inform program improvement and future work
 ✓ **Feasible**: Evaluation burden is manageable for staff and participants
 
 ---

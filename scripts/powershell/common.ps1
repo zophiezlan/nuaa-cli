@@ -11,7 +11,7 @@ function Get-RepoRoot {
     catch {
         # Git command failed
     }
-    
+
     # Fall back to script location for non-git repos
     return (Resolve-Path (Join-Path $PSScriptRoot "../../..")).Path
 }
@@ -57,7 +57,7 @@ function Get-CurrentBranch {
     if ($env:NUAA_FEATURE) {
         return $env:NUAA_FEATURE
     }
-    
+
     # Then check git if available
     try {
         $result = git rev-parse --abbrev-ref HEAD 2>$null
@@ -68,15 +68,15 @@ function Get-CurrentBranch {
     catch {
         # Git command failed
     }
-    
+
     # For non-git repos, try to find the latest feature directory
     $repoRoot = Get-RepoRoot
     $featuresDir = Join-Path $repoRoot "nuaa"
-    
+
     if (Test-Path $featuresDir) {
         $latestFeature = ""
         $highest = 0
-        
+
         Get-ChildItem -Path $featuresDir -Directory | ForEach-Object {
             if ($_.Name -match '^(\d{3})-') {
                 $num = [int]$matches[1]
@@ -86,12 +86,12 @@ function Get-CurrentBranch {
                 }
             }
         }
-        
+
         if ($latestFeature) {
             return $latestFeature
         }
     }
-    
+
     # Final fallback
     return "main"
 }
@@ -111,13 +111,13 @@ function Test-FeatureBranch {
         [string]$Branch,
         [bool]$HasGit = $true
     )
-    
+
     # For non-git repos, we can't enforce branch naming but still provide output
     if (-not $HasGit) {
         Write-Warning "[nuaa] Warning: Git repository not detected; skipped branch validation"
         return $true
     }
-    
+
     if ($Branch -notmatch '^[0-9]{3}-') {
         Write-Output "ERROR: Not on a feature branch. Current branch: $Branch"
         Write-Output "Feature branches should be named like: 001-feature-name"
@@ -136,7 +136,7 @@ function Get-FeaturePathsEnv {
     $currentBranch = Get-CurrentBranch
     $hasGit = Test-HasGit
     $featureDir = Get-FeatureDir -RepoRoot $repoRoot -Branch $currentBranch
-    
+
     [PSCustomObject]@{
         REPO_ROOT        = $repoRoot
         CURRENT_BRANCH   = $currentBranch
@@ -176,4 +176,3 @@ function Test-DirHasFiles {
         return $false
     }
 }
-

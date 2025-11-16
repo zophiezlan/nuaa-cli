@@ -127,8 +127,8 @@ date: [Report Date]
 
 ### Section 1: Executive Summary (All Audiences)
 
-**Purpose**: 1-page high-level overview  
-**Length**: 300-500 words  
+**Purpose**: 1-page high-level overview
+**Length**: 300-500 words
 **Key Elements**:
 
 - Program overview (what, who, when, where)
@@ -379,12 +379,12 @@ date: [Report Date]
 
 ### Appendices
 
-**Appendix A**: Full data tables (detailed disaggregation)  
-**Appendix B**: Survey instruments used  
-**Appendix C**: Interview protocols  
-**Appendix D**: Logic model (reference)  
-**Appendix E**: Indicator definitions (from impact framework)  
-**Appendix F**: Consent forms and ethical approvals  
+**Appendix A**: Full data tables (detailed disaggregation)
+**Appendix B**: Survey instruments used
+**Appendix C**: Interview protocols
+**Appendix D**: Logic model (reference)
+**Appendix E**: Indicator definitions (from impact framework)
+**Appendix F**: Consent forms and ethical approvals
 **Appendix G**: References and evidence base
 
 ---

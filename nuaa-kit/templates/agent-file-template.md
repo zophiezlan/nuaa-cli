@@ -2,8 +2,8 @@
 
 ## Project Overview
 
-**Project**: [PROJECT NAME]  
-**Created**: [DATE]  
+**Project**: [PROJECT NAME]
+**Created**: [DATE]
 **Branch**: [CURRENT_BRANCH]
 
 ## NUAA Principles

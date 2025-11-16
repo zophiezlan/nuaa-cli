@@ -42,10 +42,10 @@ OPTIONS:
 EXAMPLES:
   # Check design prerequisites (proposal.md required)
   .\check-prerequisites.ps1 -Json
-  
+
   # Check implementation prerequisites (proposal.md + program-design.md required)
   .\check-prerequisites.ps1 -Json -RequireDesign -IncludeProposal
-  
+
   # Get feature paths only (no validation)
   .\check-prerequisites.ps1 -PathsOnly
 
@@ -59,8 +59,8 @@ EXAMPLES:
 # Get feature paths and validate branch
 $paths = Get-FeaturePathsEnv
 
-if (-not (Test-FeatureBranch -Branch $paths.CURRENT_BRANCH -HasGit:$paths.HAS_GIT)) { 
-    exit 1 
+if (-not (Test-FeatureBranch -Branch $paths.CURRENT_BRANCH -HasGit:$paths.HAS_GIT)) {
+    exit 1
 }
 
 # If paths-only mode, output paths and exit (support combined -Json -PathsOnly)
@@ -116,36 +116,36 @@ if (Test-Path $paths.RESEARCH) { $docs += 'research.md' }
 if (Test-Path $paths.DATA_MODEL) { $docs += 'data-model.md' }
 
 # Check contracts directory (only if it exists and has files)
-if ((Test-Path $paths.CONTRACTS_DIR) -and (Get-ChildItem -Path $paths.CONTRACTS_DIR -ErrorAction SilentlyContinue | Select-Object -First 1)) { 
-    $docs += 'contracts/' 
+if ((Test-Path $paths.CONTRACTS_DIR) -and (Get-ChildItem -Path $paths.CONTRACTS_DIR -ErrorAction SilentlyContinue | Select-Object -First 1)) {
+    $docs += 'contracts/'
 }
 
 if (Test-Path $paths.QUICKSTART) { $docs += 'quickstart.md' }
 
 # Include proposal.md if requested and it exists
-if ($IncludeProposal -and (Test-Path $paths.PROPOSAL)) { 
-    $docs += 'proposal.md' 
+if ($IncludeProposal -and (Test-Path $paths.PROPOSAL)) {
+    $docs += 'proposal.md'
 }
 
 # Output results
 if ($Json) {
     # JSON output
-    [PSCustomObject]@{ 
+    [PSCustomObject]@{
         FEATURE_DIR    = $paths.FEATURE_DIR
-        AVAILABLE_DOCS = $docs 
+        AVAILABLE_DOCS = $docs
     } | ConvertTo-Json -Compress
 }
 else {
     # Text output
     Write-Output "FEATURE_DIR:$($paths.FEATURE_DIR)"
     Write-Output "AVAILABLE_DOCS:"
-    
+
     # Show status of each potential document
     Test-FileExists -Path $paths.RESEARCH -Description 'research.md' | Out-Null
     Test-FileExists -Path $paths.DATA_MODEL -Description 'data-model.md' | Out-Null
     Test-DirHasFiles -Path $paths.CONTRACTS_DIR -Description 'contracts/' | Out-Null
     Test-FileExists -Path $paths.QUICKSTART -Description 'quickstart.md' | Out-Null
-    
+
     if ($IncludeProposal) {
         Test-FileExists -Path $paths.PROPOSAL -Description 'proposal.md' | Out-Null
     }

@@ -1,4 +1,7 @@
 ---
+title: E2E Program - Existing Program Analysis
+---
+---
 status: draft
 version: 1.0.0
 program: [Program Name]
@@ -163,8 +166,8 @@ participatory_level: [light|standard|high]
 
 | Partner Organization | Contribution                   | Formalization  | Contact |
 | -------------------- | ------------------------------ | -------------- | ------- |
-| [Partner 1]          | [Resources, referrals, venues] | [MOU/Informal] | [Name]  |
-| [Partner 2]          | [Contribution]                 | [Status]       | [Name]  |
+| [Partner 1]          | [Resources, referrals, venues] | [MOU/Informal] | E2E Program  |
+| [Partner 2]          | [Contribution]                 | [Status]       | E2E Program  |
 
 ---
 
@@ -397,8 +400,8 @@ graph LR
 ### Validation Status
 
 - ⚠️ **Logic model reconstructed from current practice observation**: Not validated against original design intent (original documentation unavailable or never created)
-- ✅ **Validated with program staff**: [Date]
-- ✅ **Validated with peer workers**: [Date] (if participatory=standard/high)
+- ✅ **Validated with program staff**: 2025-11-17
+- ✅ **Validated with peer workers**: 2025-11-17 (if participatory=standard/high)
 - ⚠️ **Not yet validated with participants**: Recommend participant validation in next review cycle
 
 ---
@@ -409,14 +412,14 @@ graph LR
 
 | Artifact                             | Current Status | Gap Severity | Impact of Gap                                                               | Priority | Target Completion |
 | ------------------------------------ | -------------- | ------------ | --------------------------------------------------------------------------- | -------- | ----------------- |
-| Program Design                       | ❌ Missing     | High         | Cannot onboard new staff, replicate program, or apply for funding expansion | 1        | [Date]            |
-| Logic Model                          | ❌ Missing     | High         | No clear theory of change, difficult to communicate value                   | 1        | [Date]            |
-| Impact Framework                     | ❌ Missing     | High         | Cannot measure outcomes, cannot demonstrate effectiveness                   | 1        | [Date]            |
-| Budget Narrative                     | ⚠️ Partial     | Medium       | Line items exist but rationale unclear, transparency concerns               | 2        | [Date]            |
-| Partnership Agreements               | ⚠️ Informal    | Medium       | Risk of partnership breakdown, unclear roles                                | 3        | [Date]            |
-| Evaluation Plan                      | ❌ None        | High         | No systematic improvement, funder accountability risk                       | 1        | [Date]            |
-| Standard Operating Procedures (SOPs) | ⚠️ Partial     | Low          | Staff rely on tribal knowledge, inconsistency risk                          | 4        | [Date]            |
-| Cultural Safety Protocol             | ❌ Missing     | Medium       | Risk of harm, reduced trust with Aboriginal/CALD communities                | 2        | [Date]            |
+| Program Design                       | ❌ Missing     | High         | Cannot onboard new staff, replicate program, or apply for funding expansion | 1        | 2025-11-17            |
+| Logic Model                          | ❌ Missing     | High         | No clear theory of change, difficult to communicate value                   | 1        | 2025-11-17            |
+| Impact Framework                     | ❌ Missing     | High         | Cannot measure outcomes, cannot demonstrate effectiveness                   | 1        | 2025-11-17            |
+| Budget Narrative                     | ⚠️ Partial     | Medium       | Line items exist but rationale unclear, transparency concerns               | 2        | 2025-11-17            |
+| Partnership Agreements               | ⚠️ Informal    | Medium       | Risk of partnership breakdown, unclear roles                                | 3        | 2025-11-17            |
+| Evaluation Plan                      | ❌ None        | High         | No systematic improvement, funder accountability risk                       | 1        | 2025-11-17            |
+| Standard Operating Procedures (SOPs) | ⚠️ Partial     | Low          | Staff rely on tribal knowledge, inconsistency risk                          | 4        | 2025-11-17            |
+| Cultural Safety Protocol             | ❌ Missing     | Medium       | Risk of harm, reduced trust with Aboriginal/CALD communities                | 2        | 2025-11-17            |
 
 **Legend**: ✅ Complete | ⚠️ Partial | ❌ Missing
 
@@ -535,7 +538,7 @@ graph LR
 - **Rationale**: Essential foundation for all improvement efforts and funder accountability
 - **Owner**: [Name/Role]
 - **Resources**: 40 hours staff time, AI-assisted documentation
-- **Timeline**: Complete by [Date]
+- **Timeline**: Complete by 2025-11-17
 - **Success Metric**: Documents reviewed and approved by program staff and peer workers
 
 ---
@@ -546,7 +549,7 @@ graph LR
 - **Rationale**: Align with NUAA standard, improve equity and peer worker satisfaction
 - **Owner**: [Name/Role]
 - **Resources**: Budget adjustment of $[amount] per year (if current rate below standard); finance system update
-- **Timeline**: Implement by [Date]
+- **Timeline**: Implement by 2025-11-17
 - **Success Metric**: 100% of peer workers paid at standard rate within 7 days of session
 
 ---
@@ -557,7 +560,7 @@ graph LR
 - **Rationale**: Establish baseline for future evaluation and continuous improvement
 - **Owner**: [Name/Role]
 - **Resources**: 20 hours to design data collection tools; 2-3 hours per month ongoing data entry
-- **Timeline**: First data collection by [Date]
+- **Timeline**: First data collection by 2025-11-17
 - **Success Metric**: 80%+ response rate on participant surveys/feedback forms
 
 ---
@@ -567,7 +570,7 @@ graph LR
 **Action 1: Develop Cultural Safety Protocol**
 
 - **Details**: [Specific steps, e.g., engage Aboriginal advisor, conduct community consultation, draft protocol, pilot and refine]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Budget for advisor fees, consultation costs]
 - **Timeline**: [Start and end dates]
 - **Success Metric**: [e.g., Protocol approved by Aboriginal advisory, measurable increase in Aboriginal participant engagement]
@@ -575,7 +578,7 @@ graph LR
 **Action 2: Establish Peer Advisory Group**
 
 - **Details**: [Formation process, Terms of Reference, meeting schedule, remuneration]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [$300 per meeting × [N] peer advisors × [N] meetings per year]
 - **Timeline**: [Dates]
 - **Success Metric**: [Advisory group meeting quarterly and providing documented recommendations]
@@ -583,7 +586,7 @@ graph LR
 **Action 3: Formalize Key Partnerships**
 
 - **Details**: [Identify priority partners, draft MOUs, negotiate and sign]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Legal review if needed]
 - **Timeline**: [Dates]
 - **Success Metric**: [MOUs signed with [N] key partners]
@@ -595,7 +598,7 @@ graph LR
 **Action 1: Implement Comprehensive Evaluation**
 
 - **Details**: [Expand from basic data collection to full evaluation plan; baseline, mid-program, endline measurement]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Evaluation specialist consultation, data analysis tools]
 - **Timeline**: [Dates]
 - **Success Metric**: [First evaluation report completed using impact-framework.md]
@@ -603,7 +606,7 @@ graph LR
 **Action 2: Strengthen Quality Assurance**
 
 - **Details**: [Establish quarterly program review process, participant feedback mechanisms, continuous improvement cycle]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Staff time for reviews]
 - **Timeline**: [Dates]
 - **Success Metric**: [4 quarterly reviews completed, action items tracked and addressed]
@@ -611,7 +614,7 @@ graph LR
 **Action 3: Explore Program Expansion (if funded)**
 
 - **Details**: [Scale to new geographic area or population, replicate model]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Additional funding required: $[amount]]
 - **Timeline**: [Dates]
 - **Success Metric**: [Expansion feasibility study completed; funding proposal submitted]
@@ -624,7 +627,7 @@ graph LR
 
 - **Details**: [Document program as case study for sector, present at conferences, publish peer-reviewed article]
 - **Rationale**: [Contribute to harm reduction evidence base, position NUAA as sector leader]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Research partnership if academic publication desired]
 - **Timeline**: [Dates]
 - **Success Metric**: [Program model documented and disseminated; at least one sector presentation delivered]
@@ -633,7 +636,7 @@ graph LR
 
 - **Details**: [Formalize peer worker training based on institutional knowledge captured in this analysis]
 - **Rationale**: [Scalability, quality assurance, sector capacity building]
-- **Owner**: [Name]
+- **Owner**: E2E Program
 - **Resources**: [Curriculum design expertise]
 - **Timeline**: [Dates]
 - **Success Metric**: [Accredited training curriculum developed; piloted with new peer worker cohort]
@@ -644,11 +647,11 @@ graph LR
 
 | Phase                                 | Timeframe    | Key Milestones                                                                                                                | Owner  | Status      |
 | ------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- |
-| **Phase 1: Documentation**            | [Month 1-3]  | • Finalize program-design.md<br>• Complete logic-model.md<br>• Publish impact-framework.md<br>• Standardize peer remuneration | [Name] | In Progress |
-| **Phase 2: Evaluation Setup**         | [Month 3-6]  | • Implement basic data collection<br>• Train staff on data entry<br>• Establish baseline measures<br>• First quarterly review | [Name] | Not Started |
-| **Phase 3: Cultural Safety**          | [Month 4-9]  | • Engage Aboriginal advisor<br>• Develop cultural safety protocol<br>• Pilot and refine protocol<br>• Train staff and peers   | [Name] | Not Started |
-| **Phase 4: Governance Strengthening** | [Month 6-12] | • Establish peer advisory group<br>• Formalize partnerships<br>• Quality assurance process<br>• Transparency measures         | [Name] | Not Started |
-| **Phase 5: Continuous Improvement**   | [Month 12+]  | • Annual program review<br>• Evaluation reporting<br>• Model refinement<br>• Sector knowledge sharing                         | [Name] | Planned     |
+| **Phase 1: Documentation**            | [Month 1-3]  | • Finalize program-design.md<br>• Complete logic-model.md<br>• Publish impact-framework.md<br>• Standardize peer remuneration | E2E Program | In Progress |
+| **Phase 2: Evaluation Setup**         | [Month 3-6]  | • Implement basic data collection<br>• Train staff on data entry<br>• Establish baseline measures<br>• First quarterly review | E2E Program | Not Started |
+| **Phase 3: Cultural Safety**          | [Month 4-9]  | • Engage Aboriginal advisor<br>• Develop cultural safety protocol<br>• Pilot and refine protocol<br>• Train staff and peers   | E2E Program | Not Started |
+| **Phase 4: Governance Strengthening** | [Month 6-12] | • Establish peer advisory group<br>• Formalize partnerships<br>• Quality assurance process<br>• Transparency measures         | E2E Program | Not Started |
+| **Phase 5: Continuous Improvement**   | [Month 12+]  | • Annual program review<br>• Evaluation reporting<br>• Model refinement<br>• Sector knowledge sharing                         | E2E Program | Planned     |
 
 **Key Dependencies**:
 
@@ -680,7 +683,7 @@ graph LR
 | **Outcome: Confidence change**   | Self-reported confidence in [skill] (pre/post)    | Survey            | Likert scale (1-5)        | Pre-program, Post-program | [Role]      | [System]               |
 | **Outcome: Service access**      | Number of referrals to [service] accepted         | Referral tracking | Confirmation from partner | Quarterly                 | [Role]      | [System]               |
 
-### Equity Indicators (Add by [Date])
+### Equity Indicators (Add by 2025-11-17)
 
 | Demographic Variable  | Data Collection Point     | Storage         | Use                            |
 | --------------------- | ------------------------- | --------------- | ------------------------------ |
@@ -705,10 +708,10 @@ graph LR
 
 | Measure                    | Current Baseline                 | Measurement Date | Next Measurement    | Target for Next Measurement |
 | -------------------------- | -------------------------------- | ---------------- | ------------------- | --------------------------- |
-| Participant satisfaction   | [%] satisfied or very satisfied  | [Date]           | [Date +6-12 months] | [Target %]                  |
-| Peer worker retention rate | [% still active after 12 months] | [Date]           | [Date +12 months]   | [Target %]                  |
-| Knowledge score (average)  | [X out of 5]                     | [Date]           | [Date +6 months]    | [Target score]              |
-| Referral conversion rate   | [% of referrals accepted]        | [Date]           | [Date +6 months]    | [Target %]                  |
+| Participant satisfaction   | [%] satisfied or very satisfied  | 2025-11-17           | [Date +6-12 months] | [Target %]                  |
+| Peer worker retention rate | [% still active after 12 months] | 2025-11-17           | [Date +12 months]   | [Target %]                  |
+| Knowledge score (average)  | [X out of 5]                     | 2025-11-17           | [Date +6 months]    | [Target score]              |
+| Referral conversion rate   | [% of referrals accepted]        | 2025-11-17           | [Date +6 months]    | [Target %]                  |
 
 ---
 
@@ -717,7 +720,7 @@ graph LR
 ### Immediate Next Steps (This Week)
 
 1. **Share this analysis** with program staff for review and feedback
-2. **Schedule validation meeting** with peer workers ([Date])
+2. **Schedule validation meeting** with peer workers (2025-11-17)
 3. **Prioritize recommendations** based on staff input and resource availability
 4. **Assign owners** to Phase 1 actions
 5. **Begin documentation** of program-design.md using this analysis as source material
@@ -726,17 +729,17 @@ graph LR
 
 | Stakeholder Group                 | Reviewer(s) | Review Date | Approval/Comments |
 | --------------------------------- | ----------- | ----------- | ----------------- |
-| Program Staff                     | [Names]     | [Date]      |                   |
-| Peer Workers                      | [Names]     | [Date]      |                   |
-| NUAA Management                   | [Name]      | [Date]      |                   |
-| Consumer Advisory (if applicable) | [Group]     | [Date]      |                   |
+| Program Staff                     | [Names]     | 2025-11-17      |                   |
+| Peer Workers                      | [Names]     | 2025-11-17      |                   |
+| NUAA Management                   | E2E Program      | 2025-11-17      |                   |
+| Consumer Advisory (if applicable) | [Group]     | 2025-11-17      |                   |
 
 ### Version History
 
 | Version | Date   | Author         | Changes                               | Approval   |
 | ------- | ------ | -------------- | ------------------------------------- | ---------- |
-| 0.1     | [Date] | [Analyst name] | Initial draft for staff review        | Draft      |
-| 1.0     | [Date] | [Analyst name] | Finalized after staff/peer validation | [Approver] |
+| 0.1     | 2025-11-17 | [Analyst name] | Initial draft for staff review        | Draft      |
+| 1.0     | 2025-11-17 | [Analyst name] | Finalized after staff/peer validation | [Approver] |
 
 ---
 
@@ -745,7 +748,7 @@ graph LR
 ### Appendix A: Interview Summaries (Anonymized)
 
 **Staff Interview 1 – Program Coordinator**
-_Date_: [Date]
+_Date_: 2025-11-17
 _Duration_: [Hours]
 _Key Themes_:
 
@@ -754,7 +757,7 @@ _Key Themes_:
 - [Theme 3]
 
 **Peer Worker Interview 1**
-_Date_: [Date]
+_Date_: 2025-11-17
 _Key Themes_:
 
 - [Theme 1]
@@ -768,10 +771,10 @@ _Key Themes_:
 
 | Document Type     | Title         | Date         | Location                         | Completeness       | Usefulness for Analysis |
 | ----------------- | ------------- | ------------ | -------------------------------- | ------------------ | ----------------------- |
-| Funding agreement | [Title]       | [Date]       | [File path or physical location] | [Complete/Partial] | [High/Medium/Low]       |
-| Previous report   | [Title]       | [Date]       | [Location]                       | [Status]           | [Utility]               |
-| Budget            | [Year]        | [Date]       | [Location]                       | [Status]           | [Utility]               |
-| Meeting notes     | [Description] | [Date range] | [Location]                       | [Status]           | [Utility]               |
+| Funding agreement | [Title]       | 2025-11-17       | [File path or physical location] | [Complete/Partial] | [High/Medium/Low]       |
+| Previous report   | [Title]       | 2025-11-17       | [Location]                       | [Status]           | [Utility]               |
+| Budget            | [Year]        | 2025-11-17       | [Location]                       | [Status]           | [Utility]               |
+| Meeting notes     |  | [Date range] | [Location]                       | [Status]           | [Utility]               |
 
 **Gaps in Documentation**:
 
@@ -852,7 +855,7 @@ _Key Themes_:
 **Testimonial 1**
 _Context_: [Participant demographic (non-identifying), program engagement]
 _Quote_: "[Full quote about program experience or impact]"
-_Consent_: Verbal/written consent obtained [Date], file reference [X]
+_Consent_: Verbal/written consent obtained 2025-11-17, file reference [X]
 
 **Testimonial 2**
 [Repeat format]

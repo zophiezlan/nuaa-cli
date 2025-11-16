@@ -8,7 +8,7 @@
 .DESCRIPTION
     create-release-packages.ps1 (workflow-local)
     Build NUAA template release archives for each supported AI assistant and script type.
-    
+
 .PARAMETER Version
     Version string with leading 'v' (e.g., v0.2.0)
 
@@ -33,10 +33,10 @@
 param(
     [Parameter(Mandatory = $true, Position = 0)]
     [string]$Version,
-    
+
     [Parameter(Mandatory = $false)]
     [string]$Agents = "",
-    
+
     [Parameter(Mandatory = $false)]
     [string]$Scripts = ""
 )
@@ -61,7 +61,7 @@ New-Item -ItemType Directory -Path $GenReleasesDir -Force | Out-Null
 
 function Rewrite-Paths {
     param([string]$Content)
-    
+
     $Content = $Content -replace '(/?)\bmemory/', '.nuaa/memory/'
     $Content = $Content -replace '(/?)\bscripts/', '.nuaa/scripts/'
     $Content = $Content -replace '(/?)\btemplates/', '.nuaa/templates/'
@@ -76,55 +76,55 @@ function Generate-Commands {
         [string]$OutputDir,
         [string]$ScriptVariant
     )
-    
+
     New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
-    
+
     $templates = Get-ChildItem -Path "nuaa-kit/commands/*.md" -File -ErrorAction SilentlyContinue
-    
+
     foreach ($template in $templates) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($template.Name)
-        
+
         # Read file content and normalize line endings
         $fileContent = (Get-Content -Path $template.FullName -Raw) -replace "`r`n", "`n"
-        
+
         # Extract description from YAML frontmatter
         $description = ""
         if ($fileContent -match '(?m)^description:\s*(.+)$') {
             $description = $matches[1]
         }
-        
+
         # Extract script command from YAML frontmatter
         $scriptCommand = ""
         if ($fileContent -match "(?m)^\s*${ScriptVariant}:\s*(.+)$") {
             $scriptCommand = $matches[1]
         }
-        
+
         if ([string]::IsNullOrEmpty($scriptCommand)) {
             Write-Warning "No script command found for $ScriptVariant in $($template.Name)"
             $scriptCommand = "(Missing script command for $ScriptVariant)"
         }
-        
+
         # Extract agent_script command from YAML frontmatter if present
         $agentScriptCommand = ""
         if ($fileContent -match "(?ms)agent_scripts:.*?^\s*${ScriptVariant}:\s*(.+?)$") {
             $agentScriptCommand = $matches[1].Trim()
         }
-        
+
         # Replace {SCRIPT} placeholder with the script command
         $body = $fileContent -replace '\{SCRIPT\}', $scriptCommand
-        
+
         # Replace {AGENT_SCRIPT} placeholder with the agent script command if found
         if (-not [string]::IsNullOrEmpty($agentScriptCommand)) {
             $body = $body -replace '\{AGENT_SCRIPT\}', $agentScriptCommand
         }
-        
+
         # Remove the scripts: and agent_scripts: sections from frontmatter
         $lines = $body -split "`n"
         $outputLines = @()
         $inFrontmatter = $false
         $skipScripts = $false
         $dashCount = 0
-        
+
         foreach ($line in $lines) {
             if ($line -match '^---$') {
                 $outputLines += $line
@@ -137,7 +137,7 @@ function Generate-Commands {
                 }
                 continue
             }
-            
+
             if ($inFrontmatter) {
                 if ($line -match '^(scripts|agent_scripts):$') {
                     $skipScripts = $true
@@ -150,20 +150,20 @@ function Generate-Commands {
                     continue
                 }
             }
-            
+
             $outputLines += $line
         }
-        
+
         $body = $outputLines -join "`n"
-        
+
         # Apply other substitutions
         $body = $body -replace '\{ARGS\}', $ArgFormat
         $body = $body -replace '__AGENT__', $Agent
         $body = Rewrite-Paths -Content $body
-        
+
         # Generate output file based on extension
         $outputFile = Join-Path $OutputDir "nuaa.$name.$Extension"
-        
+
         switch ($Extension) {
             'toml' {
                 $body = $body -replace '\\', '\\'
@@ -185,11 +185,11 @@ function Generate-CopilotPrompts {
         [string]$AgentsDir,
         [string]$PromptsDir
     )
-    
+
     New-Item -ItemType Directory -Path $PromptsDir -Force | Out-Null
-    
+
     $agentFiles = Get-ChildItem -Path "$AgentsDir/nuaa.*.agent.md" -File -ErrorAction SilentlyContinue
-    
+
     foreach ($agentFile in $agentFiles) {
         $basename = $agentFile.Name -replace '\.agent\.md$', ''
         $promptFile = Join-Path $PromptsDir "$basename.prompt.md"
@@ -214,26 +214,26 @@ function Build-Variant {
         [string]$Agent,
         [string]$Script
     )
-    
+
     $baseDir = Join-Path $GenReleasesDir "sdd-${Agent}-package-${Script}"
     Write-Host "Building $Agent ($Script) package..."
     New-Item -ItemType Directory -Path $baseDir -Force | Out-Null
-    
+
     # Copy base structure but filter scripts by variant
     $nuaaDir = Join-Path $baseDir ".nuaa"
     New-Item -ItemType Directory -Path $nuaaDir -Force | Out-Null
-    
+
     # Copy memory directory
     if (Test-Path "memory") {
         Copy-Item -Path "memory" -Destination $nuaaDir -Recurse -Force
         Write-Host "Copied memory -> .nuaa"
     }
-    
+
     # Only copy the relevant script variant directory
     if (Test-Path "scripts") {
         $scriptsDestDir = Join-Path $nuaaDir "scripts"
         New-Item -ItemType Directory -Path $scriptsDestDir -Force | Out-Null
-        
+
         switch ($Script) {
             'sh' {
                 if (Test-Path "scripts/bash") {
@@ -248,18 +248,18 @@ function Build-Variant {
                 }
             }
         }
-        
+
         # Copy any script files that aren't in variant-specific directories
         Get-ChildItem -Path "scripts" -File -ErrorAction SilentlyContinue | ForEach-Object {
             Copy-Item -Path $_.FullName -Destination $scriptsDestDir -Force
         }
     }
-    
+
     # Copy nuaa-kit templates (excluding vscode-settings.json)
     if (Test-Path "nuaa-kit/templates") {
         $templatesDestDir = Join-Path $nuaaDir "templates"
         New-Item -ItemType Directory -Path $templatesDestDir -Force | Out-Null
-        
+
         Get-ChildItem -Path "nuaa-kit/templates" -File | Where-Object {
             $_.Name -ne 'vscode-settings.json'
         } | ForEach-Object {
@@ -267,7 +267,7 @@ function Build-Variant {
         }
         Write-Host "Copied nuaa-kit/templates -> .nuaa/templates"
     }
-    
+
     # Generate agent-specific command files
     $agentData = $AgentsData.($Agent)
     $agentFormat = $agentData.format
@@ -281,7 +281,7 @@ function Build-Variant {
     if ($Agent -eq 'copilot') {
         $promptsDir = Join-Path $baseDir ".github/prompts"
         Generate-CopilotPrompts -AgentsDir $outputDir -PromptsDir $promptsDir
-        
+
         $vscodeDir = Join-Path $baseDir ".vscode"
         New-Item -ItemType Directory -Path $vscodeDir -Force | Out-Null
         if (Test-Path "templates/vscode-settings.json") {
@@ -294,7 +294,7 @@ function Build-Variant {
     elseif ($Agent -eq 'qwen' -and (Test-Path "agent_templates/qwen/QWEN.md")) {
         Copy-Item -Path "agent_templates/qwen/QWEN.md" -Destination (Join-Path $baseDir "QWEN.md")
     }
-    
+
     # Create zip archive
     $zipFile = Join-Path $GenReleasesDir "nuaa-template-${Agent}-${Script}-${Version}.zip"
     Compress-Archive -Path "$baseDir/*" -DestinationPath $zipFile -Force
@@ -314,11 +314,11 @@ $AllScripts = @('sh', 'ps')
 
 function Normalize-List {
     param([string]$Input)
-    
+
     if ([string]::IsNullOrEmpty($Input)) {
         return @()
     }
-    
+
     # Split by comma or space and remove duplicates while preserving order
     $items = $Input -split '[,\s]+' | Where-Object { $_ } | Select-Object -Unique
     return $items
@@ -330,7 +330,7 @@ function Validate-Subset {
         [string[]]$Allowed,
         [string[]]$Items
     )
-    
+
     $ok = $true
     foreach ($item in $Items) {
         if ($item -notin $Allowed) {

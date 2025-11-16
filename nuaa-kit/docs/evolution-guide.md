@@ -23,8 +23,8 @@ Programs change over time:
 
 ### 1. Specifications Should Be "Living Documents"
 
-✅ Update regularly (not just once at creation)  
-✅ Reflect current reality (not just original plan)  
+✅ Update regularly (not just once at creation)
+✅ Reflect current reality (not just original plan)
 ✅ Guide ongoing implementation (not just historical record)
 
 ### 2. Not Everything Changes
@@ -108,8 +108,8 @@ These files might have both NUAA-Kit content and project customizations:
 3. Note any activity modifications
 4. Document learnings in a "Change Log" section
 
-**Who**: Program coordinator + consumer advisory member  
-**Time**: 1-2 hours per program  
+**Who**: Program coordinator + consumer advisory member
+**Time**: 1-2 hours per program
 **Trigger**: End of quarter, prepare funder report
 
 **Example Changes**:
@@ -132,8 +132,8 @@ These files might have both NUAA-Kit content and project customizations:
 4. Use `/nuaa.adapt` to redesign problem areas
 5. Generate updated program-design.md (new major version)
 
-**Who**: Program team + consumer advisory + management  
-**Time**: 4-6 hours per program  
+**Who**: Program team + consumer advisory + management
+**Time**: 4-6 hours per program
 **Trigger**: End of funding year, strategic planning
 
 **Example Changes**:
@@ -164,8 +164,8 @@ These files might have both NUAA-Kit content and project customizations:
 3. Update program-design.md immediately
 4. Communicate changes to all stakeholders
 
-**Who**: Program coordinator + relevant stakeholders  
-**Time**: 2-4 hours (urgent response)  
+**Who**: Program coordinator + relevant stakeholders
+**Time**: 2-4 hours (urgent response)
 **Trigger**: As event occurs
 
 ---
@@ -583,15 +583,15 @@ Program Name/
 
 Before finalizing any update, verify:
 
-✓ **Version number updated** correctly  
-✓ **Version History table** has new row  
-✓ **Change Log** explains what and why  
-✓ **All numbers accurate** (participants, budget, dates)  
-✓ **Logic model still makes sense** (inputs → activities → outcomes)  
-✓ **Risk assessment current** (new risks added, old ones removed if mitigated)  
-✓ **Evaluation indicators still measurable** (don't track what you can't measure)  
-✓ **Consumer advisory approved** changes (if significant)  
-✓ **Stakeholders notified** of changes  
+✓ **Version number updated** correctly
+✓ **Version History table** has new row
+✓ **Change Log** explains what and why
+✓ **All numbers accurate** (participants, budget, dates)
+✓ **Logic model still makes sense** (inputs → activities → outcomes)
+✓ **Risk assessment current** (new risks added, old ones removed if mitigated)
+✓ **Evaluation indicators still measurable** (don't track what you can't measure)
+✓ **Consumer advisory approved** changes (if significant)
+✓ **Stakeholders notified** of changes
 ✓ **SharePoint updated** with latest version
 
 ---
@@ -600,32 +600,32 @@ Before finalizing any update, verify:
 
 ### Mistake 1: Letting Designs Get Stale
 
-**Problem**: Program design from 2 years ago, totally outdated  
-**Impact**: Documentation doesn't guide practice, just bureaucratic burden  
+**Problem**: Program design from 2 years ago, totally outdated
+**Impact**: Documentation doesn't guide practice, just bureaucratic burden
 **Solution**: Set calendar reminders for quarterly reviews
 
 ### Mistake 2: Changing Too Much, Too Often
 
-**Problem**: Redesigning every month, no stability  
-**Impact**: Staff confused, participants don't know what to expect  
+**Problem**: Redesigning every month, no stability
+**Impact**: Staff confused, participants don't know what to expect
 **Solution**: Only make changes when evidence warrants, not on whim
 
 ### Mistake 3: Not Documenting Rationale
 
-**Problem**: Version history says "Update activities" but not why  
-**Impact**: Can't learn from past, repeat mistakes  
+**Problem**: Version history says "Update activities" but not why
+**Impact**: Can't learn from past, repeat mistakes
 **Solution**: Always add "Why" to Change Log, not just "What"
 
 ### Mistake 4: No Consumer Input on Changes
 
-**Problem**: Staff redesign program without consumer advisory input  
-**Impact**: Changes don't reflect community needs  
+**Problem**: Staff redesign program without consumer advisory input
+**Impact**: Changes don't reflect community needs
 **Solution**: Always involve consumer advisory in significant changes
 
 ### Mistake 5: Forgetting to Communicate Updates
 
-**Problem**: Update document but don't tell anyone  
-**Impact**: Different stakeholders working from different versions  
+**Problem**: Update document but don't tell anyone
+**Impact**: Different stakeholders working from different versions
 **Solution**: Share every update, even minor ones
 
 ---

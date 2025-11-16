@@ -1,9 +1,15 @@
+---
+title: E2E Program - Proposal
+funder: NSW Health
+amount: $50000
+created: 2025-11-17
+---
 # Funding Proposal Template
 
-**Program Name**: [Name]
+**Program Name**: E2E Program
 **Organization**: NSW Users & AIDS Association (NUAA)
 **Funding Requested**: $[Amount]
-**Duration**: [Timeframe]
+**Duration**: 12 months
 **Submitted to**: [Funder Name]
 **Date**: [Submission Date]
 
@@ -77,7 +83,7 @@ NSW Users & AIDS Association (NUAA) is a peer-led organization with over 30 year
 
 ### Program Activities
 
-#### Activity 1: [Name]
+#### Activity 1: E2E Program
 
 **Description**: [What happens]
 **Frequency**: [How often]
@@ -92,11 +98,11 @@ NSW Users & AIDS Association (NUAA) is a peer-led organization with over 30 year
 - [Topic/module 2]
 - [Topic/module 3]
 
-#### Activity 2: [Name]
+#### Activity 2: E2E Program
 
 [Repeat structure]
 
-#### Activity 3: [Name]
+#### Activity 3: E2E Program
 
 [Repeat structure]
 
@@ -349,14 +355,14 @@ NSW Users & AIDS Association (NUAA) is a peer-led organization with over 30 year
 
 **To Funder**:
 
-- Interim report: [Date] - [Contents]
-- Final report: [Date] - [Contents]
-- Financial acquittal: [Date]
+- Interim report: 2025-11-17 - [Contents]
+- Final report: 2025-11-17 - [Contents]
+- Financial acquittal: 2025-11-17
 
 **To Community**:
 
-- Community report (plain language): [Date]
-- Findings forum/presentation: [Date]
+- Community report (plain language): 2025-11-17
+- Findings forum/presentation: 2025-11-17
 
 ### Data Ethics
 
@@ -458,7 +464,7 @@ NSW Users & AIDS Association (NUAA) is a peer-led organization with over 30 year
 **Return on Investment**: [Lives improved, community strengthened, system changed]
 
 **Contact for Discussion**:
-[Name]
+E2E Program
 [Title]
 [Email]
 [Phone]

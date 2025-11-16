@@ -216,15 +216,15 @@ After `/nuaa.design`, you might use:
 
 Before finalizing the design, the AI should verify:
 
-✓ **Peer leadership**: Are people with lived experience central to design and delivery?  
-✓ **Harm reduction**: Are principles explicitly embedded (non-judgmental, agency, evidence-based)?  
-✓ **Consumer participation**: Is remuneration budgeted ($300/session)?  
-✓ **Cultural safety**: Are trauma-informed, LGBTIQ+ inclusive, culturally responsive practices planned?  
-✓ **Logic model**: Is the causal chain clear (inputs → activities → outputs → outcomes → impact)?  
-✓ **Risk assessment**: Are key risks identified with mitigation strategies?  
-✓ **Budget**: Are all costs accounted for (personnel, operations, participant support, evaluation)?  
-✓ **Impact measurement**: Are indicators defined at all levels (process, output, outcome, impact)?  
-✓ **Stakeholder journeys**: Are journeys detailed with specific touch points and success indicators?  
+✓ **Peer leadership**: Are people with lived experience central to design and delivery?
+✓ **Harm reduction**: Are principles explicitly embedded (non-judgmental, agency, evidence-based)?
+✓ **Consumer participation**: Is remuneration budgeted ($300/session)?
+✓ **Cultural safety**: Are trauma-informed, LGBTIQ+ inclusive, culturally responsive practices planned?
+✓ **Logic model**: Is the causal chain clear (inputs → activities → outputs → outcomes → impact)?
+✓ **Risk assessment**: Are key risks identified with mitigation strategies?
+✓ **Budget**: Are all costs accounted for (personnel, operations, participant support, evaluation)?
+✓ **Impact measurement**: Are indicators defined at all levels (process, output, outcome, impact)?
+✓ **Stakeholder journeys**: Are journeys detailed with specific touch points and success indicators?
 ✓ **Ethics**: Are informed consent, confidentiality, and do no harm principles addressed?
 
 ---

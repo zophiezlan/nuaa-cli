@@ -192,7 +192,7 @@ Decision: Continue, Adapt, or End?
 8. /nuaa.report       (quarterly/final)
 ```
 
-**Total Planning Time**: 10-15 hours  
+**Total Planning Time**: 10-15 hours
 **Key Success Factor**: Consumer advisory involvement early
 
 ---
@@ -209,7 +209,7 @@ Decision: Continue, Adapt, or End?
 5. Continue program   (with documentation)
 ```
 
-**Total Time**: 8-12 hours  
+**Total Time**: 8-12 hours
 **Key Success Factor**: Accurate current state assessment
 
 ---
@@ -227,7 +227,7 @@ Decision: Continue, Adapt, or End?
 6. /nuaa.report       (compare before/after)
 ```
 
-**Total Time**: 6-10 hours  
+**Total Time**: 6-10 hours
 **Key Success Factor**: Clear problem identification
 
 ---
@@ -242,7 +242,7 @@ Decision: Continue, Adapt, or End?
 3. Submit proposal         (quickly)
 ```
 
-**Total Time**: 3-4 hours  
+**Total Time**: 3-4 hours
 **Key Success Factor**: Comprehensive original design
 
 ---
@@ -409,32 +409,32 @@ Word Formatting
 
 ### Pitfall 1: Skipping Consumer Advisory Review
 
-**Problem**: Design doesn't reflect community needs  
-**Solution**: Always include consumer review step before finalizing design  
+**Problem**: Design doesn't reflect community needs
+**Solution**: Always include consumer review step before finalizing design
 **Workflow**: `/nuaa.design` → Consumer Advisory → `/nuaa.refine` → Finalize
 
 ### Pitfall 2: Writing Proposals Before Design
 
-**Problem**: Proposals lack depth, logic models weak  
-**Solution**: Always complete `/nuaa.design` first  
+**Problem**: Proposals lack depth, logic models weak
+**Solution**: Always complete `/nuaa.design` first
 **Workflow**: `/nuaa.design` → program-design.md → `/nuaa.propose`
 
 ### Pitfall 3: No Evaluation Planning
 
-**Problem**: Can't measure impact, funder reporting difficult  
-**Solution**: Use `/nuaa.measure` before implementation  
+**Problem**: Can't measure impact, funder reporting difficult
+**Solution**: Use `/nuaa.measure` before implementation
 **Workflow**: `/nuaa.design` → `/nuaa.measure` → Implement
 
 ### Pitfall 4: Forgetting to Update Documentation
 
-**Problem**: Design becomes outdated, doesn't reflect reality  
-**Solution**: Use `/nuaa.adapt` when making program changes  
+**Problem**: Design becomes outdated, doesn't reflect reality
+**Solution**: Use `/nuaa.adapt` when making program changes
 **Workflow**: Program Change → `/nuaa.adapt` → Update program-design.md
 
 ### Pitfall 5: Not Diagnosing Issues Early
 
-**Problem**: Program continues failing, resources wasted  
-**Solution**: Use `/nuaa.diagnose` at first sign of trouble  
+**Problem**: Program continues failing, resources wasted
+**Solution**: Use `/nuaa.diagnose` at first sign of trouble
 **Workflow**: Issues Arise → `/nuaa.diagnose` → `/nuaa.adapt` → Retry
 
 ---

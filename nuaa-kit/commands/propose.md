@@ -312,15 +312,15 @@ The AI will automatically:
 
 Before finalizing, the AI will verify:
 
-✓ **Alignment**: Proposal matches funder priorities and guidelines  
-✓ **Clarity**: Problem, solution, and impact are crystal clear  
-✓ **Evidence**: Claims backed by data, research, or lived experience  
-✓ **NUAA values**: Peer leadership, harm reduction, cultural safety embedded  
-✓ **Budget**: All costs accounted for and justified  
-✓ **Evaluation**: Clear indicators and data collection methods  
-✓ **Realism**: Timeline and targets are achievable  
-✓ **Completeness**: All required sections included  
-✓ **Language**: Professional, anti-stigma, empowering  
+✓ **Alignment**: Proposal matches funder priorities and guidelines
+✓ **Clarity**: Problem, solution, and impact are crystal clear
+✓ **Evidence**: Claims backed by data, research, or lived experience
+✓ **NUAA values**: Peer leadership, harm reduction, cultural safety embedded
+✓ **Budget**: All costs accounted for and justified
+✓ **Evaluation**: Clear indicators and data collection methods
+✓ **Realism**: Timeline and targets are achievable
+✓ **Completeness**: All required sections included
+✓ **Language**: Professional, anti-stigma, empowering
 ✓ **Formatting**: Follows funder's format requirements
 
 ---

@@ -379,12 +379,12 @@ Use "Professional-Peer" style:
 
 Use the same quality checks regardless of agent:
 
-✓ **NUAA principles embedded** (peer-led, harm reduction)  
-✓ **Consumer remuneration** included ($300/session)  
-✓ **No placeholders** (all [brackets] filled in)  
-✓ **Specific numbers** (not "some people" but "40 people")  
-✓ **Evidence-based** (references research/data)  
-✓ **Cultural safety** addressed (LGBTIQ+, trauma-informed)  
+✓ **NUAA principles embedded** (peer-led, harm reduction)
+✓ **Consumer remuneration** included ($300/session)
+✓ **No placeholders** (all [brackets] filled in)
+✓ **Specific numbers** (not "some people" but "40 people")
+✓ **Evidence-based** (references research/data)
+✓ **Cultural safety** addressed (LGBTIQ+, trauma-informed)
 ✓ **Stakeholder-appropriate** language (funder, peer, etc.)
 
 ---
@@ -621,7 +621,7 @@ Analyze evaluation data, generate charts → analysis-results.xlsx
 /nuaa.report → evaluation-report.md
 ```
 
-**Total agents used**: 3 (Claude, Gemini, Copilot)  
+**Total agents used**: 3 (Claude, Gemini, Copilot)
 **Each agent used for its strengths**
 
 ---
@@ -683,8 +683,8 @@ Analyze evaluation data, generate charts → analysis-results.xlsx
 
 ### Example 1: Efficiency Boost
 
-**Team**: 3 staff (program coordinator, evaluator, development officer)  
-**Agents**: Claude Code (primary), GitHub Copilot (secondary)  
+**Team**: 3 staff (program coordinator, evaluator, development officer)
+**Agents**: Claude Code (primary), GitHub Copilot (secondary)
 **Result**:
 
 - Design time reduced from 40 hours → 8 hours (Claude)
@@ -696,8 +696,8 @@ Analyze evaluation data, generate charts → analysis-results.xlsx
 
 ### Example 2: Quality Improvement
 
-**Team**: Consumer advisory involved in all design  
-**Agents**: Claude for design, Qwen for peer-friendly versions  
+**Team**: Consumer advisory involved in all design
+**Agents**: Claude for design, Qwen for peer-friendly versions
 **Result**:
 
 - Consumer advisory rated designs 8/10 (up from 6/10)

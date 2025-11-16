@@ -105,7 +105,7 @@ Fair payment for people with lived experience contributing expertise and labor.
 | Travel Time (if >1 hour)            | Compensation for travel to/from venues | Occurrence | [number]                       | $[rate]   | $[Qty × Rate] |
 | **PEER REMUNERATION SUBTOTAL**      |                                        |            |                                |           | **$[sum]**    |
 
-**NUAA Standard**: $300 per structured session/meeting (adjust for local award rates and funding constraints)  
+**NUAA Standard**: $300 per structured session/meeting (adjust for local award rates and funding constraints)
 **Excel Formula**: `=SUM(E2:E7)`
 
 ---
@@ -173,7 +173,7 @@ Organizational infrastructure supporting the program.
 | Legal                       | Contracts, agreements, risk review                      | Service | [as needed] | $[cost]        | $[total]      |
 | **ADMINISTRATION SUBTOTAL** |                                                         |         |             |                | **$[sum]**    |
 
-**Excel Formula**: `=SUM(E2:E5)`  
+**Excel Formula**: `=SUM(E2:E5)`
 **Overhead Formula**: `=(sum of categories 1-5) * [percentage]/100`
 
 ---

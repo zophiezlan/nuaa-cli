@@ -1,7 +1,7 @@
 # NUAA Project Kit v0.3.0 - Production Release
 
-**Release Date:** November 12, 2025  
-**Status:** ✅ Production Ready  
+**Release Date:** November 12, 2025
+**Status:** ✅ Production Ready
 **Tag:** `v0.3.0`
 
 ---

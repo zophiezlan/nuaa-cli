@@ -55,8 +55,8 @@ NUAA-Kit evolves over time with:
 
 ### Quarterly Check (Recommended)
 
-**Frequency**: Every 3 months  
-**Time**: 30 minutes  
+**Frequency**: Every 3 months
+**Time**: 30 minutes
 **Purpose**: See if new features available
 
 **Process**:
@@ -70,8 +70,8 @@ NUAA-Kit evolves over time with:
 
 ### Annual Update (Minimum)
 
-**Frequency**: Once per year  
-**Time**: 2-3 hours  
+**Frequency**: Once per year
+**Time**: 2-3 hours
 **Purpose**: Major version updates, new features
 
 **Process**:
@@ -352,7 +352,7 @@ Record that you updated:
 
 ## Update 2025-11-10
 
-**From**: v2.0.0  
+**From**: v2.0.0
 **To**: v2.1.0
 
 **Changes Applied**:
@@ -488,7 +488,7 @@ Use this checklist for every update:
 4. Test with one document
 5. Done!
 
-**Time**: 15 minutes  
+**Time**: 15 minutes
 **Risk**: Very low
 
 ---
@@ -506,7 +506,7 @@ Use this checklist for every update:
 5. Train staff (1 hour)
 6. Roll out to team
 
-**Time**: 2 hours  
+**Time**: 2 hours
 **Risk**: Low (new feature, doesn't affect existing)
 
 ---
@@ -524,7 +524,7 @@ Use this checklist for every update:
 5. Decide migration strategy (all at once OR gradual)
 6. Train staff (2 hours)
 
-**Time**: 4-5 hours  
+**Time**: 4-5 hours
 **Risk**: Medium (may affect existing work)
 
 ---
@@ -543,7 +543,7 @@ Use this checklist for every update:
 6. Comprehensive staff training (4 hours)
 7. Monitor closely (1 month)
 
-**Time**: 10-15 hours + 1 month monitoring  
+**Time**: 10-15 hours + 1 month monitoring
 **Risk**: High (significant changes)
 
 **Recommendation**: Wait for v3.0.1 (first patch) before upgrading
@@ -554,7 +554,7 @@ Use this checklist for every update:
 
 ### 1. Don't Skip Versions
 
-❌ **Wrong**: Update from v1.0 directly to v3.0  
+❌ **Wrong**: Update from v1.0 directly to v3.0
 ✅ **Right**: Update v1.0 → v2.0 → v3.0 (in order)
 
 **Reason**: Migration guides assume sequential updates
@@ -563,7 +563,7 @@ Use this checklist for every update:
 
 ### 2. Test Before Production
 
-❌ **Wrong**: Update production installation immediately  
+❌ **Wrong**: Update production installation immediately
 ✅ **Right**: Test in development environment first
 
 **Setup dev environment**:
@@ -581,7 +581,7 @@ cp -r nuaa-kit nuaa-kit-test
 
 ### 3. Read Release Notes Carefully
 
-❌ **Wrong**: Download latest version, install blindly  
+❌ **Wrong**: Download latest version, install blindly
 ✅ **Right**: Read changelog, understand what's changing
 
 **Especially look for**:
@@ -594,7 +594,7 @@ cp -r nuaa-kit nuaa-kit-test
 
 ### 4. Keep Update Log
 
-❌ **Wrong**: Update whenever, no record  
+❌ **Wrong**: Update whenever, no record
 ✅ **Right**: Document all updates with dates, versions, notes
 
 **Benefit**: Know your update history, troubleshoot issues
@@ -603,7 +603,7 @@ cp -r nuaa-kit nuaa-kit-test
 
 ### 5. Schedule Regular Checks
 
-❌ **Wrong**: Wait until something breaks  
+❌ **Wrong**: Wait until something breaks
 ✅ **Right**: Quarterly check for updates
 
 **Add to calendar**: "NUAA-Kit update check" (every 3 months)
@@ -689,7 +689,7 @@ nuaa-kit update
 # Reports success
 ```
 
-**Status**: Planned for future release  
+**Status**: Planned for future release
 **Meanwhile**: Use this manual guide
 
 ---

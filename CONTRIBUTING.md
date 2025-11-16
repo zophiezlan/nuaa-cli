@@ -191,7 +191,7 @@ pytest -q
 
 ### Testing template and command changes locally
 
-Running `uv run nuaa init` (or `uv run specify init`) pulls released packages, which won't include your local changes.  
+Running `uv run nuaa init` (or `uv run specify init`) pulls released packages, which won't include your local changes.
 To test your templates, commands, and other changes locally, follow these steps:
 
 1. **Create release packages**

@@ -207,7 +207,7 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 ### Staff Interview Protocol (Program Coordinator/Manager)
 
-**Duration**: 2-3 hours  
+**Duration**: 2-3 hours
 **Format**: Semi-structured interview, can be split into 2 sessions
 
 #### Section 1: Program History & Context (30 min)
@@ -254,7 +254,7 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 ### Peer Worker Interview Protocol
 
-**Duration**: 1-2 hours  
+**Duration**: 1-2 hours
 **Format**: Individual or small group (2-3 peer workers)
 
 #### Section 1: Your Role (15 min)
@@ -295,8 +295,8 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 ### Participant Interview/Survey Protocol (Optional - High Participatory)
 
-**Duration**: 30-45 minutes  
-**Format**: Individual interview or anonymous survey  
+**Duration**: 30-45 minutes
+**Format**: Individual interview or anonymous survey
 **Ethics**: Informed consent, confidentiality, remuneration ($50-$100 suggested)
 
 #### Section 1: Engagement (10 min)
@@ -561,11 +561,11 @@ methodology: [Interviews, document review, observation]
 
 ### Appendices
 
-**Appendix A**: Interview summaries (anonymized)  
-**Appendix B**: Document inventory  
-**Appendix C**: Historical timeline  
-**Appendix D**: Stakeholder map  
-**Appendix E**: Financial summary (if available)  
+**Appendix A**: Interview summaries (anonymized)
+**Appendix B**: Document inventory
+**Appendix C**: Historical timeline
+**Appendix D**: Stakeholder map
+**Appendix E**: Financial summary (if available)
 **Appendix F**: Participant testimonials (with consent)
 
 ---

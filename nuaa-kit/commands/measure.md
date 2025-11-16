@@ -50,21 +50,21 @@ When you invoke this command, the AI will ask you for:
 
 ### Evaluation Scope
 
-5. **Evaluation Type**:
+1. **Evaluation Type**:
 
    - Process evaluation (Are we doing what we planned?)
    - Outcome evaluation (What changed for participants?)
    - Impact evaluation (What broader change occurred?)
    - All of the above?
 
-6. **Target Reach**: How many participants? (affects sample size, feasibility)
-7. **Key Stakeholders**: Who needs to hear evaluation findings? (funders, community, sector, participants)
+2. **Target Reach**: How many participants? (affects sample size, feasibility)
+3. **Key Stakeholders**: Who needs to hear evaluation findings? (funders, community, sector, participants)
 
 ### Resources Available
 
-8. **Evaluation Budget**: How much allocated? (typically 5-15% of program budget)
-9. **Staff Capacity**: Who will lead evaluation? (peer researchers, program staff, external evaluator)
-10. **Data Access**: What data sources available? (surveys, admin records, service data, community data)
+1. **Evaluation Budget**: How much allocated? (typically 5-15% of program budget)
+2. **Staff Capacity**: Who will lead evaluation? (peer researchers, program staff, external evaluator)
+3. **Data Access**: What data sources available? (surveys, admin records, service data, community data)
 
 **Optional Context**:
 

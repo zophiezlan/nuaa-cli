@@ -73,4 +73,4 @@ Working on: [CURRENT_BRANCH]
 
 ---
 
-_This context file is automatically maintained by NUAA scripts. Modifications will be overwritten._
+*This context file is automatically maintained by NUAA scripts. Modifications will be overwritten.*

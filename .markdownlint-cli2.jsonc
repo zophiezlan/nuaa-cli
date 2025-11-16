@@ -8,20 +8,23 @@
     "MD007": {
       "indent": 2
     },
+    "MD012": false,
     "MD013": false,
     "MD024": {
       "siblings_only": true
     },
+    "MD028": false,
     "MD033": false,
+    "MD036": false,
+    "MD040": false,
     "MD041": false,
     "MD049": {
       "style": "asterisk"
     },
     "MD050": {
       "style": "asterisk"
-    }
+    },
+    "MD060": false
   },
-  "ignores": [
-    ".genreleases/"
-  ]
+  "ignores": [".genreleases/", ".pytest_cache/", "nuaa/"]
 }

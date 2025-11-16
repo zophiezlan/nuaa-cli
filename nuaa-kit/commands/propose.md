@@ -51,17 +51,17 @@ When you invoke this command, the AI will ask you for:
 
 ### Funder Information
 
-6. **Funder Name**: Organization you're applying to
-7. **Funder Priorities**: What do they care about? (check their website/guidelines)
-8. **Application Guidelines**: Word limit, format, sections required
-9. **Submission Deadline**: When is it due?
+1. **Funder Name**: Organization you're applying to
+2. **Funder Priorities**: What do they care about? (check their website/guidelines)
+3. **Application Guidelines**: Word limit, format, sections required
+4. **Submission Deadline**: When is it due?
 
 ### Supporting Evidence
 
-10. **Need Statement**: Data/stories demonstrating the problem
-11. **Evidence Base**: Research supporting your approach
-12. **NUAA Track Record**: Similar programs you've run successfully
-13. **Partnership Letters**: Who will support/collaborate?
+1. **Need Statement**: Data/stories demonstrating the problem
+2. **Evidence Base**: Research supporting your approach
+3. **NUAA Track Record**: Similar programs you've run successfully
+4. **Partnership Letters**: Who will support/collaborate?
 
 **Optional Context**:
 

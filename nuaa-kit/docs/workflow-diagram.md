@@ -464,4 +464,4 @@ Word Formatting
 
 ---
 
-_This workflow diagram is based on best practices from spec-driven development and adapted for NUAA's peer-led, harm reduction approach._
+*This workflow diagram is based on best practices from spec-driven development and adapted for NUAA's peer-led, harm reduction approach.*

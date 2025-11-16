@@ -108,6 +108,7 @@ make help
 ```
 
 Or use the fix scripts directly:
+
 ```bash
 ./scripts/bash/fix.sh              # Linux/Mac
 .\scripts\powershell\fix.ps1       # Windows

@@ -425,6 +425,7 @@ A logic model is a visual representation of how your program works. It shows the
 - Involve participants in review process
 
 **Version History**:
+
 | Version | Date | Changes | Updated By |
 |---------|------|---------|------------|
 | 1.0 | [Date] | Initial model | [Name] |

@@ -719,4 +719,4 @@ nuaa-kit update
 
 ---
 
-_This update guide is inspired by best practices from the github/spec-kit community and adapted for NUAA's organizational context._
+*This update guide is inspired by best practices from the github/spec-kit community and adapted for NUAA's organizational context.*

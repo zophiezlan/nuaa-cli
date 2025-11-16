@@ -729,4 +729,4 @@ Analyze evaluation data, generate charts → analysis-results.xlsx
 
 ---
 
-_This multi-agent guide is inspired by community feedback from the github/spec-kit repository and adapted for NUAA's multi-stakeholder context._
+*This multi-agent guide is inspired by community feedback from the github/spec-kit repository and adapted for NUAA's multi-stakeholder context.*

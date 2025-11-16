@@ -209,7 +209,7 @@ Format: YYYY-MM-DD Semantic grouping (Added / Changed / Removed / Deprecated / F
 
 - None.
 
-## 2025-11-11 Initial Draft Baseline
+## 2025-11-11 Initial Draft Baseline (Part 2)
 
 ### Added
 

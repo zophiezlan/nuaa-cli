@@ -113,8 +113,6 @@
 
 **Partnerships**:
 
-- [Partner]: [Contribution]
-- [Partner]: [Contribution]
 
 ---
 
@@ -125,12 +123,10 @@
 1. [Activity 1]: [Description, frequency, duration]
    - Who delivers: [Staff, peers, partners]
    - Who participates: [Target group]
-2. [Activity 2]: [Description]
 
    - Delivery method: [In-person, online, hybrid]
    - Cultural safety measures: [Specific approaches]
 
-3. [Activity 3]: [Description]
    - Harm reduction principles: [How embedded]
    - Accessibility: [Accommodations provided]
 

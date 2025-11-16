@@ -312,9 +312,9 @@ participatory_level: [light|standard|high]
 
 **Hypotheses for Future Evaluation**:
 
-- _If_ this program continues to [activity]...
-- _Then_ we might expect [impact] within [timeframe]...
-- _Which could be measured by_ [indicator and data source]
+- *If* this program continues to [activity]...
+- *Then* we might expect [impact] within [timeframe]...
+- *Which could be measured by* [indicator and data source]
 
 ---
 
@@ -366,18 +366,18 @@ graph LR
 
 **Activity → Output Assumptions**:
 
-- _We assume_ [assumption about how activities lead to outputs]
-- _We assume_ [assumption]
+- *We assume* [assumption about how activities lead to outputs]
+- *We assume* [assumption]
 
 **Output → Outcome Assumptions**:
 
-- _We assume_ [assumption about how outputs lead to outcomes]
-- _We assume_ [assumption]
+- *We assume* [assumption about how outputs lead to outcomes]
+- *We assume* [assumption]
 
 **Outcome → Impact Assumptions**:
 
-- _We assume_ [assumption about how outcomes lead to impact]
-- _We assume_ [assumption]
+- *We assume* [assumption about how outcomes lead to impact]
+- *We assume* [assumption]
 
 ### External Factors (Beyond Program Control)
 
@@ -511,17 +511,17 @@ graph LR
 
 1. **[Knowledge item 1, e.g., "How to navigate relationship with [Partner organization]"]**
 
-   - _Details_: [Describe the unwritten rules, workarounds, or insights]
-   - _Why it matters_: [Consequences of losing this knowledge]
+   - *Details*: [Describe the unwritten rules, workarounds, or insights]
+   - *Why it matters*: [Consequences of losing this knowledge]
 
 2. **[Knowledge item 2, e.g., "How to engage participants who are initially resistant"]**
 
-   - _Details_: [Describe]
-   - _Why it matters_: [Impact]
+   - *Details*: [Describe]
+   - *Why it matters*: [Impact]
 
 3. **[Knowledge item 3]**
-   - _Details_: [Describe]
-   - _Why it matters_: [Impact]
+   - *Details*: [Describe]
+   - *Why it matters*: [Impact]
 
 ---
 
@@ -701,7 +701,7 @@ graph LR
 
 ### Baseline Measures (Establish Now)
 
-**Purpose**: Even without historical data, establish baseline _now_ so future evaluation can measure change.
+**Purpose**: Even without historical data, establish baseline *now* so future evaluation can measure change.
 
 | Measure                    | Current Baseline                 | Measurement Date | Next Measurement    | Target for Next Measurement |
 | -------------------------- | -------------------------------- | ---------------- | ------------------- | --------------------------- |
@@ -745,17 +745,17 @@ graph LR
 ### Appendix A: Interview Summaries (Anonymized)
 
 **Staff Interview 1 – Program Coordinator**
-_Date_: [Date]
-_Duration_: [Hours]
-_Key Themes_:
+*Date*: [Date]
+*Duration*: [Hours]
+*Key Themes*:
 
 - [Theme 1 with supporting quotes]
 - [Theme 2]
 - [Theme 3]
 
 **Peer Worker Interview 1**
-_Date_: [Date]
-_Key Themes_:
+*Date*: [Date]
+*Key Themes*:
 
 - [Theme 1]
 - [Theme 2]
@@ -834,7 +834,6 @@ _Key Themes_:
 
 **Budget Breakdown** (most recent year if available):
 
-- [Category]: $[Amount] ([% of total])
 - [Continue for all categories]
 
 **Financial Sustainability Assessment**:
@@ -850,9 +849,9 @@ _Key Themes_:
 ### Appendix F: Participant Testimonials (With Consent)
 
 **Testimonial 1**
-_Context_: [Participant demographic (non-identifying), program engagement]
-_Quote_: "[Full quote about program experience or impact]"
-_Consent_: Verbal/written consent obtained [Date], file reference [X]
+*Context*: [Participant demographic (non-identifying), program engagement]
+*Quote*: "[Full quote about program experience or impact]"
+*Consent*: Verbal/written consent obtained [Date], file reference [X]
 
 **Testimonial 2**
 [Repeat format]
@@ -865,7 +864,7 @@ _Consent_: Verbal/written consent obtained [Date], file reference [X]
 **Date**: [Completion Date]
 **Contact**: [Email/Phone]
 
-**Recommended Citation**: [NUAA]. (2025). _Existing Program Analysis: [Program Name]_. NSW Users and AIDS Association. Internal document.
+**Recommended Citation**: [NUAA]. (2025). *Existing Program Analysis: [Program Name]*. NSW Users and AIDS Association. Internal document.
 
 ---
 

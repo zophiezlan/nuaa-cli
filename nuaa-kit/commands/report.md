@@ -191,6 +191,7 @@ date: [Report Date]
 #### 4a. Process Indicators (Activities Implemented)
 
 **Structure**:
+
 | Indicator | Target | Actual | Achievement Rate | Notes |
 |-----------|--------|--------|------------------|-------|
 | Number of sessions delivered | [target] | [actual] | [%] | [context] |
@@ -256,6 +257,7 @@ date: [Report Date]
 **Purpose**: Assess whether program access, experience, and outcomes were equitable across demographic and priority groups.
 
 **Disaggregated Data Tables**:
+
 | Demographic Group | % of Total Participants | Outcome Indicator 1 | Outcome Indicator 2 |
 |-------------------|-------------------------|---------------------|---------------------|
 | Aboriginal/TSI | [%] | [score/rate] | [score/rate] |

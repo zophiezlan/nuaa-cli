@@ -676,4 +676,4 @@ How to know if your evolution strategy is working:
 
 ---
 
-_This evolution guide is inspired by best practices from the github/spec-kit community and adapted for NUAA's harm reduction context._
+*This evolution guide is inspired by best practices from the github/spec-kit community and adapted for NUAA's harm reduction context.*

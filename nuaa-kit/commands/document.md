@@ -220,35 +220,35 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 #### Section 2: Current Operations (45 min)
 
-6. Describe a typical program cycle (weekly, monthly, annually).
-7. What activities do you currently deliver? (List all)
-8. Who are your current participants? (Demographics, numbers, catchment area)
-9. How do participants find out about and access the program?
-10. Who delivers the program? (Staff, peer workers, volunteers, partners)
-11. What resources are required? (Budget, materials, space, equipment)
-12. What partnerships are essential to operations?
+1. Describe a typical program cycle (weekly, monthly, annually).
+2. What activities do you currently deliver? (List all)
+3. Who are your current participants? (Demographics, numbers, catchment area)
+4. How do participants find out about and access the program?
+5. Who delivers the program? (Staff, peer workers, volunteers, partners)
+6. What resources are required? (Budget, materials, space, equipment)
+7. What partnerships are essential to operations?
 
 #### Section 3: Outcomes & Impact (30 min)
 
-13. What changes have you observed in participants?
-14. What data do you collect about program activities and outcomes?
-15. What success stories or examples stand out?
-16. Have there been any unintended positive or negative consequences?
-17. What feedback have you received from participants, funders, partners?
+1. What changes have you observed in participants?
+2. What data do you collect about program activities and outcomes?
+3. What success stories or examples stand out?
+4. Have there been any unintended positive or negative consequences?
+5. What feedback have you received from participants, funders, partners?
 
 #### Section 4: Challenges & Adaptations (30 min)
 
-18. What challenges or barriers has the program faced?
-19. How have you adapted in response to challenges?
-20. What aspects of the program work really well?
-21. What aspects need improvement?
-22. If you could redesign from scratch, what would you change?
+1. What challenges or barriers has the program faced?
+2. How have you adapted in response to challenges?
+3. What aspects of the program work really well?
+4. What aspects need improvement?
+5. If you could redesign from scratch, what would you change?
 
 #### Section 5: Future Directions (15 min)
 
-23. Where should this program go in the next 1-3 years?
-24. What resources or support are needed for improvement?
-25. What documentation would be most useful for managing/improving the program?
+1. Where should this program go in the next 1-3 years?
+2. What resources or support are needed for improvement?
+3. What documentation would be most useful for managing/improving the program?
 
 ---
 
@@ -266,30 +266,30 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 #### Section 2: Program Activities (30 min)
 
-5. Walk me through what happens in a typical session or outreach activity.
-6. What do participants value most about the program?
-7. What makes this program different from other services?
-8. How do you know when the program is working well?
+1. Walk me through what happens in a typical session or outreach activity.
+2. What do participants value most about the program?
+3. What makes this program different from other services?
+4. How do you know when the program is working well?
 
 #### Section 3: Participant Perspectives (20 min)
 
-9. Who are the participants? (Your perspective)
-10. What challenges do participants face in accessing or engaging with the program?
-11. What outcomes or changes do you see in participants?
-12. Are there participants or communities we're not reaching? Why?
+1. Who are the participants? (Your perspective)
+2. What challenges do participants face in accessing or engaging with the program?
+3. What outcomes or changes do you see in participants?
+4. Are there participants or communities we're not reaching? Why?
 
 #### Section 4: Improvements & Recommendations (20 min)
 
-13. What's working really well that we should keep?
-14. What could be improved?
-15. What would make your role as a peer worker easier or more effective?
-16. What would make the program more effective for participants?
+1. What's working really well that we should keep?
+2. What could be improved?
+3. What would make your role as a peer worker easier or more effective?
+4. What would make the program more effective for participants?
 
 #### Section 5: Peer Expertise (10 min)
 
-17. How does your lived experience inform the program design and delivery?
-18. Do you feel your expertise is valued and integrated? (Honest feedback)
-19. What advice would you give to someone documenting this program?
+1. How does your lived experience inform the program design and delivery?
+2. Do you feel your expertise is valued and integrated? (Honest feedback)
+3. What advice would you give to someone documenting this program?
 
 ---
 
@@ -308,23 +308,23 @@ When this command is invoked, you are acting as a **program archaeology and know
 
 #### Section 2: Experience (15 min)
 
-5. What activities or services do you access through the program?
-6. What do you value most about the program?
-7. What aspects work well for you?
-8. What aspects could be improved?
-9. Have you faced any barriers to accessing or participating?
+1. What activities or services do you access through the program?
+2. What do you value most about the program?
+3. What aspects work well for you?
+4. What aspects could be improved?
+5. Have you faced any barriers to accessing or participating?
 
 #### Section 3: Outcomes (15 min)
 
-10. What, if anything, has changed for you since participating? (Knowledge, skills, confidence, health, connections, etc.)
-11. Can you share a specific example of how the program has helped you?
-12. Has the program influenced your access to other services or supports?
-13. Would you recommend this program to others? Why or why not?
+1. What, if anything, has changed for you since participating? (Knowledge, skills, confidence, health, connections, etc.)
+2. Can you share a specific example of how the program has helped you?
+3. Has the program influenced your access to other services or supports?
+4. Would you recommend this program to others? Why or why not?
 
 #### Section 4: Future Directions (5 min)
 
-14. What would make the program even better?
-15. Is there anything else you think we should know about the program?
+1. What would make the program even better?
+2. Is there anything else you think we should know about the program?
 
 ---
 
@@ -440,12 +440,12 @@ methodology: [Interviews, document review, observation]
 
 **Causal Assumptions**:
 
-- _If_ we provide [inputs] and deliver [activities]...
-- _Then_ we expect [outputs]...
-- _Leading to_ [short-term outcomes] within 3-6 months...
-- _Which contribute to_ [medium-term outcomes] within 6-12 months...
-- _And ultimately_ [long-term outcomes] within 1-3 years...
-- _Contributing to_ [broader impact] at population/system level.
+- *If* we provide [inputs] and deliver [activities]...
+- *Then* we expect [outputs]...
+- *Leading to* [short-term outcomes] within 3-6 months...
+- *Which contribute to* [medium-term outcomes] within 6-12 months...
+- *And ultimately* [long-term outcomes] within 1-3 years...
+- *Contributing to* [broader impact] at population/system level.
 
 **Validation Status**:
 

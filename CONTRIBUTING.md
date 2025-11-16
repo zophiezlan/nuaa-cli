@@ -64,23 +64,93 @@ When working on the NUAA Project:
 
 ### Linting and tests
 
+**Quick Start: Auto-fix everything before committing**
+
+```bash
+# One command to rule them all 🎯
+make fix          # Auto-format and fix all issues
+
+# Or check everything
+make check        # Run all checks (format, lint, type-check, test, security)
+
+# Run full CI suite locally
+make ci           # Same checks as GitHub Actions
+```
+
+**Detailed commands:**
+
 You can use either uv or pip/venv. Pick one of the following:
 
 <details>
-<summary><b>Using uv (recommended)</b></summary>
+<summary><b>Using Make (recommended - easiest)</b></summary>
+
+```bash
+# Install dependencies
+make install-dev
+
+# Auto-fix all formatting issues
+make format
+
+# Run tests with coverage
+make test-cov
+
+# Security scan
+make security
+
+# All checks
+make check
+
+# Clean generated files
+make clean
+
+# See all commands
+make help
+```
+
+Or use the fix scripts directly:
+```bash
+./scripts/bash/fix.sh              # Linux/Mac
+.\scripts\powershell\fix.ps1       # Windows
+```
+
+</details>
+
+<details>
+<summary><b>Using uv</b></summary>
 
 ```bash
 # Install dependencies incl. dev tools
 uv sync --extra dev
 
-# Lint
-uv run ruff check .
-
-# (Optional) Format
+# Auto-format
 uv run black .
+uv run ruff check --fix .
+
+# Tests with coverage
+uv run pytest
+
+# Security scan
+uv run bandit -r src/nuaa_cli
+```
+
+</details>
+
+<details>
+<summary><b>Using pip/venv</b></summary>
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1
+
+# Install package + dev deps
+pip install -e .[dev]
+
+# Auto-format
+black .
+ruff check --fix .
 
 # Tests
-uv run pytest -q
+pytest
 ```
 
 </details>
@@ -90,7 +160,7 @@ uv run pytest -q
 We use pre-commit to run formatters and basic checks before each commit.
 
 ```bash
-# Install the git hooks
+# Install the git hooks (or use 'make pre-commit')
 pre-commit install
 
 # Run on all files once

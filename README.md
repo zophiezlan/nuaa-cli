@@ -171,22 +171,22 @@ NUAA Project Kit works with all major AI coding assistants:
 
 <!-- SUPPORTED_AGENTS_START -->
 
-| Agent                                                                                                    | Website  | Support |
-| -------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool)                      | Official | Full    |
-| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md)     | Official | Full    |
-| GitHub Copilot                                                                                           | Official | Full    |
-| [Cursor](https://cursor.sh/docs/cli)                                                                     | Official | Full    |
-| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html)                                        | Official | Full    |
-| [opencode](https://www.opencode.com/docs/cli)                                                            | Official | Full    |
-| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli)                                             | Official | Full    |
-| Windsurf                                                                                                 | Official | Full    |
-| Kilo Code                                                                                                | Official | Full    |
-| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md)                        | Official | Full    |
-| Roo Code                                                                                                 | Official | Full    |
-| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli)                                             | Official | Full    |
-| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full    |
-| [Amp](https://docs.amp.computer/cli/overview)                                                            | Official | Full    |
+| Agent | Website | Support |
+|---|---|---|
+| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool) | Official | Full |
+| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md) | Official | Full |
+| GitHub Copilot | Official | Full |
+| [Cursor](https://cursor.sh/docs/cli) | Official | Full |
+| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html) | Official | Full |
+| [opencode](https://www.opencode.com/docs/cli) | Official | Full |
+| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli) | Official | Full |
+| Windsurf | Official | Full |
+| Kilo Code | Official | Full |
+| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md) | Official | Full |
+| Roo Code | Official | Full |
+| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli) | Official | Full |
+| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full |
+| [Amp](https://docs.amp.computer/cli/overview) | Official | Full |
 
 <!-- SUPPORTED_AGENTS_END -->
 
@@ -237,13 +237,53 @@ This repo bakes in a few guardrails to keep things tidy and in sync:
 - Single source of truth for supported agents in `src/nuaa_cli/agents.json`
 - Supported Agents tables in this README and `AGENTS.md` are auto-generated from the manifest
 - Parity check ensures bash and PowerShell scripts cover all agents listed in the manifest
-- CI runs lint, type checks, unit tests, and an end-to-end smoke test across Windows and Ubuntu
+- CI runs lint, type checks, unit tests, coverage, security scans, and E2E tests across Windows and Ubuntu
+- **Auto-formatters and linters** fix issues automatically before you commit
 
-Run these locally when making changes:
+### 🔧 Quick Fix Commands
+
+Before committing, auto-fix all code style issues:
+
+```bash
+# Using Make (recommended)
+make fix          # Auto-format and fix all issues
+make check        # Run all checks (lint, test, security)
+make ci           # Run full CI suite locally
+
+# Or use the scripts directly
+./scripts/bash/fix.sh              # Linux/Mac
+.\scripts\powershell\fix.ps1       # Windows
+
+# Individual tools
+make format       # Just formatting
+make test-cov     # Tests with coverage
+make security     # Security scan
+```
+
+### 📋 Available Make Commands
+
+Run `make help` to see all available commands:
+
+- `make install-dev` - Install with development dependencies
+- `make format` - Auto-format code with black and ruff
+- `make lint` - Check code style
+- `make test` - Run tests
+- `make test-cov` - Run tests with coverage report
+- `make security` - Run security scan
+- `make check` - Run all checks
+- `make fix` - Auto-fix all issues
+- `make ci` - Run full CI suite locally
+- `make clean` - Clean generated files
+
+### 🔍 Manual Commands
+
+If you prefer running commands individually:
 
 - Update docs from manifest: `python scripts/python/update_agents_docs.py`
 - Verify script parity: `python scripts/python/verify_agent_script_parity.py`
-- Run tests: `pytest -q`
+- Run tests: `pytest`
+- Format code: `black . && ruff check --fix .`
+- Security scan: `bandit -r src/nuaa_cli`
 
 ## 🌟 NUAA-Specific Principles
 

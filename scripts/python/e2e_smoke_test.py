@@ -3,11 +3,15 @@ from __future__ import annotations
 from pathlib import Path
 import subprocess
 import sys
+import os
 
 
 def run(cmd: list[str]) -> None:
     print(f"$ {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
+    # Set UTF-8 encoding for subprocess to handle Unicode in banner
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+    subprocess.run(cmd, check=True, env=env)
 
 
 def main() -> None:

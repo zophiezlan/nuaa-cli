@@ -34,27 +34,50 @@ It's based on "Spec-Driven Development" from software engineering, adapted for n
 
 - Open `nuaa-kit/README.md`
 - Skim the overview and features
-- Understand the three core commands:
-  - `/nuaa.design` - Design programs
-  - `/nuaa.propose` - Write proposals
-  - `/nuaa.measure` - Measure impact
+- Understand the core commands:
+  - **Program Design**: `/nuaa.design` - Design programs with logic models
+  - **Funding**: `/nuaa.propose` - Write funding proposals
+  - **Evaluation**: `/nuaa.measure` - Create impact frameworks
+  - **Planning**: `/nuaa.engage`, `/nuaa.partner`, `/nuaa.risk` - Stakeholder engagement, partnerships, risk management
+  - **Events & Training**: `/nuaa.event`, `/nuaa.train` - Plan events and design training curricula
 
 **2. Explore the Templates**
 
-Look at the templates in `nuaa-kit/templates/`:
+The NUAA Kit includes **19 comprehensive templates** in `nuaa-kit/templates/`:
 
+**Core templates**:
 - `program-design.md` - Program design structure
 - `proposal.md` - Funding proposal format
 - `logic-model.md` - Logic model template
 - `impact-framework.md` - Evaluation framework
 
+**Planning & management templates**:
+- `stakeholder-engagement-plan.md` - Stakeholder mapping and engagement
+- `partnership-agreement.md` - MOUs and formal agreements
+- `risk-register.md` - Risk identification and mitigation
+- `communication-plan.md` - Communications strategy
+- `event-plan.md` - Event and workshop planning
+- `training-curriculum.md` - Training design
+
+See `templates/README.md` for the complete catalog of all 19 templates.
+
 **3. Review the Commands**
 
 Look at the commands in `nuaa-kit/commands/`:
 
+**Core commands**:
 - `design.md` - How `/nuaa.design` works
 - `propose.md` - How `/nuaa.propose` works
 - `measure.md` - How `/nuaa.measure` works
+
+**Planning commands**:
+- `engage.md` - How `/nuaa.engage` creates stakeholder plans
+- `partner.md` - How `/nuaa.partner` generates MOUs
+- `risk.md` - How `/nuaa.risk` builds risk registers
+
+**Event & training commands**:
+- `event.md` - How `/nuaa.event` plans events
+- `train.md` - How `/nuaa.train` designs curricula
 
 **Action**: By end of Day 1, you should understand what the NUAA Kit does and how it can help your work.
 
@@ -266,6 +289,52 @@ Prepare for evaluation:
 **Time**: Varies (depends on data collection and analysis)
 
 **Output**: Evaluation report for funders, community, and stakeholders
+
+---
+
+### Use Case 5: You're Planning a Major Event or Training
+
+**Path**: `/nuaa.event` or `/nuaa.train` → review checklist → implement → evaluate
+
+**Time**: 2-3 hours (planning document)
+
+**Output**: Complete event plan or training curriculum with logistics, accessibility, and participant support
+
+**Example**: Planning a Peer Forum launch event with 75 attendees:
+
+```
+/nuaa.event "Peer Forum Launch 2025" "Forum" "75 people"
+```
+
+This generates a comprehensive plan covering:
+- Event program and schedule
+- Logistics (venue, catering, equipment)
+- Accessibility and participant support
+- Risk management
+- Budget and resources
+
+---
+
+### Use Case 6: You're Building Partnerships or Managing Risks
+
+**Path**: `/nuaa.engage`, `/nuaa.partner`, or `/nuaa.risk` → customize → implement → review
+
+**Time**: 2-4 hours (planning document)
+
+**Output**: Stakeholder engagement plan, partnership agreement (MOU), or risk register
+
+**Example**: Creating a partnership with a Local Health District:
+
+```
+/nuaa.partner "Harm Reduction Outreach" "Western Sydney LHD" "2 years"
+```
+
+This generates an MOU template covering:
+- Roles and responsibilities
+- Governance and decision-making
+- Information sharing protocols
+- Financial arrangements
+- Dispute resolution
 
 ---
 

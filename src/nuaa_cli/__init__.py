@@ -1203,11 +1203,24 @@ def init(
 
     steps_lines.append(f"{step_num}. Start using slash commands with your AI agent:")
 
-    steps_lines.append("   2.1 [cyan]/nuaa.design[/] - Create program designs with logic models")
-    steps_lines.append("   2.2 [cyan]/nuaa.propose[/] - Generate funding proposals")
-    steps_lines.append("   2.3 [cyan]/nuaa.measure[/] - Define impact measurement frameworks")
-    steps_lines.append("   2.4 [cyan]/nuaa.document[/] - Document existing programs")
-    steps_lines.append("   2.5 [cyan]/nuaa.refine[/] - Refine and improve outputs")
+    steps_lines.append("   [bold]Core Program Commands:[/bold]")
+    steps_lines.append("   • [cyan]/nuaa.design[/] - Create program designs with logic models")
+    steps_lines.append("   • [cyan]/nuaa.propose[/] - Generate funding proposals")
+    steps_lines.append("   • [cyan]/nuaa.measure[/] - Define impact measurement frameworks")
+    steps_lines.append("   • [cyan]/nuaa.document[/] - Document existing programs")
+    steps_lines.append("")
+    steps_lines.append("   [bold]Planning & Management:[/bold]")
+    steps_lines.append("   • [cyan]/nuaa.engage[/] - Create stakeholder engagement plans")
+    steps_lines.append("   • [cyan]/nuaa.partner[/] - Generate partnership agreements (MOUs)")
+    steps_lines.append("   • [cyan]/nuaa.risk[/] - Build comprehensive risk registers")
+    steps_lines.append("")
+    steps_lines.append("   [bold]Events & Training:[/bold]")
+    steps_lines.append("   • [cyan]/nuaa.event[/] - Plan workshops, forums, and events")
+    steps_lines.append("   • [cyan]/nuaa.train[/] - Design training curricula for peer workers")
+    steps_lines.append("")
+    steps_lines.append("   [bold]Refinement:[/bold]")
+    steps_lines.append("   • [cyan]/nuaa.refine[/] - Refine and improve outputs")
+    steps_lines.append("   • [cyan]/nuaa.report[/] - Generate reports and presentations")
 
     steps_panel = Panel(
         "\n".join(steps_lines), title="Next Steps", border_style="cyan", padding=(1, 2)
@@ -1216,15 +1229,20 @@ def init(
     console.print(steps_panel)
 
     enhancement_lines = [
-        "Additional NUAA commands available [bright_black](comprehensive program management)[/bright_black]",
+        "You now have access to [bold]19 comprehensive templates[/bold] covering:",
         "",
-        f"○ [cyan]/nuaa.report[/] [bright_black](optional)[/bright_black] - Generate reports and presentations from program data",
-        f"○ [cyan]/nuaa.refine[/] [bright_black](optional)[/bright_black] - Improve and iterate on existing documents",
+        "✓ Program Design (design, logic models, impact frameworks)",
+        "✓ Funding & Proposals (proposals, budgets)",
+        "✓ Stakeholder Management (engagement plans, partnerships, community strategy)",
+        "✓ Planning & Operations (risk registers, communication plans, monitoring)",
+        "✓ Events & Training (event planning, training curricula)",
+        "✓ Ethics & HR (ethics applications, job descriptions, volunteer programs)",
         "",
+        "Run [cyan]nuaa --help[/cyan] to see all available commands.",
     ]
     enhancements_panel = Panel(
         "\n".join(enhancement_lines),
-        title="Enhancement Commands",
+        title="Template Suite Available",
         border_style="cyan",
         padding=(1, 2),
     )
@@ -1360,6 +1378,46 @@ try:
     from .commands.refine import register as _register_refine
 
     _register_refine(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
+try:
+    from .commands.engage import register as _register_engage
+
+    _register_engage(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
+try:
+    from .commands.partner import register as _register_partner
+
+    _register_partner(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
+try:
+    from .commands.train import register as _register_train
+
+    _register_train(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
+try:
+    from .commands.event import register as _register_event
+
+    _register_event(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
+try:
+    from .commands.risk import register as _register_risk
+
+    _register_risk(app, show_banner, console)
 except Exception:
     # Safe fallback: ignore registration failure; command suite still usable
     pass

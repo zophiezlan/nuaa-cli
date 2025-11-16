@@ -159,9 +159,6 @@ build_variant() {
   #   * TOML (gemini, qwen): {{args}}
   # This keeps formats readable without extra abstraction.
 
-      generate_commands q md "$ARGUMENTS" "$base_dir/.amazonq/prompts" "$script" ;;
-  esac
-
   # Dynamically handle agent properties from JSON
   local agent_format
   agent_format=$(jq -r --arg agent "$agent" '.[$agent].format' "$AGENTS_JSON_PATH")

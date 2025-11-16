@@ -20,15 +20,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def partner(
-        program_name: str = typer.Argument(
-            ..., help="Program or partnership name"
-        ),
-        partner_org: str = typer.Argument(
-            ..., help="Partner organization name"
-        ),
-        duration: str = typer.Argument(
-            ..., help="Agreement duration (e.g., '2 years')"
-        ),
+        program_name: str = typer.Argument(..., help="Program or partnership name"),
+        partner_org: str = typer.Argument(..., help="Partner organization name"),
+        duration: str = typer.Argument(..., help="Agreement duration (e.g., '2 years')"),
         feature: Optional[str] = typer.Option(
             None, help="Override feature slug (e.g., '001-custom-slug')"
         ),
@@ -89,7 +83,5 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                 )
             )
         except Exception as e:
-            console.print(
-                f"[red]Failed to create partnership-agreement.md:[/red] {e}"
-            )
+            console.print(f"[red]Failed to create partnership-agreement.md:[/red] {e}")
             raise typer.Exit(1)

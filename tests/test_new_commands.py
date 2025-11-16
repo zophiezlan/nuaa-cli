@@ -1,7 +1,6 @@
 """Integration tests for new planning and management commands."""
 
 import os
-from pathlib import Path
 from typer.testing import CliRunner
 
 from nuaa_cli import app
@@ -27,7 +26,10 @@ class TestEngageCommand:
             assert result.exit_code == 0
 
             # Should mention stakeholder engagement plan
-            assert "stakeholder-engagement-plan" in result.output.lower() or "engagement plan" in result.output.lower()
+            assert (
+                "stakeholder-engagement-plan" in result.output.lower()
+                or "engagement plan" in result.output.lower()
+            )
 
             # Check if file was created
             nuaa_dir = tmp_path / "nuaa"

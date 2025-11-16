@@ -44,6 +44,9 @@ On [GitHub Codespaces](https://github.com/features/codespaces) it's even simpler
 1. Push to your fork and submit a pull request
 1. Wait for your pull request to be reviewed and merged.
 
+> [!TIP]
+> **Auto-fix workflow**: When you open a PR, our automated workflow will automatically fix linting and formatting issues for you! The bot will commit any fixes directly to your PR branch. You can also run `make fix` locally before pushing to catch issues early.
+
 Here are a few things you can do that will increase the likelihood of your pull request being accepted:
 
 - Follow the project's coding conventions.

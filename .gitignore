@@ -46,3 +46,19 @@ sdd-*/
 
 # Backup files
 *-backup.md
+
+# Test coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+.tox/
+
+# Security scanning
+.bandit
+
+# Logs
+*.log
+nuaa-cli.log

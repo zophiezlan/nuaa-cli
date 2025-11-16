@@ -1,10 +1,51 @@
+"""
+Scaffolding utilities for NUAA CLI.
+
+This module provides core scaffolding functionality for creating
+program directories, loading templates, and managing NUAA project structure.
+
+Functions:
+    _slugify: Convert text to filesystem-friendly slug
+    _find_templates_root: Locate templates directory
+    _ensure_nuaa_root: Ensure nuaa directory exists
+    _next_feature_dir: Generate next feature directory
+    _find_feature_dir_by_program: Find existing feature directory
+    _load_template: Load template file
+    _apply_replacements: Apply template variable replacements
+    _prepend_metadata: Add YAML metadata to documents
+    _write_markdown: Write markdown file
+    _stamp: Get current timestamp
+    get_or_create_feature_dir: Get or create feature directory
+    write_markdown_if_needed: Conditionally write markdown file
+"""
+
 import re
 from datetime import datetime
 from pathlib import Path
 
 
 def _slugify(text: str) -> str:
-    """Convert text to a filesystem-friendly slug."""
+    """
+    Convert text to a filesystem-friendly slug.
+
+    Transforms text by:
+    1. Converting to lowercase
+    2. Removing non-alphanumeric characters (except spaces and hyphens)
+    3. Replacing spaces/underscores with hyphens
+    4. Removing leading/trailing hyphens
+
+    Args:
+        text: Input text to slugify
+
+    Returns:
+        Slugified text safe for filesystem use
+
+    Example:
+        >>> _slugify("My Program Name!")
+        'my-program-name'
+        >>> _slugify("Test_Program  123")
+        'test-program-123'
+    """
     text = text.strip().lower()
     text = re.sub(r"[^a-z0-9\s-]", "", text)
     text = re.sub(r"[\s_-]+", "-", text)
@@ -12,7 +53,26 @@ def _slugify(text: str) -> str:
 
 
 def _find_templates_root(start: Path | None = None) -> Path:
-    """Find templates by walking up from start (or CWD)."""
+    """
+    Find templates directory by walking up from starting path.
+
+    Searches for templates in the following order:
+    1. .nuaa/templates or nuaa-kit/templates in current directory and parents
+    2. .nuaa/templates or nuaa-kit/templates relative to package installation
+
+    Args:
+        start: Starting path for search (defaults to current working directory)
+
+    Returns:
+        Path to templates directory
+
+    Raises:
+        FileNotFoundError: If templates directory cannot be located
+
+    Example:
+        >>> templates = _find_templates_root()
+        >>> assert templates.is_dir()
+    """
     search_origin = start or Path.cwd()
 
     candidates: list[Path] = []
@@ -121,7 +181,25 @@ def _stamp() -> str:
 
 
 def get_or_create_feature_dir(program_name: str, root: Path | None = None) -> Path:
-    """Return existing feature dir for program or create next one."""
+    """
+    Get existing feature directory or create a new one.
+
+    This function first searches for an existing feature directory matching
+    the program name. If found, returns it. Otherwise, creates a new
+    numbered feature directory.
+
+    Args:
+        program_name: Name of the program to find or create
+        root: Optional root path (defaults to current working directory)
+
+    Returns:
+        Path to feature directory (existing or newly created)
+
+    Example:
+        >>> feature_dir = get_or_create_feature_dir("Peer Support Program")
+        >>> assert feature_dir.exists()
+        >>> assert feature_dir.name.endswith("peer-support-program")
+    """
     found = _find_feature_dir_by_program(program_name, root=root)
     if found:
         return found

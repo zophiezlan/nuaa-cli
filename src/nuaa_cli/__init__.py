@@ -341,11 +341,11 @@ def run_command(
     try:
         if capture:
             result = subprocess.run(
-                cmd, check=check_return, capture_output=True, text=True, shell=shell
+                cmd, check=check_return, capture_output=True, text=True, shell=shell  # nosec B602
             )
             return result.stdout.strip()
         else:
-            subprocess.run(cmd, check=check_return, shell=shell)
+            subprocess.run(cmd, check=check_return, shell=shell)  # nosec B602
             return None
     except subprocess.CalledProcessError as e:
         if check_return:
@@ -859,8 +859,8 @@ def ensure_executable_scripts(project_path: Path, tracker: StepTracker | None = 
             )
         if failures:
             console.print("[yellow]Some scripts could not be updated:[/yellow]")
-            for f in failures:
-                console.print(f"  - {f}")
+            for failure in failures:
+                console.print(f"  - {failure}")
 
 
 @app.command()

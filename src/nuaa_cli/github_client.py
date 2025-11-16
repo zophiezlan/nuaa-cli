@@ -8,7 +8,7 @@ including release downloads, rate limit handling, and authentication.
 import os
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 import httpx
 from rich.console import Console
@@ -126,9 +126,7 @@ class GitHubClient:
         lines.append("[bold]Troubleshooting Tips:[/bold]")
         lines.append("  • Consider using a GitHub token to increase rate limits")
         lines.append("  • Set GH_TOKEN or GITHUB_TOKEN environment variable")
-        lines.append(
-            "  • Authenticated requests have 5,000/hour limit vs 60/hour unauthenticated"
-        )
+        lines.append("  • Authenticated requests have 5,000/hour limit vs 60/hour unauthenticated")
 
         return "\n".join(lines)
 
@@ -158,12 +156,16 @@ class GitHubClient:
                 log_api_call(url, "GET", response.status_code)
 
                 if response.status_code == 403:
-                    error_msg = self._format_rate_limit_error(response.status_code, response.headers, url)
+                    error_msg = self._format_rate_limit_error(
+                        response.status_code, response.headers, url
+                    )
                     logger.error(f"Rate limit exceeded: {error_msg}")
                     raise GitHubRateLimitError(error_msg)
 
                 if response.status_code != 200:
-                    error_msg = self._format_rate_limit_error(response.status_code, response.headers, url)
+                    error_msg = self._format_rate_limit_error(
+                        response.status_code, response.headers, url
+                    )
                     logger.error(f"API error: {error_msg}")
                     raise RuntimeError(error_msg)
 
@@ -236,9 +238,7 @@ class GitHubClient:
                     destination.unlink()
                 raise RuntimeError(f"Failed to download asset: {e}")
 
-    def find_matching_asset(
-        self, release_data: dict, pattern: str
-    ) -> Optional[dict]:
+    def find_matching_asset(self, release_data: dict, pattern: str) -> Optional[dict]:
         """
         Find a release asset matching a pattern.
 
@@ -251,9 +251,7 @@ class GitHubClient:
         """
         assets = release_data.get("assets", [])
         matching = [
-            asset
-            for asset in assets
-            if pattern in asset["name"] and asset["name"].endswith(".zip")
+            asset for asset in assets if pattern in asset["name"] and asset["name"].endswith(".zip")
         ]
 
         if matching:

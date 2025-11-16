@@ -237,13 +237,53 @@ This repo bakes in a few guardrails to keep things tidy and in sync:
 - Single source of truth for supported agents in `src/nuaa_cli/agents.json`
 - Supported Agents tables in this README and `AGENTS.md` are auto-generated from the manifest
 - Parity check ensures bash and PowerShell scripts cover all agents listed in the manifest
-- CI runs lint, type checks, unit tests, and an end-to-end smoke test across Windows and Ubuntu
+- CI runs lint, type checks, unit tests, coverage, security scans, and E2E tests across Windows and Ubuntu
+- **Auto-formatters and linters** fix issues automatically before you commit
 
-Run these locally when making changes:
+### 🔧 Quick Fix Commands
+
+Before committing, auto-fix all code style issues:
+
+```bash
+# Using Make (recommended)
+make fix          # Auto-format and fix all issues
+make check        # Run all checks (lint, test, security)
+make ci           # Run full CI suite locally
+
+# Or use the scripts directly
+./scripts/bash/fix.sh              # Linux/Mac
+.\scripts\powershell\fix.ps1       # Windows
+
+# Individual tools
+make format       # Just formatting
+make test-cov     # Tests with coverage
+make security     # Security scan
+```
+
+### 📋 Available Make Commands
+
+Run `make help` to see all available commands:
+
+- `make install-dev` - Install with development dependencies
+- `make format` - Auto-format code with black and ruff
+- `make lint` - Check code style
+- `make test` - Run tests
+- `make test-cov` - Run tests with coverage report
+- `make security` - Run security scan
+- `make check` - Run all checks
+- `make fix` - Auto-fix all issues
+- `make ci` - Run full CI suite locally
+- `make clean` - Clean generated files
+
+### 🔍 Manual Commands
+
+If you prefer running commands individually:
 
 - Update docs from manifest: `python scripts/python/update_agents_docs.py`
 - Verify script parity: `python scripts/python/verify_agent_script_parity.py`
-- Run tests: `pytest -q`
+- Run tests: `pytest`
+- Format code: `black . && ruff check --fix .`
+- Security scan: `bandit -r src/nuaa_cli`
 
 ## 🌟 NUAA-Specific Principles
 

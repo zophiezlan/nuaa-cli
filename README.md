@@ -24,6 +24,7 @@
 ## Table of Contents
 
 - [🤔 What is NUAA Project Kit?](#-what-is-nuaa-project-kit)
+- [♿ Accessibility & Inclusion](#-accessibility--inclusion)
 - [⚡ Get Started](#-get-started)
 - [🎯 Core Features](#-core-features)
 - [📋 Quick Start Guide](#-quick-start-guide)
@@ -43,6 +44,126 @@ NUAA Project Kit is a specialized adaptation of Spec-Driven Development methodol
 - **Faster Proposal Writing**: Automatically create funding proposals with budget tables, methodologies, and timelines
 - **Better Impact Measurement**: Define clear evaluation frameworks with indicators and data collection templates
 - **Built-in NUAA Principles**: Every output incorporates peer-led approaches, harm reduction philosophy, and ethical practices
+
+## ♿ Accessibility & Inclusion
+
+**NUAA CLI is designed for everyone.** We've built comprehensive accessibility features to ensure wide adoption across our diverse workplace.
+
+### 🌍 Multi-Language Support
+
+Available in 6 languages to serve our diverse communities:
+
+- **English (Australia)** - en_AU
+- **Vietnamese** - vi_VN
+- **Thai** - th_TH
+- **Arabic** - ar (with RTL support)
+- **Simplified Chinese** - zh_CN
+- **Spanish** - es
+
+Set your language:
+```bash
+export LANGUAGE=vi_VN  # Vietnamese
+nuaa --help
+```
+
+[Learn more about translations](TRANSLATION_GUIDE.md) | [Contribute translations](TRANSLATION_GUIDE.md#how-to-contribute-translations)
+
+### 👁️ Visual Accessibility Modes
+
+Multiple display modes for different vision needs:
+
+```bash
+# High contrast mode (enhanced visibility)
+export NUAA_HIGH_CONTRAST=1
+
+# No color mode (for color blindness)
+export NO_COLOR=1
+
+# Dyslexia-friendly mode (extra spacing, shorter lines)
+export NUAA_DYSLEXIA_FRIENDLY=1
+```
+
+### 🎤 Screen Reader Support
+
+Fully optimized for NVDA, JAWS, VoiceOver, and Orca:
+
+```bash
+export NUAA_SCREEN_READER=1
+nuaa --help
+```
+
+Features:
+- No visual-only indicators
+- Clear status announcements
+- Structured navigation hints
+- No spinners or animations in screen reader mode
+
+[Screen Reader Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md#screen-reader-compatibility)
+
+### ⌨️ Full Keyboard Accessibility
+
+Every feature works with keyboard only - no mouse required.
+
+**Essential shortcuts:**
+- `↑↓` or `j/k` - Navigate menus
+- `Enter` - Select
+- `Esc` or `Ctrl+C` - Cancel
+- `?` - Context help
+
+[Complete Keyboard Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md)
+
+### 🧠 Cognitive Accessibility
+
+Simple mode for clearer, step-by-step guidance:
+
+```bash
+export NUAA_SIMPLE_MODE=1
+nuaa onboard  # Interactive onboarding wizard
+```
+
+Features:
+- One question at a time
+- Clear progress indicators (Step X of Y)
+- Plain language (Grade 8-10 reading level)
+- No time pressure on interactions
+
+### 🌏 Cultural Safety
+
+Built-in cultural safety features:
+- Person-first, non-stigmatizing language
+- Harm reduction philosophy
+- Gender-inclusive language (they/them pronouns)
+- Aboriginal and Torres Strait Islander cultural protocols
+- LGBTIQ+ inclusion
+- Trauma-informed design
+
+[Cultural Safety Framework](CULTURAL_SAFETY_FRAMEWORK.md)
+
+### 🎯 Automated Accessibility Testing
+
+We automatically check for:
+- Readability (plain language standards)
+- Stigmatizing language detection
+- Alt text for images
+- Heading hierarchy
+- Color-only meaning
+
+Run tests yourself:
+```bash
+./scripts/accessibility/run_accessibility_tests.sh
+```
+
+### 📚 Accessibility Resources
+
+- [Complete Accessibility Plan](ACCESSIBILITY_ENHANCEMENT_PLAN.md)
+- [Keyboard Shortcuts Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md)
+- [Cultural Safety Framework](CULTURAL_SAFETY_FRAMEWORK.md)
+- [Translation Guide](TRANSLATION_GUIDE.md)
+- [Accessibility Guidelines](nuaa-kit/accessibility-guidelines.md)
+
+**Need accessibility support?** Open an issue with the `accessibility` label.
+
+---
 
 ## ⚡ Get Started
 

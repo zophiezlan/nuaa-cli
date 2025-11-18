@@ -4,14 +4,12 @@ Interactive onboarding wizard for NUAA CLI.
 Provides a beginner-friendly setup experience with accessibility options.
 """
 
-from typing import Optional
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
-from pathlib import Path
 
-from ..i18n import _, get_available_languages, set_language
+from ..i18n import get_available_languages, set_language
 from ..accessibility import get_config, OutputMode, set_output_mode
 
 app = typer.Typer()
@@ -74,9 +72,7 @@ def setup_accessibility() -> None:
     """Set up accessibility preferences."""
     console.print("[bold]Step 1: Accessibility Preferences[/bold]\n")
 
-    console.print(
-        "NUAA CLI works for everyone! Let's customize the interface for your needs.\n"
-    )
+    console.print("NUAA CLI works for everyone! Let's customize the interface for your needs.\n")
 
     # Screen reader
     use_screen_reader = Confirm.ask(
@@ -109,7 +105,7 @@ def setup_accessibility() -> None:
         }
 
         set_output_mode(mode_map[visual_choice])
-        console.print(f"[green]✓ Visual mode set[/green]\n")
+        console.print("[green]✓ Visual mode set[/green]\n")
 
     # Simple mode (cognitive accessibility)
     use_simple_mode = Confirm.ask(
@@ -140,7 +136,9 @@ def setup_language() -> None:
     console.print()
 
     choice = Prompt.ask(
-        "Choose your preferred language (number)", choices=[str(i) for i in range(1, len(lang_list) + 1)], default="1"
+        "Choose your preferred language (number)",
+        choices=[str(i) for i in range(1, len(lang_list) + 1)],
+        default="1",
     )
 
     selected_lang_code = lang_list[int(choice) - 1][0]
@@ -265,6 +263,4 @@ def show_summary(skill_level: str, learning_style: str, ai_assistant: str) -> No
     console.print("- Examples: [cyan]nuaa-kit/examples/[/cyan]")
     console.print("- Support: [cyan]https://github.com/zophiezlan/nuaa-cli/issues[/cyan]")
 
-    console.print(
-        "\n[dim]Tip: You can run this wizard again anytime with: nuaa onboard[/dim]\n"
-    )
+    console.print("\n[dim]Tip: You can run this wizard again anytime with: nuaa onboard[/dim]\n")

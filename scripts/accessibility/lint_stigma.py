@@ -89,7 +89,7 @@ class StigmaLinter:
                     self.issues.append(
                         (
                             str(file_path),
-                            f"Stigmatizing language detected",
+                            "Stigmatizing language detected",
                             line_num,
                             f"Consider using: {suggestion}",
                         )
@@ -157,9 +157,7 @@ def main():
         description="Check for stigmatizing and non-inclusive language"
     )
     parser.add_argument("files", nargs="+", help="Files to check")
-    parser.add_argument(
-        "--strict", action="store_true", help="Fail on any issues (exit code 1)"
-    )
+    parser.add_argument("--strict", action="store_true", help="Fail on any issues (exit code 1)")
 
     args = parser.parse_args()
 

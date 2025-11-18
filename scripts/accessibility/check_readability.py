@@ -195,9 +195,7 @@ def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Check readability of documentation")
     parser.add_argument("files", nargs="+", help="Files to check")
-    parser.add_argument(
-        "--strict", action="store_true", help="Fail on any issues (exit code 1)"
-    )
+    parser.add_argument("--strict", action="store_true", help="Fail on any issues (exit code 1)")
 
     args = parser.parse_args()
 

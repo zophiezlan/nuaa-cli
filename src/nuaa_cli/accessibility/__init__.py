@@ -84,9 +84,7 @@ def set_output_mode(mode: OutputMode) -> None:
     _config.output_mode = mode
 
 
-def format_for_accessibility(
-    text: str, level: str = "info", include_symbols: bool = True
-) -> str:
+def format_for_accessibility(text: str, level: str = "info", include_symbols: bool = True) -> str:
     """
     Format text for the current accessibility mode.
 

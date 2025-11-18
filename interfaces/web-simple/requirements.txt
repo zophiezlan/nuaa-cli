@@ -1,0 +1,45 @@
+# NUAA Web Tools - Python Dependencies
+# Version: 2.0.0
+
+# Core Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Security & CORS
+Flask-CORS==4.0.0
+cryptography==41.0.7
+
+# Optional: Advanced Features
+# Uncomment these for full functionality
+
+# Markdown processing
+markdown==3.5.1
+
+# Data processing and exports
+pandas==2.1.4
+openpyxl==3.1.2
+
+# PDF generation
+# reportlab==4.0.7
+# WeasyPrint==60.1
+
+# Word document generation
+# python-docx==1.1.0
+
+# Image processing
+# Pillow==10.1.0
+
+# Database (for future use)
+# SQLAlchemy==2.0.23
+# Flask-SQLAlchemy==3.1.1
+
+# Email integration (for future use)
+# Flask-Mail==0.9.1
+
+# Caching (for production)
+# Flask-Caching==2.1.0
+# redis==5.0.1
+
+# Production server
+# gunicorn==21.2.0
+# gevent==23.9.1

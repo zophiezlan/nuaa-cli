@@ -15,10 +15,8 @@ Features:
 - Works offline (once loaded)
 """
 
-from flask import Flask, render_template, request, jsonify, send_file, session
+from flask import Flask, render_template, request, jsonify
 from pathlib import Path
-import subprocess
-import json
 import os
 from datetime import datetime
 
@@ -34,12 +32,8 @@ TEAMS = {
     "outreach": {
         "name": "Outreach Team",
         "icon": "🚶",
-        "templates": [
-            "session-report-simple.md",
-            "safety-incident.md",
-            "engagement-statistics.md"
-        ],
-        "description": "Quick field reports and session documentation"
+        "templates": ["session-report-simple.md", "safety-incident.md", "engagement-statistics.md"],
+        "description": "Quick field reports and session documentation",
     },
     "festival-dancewize": {
         "name": "Festival/DanceWize",
@@ -47,37 +41,27 @@ TEAMS = {
         "templates": [
             "festival-session-report.md",
             "drug-checking-report.md",
-            "volunteer-roster.md"
+            "volunteer-roster.md",
         ],
-        "description": "Event planning and session reports"
+        "description": "Event planning and session reports",
     },
     "peer-distributors": {
         "name": "Peer Distributors",
         "icon": "🤝",
-        "templates": [
-            "distribution-log-simple.md",
-            "resupply-request.md"
-        ],
-        "description": "Distribution tracking and resupply requests"
+        "templates": ["distribution-log-simple.md", "resupply-request.md"],
+        "description": "Distribution tracking and resupply requests",
     },
     "nsp-warehouse": {
         "name": "NSP Warehouse",
         "icon": "📦",
-        "templates": [
-            "distribution-shipment-simple.md",
-            "inventory-check.md",
-            "supplier-order.md"
-        ],
-        "description": "Inventory and distribution management"
+        "templates": ["distribution-shipment-simple.md", "inventory-check.md", "supplier-order.md"],
+        "description": "Inventory and distribution management",
     },
     "peerline": {
         "name": "Peerline",
         "icon": "📞",
-        "templates": [
-            "call-log-simple.md",
-            "resource-request.md"
-        ],
-        "description": "Call logging and peer support"
+        "templates": ["call-log-simple.md", "resource-request.md"],
+        "description": "Call logging and peer support",
     },
     "board-management": {
         "name": "Board/Management",
@@ -85,19 +69,15 @@ TEAMS = {
         "templates": [
             "funding-proposal-email-friendly.md",
             "strategic-plan.md",
-            "impact-report.md"
+            "impact-report.md",
         ],
-        "description": "Strategic planning and proposals"
+        "description": "Strategic planning and proposals",
     },
     "comms-advocacy": {
         "name": "Communications/Advocacy",
         "icon": "📢",
-        "templates": [
-            "campaign-strategy.md",
-            "media-release.md",
-            "stakeholder-briefing.md"
-        ],
-        "description": "Campaign planning and media"
+        "templates": ["campaign-strategy.md", "media-release.md", "stakeholder-briefing.md"],
+        "description": "Campaign planning and media",
     },
     "training": {
         "name": "Training Team",
@@ -105,57 +85,49 @@ TEAMS = {
         "templates": [
             "training-curriculum.md",
             "participant-materials.md",
-            "evaluation-framework.md"
+            "evaluation-framework.md",
         ],
-        "description": "Training and education materials"
+        "description": "Training and education materials",
     },
     "bbv-testing": {
         "name": "BBV Testing",
         "icon": "🏥",
-        "templates": [
-            "testing-session.md",
-            "client-education.md",
-            "referral-protocol.md"
-        ],
-        "description": "Testing protocols and education"
+        "templates": ["testing-session.md", "client-education.md", "referral-protocol.md"],
+        "description": "Testing protocols and education",
     },
     "workforce-dev": {
         "name": "Workforce Development",
         "icon": "💼",
-        "templates": [
-            "position-description.md",
-            "onboarding-checklist.md",
-            "career-pathway.md"
-        ],
-        "description": "HR and professional development"
-    }
+        "templates": ["position-description.md", "onboarding-checklist.md", "career-pathway.md"],
+        "description": "HR and professional development",
+    },
 }
 
 
-@app.route('/')
+@app.route("/")
 def index():
     """Home page with team selection"""
-    return render_template('index.html', teams=TEAMS)
+    return render_template("index.html", teams=TEAMS)
 
 
-@app.route('/team/<team_id>')
+@app.route("/team/<team_id>")
 def team_dashboard(team_id):
     """Team-specific dashboard"""
     if team_id not in TEAMS:
         return "Team not found", 404
 
     team = TEAMS[team_id]
-    return render_template('team_dashboard.html', team_id=team_id, team=team)
+    return render_template("team_dashboard.html", team_id=team_id, team=team)
 
 
-@app.route('/template/<team_id>/<template_name>')
+@app.route("/template/<team_id>/<template_name>")
 def show_template(team_id, template_name):
     """Display a template form"""
     if team_id not in TEAMS:
         return "Team not found", 404
 
     team = TEAMS[team_id]
-    if template_name not in team['templates']:
+    if template_name not in team["templates"]:
         return "Template not found", 404
 
     # Load the template
@@ -164,23 +136,25 @@ def show_template(team_id, template_name):
     if not template_path.exists():
         return f"Template file not found: {template_path}", 404
 
-    with open(template_path, 'r') as f:
+    with open(template_path, "r") as f:
         template_content = f.read()
 
-    return render_template('form.html',
-                         team_id=team_id,
-                         team=team,
-                         template_name=template_name,
-                         template_content=template_content)
+    return render_template(
+        "form.html",
+        team_id=team_id,
+        team=team,
+        template_name=template_name,
+        template_content=template_content,
+    )
 
 
-@app.route('/submit', methods=['POST'])
+@app.route("/submit", methods=["POST"])
 def submit_form():
     """Handle form submission"""
     data = request.json
-    team_id = data.get('team_id')
-    template_name = data.get('template_name')
-    form_data = data.get('form_data', {})
+    team_id = data.get("team_id")
+    template_name = data.get("template_name")
+    form_data = data.get("form_data", {})
 
     # Create output directory
     output_dir = NUAA_CLI_PATH / "outputs" / team_id / datetime.now().strftime("%Y-%m-%d")
@@ -192,7 +166,7 @@ def submit_form():
 
     # Load template and fill in data
     template_path = TEMPLATES_PATH / "team-specific" / team_id / template_name
-    with open(template_path, 'r') as f:
+    with open(template_path, "r") as f:
         content = f.read()
 
     # Simple replacement of placeholders with form data
@@ -201,25 +175,25 @@ def submit_form():
         content = content.replace(placeholder, value)
 
     # Save the filled template
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         f.write(content)
         f.write("\n\n---\n\n")
-        f.write(f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(
+            f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         f.write(f"**Team**: {TEAMS[team_id]['name']}\n")
 
-    return jsonify({
-        'success': True,
-        'file': str(output_file),
-        'message': 'Form submitted successfully!'
-    })
+    return jsonify(
+        {"success": True, "file": str(output_file), "message": "Form submitted successfully!"}
+    )
 
 
-@app.route('/quick-submit', methods=['POST'])
+@app.route("/quick-submit", methods=["POST"])
 def quick_submit():
     """Quick submission for field workers (minimal data)"""
     data = request.json
-    team_id = data.get('team_id')
-    quick_data = data.get('data', '')
+    team_id = data.get("team_id")
+    quick_data = data.get("data", "")
 
     # Create output directory
     output_dir = NUAA_CLI_PATH / "outputs" / team_id / datetime.now().strftime("%Y-%m-%d")
@@ -230,43 +204,39 @@ def quick_submit():
     output_file = output_dir / f"quick-report-{timestamp}.md"
 
     # Save quick report
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         f.write(f"# Quick Report - {TEAMS[team_id]['name']}\n\n")
         f.write(f"**Date**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         f.write(f"**Data**:\n{quick_data}\n\n")
         f.write("---\n\n")
         f.write("**Submitted via**: Web Quick Submit\n")
 
-    return jsonify({
-        'success': True,
-        'file': str(output_file),
-        'message': 'Quick report saved!'
-    })
+    return jsonify({"success": True, "file": str(output_file), "message": "Quick report saved!"})
 
 
-@app.route('/accessibility')
+@app.route("/accessibility")
 def accessibility_settings():
     """Accessibility settings page"""
-    return render_template('accessibility.html')
+    return render_template("accessibility.html")
 
 
-@app.route('/help/<team_id>')
+@app.route("/help/<team_id>")
 def help_page(team_id):
     """Team-specific help page"""
     if team_id not in TEAMS:
         return "Team not found", 404
 
     team = TEAMS[team_id]
-    return render_template('help.html', team_id=team_id, team=team)
+    return render_template("help.html", team_id=team_id, team=team)
 
 
-@app.route('/offline')
+@app.route("/offline")
 def offline_page():
     """Offline fallback page"""
-    return render_template('offline.html')
+    return render_template("offline.html")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Create output directory if it doesn't exist
     (NUAA_CLI_PATH / "outputs").mkdir(exist_ok=True)
 
@@ -287,4 +257,4 @@ if __name__ == '__main__':
     print("=" * 60)
     print()
 
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)

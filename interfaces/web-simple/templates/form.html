@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2c5aa0">
+    <title>{{ template_name.replace('.md', '').replace('-', ' ').title() }} - {{ team.name }}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="/team/{{ team_id }}" class="nav-back">
+                <span>← Back to Dashboard</span>
+            </a>
+            <div class="nav-title">
+                <span class="team-icon">{{ team.icon }}</span>
+                <span>{{ template_name.replace('.md', '').replace('-', ' ').title() }}</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon" onclick="toggleAutoSave()" id="autoSaveBtn" aria-label="Toggle auto-save">
+                    <span>💾</span>
+                    <span class="status-indicator" id="saveStatus"></span>
+                </button>
+                <button class="btn-icon" onclick="previewDocument()" aria-label="Preview">
+                    <span>👁️</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <!-- Sidebar Help -->
+        <aside class="form-sidebar">
+            <div class="help-panel">
+                <h3>📝 Filling Tips</h3>
+                <div class="tip-item">
+                    <strong>Auto-save is on</strong>
+                    <p>Your work is saved automatically every 30 seconds</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Use voice input</strong>
+                    <p>Click 🎤 next to any field to dictate</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Required fields marked with *</strong>
+                    <p>Fill these out to submit the form</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Keyboard shortcuts</strong>
+                    <p>
+                        • <kbd>Ctrl</kbd>+<kbd>S</kbd> - Save draft<br>
+                        • <kbd>Ctrl</kbd>+<kbd>Enter</kbd> - Submit<br>
+                        • <kbd>Ctrl</kbd>+<kbd>P</kbd> - Preview
+                    </p>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3>🔗 Quick Actions</h3>
+                <button class="action-btn" onclick="loadTemplate()">
+                    <span>📋</span>
+                    <span>Load From Template</span>
+                </button>
+                <button class="action-btn" onclick="loadDraft()">
+                    <span>📂</span>
+                    <span>Load Draft</span>
+                </button>
+                <button class="action-btn" onclick="clearForm()">
+                    <span>🗑️</span>
+                    <span>Clear Form</span>
+                </button>
+            </div>
+
+            <div class="help-panel">
+                <h3>ℹ️ Need Help?</h3>
+                <p>Contact support at <a href="mailto:tech@nuaa.org.au">tech@nuaa.org.au</a></p>
+                <button class="action-btn" onclick="window.open('/help/{{ team_id }}', '_blank')">
+                    <span>❓</span>
+                    <span>Open Help Guide</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Form -->
+        <main class="form-main">
+            <div class="form-header">
+                <h1>{{ template_name.replace('.md', '').replace('-', ' ').title() }}</h1>
+                <p class="form-description">Fill out the fields below to create your document</p>
+            </div>
+
+            <!-- Dynamic Form Fields -->
+            <form id="documentForm" class="document-form">
+                <div id="formFields"></div>
+
+                <!-- File Upload Section -->
+                <div class="form-section">
+                    <h3>📎 Attachments (Optional)</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">📁</span>
+                            <p>Drag and drop files here, or click to browse</p>
+                            <p class="upload-hint">Supports: Images, PDFs, Documents</p>
+                            <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx" hidden>
+                            <button type="button" class="btn secondary" onclick="document.getElementById('fileInput').click()">
+                                Choose Files
+                            </button>
+                        </div>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+
+                    <!-- Camera Capture -->
+                    <div class="camera-section">
+                        <button type="button" class="btn secondary" onclick="capturePhoto()">
+                            <span>📷</span>
+                            <span>Take Photo</span>
+                        </button>
+                        <button type="button" class="btn secondary" onclick="captureVideo()">
+                            <span>🎥</span>
+                            <span>Record Video</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Location Section -->
+                <div class="form-section">
+                    <h3>📍 Location (Optional)</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="includeLocation" onchange="toggleLocation()">
+                        <span>Include my current location</span>
+                    </label>
+                    <div id="locationInfo" class="location-info" style="display:none">
+                        <p id="locationText"></p>
+                        <div id="locationMap" class="location-map"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-actions">
+                    <button type="button" class="btn secondary" onclick="saveDraft()">
+                        <span>💾</span>
+                        <span>Save Draft</span>
+                    </button>
+                    <button type="button" class="btn secondary" onclick="previewDocument()">
+                        <span>👁️</span>
+                        <span>Preview</span>
+                    </button>
+                    <button type="submit" class="btn primary">
+                        <span>✓</span>
+                        <span>Submit Document</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal" style="display:none">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>📄 Document Preview</h2>
+                <div class="modal-actions">
+                    <button class="btn secondary" onclick="exportPreview('pdf')">Export PDF</button>
+                    <button class="btn secondary" onclick="exportPreview('docx')">Export Word</button>
+                    <button class="modal-close" onclick="closePreview()">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="previewContent" class="preview-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="modal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📷 Capture Photo</h2>
+                <button class="modal-close" onclick="closeCameraModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <canvas id="photoCanvas" style="display:none"></canvas>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeCameraModal()">Cancel</button>
+                <button class="btn primary" onclick="takePhoto()">
+                    <span>📸</span>
+                    <span>Capture</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header success">
+                <h2>✅ Success!</h2>
+            </div>
+            <div class="modal-body">
+                <div class="success-animation">
+                    <div class="checkmark">✓</div>
+                </div>
+                <p class="success-message">Your document has been submitted successfully!</p>
+                <p class="success-file" id="successFile"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="window.location.href='/team/{{ team_id }}'">
+                    Back to Dashboard
+                </button>
+                <button class="btn primary" onclick="createAnother()">
+                    Create Another
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/form.js"></script>
+    <script>
+        // Form data and configuration
+        const teamId = '{{ team_id }}';
+        const templateName = '{{ template_name }}';
+        const templateContent = `{{ template_content | safe }}`;
+
+        let autoSaveEnabled = true;
+        let autoSaveInterval;
+        let attachedFiles = [];
+        let currentLocation = null;
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            parseTemplateAndCreateForm();
+            loadExistingDraft();
+            setupAutoSave();
+            setupFileUpload();
+            setupFormValidation();
+        });
+
+        function parseTemplateAndCreateForm() {
+            const formFields = document.getElementById('formFields');
+            const lines = templateContent.split('\n');
+            let currentSection = null;
+            let fieldIndex = 0;
+
+            lines.forEach(line => {
+                // Section headers (markdown h2)
+                if (line.startsWith('## ')) {
+                    const section = document.createElement('div');
+                    section.className = 'form-section';
+                    section.innerHTML = `<h3>${line.substring(3)}</h3>`;
+                    formFields.appendChild(section);
+                    currentSection = section;
+                }
+                // Field placeholders like _{field_name}
+                else if (line.includes('_{')) {
+                    const matches = line.matchAll(/_{([^}]+)}/g);
+                    for (const match of matches) {
+                        const fieldName = match[1];
+                        const field = createFormField(fieldName, fieldIndex++);
+                        if (currentSection) {
+                            currentSection.appendChild(field);
+                        } else {
+                            formFields.appendChild(field);
+                        }
+                    }
+                }
+                // Labels and descriptions
+                else if (line.trim() && !line.startsWith('#') && !line.startsWith('-')) {
+                    if (currentSection && line.includes(':')) {
+                        const [label, description] = line.split(':');
+                        if (description && description.trim()) {
+                            const hint = document.createElement('p');
+                            hint.className = 'field-hint';
+                            hint.textContent = description.trim();
+                            currentSection.appendChild(hint);
+                        }
+                    }
+                }
+            });
+
+            // If no fields were found, create a generic text area
+            if (fieldIndex === 0) {
+                const section = document.createElement('div');
+                section.className = 'form-section';
+                section.innerHTML = `
+                    <h3>Document Content</h3>
+                    <div class="form-group">
+                        <label for="content">Content *</label>
+                        <textarea name="content" id="content" rows="10" required
+                                  placeholder="Enter your document content here..."></textarea>
+                    </div>
+                `;
+                formFields.appendChild(section);
+            }
+
+            updateProgress();
+        }
+
+        function createFormField(fieldName, index) {
+            const div = document.createElement('div');
+            div.className = 'form-group';
+
+            const label = fieldName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const isRequired = fieldName.includes('date') || fieldName.includes('name') || index < 3;
+
+            // Determine field type based on name
+            let inputHtml = '';
+            if (fieldName.includes('date')) {
+                inputHtml = `
+                    <input type="date" name="${fieldName}" id="${fieldName}"
+                           ${isRequired ? 'required' : ''}>
+                `;
+            } else if (fieldName.includes('email')) {
+                inputHtml = `
+                    <input type="email" name="${fieldName}" id="${fieldName}"
+                           placeholder="email@example.com" ${isRequired ? 'required' : ''}>
+                `;
+            } else if (fieldName.includes('phone') || fieldName.includes('mobile')) {
+                inputHtml = `
+                    <input type="tel" name="${fieldName}" id="${fieldName}"
+                           placeholder="+61 XXX XXX XXX" ${isRequired ? 'required' : ''}>
+                `;
+            } else if (fieldName.includes('description') || fieldName.includes('notes') ||
+                       fieldName.includes('details') || fieldName.includes('comments')) {
+                inputHtml = `
+                    <textarea name="${fieldName}" id="${fieldName}" rows="4"
+                              placeholder="Enter ${label.toLowerCase()}..."
+                              ${isRequired ? 'required' : ''}></textarea>
+                `;
+            } else if (fieldName.includes('number') || fieldName.includes('count') ||
+                       fieldName.includes('quantity')) {
+                inputHtml = `
+                    <input type="number" name="${fieldName}" id="${fieldName}"
+                           min="0" ${isRequired ? 'required' : ''}>
+                `;
+            } else {
+                inputHtml = `
+                    <input type="text" name="${fieldName}" id="${fieldName}"
+                           placeholder="Enter ${label.toLowerCase()}..."
+                           ${isRequired ? 'required' : ''}>
+                `;
+            }
+
+            div.innerHTML = `
+                <label for="${fieldName}">
+                    ${label}${isRequired ? ' *' : ''}
+                </label>
+                ${inputHtml}
+                <button type="button" class="voice-btn" onclick="startVoiceInput('${fieldName}')"
+                        aria-label="Use voice input">
+                    🎤
+                </button>
+            `;
+
+            return div;
+        }
+
+        // Form submission
+        document.getElementById('documentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!validateForm()) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            const formData = new FormData(this);
+            const data = {};
+
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Add location if included
+            if (currentLocation) {
+                data['_location'] = `${currentLocation.latitude}, ${currentLocation.longitude}`;
+            }
+
+            // Submit to backend
+            fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    team_id: teamId,
+                    template_name: templateName,
+                    form_data: data,
+                    attachments: attachedFiles.map(f => f.name)
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    document.getElementById('successFile').textContent = `Saved to: ${result.file}`;
+                    document.getElementById('successModal').style.display = 'flex';
+                    clearDraft();
+                }
+            })
+            .catch(error => {
+                alert('Error submitting form. Please try again.');
+                console.error(error);
+            });
+        });
+
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+
+            return isValid;
+        }
+
+        function updateProgress() {
+            const allFields = document.querySelectorAll('input, textarea, select');
+            const filledFields = Array.from(allFields).filter(field => field.value.trim() !== '');
+            const progress = (filledFields.length / allFields.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Auto-save functionality
+        function setupAutoSave() {
+            if (autoSaveEnabled) {
+                autoSaveInterval = setInterval(() => {
+                    saveDraft(true);
+                }, 30000); // Every 30 seconds
+            }
+
+            // Save on field change
+            document.querySelectorAll('input, textarea').forEach(field => {
+                field.addEventListener('input', () => {
+                    updateProgress();
+                    updateSaveStatus('unsaved');
+                });
+            });
+        }
+
+        function toggleAutoSave() {
+            autoSaveEnabled = !autoSaveEnabled;
+            if (autoSaveEnabled) {
+                setupAutoSave();
+                updateSaveStatus('enabled');
+            } else {
+                clearInterval(autoSaveInterval);
+                updateSaveStatus('disabled');
+            }
+        }
+
+        function updateSaveStatus(status) {
+            const indicator = document.getElementById('saveStatus');
+            const statusMap = {
+                'saved': { text: '✓', color: 'green' },
+                'unsaved': { text: '•', color: 'orange' },
+                'saving': { text: '↻', color: 'blue' },
+                'enabled': { text: '✓', color: 'green' },
+                'disabled': { text: '✗', color: 'red' }
+            };
+
+            if (statusMap[status]) {
+                indicator.textContent = statusMap[status].text;
+                indicator.style.color = statusMap[status].color;
+            }
+        }
+
+        function saveDraft(auto = false) {
+            updateSaveStatus('saving');
+
+            const formData = new FormData(document.getElementById('documentForm'));
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+
+            const draft = {
+                teamId,
+                templateName,
+                data,
+                timestamp: new Date().toISOString(),
+                attachments: attachedFiles
+            };
+
+            localStorage.setItem(`draft_${teamId}_${templateName}`, JSON.stringify(draft));
+
+            updateSaveStatus('saved');
+            if (!auto) {
+                showToast('💾 Draft saved successfully!');
+            }
+        }
+
+        function loadExistingDraft() {
+            const draft = localStorage.getItem(`draft_${teamId}_${templateName}`);
+            if (draft) {
+                const parsed = JSON.parse(draft);
+                if (confirm('A draft was found. Would you like to load it?')) {
+                    Object.entries(parsed.data).forEach(([key, value]) => {
+                        const field = document.getElementById(key);
+                        if (field) field.value = value;
+                    });
+                    attachedFiles = parsed.attachments || [];
+                    updateProgress();
+                }
+            }
+        }
+
+        function loadDraft() {
+            loadExistingDraft();
+        }
+
+        function clearDraft() {
+            localStorage.removeItem(`draft_${teamId}_${templateName}`);
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear the form? Unsaved changes will be lost.')) {
+                document.getElementById('documentForm').reset();
+                attachedFiles = [];
+                document.getElementById('fileList').innerHTML = '';
+                updateProgress();
+                clearDraft();
+            }
+        }
+
+        // Preview functionality
+        function previewDocument() {
+            const formData = new FormData(document.getElementById('documentForm'));
+            let preview = `<h1>${templateName.replace('.md', '').replace(/-/g, ' ').toUpperCase()}</h1>\n\n`;
+
+            formData.forEach((value, key) => {
+                const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                preview += `<p><strong>${label}:</strong> ${value || '<em>Not provided</em>'}</p>\n`;
+            });
+
+            if (attachedFiles.length > 0) {
+                preview += `<h3>Attachments</h3><ul>`;
+                attachedFiles.forEach(file => {
+                    preview += `<li>${file.name} (${(file.size / 1024).toFixed(2)} KB)</li>`;
+                });
+                preview += `</ul>`;
+            }
+
+            document.getElementById('previewContent').innerHTML = preview;
+            document.getElementById('previewModal').style.display = 'flex';
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        function exportPreview(format) {
+            alert(`Export to ${format.toUpperCase()} coming soon!`);
+        }
+
+        // File upload
+        function setupFileUpload() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+        }
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                attachedFiles.push(file);
+                addFileToList(file);
+            });
+        }
+
+        function addFileToList(file) {
+            const fileList = document.getElementById('fileList');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span class="file-icon">${getFileIcon(file.type)}</span>
+                <span class="file-name">${file.name}</span>
+                <span class="file-size">${(file.size / 1024).toFixed(2)} KB</span>
+                <button type="button" class="file-remove" onclick="removeFile('${file.name}')" aria-label="Remove file">✕</button>
+            `;
+            fileList.appendChild(fileItem);
+        }
+
+        function getFileIcon(type) {
+            if (type.startsWith('image/')) return '🖼️';
+            if (type === 'application/pdf') return '📄';
+            if (type.includes('word') || type.includes('document')) return '📝';
+            return '📎';
+        }
+
+        function removeFile(fileName) {
+            attachedFiles = attachedFiles.filter(f => f.name !== fileName);
+            const fileItems = document.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                if (item.querySelector('.file-name').textContent === fileName) {
+                    item.remove();
+                }
+            });
+        }
+
+        // Camera functionality
+        let cameraStream = null;
+
+        function capturePhoto() {
+            document.getElementById('cameraModal').style.display = 'flex';
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    cameraStream = stream;
+                    document.getElementById('cameraFeed').srcObject = stream;
+                })
+                .catch(err => {
+                    alert('Unable to access camera: ' + err.message);
+                    closeCameraModal();
+                });
+        }
+
+        function takePhoto() {
+            const video = document.getElementById('cameraFeed');
+            const canvas = document.getElementById('photoCanvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            canvas.toBlob(blob => {
+                const file = new File([blob], `photo-${Date.now()}.jpg`, { type: 'image/jpeg' });
+                attachedFiles.push(file);
+                addFileToList(file);
+                closeCameraModal();
+                showToast('📷 Photo captured successfully!');
+            }, 'image/jpeg', 0.9);
+        }
+
+        function closeCameraModal() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+            document.getElementById('cameraModal').style.display = 'none';
+        }
+
+        function captureVideo() {
+            alert('Video recording coming soon!');
+        }
+
+        // Location functionality
+        function toggleLocation() {
+            const checkbox = document.getElementById('includeLocation');
+            const info = document.getElementById('locationInfo');
+
+            if (checkbox.checked) {
+                info.style.display = 'block';
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            currentLocation = {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude
+                            };
+                            document.getElementById('locationText').textContent =
+                                `📍 Location: ${currentLocation.latitude.toFixed(6)}, ${currentLocation.longitude.toFixed(6)}`;
+                        },
+                        error => {
+                            alert('Unable to get location: ' + error.message);
+                            checkbox.checked = false;
+                            info.style.display = 'none';
+                        }
+                    );
+                } else {
+                    alert('Geolocation is not supported by your browser');
+                    checkbox.checked = false;
+                    info.style.display = 'none';
+                }
+            } else {
+                info.style.display = 'none';
+                currentLocation = null;
+            }
+        }
+
+        // Voice input (Web Speech API)
+        function startVoiceInput(fieldId) {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Voice input is not supported in your browser');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = transcript;
+                    updateProgress();
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+            };
+
+            recognition.start();
+            showToast('🎤 Listening... Speak now');
+        }
+
+        // Helper functions
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function createAnother() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('documentForm').reset();
+            attachedFiles = [];
+            document.getElementById('fileList').innerHTML = '';
+            currentLocation = null;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 's') {
+                    e.preventDefault();
+                    saveDraft();
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('documentForm').dispatchEvent(new Event('submit'));
+                } else if (e.key === 'p') {
+                    e.preventDefault();
+                    previewDocument();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

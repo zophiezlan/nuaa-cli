@@ -38,3 +38,28 @@ class TestCommandErrors:
         """Test report command requires arguments."""
         result = runner.invoke(app, ["report"])
         assert result.exit_code != 0
+
+    def test_engage_missing_args(self):
+        """Test engage command requires arguments."""
+        result = runner.invoke(app, ["engage"])
+        assert result.exit_code != 0
+
+    def test_partner_missing_args(self):
+        """Test partner command requires arguments."""
+        result = runner.invoke(app, ["partner"])
+        assert result.exit_code != 0
+
+    def test_train_missing_args(self):
+        """Test train command requires arguments."""
+        result = runner.invoke(app, ["train"])
+        assert result.exit_code != 0
+
+    def test_event_missing_args(self):
+        """Test event command requires arguments."""
+        result = runner.invoke(app, ["event"])
+        assert result.exit_code != 0
+
+    def test_risk_missing_args(self):
+        """Test risk command requires arguments."""
+        result = runner.invoke(app, ["risk"])
+        assert result.exit_code != 0

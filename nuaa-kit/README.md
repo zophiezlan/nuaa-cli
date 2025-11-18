@@ -27,7 +27,23 @@ NUAA Kit is a specialized adaptation of Spec-Driven Development methodology desi
 
 ## Core Features
 
-### 1. **Program Design & Logic Models**
+### 1. **Comprehensive Template Suite (19 Templates)**
+
+**Expanded from 7 to 19 templates!** Covers the complete program lifecycle:
+
+- **Core Program Design** (3): Program design, logic models, impact frameworks
+- **Funding & Proposals** (2): Grant proposals, budget calculators
+- **Documentation** (2): Existing program analysis, case studies
+- **Stakeholder & Partnerships** (3): Engagement plans, MOUs, community strategy
+- **Planning & Operations** (3): Risk registers, communication plans, monitoring
+- **Events & Training** (2): Event planning, training curricula
+- **Ethics & Research** (1): Ethics approval applications
+- **Human Resources** (2): Peer worker job descriptions, volunteer programs
+- **Supporting** (1): AI agent configuration
+
+See `templates/README.md` for the complete catalog.
+
+### 2. **Program Design & Logic Models**
 
 - `/nuaa.design` - Generate comprehensive program designs
 - Automatic logic model creation (Inputs → Activities → Outputs → Outcomes → Impact)
@@ -35,7 +51,7 @@ NUAA Kit is a specialized adaptation of Spec-Driven Development methodology desi
 - Risk assessment integration
 - Built-in NUAA principles and ethics
 
-### 2. **Proposal & Grant Writing**
+### 3. **Proposal & Grant Writing**
 
 - `/nuaa.propose` - Generate funding proposals
 - Automatic budget table generation
@@ -44,7 +60,7 @@ NUAA Kit is a specialized adaptation of Spec-Driven Development methodology desi
 - NUAA capability statement integration
 - Export to Word with professional formatting
 
-### 3. **Impact Measurement & Evaluation**
+### 4. **Impact Measurement & Evaluation**
 
 - `/nuaa.measure` - Define impact frameworks
 - Indicator development (process, output, outcome, impact)
@@ -121,18 +137,53 @@ nuaa-kit/
 ├── README.md                      # This file
 ├── QUICKSTART.md                  # Staff training guide
 ├── STATUS.md                      # Implemented vs planned artifact matrix
-├── templates/                     # Core templates
-│   ├── program-design.md
-│   ├── proposal.md
-│   ├── logic-model.md
-│   ├── impact-framework.md
-│   └── budget-calculator.md       # (planned stub)
+├── templates/                     # **19 comprehensive templates** (expanded!)
+│   ├── README.md                  # Template catalog and guide
+│   │
+│   ├── Core Program Design (3)
+│   ├── program-design.md          # Comprehensive program framework
+│   ├── logic-model.md             # Theory of change
+│   ├── impact-framework.md        # Evaluation framework
+│   │
+│   ├── Funding & Proposals (2)
+│   ├── proposal.md                # Grant applications
+│   ├── budget-calculator.md       # Budget planning
+│   │
+│   ├── Documentation (2)
+│   ├── existing-program-analysis.md  # Document existing programs
+│   ├── case-study-template.md     # Success stories
+│   │
+│   ├── Stakeholder & Partnerships (3)
+│   ├── stakeholder-engagement-plan.md  # Stakeholder management
+│   ├── partnership-agreement.md   # MOUs and partnerships
+│   ├── community-engagement-strategy.md  # Community participation
+│   │
+│   ├── Planning & Operations (3)
+│   ├── risk-register.md           # Risk management
+│   ├── communication-plan.md      # Communications strategy
+│   ├── monitoring-plan.md         # Ongoing monitoring
+│   │
+│   ├── Events & Training (2)
+│   ├── event-plan.md              # Event planning
+│   ├── training-curriculum.md     # Training design
+│   │
+│   ├── Ethics & Research (1)
+│   ├── ethics-approval.md         # Ethics applications
+│   │
+│   ├── Human Resources (2)
+│   ├── peer-worker-position-description.md  # Job descriptions
+│   ├── volunteer-program.md       # Volunteer management
+│   │
+│   └── Supporting (1)
+│       └── agent-file-template.md # AI agent configuration
+│
 ├── commands/                      # NUAA command docs
 │   ├── design.md                  # /nuaa.design
 │   ├── propose.md                 # /nuaa.propose
 │   ├── measure.md                 # /nuaa.measure
-│   ├── report.md                  # (planned) /nuaa.report
-│   └── refine.md                  # (planned) /nuaa.refine
+│   ├── document.md                # /nuaa.document
+│   ├── report.md                  # /nuaa.report
+│   └── refine.md                  # /nuaa.refine
 ├── microsoft365/                  # (planned) M365 integration scaffolding
 │   ├── README.md                  # Overview & roadmap
 │   ├── word-templates/            # (planned)

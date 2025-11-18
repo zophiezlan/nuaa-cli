@@ -24,6 +24,7 @@
 ## Table of Contents
 
 - [🤔 What is NUAA Project Kit?](#-what-is-nuaa-project-kit)
+- [♿ Accessibility & Inclusion](#-accessibility--inclusion)
 - [⚡ Get Started](#-get-started)
 - [🎯 Core Features](#-core-features)
 - [📋 Quick Start Guide](#-quick-start-guide)
@@ -43,6 +44,126 @@ NUAA Project Kit is a specialized adaptation of Spec-Driven Development methodol
 - **Faster Proposal Writing**: Automatically create funding proposals with budget tables, methodologies, and timelines
 - **Better Impact Measurement**: Define clear evaluation frameworks with indicators and data collection templates
 - **Built-in NUAA Principles**: Every output incorporates peer-led approaches, harm reduction philosophy, and ethical practices
+
+## ♿ Accessibility & Inclusion
+
+**NUAA CLI is designed for everyone.** We've built comprehensive accessibility features to ensure wide adoption across our diverse workplace.
+
+### 🌍 Multi-Language Support
+
+Available in 6 languages to serve our diverse communities:
+
+- **English (Australia)** - en_AU
+- **Vietnamese** - vi_VN
+- **Thai** - th_TH
+- **Arabic** - ar (with RTL support)
+- **Simplified Chinese** - zh_CN
+- **Spanish** - es
+
+Set your language:
+```bash
+export LANGUAGE=vi_VN  # Vietnamese
+nuaa --help
+```
+
+[Learn more about translations](TRANSLATION_GUIDE.md) | [Contribute translations](TRANSLATION_GUIDE.md#how-to-contribute-translations)
+
+### 👁️ Visual Accessibility Modes
+
+Multiple display modes for different vision needs:
+
+```bash
+# High contrast mode (enhanced visibility)
+export NUAA_HIGH_CONTRAST=1
+
+# No color mode (for color blindness)
+export NO_COLOR=1
+
+# Dyslexia-friendly mode (extra spacing, shorter lines)
+export NUAA_DYSLEXIA_FRIENDLY=1
+```
+
+### 🎤 Screen Reader Support
+
+Fully optimized for NVDA, JAWS, VoiceOver, and Orca:
+
+```bash
+export NUAA_SCREEN_READER=1
+nuaa --help
+```
+
+Features:
+- No visual-only indicators
+- Clear status announcements
+- Structured navigation hints
+- No spinners or animations in screen reader mode
+
+[Screen Reader Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md#screen-reader-compatibility)
+
+### ⌨️ Full Keyboard Accessibility
+
+Every feature works with keyboard only - no mouse required.
+
+**Essential shortcuts:**
+- `↑↓` or `j/k` - Navigate menus
+- `Enter` - Select
+- `Esc` or `Ctrl+C` - Cancel
+- `?` - Context help
+
+[Complete Keyboard Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md)
+
+### 🧠 Cognitive Accessibility
+
+Simple mode for clearer, step-by-step guidance:
+
+```bash
+export NUAA_SIMPLE_MODE=1
+nuaa onboard  # Interactive onboarding wizard
+```
+
+Features:
+- One question at a time
+- Clear progress indicators (Step X of Y)
+- Plain language (Grade 8-10 reading level)
+- No time pressure on interactions
+
+### 🌏 Cultural Safety
+
+Built-in cultural safety features:
+- Person-first, non-stigmatizing language
+- Harm reduction philosophy
+- Gender-inclusive language (they/them pronouns)
+- Aboriginal and Torres Strait Islander cultural protocols
+- LGBTIQ+ inclusion
+- Trauma-informed design
+
+[Cultural Safety Framework](CULTURAL_SAFETY_FRAMEWORK.md)
+
+### 🎯 Automated Accessibility Testing
+
+We automatically check for:
+- Readability (plain language standards)
+- Stigmatizing language detection
+- Alt text for images
+- Heading hierarchy
+- Color-only meaning
+
+Run tests yourself:
+```bash
+./scripts/accessibility/run_accessibility_tests.sh
+```
+
+### 📚 Accessibility Resources
+
+- [Complete Accessibility Plan](ACCESSIBILITY_ENHANCEMENT_PLAN.md)
+- [Keyboard Shortcuts Guide](docs/accessibility/KEYBOARD_SHORTCUTS.md)
+- [Cultural Safety Framework](CULTURAL_SAFETY_FRAMEWORK.md)
+- [Translation Guide](TRANSLATION_GUIDE.md)
+- [Accessibility Guidelines](nuaa-kit/accessibility-guidelines.md)
+
+**Need accessibility support?** Open an issue with the `accessibility` label.
+
+---
 
 ## ⚡ Get Started
 
@@ -77,6 +198,133 @@ NUAA Project Kit is available in the `/nuaa-kit` directory of this repository. T
 - [uv](https://docs.astral.sh/uv/) for package management
 - [Python 3.11+](https://www.python.org/downloads/)
 - [Git](https://git-scm.com/downloads)
+
+### 📦 Installation & Setup (For Beginners)
+
+**Using VSCode Terminal** - Follow these simple steps to install and use NUAA Project Kit:
+
+#### Step 1: Open VSCode Terminal
+
+1. Open Visual Studio Code
+2. Press `` Ctrl+` `` (Windows/Linux) or `` Cmd+` `` (macOS) to open the integrated terminal
+3. Or go to **Terminal → New Terminal** from the menu
+
+#### Step 2: Clone the Repository
+
+In the VSCode terminal, run:
+
+```bash
+git clone https://github.com/zophiezlan/nuaa-cli.git
+cd nuaa-cli
+```
+
+#### Step 3: Install the NUAA CLI
+
+Choose one of these methods:
+
+**Option A: Using pip (Recommended for beginners)**
+
+```bash
+# Install the CLI tool
+pip install -e .
+
+# Verify installation
+nuaa --help
+```
+
+**Option B: Using uv (Faster, recommended for developers)**
+
+```bash
+# Install uv if you don't have it
+pip install uv
+
+# Install the CLI with uv
+uv sync
+
+# Verify installation
+uv run nuaa --help
+```
+
+#### Step 4: Verify Everything Works
+
+Test that the installation was successful:
+
+```bash
+# Check the CLI version
+nuaa version
+
+# See all available commands
+nuaa --help
+```
+
+You should see the NUAA CLI version and a list of available commands.
+
+#### Step 5: Start Using NUAA Kit
+
+Navigate to the NUAA Kit directory and start using the AI-assisted workflows:
+
+```bash
+cd nuaa-kit
+
+# Open the Quick Start Guide
+cat QUICKSTART.md
+```
+
+Now you can use NUAA commands with your AI assistant (like GitHub Copilot in VSCode):
+
+```bash
+/nuaa.design Design a peer-led workshop series on stigma reduction in healthcare settings
+```
+
+#### Common Installation Issues
+
+<details>
+<summary><b>🔧 "Command not found: nuaa"</b></summary>
+
+If you get this error, try:
+
+```bash
+# Make sure you're in the right directory
+cd /path/to/nuaa-cli
+
+# Reinstall
+pip install -e .
+
+# If using uv, use: uv run nuaa instead of just nuaa
+uv run nuaa --help
+```
+
+</details>
+
+<details>
+<summary><b>🔧 "Python version too old"</b></summary>
+
+NUAA requires Python 3.11 or newer. Check your version:
+
+```bash
+python --version
+```
+
+If you need to upgrade Python, visit [python.org/downloads](https://www.python.org/downloads/)
+
+</details>
+
+<details>
+<summary><b>🔧 "pip: command not found"</b></summary>
+
+Try using `pip3` instead:
+
+```bash
+pip3 install -e .
+```
+
+</details>
+
+#### Next Steps
+
+- 📖 Read the [NUAA Kit Quick Start Guide](./nuaa-kit/QUICKSTART.md) for your first week
+- 🎯 Review [Core Features](#-core-features) below to understand what you can do
+- 💬 Join the discussion on [GitHub Issues](https://github.com/zophiezlan/nuaa-cli/issues) if you need help
 
 ## 🎯 Core Features
 

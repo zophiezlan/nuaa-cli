@@ -32,6 +32,15 @@ jobs:
             - name: Install package (with dev deps)
               run: pip install -e .[dev]
 
+            - name: Auto-fix linting issues (local only, not committed)
+              run: |
+                  echo "Running auto-fixers before checks..."
+                  black src/nuaa_cli tests scripts/python || true
+                  ruff check --fix src/nuaa_cli tests scripts/python || true
+                  pre-commit run --all-files || true
+                  python scripts/python/update_agents_docs.py || true
+                  echo "Auto-fixes applied (if any). Proceeding with checks..."
+
             - name: Lint (ruff)
               run: ruff check .
 

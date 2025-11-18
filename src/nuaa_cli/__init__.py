@@ -135,6 +135,42 @@ def _format_rate_limit_error(status_code: int, headers: httpx.Headers, url: str)
     return "\n".join(lines)
 
 
+def _safe_extract_zip(zip_ref: zipfile.ZipFile, extract_path: Path, console: Console) -> None:
+    """
+    Safely extract ZIP file contents, preventing path traversal attacks.
+
+    Args:
+        zip_ref: Open ZipFile object
+        extract_path: Target directory for extraction
+        console: Rich console for error output
+
+    Raises:
+        ValueError: If ZIP contains malicious paths
+        typer.Exit: If validation fails
+    """
+    extract_path = extract_path.resolve()
+
+    for member in zip_ref.namelist():
+        # Get the target path
+        member_path = (extract_path / member).resolve()
+
+        # Ensure the resolved path is within the intended extract directory
+        try:
+            member_path.relative_to(extract_path)
+        except ValueError:
+            # Path traversal detected
+            console.print(
+                f"[red]Security Error:[/red] ZIP file contains invalid path: {member}"
+            )
+            console.print(
+                "[dim]This file may be malicious. Extraction aborted.[/dim]"
+            )
+            raise typer.Exit(1)
+
+    # All paths validated, safe to extract
+    zip_ref.extractall(extract_path)
+
+
 from .scaffold import (
     _slugify,
     _find_templates_root,
@@ -440,8 +476,17 @@ def handle_vscode_settings(sub_item, dest_file, rel_path, verbose=False, tracker
             shutil.copy2(sub_item, dest_file)
             log("Copied (no existing settings.json):", "blue")
 
-    except Exception as e:
-        log(f"Warning: Could not merge, copying instead: {e}", "yellow")
+    except FileNotFoundError as e:
+        log(f"Warning: Settings file not found, copying source instead: {e}", "yellow")
+        shutil.copy2(sub_item, dest_file)
+    except PermissionError as e:
+        log(f"Warning: Permission denied accessing settings file, copying instead: {e}", "yellow")
+        shutil.copy2(sub_item, dest_file)
+    except json.JSONDecodeError as e:
+        log(f"Warning: Invalid JSON in settings file, copying source instead: {e}", "yellow")
+        shutil.copy2(sub_item, dest_file)
+    except OSError as e:
+        log(f"Warning: File system error, copying instead: {e}", "yellow")
         shutil.copy2(sub_item, dest_file)
 
 
@@ -533,8 +578,20 @@ def download_template_from_github(
             raise RuntimeError(
                 f"Failed to parse release JSON: {je}\nRaw (truncated 400): {response.text[:400]}"
             )
-    except Exception as e:
-        console.print(f"[red]Error fetching release information[/red]")
+    except httpx.TimeoutException:
+        console.print("[red]Error fetching release information[/red]")
+        console.print(Panel("Request timed out connecting to GitHub API", title="Fetch Error", border_style="red"))
+        raise typer.Exit(1)
+    except httpx.ConnectError:
+        console.print("[red]Error fetching release information[/red]")
+        console.print(Panel("Could not connect to GitHub API. Check your internet connection.", title="Fetch Error", border_style="red"))
+        raise typer.Exit(1)
+    except httpx.HTTPError as e:
+        console.print("[red]Error fetching release information[/red]")
+        console.print(Panel(f"HTTP error occurred: {e}", title="Fetch Error", border_style="red"))
+        raise typer.Exit(1)
+    except RuntimeError as e:
+        console.print("[red]Error fetching release information[/red]")
         console.print(Panel(str(e), title="Fetch Error", border_style="red"))
         raise typer.Exit(1)
 
@@ -623,12 +680,41 @@ def download_template_from_github(
             "asset_url": download_url,
         }
         return zip_path, metadata
-    except Exception as e:
-        console.print(f"[red]Error downloading template[/red]")
-        detail = str(e)
+    except httpx.TimeoutException:
+        console.print("[red]Error downloading template[/red]")
         if zip_path.exists():
             zip_path.unlink()
-        console.print(Panel(detail, title="Download Error", border_style="red"))
+        console.print(Panel("Download timed out. Please try again.", title="Download Error", border_style="red"))
+        raise typer.Exit(1)
+    except httpx.ConnectError:
+        console.print("[red]Error downloading template[/red]")
+        if zip_path.exists():
+            zip_path.unlink()
+        console.print(Panel("Could not connect to GitHub. Check your internet connection.", title="Download Error", border_style="red"))
+        raise typer.Exit(1)
+    except httpx.HTTPError as e:
+        console.print("[red]Error downloading template[/red]")
+        if zip_path.exists():
+            zip_path.unlink()
+        console.print(Panel(f"HTTP error: {e}", title="Download Error", border_style="red"))
+        raise typer.Exit(1)
+    except PermissionError:
+        console.print("[red]Error downloading template[/red]")
+        if zip_path.exists():
+            zip_path.unlink()
+        console.print(Panel(f"Permission denied writing to: {zip_path}", title="Download Error", border_style="red"))
+        raise typer.Exit(1)
+    except OSError as e:
+        console.print("[red]Error downloading template[/red]")
+        if zip_path.exists():
+            zip_path.unlink()
+        console.print(Panel(f"File system error: {e}", title="Download Error", border_style="red"))
+        raise typer.Exit(1)
+    except RuntimeError as e:
+        console.print("[red]Error downloading template[/red]")
+        if zip_path.exists():
+            zip_path.unlink()
+        console.print(Panel(str(e), title="Download Error", border_style="red"))
         raise typer.Exit(1)
     finally:
         if close_client:
@@ -669,7 +755,7 @@ def download_and_extract_template(
             tracker.complete("fetch", f"release {meta['release']} ({meta['size']:,} bytes)")
             tracker.add("download", "Download template")
             tracker.complete("download", meta["filename"])
-    except Exception as e:
+    except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError, RuntimeError, PermissionError, OSError) as e:
         if tracker:
             tracker.error("fetch", str(e))
         else:
@@ -698,7 +784,7 @@ def download_and_extract_template(
             if is_current_dir:
                 with tempfile.TemporaryDirectory() as temp_dir:
                     temp_path = Path(temp_dir)
-                    zip_ref.extractall(temp_path)
+                    _safe_extract_zip(zip_ref, temp_path, console)
 
                     extracted_items = list(temp_path.iterdir())
                     if tracker:
@@ -754,7 +840,7 @@ def download_and_extract_template(
                     if verbose and not tracker:
                         console.print(f"[cyan]Template files merged into current directory[/cyan]")
             else:
-                zip_ref.extractall(project_path)
+                _safe_extract_zip(zip_ref, project_path, console)
 
                 extracted_items = list(project_path.iterdir())
                 if tracker:
@@ -782,12 +868,36 @@ def download_and_extract_template(
                     elif verbose:
                         console.print(f"[cyan]Flattened nested directory structure[/cyan]")
 
-    except Exception as e:
+    except zipfile.BadZipFile:
         if tracker:
-            tracker.error("extract", str(e))
+            tracker.error("extract", "Invalid or corrupted ZIP file")
         else:
             if verbose:
-                console.print(f"[red]Error extracting template:[/red] {e}")
+                console.print("[red]Error extracting template:[/red] Invalid or corrupted ZIP file")
+                if debug:
+                    console.print(Panel("The downloaded file is not a valid ZIP archive", title="Extraction Error", border_style="red"))
+
+        if not is_current_dir and project_path.exists():
+            shutil.rmtree(project_path)
+        raise typer.Exit(1)
+    except PermissionError as e:
+        if tracker:
+            tracker.error("extract", f"Permission denied: {e}")
+        else:
+            if verbose:
+                console.print(f"[red]Error extracting template:[/red] Permission denied")
+                if debug:
+                    console.print(Panel(str(e), title="Extraction Error", border_style="red"))
+
+        if not is_current_dir and project_path.exists():
+            shutil.rmtree(project_path)
+        raise typer.Exit(1)
+    except OSError as e:
+        if tracker:
+            tracker.error("extract", f"File system error: {e}")
+        else:
+            if verbose:
+                console.print(f"[red]Error extracting template:[/red] File system error: {e}")
                 if debug:
                     console.print(Panel(str(e), title="Extraction Error", border_style="red"))
 
@@ -829,7 +939,7 @@ def ensure_executable_scripts(project_path: Path, tracker: StepTracker | None = 
                 with script.open("rb") as f:
                     if f.read(2) != b"#!":
                         continue
-            except Exception:
+            except (OSError, PermissionError):
                 continue
             st = script.stat()
             mode = st.st_mode
@@ -846,7 +956,7 @@ def ensure_executable_scripts(project_path: Path, tracker: StepTracker | None = 
                 new_mode |= 0o100
             os.chmod(script, new_mode)
             updated += 1
-        except Exception as e:
+        except (OSError, PermissionError) as e:
             failures.append(f"{script.relative_to(scripts_root)}: {e}")
     if tracker:
         detail = f"{updated} updated" + (f", {len(failures)} failed" if failures else "")
@@ -1118,7 +1228,55 @@ def init(
                 tracker.skip("git", "--no-git flag")
 
             tracker.complete("final", "project ready")
-        except Exception as e:
+        except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError) as e:
+            tracker.error("final", f"Network error: {e}")
+            console.print(Panel(f"Network error during initialization: {e}", title="Failure", border_style="red"))
+            if debug:
+                _env_pairs = [
+                    ("Python", sys.version.split()[0]),
+                    ("Platform", sys.platform),
+                    ("CWD", str(Path.cwd())),
+                ]
+                _label_width = max(len(k) for k, _ in _env_pairs)
+                env_lines = [
+                    f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
+                    for k, v in _env_pairs
+                ]
+                console.print(
+                    Panel(
+                        "\n".join(env_lines),
+                        title="Debug Environment",
+                        border_style="magenta",
+                    )
+                )
+            if not here and project_path.exists():
+                shutil.rmtree(project_path)
+            raise typer.Exit(1)
+        except (zipfile.BadZipFile, PermissionError, OSError) as e:
+            tracker.error("final", f"File system error: {e}")
+            console.print(Panel(f"File system error during initialization: {e}", title="Failure", border_style="red"))
+            if debug:
+                _env_pairs = [
+                    ("Python", sys.version.split()[0]),
+                    ("Platform", sys.platform),
+                    ("CWD", str(Path.cwd())),
+                ]
+                _label_width = max(len(k) for k, _ in _env_pairs)
+                env_lines = [
+                    f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
+                    for k, v in _env_pairs
+                ]
+                console.print(
+                    Panel(
+                        "\n".join(env_lines),
+                        title="Debug Environment",
+                        border_style="magenta",
+                    )
+                )
+            if not here and project_path.exists():
+                shutil.rmtree(project_path)
+            raise typer.Exit(1)
+        except RuntimeError as e:
             tracker.error("final", str(e))
             console.print(Panel(f"Initialization failed: {e}", title="Failure", border_style="red"))
             if debug:

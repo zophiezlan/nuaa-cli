@@ -13,6 +13,7 @@ from ..scaffold import (
     _prepend_metadata,
     write_markdown_if_needed,
 )
+from ..utils import validate_program_name, validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):
@@ -32,9 +33,79 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
-        """Create a training curriculum for peer workers, volunteers, or staff."""
+        """Create a training curriculum for peer workers, volunteers, or staff.
+
+        This command generates a comprehensive training curriculum template for building
+        capacity in the peer workforce, volunteers, partner staff, or community members.
+        Quality training is essential for effective harm reduction service delivery,
+        peer worker confidence, and organizational sustainability.
+
+        The training curriculum includes:
+        - **Training Overview**: Purpose, learning objectives, and expected competencies
+          aligned with peer-led harm reduction principles
+        - **Detailed Training Schedule**: Session-by-session breakdown with timing,
+          learning activities, and breaks (trauma-informed pacing)
+        - **Core Training Modules**: 8+ customizable modules covering:
+          * Harm reduction philosophy and person-centered approaches
+          * Peer roles, boundaries, and ethical practice
+          * Trauma-informed and culturally-safe practice
+          * Communication skills and active listening
+          * Overdose prevention and naloxone administration
+          * Safer injecting/using practices and equipment
+          * Bloodborne virus awareness and prevention
+          * Self-care, burnout prevention, and peer support
+        - **Facilitation Guidance**: Tips for engaging adult learners, creating safe
+          learning environments, and responding to disclosure/distress
+        - **Training Materials**: Handouts, activities, case studies, and resources
+        - **Assessment and Certification**: Competency assessment approaches (not
+          punitive), certificates, and ongoing professional development pathways
+        - **Participant Support**: Accessibility accommodations, transport subsidies,
+          childcare, honorariums for peer participation
+
+        NUAA's training approach values lived experience as expertise, uses participatory
+        adult learning methods, and ensures peer workers are compensated fairly for
+        their time and knowledge sharing.
+
+        Args:
+            training_name: Descriptive name for the training program (e.g.,
+                "Peer Worker Training", "Naloxone Administration Course",
+                "Cultural Safety for Health Workers"). Used throughout curriculum.
+            target_audience: Primary trainees (e.g., "Peer Workers", "Volunteers",
+                "Health Service Staff", "Community Members"). Customizes content
+                complexity, assumed knowledge, and learning approaches.
+            duration: Total training length (e.g., "2 days", "8 weeks", "6 x 3-hour
+                sessions", "self-paced online"). Determines depth of content and
+                scheduling considerations.
+            feature: Optional custom feature slug to override auto-generated numbering.
+                Useful for maintaining consistent naming across training initiatives.
+            force: If True, overwrites existing training-curriculum.md file. Default
+                is False to preserve curriculum customizations and facilitator notes.
+
+        Raises:
+            typer.Exit: Exits with code 1 if the training curriculum template is not
+                found (requires 'nuaa init'), if permission is denied for file operations,
+                or if other filesystem errors occur.
+
+        Examples:
+            Create peer worker foundation training:
+                $ nuaa train "Peer Worker Foundation Training" "New Peer Workers" "3 days"
+
+            Develop naloxone training for community:
+                $ nuaa train "Naloxone Administration" "PWUD and Family Members" "2 hours"
+
+            Design cultural safety training for health workers:
+                $ nuaa train "Cultural Safety in Harm Reduction" "Health Service Staff" "1 day"
+
+            Build advanced peer supervision curriculum:
+                $ nuaa train "Peer Supervision Skills" "Experienced Peer Workers" "6 weeks" --feature peer-supervision
+        """
         if show_banner_fn:
             show_banner_fn()
+
+        # Validate inputs
+        training_name = validate_text_field(training_name, "training_name", 200, console)
+        target_audience = validate_text_field(target_audience, "target_audience", 200, console)
+        duration = validate_text_field(duration, "duration", 100, console)
 
         # Determine feature directory
         if feature:
@@ -86,6 +157,13 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                     border_style="green",
                 )
             )
-        except Exception as e:
-            console.print(f"[red]Failed to create training-curriculum.md:[/red] {e}")
+        except FileNotFoundError:
+            console.print("[red]Template not found:[/red] training-curriculum.md")
+            console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
+            raise typer.Exit(1)
+        except PermissionError:
+            console.print("[red]Permission denied:[/red] Cannot read template or write output file")
+            raise typer.Exit(1)
+        except OSError as e:
+            console.print(f"[red]File system error:[/red] {e}")
             raise typer.Exit(1)

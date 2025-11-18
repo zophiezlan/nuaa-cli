@@ -22,15 +22,59 @@ def onboard_command(
     ),
     skip_language: bool = typer.Option(False, "--skip-language", help="Skip language selection"),
 ) -> None:
-    """
-    Interactive onboarding wizard for new NUAA CLI users.
+    """Interactive onboarding wizard for new NUAA CLI users.
 
-    Guides you through:
-    - Accessibility preferences
-    - Language selection
-    - Skill level assessment
-    - Learning path selection
-    - First project setup
+    This command launches a friendly, step-by-step setup wizard that helps new users
+    configure the NUAA CLI for their specific needs, preferences, and context. The
+    onboarding process ensures all users can access NUAA's tools effectively,
+    regardless of technical background, accessibility requirements, or language.
+
+    The wizard guides users through:
+    - **Accessibility Preferences**: Screen reader support, visual modes (high contrast,
+      no color, dyslexia-friendly), simple mode for cognitive accessibility
+    - **Language Selection**: Choose from available languages for CLI output and
+      documentation (supports internationalization)
+    - **Skill Level Assessment**: Self-identify as beginner, intermediate, or advanced
+      to receive appropriate guidance, examples, and documentation depth
+    - **Learning Style**: Select preferred learning approach (visual, text, hands-on,
+      or mixed) to customize tutorial recommendations
+    - **AI Assistant Selection**: Specify which AI assistant you'll use (Claude Code,
+      GitHub Copilot, Cursor, etc.) for tailored integration tips
+    - **Next Steps Guidance**: Customized recommendations for first commands, resources,
+      and learning paths based on your configuration
+
+    The wizard is interactive, allowing you to exit at any time (Ctrl+C) and rerun
+    whenever you need to adjust settings. All preferences are saved to your local
+    configuration, persisting across CLI sessions.
+
+    NUAA's onboarding emphasizes inclusivity and accessibility, ensuring the CLI
+    works for everyone - including people with disabilities, those new to command-line
+    tools, and users from diverse linguistic and cultural backgrounds.
+
+    Args:
+        skip_accessibility: If True, skips the accessibility setup section and proceeds
+            directly to language selection. Default is False. Useful for users who
+            have already configured accessibility or are re-running the wizard.
+        skip_language: If True, skips language selection and proceeds to skill level
+            assessment. Default is False. Useful when re-running the wizard to update
+            other preferences without changing language.
+
+    Raises:
+        typer.Exit: Not explicitly raised - users can exit gracefully with Ctrl+C at
+            any prompt. Configuration errors are handled with friendly error messages.
+
+    Examples:
+        Run full onboarding wizard (first-time setup):
+            $ nuaa onboard
+
+        Re-run wizard but skip accessibility (already configured):
+            $ nuaa onboard --skip-accessibility
+
+        Update settings but keep existing language:
+            $ nuaa onboard --skip-language
+
+        Quick re-run skipping both accessibility and language:
+            $ nuaa onboard --skip-accessibility --skip-language
     """
     console.clear()
 

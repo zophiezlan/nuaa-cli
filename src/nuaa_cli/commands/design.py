@@ -16,6 +16,7 @@ from ..scaffold import (
     write_markdown_if_needed,
     _stamp,
 )
+from ..utils import validate_program_name, validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):
@@ -34,9 +35,70 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
-        """Create a new NUAA program design with logic model and framework."""
+        """Create a new NUAA program design with logic model and framework.
+
+        This command initializes a comprehensive program design package for harm reduction
+        initiatives. It creates a feature-numbered directory containing three foundational
+        documents that guide the entire program lifecycle:
+
+        - **program-design.md**: Core program architecture including goals, target population,
+          cultural safety considerations, and implementation approach
+        - **logic-model.md**: Theory of change mapping inputs, activities, outputs, and
+          intended outcomes following evidence-based harm reduction principles
+        - **impact-framework.md**: Measurement strategy defining KPIs, data collection methods,
+          and evaluation approach aligned with NUAA's equity-focused values
+
+        The command automatically generates a sequential feature ID (e.g., 001-, 002-) based
+        on existing programs, or you can specify a custom feature slug. All documents are
+        pre-populated with NUAA-specific templates emphasizing peer-led approaches, cultural
+        safety, and trauma-informed practices.
+
+        This is typically the first command in the NUAA program workflow, establishing the
+        foundation for subsequent funding proposals, stakeholder engagement, and impact
+        measurement activities.
+
+        Args:
+            program_name: Name of the harm reduction program or initiative (e.g.,
+                "Peer Support Network", "Safe Consumption Spaces"). Used to derive the
+                feature folder name and populate all template documents.
+            target_population: Description of primary beneficiaries (e.g.,
+                "People who use drugs in Western Sydney", "LGBTIQ+ PWUD aged 18-30").
+                Should reflect NUAA's person-centered language principles.
+            duration: Intended program duration (e.g., "6 months", "2 years", "ongoing").
+                Used for planning timelines and evaluation schedules.
+            here: If True (default), creates the feature under ./nuaa in the current project.
+                Set to False for alternative locations.
+            feature: Optional custom feature slug to override auto-generated numbering.
+                Can be full format "001-custom-slug" or just "custom-slug" (number will
+                be auto-assigned). Useful for maintaining specific naming conventions.
+            force: If True, overwrites existing files in the feature directory. Default
+                is False to prevent accidental data loss.
+
+        Raises:
+            typer.Exit: Exits with code 1 if template files are not found (requires 'nuaa init'),
+                if permission is denied for file operations, or if other filesystem errors occur.
+
+        Examples:
+            Create a new peer support program design:
+                $ nuaa design "Peer Support Network" "PWUD in Western Sydney" "12 months"
+
+            Design a culturally-specific program with custom feature slug:
+                $ nuaa design "Aboriginal Peer Program" "Aboriginal and Torres Strait Islander PWUD" "2 years" --feature aboriginal-peer-support
+
+            Create a harm reduction initiative for young people:
+                $ nuaa design "Youth Engagement Program" "Young PWUD aged 16-25" "6 months"
+
+            Overwrite an existing design (use with caution):
+                $ nuaa design "Naloxone Distribution" "PWUD in Sydney CBD" "ongoing" --force
+        """
         if show_banner_fn:
             show_banner_fn()
+
+        # Validate inputs
+        program_name = validate_program_name(program_name, console)
+        target_population = validate_text_field(target_population, "target_population", 500, console)
+        duration = validate_text_field(duration, "duration", 100, console)
+
         # Determine feature directory
         if feature:
             # If full number provided, respect it; otherwise create next
@@ -75,8 +137,15 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             pd_text = _prepend_metadata(pd_filled, pd_meta)
             dest = feature_dir / "program-design.md"
             write_markdown_if_needed(dest, pd_text, force=force, console=console)
-        except Exception as e:
-            console.print(f"[red]Failed to create program-design.md:[/red] {e}")
+        except FileNotFoundError:
+            console.print("[red]Template not found:[/red] program-design.md")
+            console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
+            raise typer.Exit(1)
+        except PermissionError:
+            console.print("[red]Permission denied:[/red] Cannot read template or write output file")
+            raise typer.Exit(1)
+        except OSError as e:
+            console.print(f"[red]File system error:[/red] {e}")
             raise typer.Exit(1)
 
         # logic-model.md
@@ -91,8 +160,13 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             )
             dest = feature_dir / "logic-model.md"
             write_markdown_if_needed(dest, lm_text, force=force, console=console)
-        except Exception as e:
-            console.print(f"[red]Failed to create logic-model.md:[/red] {e}")
+        except FileNotFoundError:
+            console.print("[red]Template not found:[/red] logic-model.md")
+            console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
+        except PermissionError:
+            console.print("[red]Permission denied:[/red] Cannot read template or write output file")
+        except OSError as e:
+            console.print(f"[red]File system error:[/red] {e}")
 
         # impact-framework.md (skeleton from template)
         try:
@@ -106,8 +180,13 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             )
             dest = feature_dir / "impact-framework.md"
             write_markdown_if_needed(dest, if_text, force=force, console=console)
-        except Exception as e:
-            console.print(f"[red]Failed to create impact-framework.md:[/red] {e}")
+        except FileNotFoundError:
+            console.print("[red]Template not found:[/red] impact-framework.md")
+            console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
+        except PermissionError:
+            console.print("[red]Permission denied:[/red] Cannot read template or write output file")
+        except OSError as e:
+            console.print(f"[red]File system error:[/red] {e}")
 
         # Changelog bootstrap
         changelog = feature_dir / "CHANGELOG.md"

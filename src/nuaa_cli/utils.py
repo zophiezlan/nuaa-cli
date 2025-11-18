@@ -1,6 +1,9 @@
 import shutil
+import re
 from pathlib import Path
 from rich.tree import Tree
+from rich.console import Console
+import typer
 
 
 # Special handling for Claude CLI after `claude migrate-installer`
@@ -129,3 +132,143 @@ def check_tool(tool: str, tracker: StepTracker | None = None) -> bool:
             tracker.error(tool, "not found")
 
     return found
+
+
+def validate_non_empty(value: str, field_name: str, console: Console) -> str:
+    """
+    Validate that a string is not empty.
+
+    Args:
+        value: The value to validate
+        field_name: Name of the field for error messages
+        console: Rich console for error output
+
+    Returns:
+        Stripped value if valid
+
+    Raises:
+        typer.Exit: If validation fails
+    """
+    stripped = value.strip()
+    if not stripped:
+        console.print(f"[red]Error:[/red] {field_name} cannot be empty")
+        raise typer.Exit(1)
+    return stripped
+
+
+def validate_length(value: str, field_name: str, max_length: int, console: Console) -> str:
+    """
+    Validate that a string does not exceed maximum length.
+
+    Args:
+        value: The value to validate
+        field_name: Name of the field for error messages
+        max_length: Maximum allowed length
+        console: Rich console for error output
+
+    Returns:
+        Value if valid
+
+    Raises:
+        typer.Exit: If validation fails
+    """
+    if len(value) > max_length:
+        console.print(
+            f"[red]Error:[/red] {field_name} is too long (max {max_length} characters, got {len(value)})"
+        )
+        raise typer.Exit(1)
+    return value
+
+
+def sanitize_name(name: str, console: Console, allow_path_sep: bool = False) -> str:
+    """
+    Sanitize a name to prevent path traversal and ensure safe filesystem use.
+
+    Args:
+        name: The name to sanitize
+        console: Rich console for warnings
+        allow_path_sep: Whether to allow path separators (/ and \\)
+
+    Returns:
+        Sanitized name
+    """
+    original = name
+
+    # Remove path traversal patterns
+    name = name.replace("..", "")
+
+    # Remove or replace dangerous characters
+    if allow_path_sep:
+        # Keep path separators but remove other dangerous chars
+        safe_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -_./\\")
+    else:
+        # Remove all path separators and dangerous chars
+        safe_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -_")
+
+    sanitized = "".join(c for c in name if c in safe_chars)
+
+    # Clean up multiple spaces/dashes
+    sanitized = re.sub(r'[ -]+', '-', sanitized).strip('-')
+
+    if sanitized != original:
+        console.print(
+            f"[yellow]Note:[/yellow] Name sanitized from '[cyan]{original}[/cyan]' to '[cyan]{sanitized}[/cyan]'"
+        )
+
+    return sanitized
+
+
+def validate_program_name(name: str, console: Console) -> str:
+    """
+    Validate and sanitize a program name.
+
+    Args:
+        name: The program name to validate
+        console: Rich console for error/warning output
+
+    Returns:
+        Validated and sanitized name
+
+    Raises:
+        typer.Exit: If validation fails
+    """
+    # Check non-empty
+    name = validate_non_empty(name, "program_name", console)
+
+    # Check length
+    name = validate_length(name, "program_name", 100, console)
+
+    # Sanitize for filesystem safety
+    name = sanitize_name(name, console, allow_path_sep=False)
+
+    # Final check after sanitization
+    if not name:
+        console.print("[red]Error:[/red] program_name becomes empty after sanitization")
+        raise typer.Exit(1)
+
+    return name
+
+
+def validate_text_field(value: str, field_name: str, max_length: int, console: Console) -> str:
+    """
+    Validate a general text field (description, population, etc.).
+
+    Args:
+        value: The value to validate
+        field_name: Name of the field for error messages
+        max_length: Maximum allowed length
+        console: Rich console for error output
+
+    Returns:
+        Validated value
+
+    Raises:
+        typer.Exit: If validation fails
+    """
+    # Check non-empty
+    value = validate_non_empty(value, field_name, console)
+
+    # Check length
+    value = validate_length(value, field_name, max_length, console)
+
+    return value

@@ -6,9 +6,12 @@ with support for different verbosity levels and file logging.
 """
 
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Optional
+
+from platformdirs import user_log_dir
 
 # Default log format
 DEFAULT_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -27,7 +30,11 @@ def setup_logging(
     Args:
         verbose: Enable verbose output (INFO level)
         debug: Enable debug output (DEBUG level)
-        log_file: Optional path to log file. If None, uses nuaa-cli.log in current directory
+        log_file: Optional path to log file. If None, uses platform-specific directory:
+                  - Linux: ~/.local/state/nuaa-cli/nuaa-cli.log
+                  - macOS: ~/Library/Logs/nuaa-cli/nuaa-cli.log
+                  - Windows: %LOCALAPPDATA%\\nuaa-cli\\Logs\\nuaa-cli.log
+                  Can be overridden with LOG_FILE or NUAA_LOG_FILE environment variable
         quiet: Suppress console output (only log to file)
 
     Returns:
@@ -65,7 +72,18 @@ def setup_logging(
 
     # File handler
     if log_file is None:
-        log_file = Path.cwd() / "nuaa-cli.log"
+        # Check environment variable first
+        log_file_env = os.getenv("LOG_FILE") or os.getenv("NUAA_LOG_FILE")
+        if log_file_env:
+            log_file = Path(log_file_env)
+        else:
+            # Use platform-specific log directory
+            # Linux: ~/.local/state/nuaa-cli/nuaa-cli.log
+            # macOS: ~/Library/Logs/nuaa-cli/nuaa-cli.log
+            # Windows: %LOCALAPPDATA%\nuaa-cli\Logs\nuaa-cli.log
+            log_dir = Path(user_log_dir("nuaa-cli", "NUAA"))
+            log_dir.mkdir(parents=True, exist_ok=True)
+            log_file = log_dir / "nuaa-cli.log"
 
     try:
         file_handler = logging.FileHandler(log_file, mode="a", encoding="utf-8")

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - {{ team.name }}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        .help-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .help-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2c5aa0;
+        }
+        .help-search {
+            margin: 30px 0;
+            position: relative;
+        }
+        .help-search input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .help-search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .help-category {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .help-category:hover {
+            border-color: #2c5aa0;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.2);
+        }
+        .help-category-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .help-category h3 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+        .faq-section {
+            margin: 40px 0;
+        }
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+        }
+        .faq-question:hover {
+            background: #f0f0f0;
+        }
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            border-top: 1px solid #ddd;
+        }
+        .faq-answer.show {
+            display: block;
+        }
+        .contact-section {
+            background: #e8f4f8;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .video-thumbnail {
+            background: #ccc;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+        .video-info {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="/team/{{ team_id }}" class="nav-back">← Back to {{ team.name }}</a>
+        </div>
+    </nav>
+
+    <div class="help-container">
+        <header class="help-header">
+            <h1>Help & Support</h1>
+            <p>Everything you need to know about using NUAA Tools</p>
+        </header>
+
+        <div class="help-search">
+            <input type="text" placeholder="Search for help..." onkeyup="searchHelp(event)">
+            <span class="help-search-icon">🔍</span>
+        </div>
+
+        <div class="help-categories">
+            <div class="help-category" onclick="showCategory('getting-started')">
+                <div class="help-category-icon">🚀</div>
+                <h3>Getting Started</h3>
+                <p>Learn the basics of using NUAA Tools</p>
+            </div>
+            <div class="help-category" onclick="showCategory('templates')">
+                <div class="help-category-icon">📋</div>
+                <h3>Using Templates</h3>
+                <p>How to fill out and submit documents</p>
+            </div>
+            <div class="help-category" onclick="showCategory('features')">
+                <div class="help-category-icon">✨</div>
+                <h3>Features</h3>
+                <p>Explore all available features</p>
+            </div>
+            <div class="help-category" onclick="showCategory('troubleshooting')">
+                <div class="help-category-icon">🔧</div>
+                <h3>Troubleshooting</h3>
+                <p>Solve common problems</p>
+            </div>
+        </div>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>How do I create a new document?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To create a new document:</p>
+                    <ol>
+                        <li>Go to your team dashboard</li>
+                        <li>Click on the template you want to use</li>
+                        <li>Fill out the form fields</li>
+                        <li>Click "Submit Document" when done</li>
+                    </ol>
+                    <p>Your document will be saved automatically in the outputs folder.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>Can I save my work and continue later?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! NUAA Tools has an auto-save feature that saves your work every 30 seconds. You can also manually save a draft by clicking the "Save Draft" button.</p>
+                    <p>When you return to the same form, you'll be asked if you want to load your saved draft.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>How do I add photos to my report?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>There are several ways to add photos:</p>
+                    <ul>
+                        <li><strong>Camera:</strong> Click the "Take Photo" button to use your device's camera</li>
+                        <li><strong>Upload:</strong> Drag and drop files into the upload area, or click "Choose Files"</li>
+                        <li><strong>Mobile:</strong> On phones, you can select photos from your gallery or take new ones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>Can I use voice input instead of typing?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Click the microphone icon (🎤) next to any text field to use voice input. Simply speak and your words will be converted to text.</p>
+                    <p>Note: Voice input requires a modern browser and microphone access.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>Does this work offline?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, once the page is loaded, it works offline. Your data is saved locally on your device, so you can continue working without an internet connection.</p>
+                    <p>However, some features like sharing to Teams or SharePoint require an internet connection.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>Where are my documents saved?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Documents are saved in the <code>outputs</code> folder, organized by:</p>
+                    <ul>
+                        <li>Team name</li>
+                        <li>Date (YYYY-MM-DD)</li>
+                        <li>Template name and timestamp</li>
+                    </ul>
+                    <p>Example: <code>outputs/outreach/2025-11-18/session-report-20251118-143022.md</code></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>Can I export documents as PDF or Word?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Use the export buttons in the dashboard or preview modal to export your documents as:</p>
+                    <ul>
+                        <li>PDF - For printing or sharing</li>
+                        <li>Word (.docx) - For further editing</li>
+                        <li>Excel - For data analysis (certain templates)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <strong>How do I use accessibility features?</strong>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Click the accessibility icon (♿) in the top navigation to access:</p>
+                    <ul>
+                        <li><strong>High Contrast Mode:</strong> Better visibility for low vision users</li>
+                        <li><strong>Large Text Mode:</strong> Bigger fonts for easier reading</li>
+                        <li><strong>Screen Reader Support:</strong> Fully compatible with screen readers</li>
+                        <li><strong>Keyboard Navigation:</strong> Use Tab, Enter, and arrow keys to navigate</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Video Tutorials</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">🎥</div>
+                    <div class="video-info">
+                        <h4>Getting Started with NUAA Tools</h4>
+                        <p>A quick introduction to the platform</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">🎥</div>
+                    <div class="video-info">
+                        <h4>Creating Your First Document</h4>
+                        <p>Step-by-step guide to filling forms</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">🎥</div>
+                    <div class="video-info">
+                        <h4>Advanced Features</h4>
+                        <p>Photos, location, and voice input</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Keyboard Shortcuts</h2>
+            <table style="width: 100%; background: white; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f9f9f9;">
+                        <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Action</th>
+                        <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Shortcut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Save Draft</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Submit Form</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Preview Document</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Ctrl</kbd> + <kbd>P</kbd></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Search</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Ctrl</kbd> + <kbd>K</kbd></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Quick Report</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Ctrl</kbd> + <kbd>Q</kbd></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; border: 1px solid #ddd;">Close Modal</td>
+                        <td style="padding: 15px; border: 1px solid #ddd;"><kbd>Esc</kbd></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="contact-section">
+            <h2>Still Need Help?</h2>
+            <p>Our support team is here to help you!</p>
+            <div style="margin-top: 20px;">
+                <p><strong>📧 Email:</strong> <a href="mailto:tech@nuaa.org.au">tech@nuaa.org.au</a></p>
+                <p><strong>📞 Phone:</strong> [Phone number]</p>
+                <p><strong>💬 Live Chat:</strong> Available Monday-Friday, 9am-5pm AEST</p>
+                <p><strong>📱 Text:</strong> [SMS number] for quick questions</p>
+            </div>
+            <button class="btn primary" onclick="openLiveChat()" style="margin-top: 20px;">
+                💬 Start Live Chat
+            </button>
+        </section>
+
+        <section style="margin: 40px 0; text-align: center; color: #666;">
+            <p>Version 1.0.0 | Last updated: November 2025</p>
+            <p><a href="/">← Back to Home</a> | <a href="/team/{{ team_id }}">← Back to {{ team.name }}</a></p>
+        </section>
+    </div>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+
+            answer.classList.toggle('show');
+            toggle.textContent = answer.classList.contains('show') ? '−' : '+';
+        }
+
+        function searchHelp(event) {
+            const query = event.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+                if (question.includes(query) || answer.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = query === '' ? 'block' : 'none';
+                }
+            });
+        }
+
+        function showCategory(category) {
+            alert(`Category: ${category} - Full documentation coming soon!`);
+        }
+
+        function openLiveChat() {
+            alert('Live chat feature coming soon! For now, please email tech@nuaa.org.au');
+        }
+    </script>
+</body>
+</html>

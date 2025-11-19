@@ -17,7 +17,9 @@ console = Console()
 
 
 def onboard_command(
-    skip_accessibility: bool = typer.Option(False, "--skip-accessibility", help="Skip accessibility setup"),
+    skip_accessibility: bool = typer.Option(
+        False, "--skip-accessibility", help="Skip accessibility setup"
+    ),
     skip_language: bool = typer.Option(False, "--skip-language", help="Skip language selection"),
 ) -> None:
     """Interactive onboarding wizard for new NUAA CLI users.
@@ -117,11 +119,15 @@ def setup_accessibility() -> None:
     console.print("NUAA CLI works for everyone! Let's customize the interface for your needs.\n")
 
     # Screen reader
-    use_screen_reader = Confirm.ask("Do you use a screen reader (NVDA, JAWS, VoiceOver, Orca)?", default=False)
+    use_screen_reader = Confirm.ask(
+        "Do you use a screen reader (NVDA, JAWS, VoiceOver, Orca)?", default=False
+    )
 
     if use_screen_reader:
         set_output_mode(OutputMode.SCREEN_READER)
-        console.print("[green]✓ Screen reader mode enabled - output optimized for clear announcements[/green]\n")
+        console.print(
+            "[green]✓ Screen reader mode enabled - output optimized for clear announcements[/green]\n"
+        )
 
     # Visual preferences
     if not use_screen_reader:
@@ -131,7 +137,9 @@ def setup_accessibility() -> None:
         console.print("3. No color (for color blindness)")
         console.print("4. Dyslexia-friendly (extra spacing, shorter lines)")
 
-        visual_choice = Prompt.ask("Choose your preferred mode", choices=["1", "2", "3", "4"], default="1")
+        visual_choice = Prompt.ask(
+            "Choose your preferred mode", choices=["1", "2", "3", "4"], default="1"
+        )
 
         mode_map = {
             "1": OutputMode.STANDARD,

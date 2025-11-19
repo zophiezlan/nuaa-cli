@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2c5aa0">
+    <title>Admin Panel - NUAA Tools</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/themes.css">
+    <style>
+        .admin-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .admin-sidebar {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .admin-nav-item:hover,
+        .admin-nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .admin-main {
+            min-height: 80vh;
+        }
+
+        .admin-section {
+            background: white;
+            padding: var(--spacing-2xl);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-xl);
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .admin-stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .admin-stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: var(--spacing-sm) 0;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .admin-table th {
+            background: var(--gray-100);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .admin-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .admin-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background: #51cf66;
+            color: white;
+        }
+
+        .status-badge.pending {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status-badge.inactive {
+            background: #ccc;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .system-health {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .health-card {
+            padding: var(--spacing-lg);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+        }
+
+        .health-card.good {
+            border-color: var(--success-color);
+        }
+
+        .health-card.warning {
+            border-color: var(--warning-color);
+        }
+
+        .health-card.critical {
+            border-color: var(--danger-color);
+        }
+
+        .log-entry {
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            border-left: 4px solid var(--gray-400);
+            background: var(--gray-50);
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-family-mono);
+            font-size: 0.9rem;
+        }
+
+        .log-entry.info {
+            border-color: var(--info-color);
+        }
+
+        .log-entry.warning {
+            border-color: var(--warning-color);
+        }
+
+        .log-entry.error {
+            border-color: var(--danger-color);
+        }
+
+        .bulk-actions {
+            background: var(--gray-100);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            margin: var(--spacing-lg) 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="nav-icon">🏠</span>
+                <span>NUAA Tools</span>
+            </a>
+            <h1>🔧 Admin Panel</h1>
+            <div class="nav-actions">
+                <button class="btn secondary" onclick="window.location.href='/analytics'">📊 Analytics</button>
+                <button class="btn danger" onclick="confirmLogout()">🚪 Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <h3>Admin Menu</h3>
+            <div class="admin-nav-item active" onclick="showSection('dashboard')">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('teams')">
+                <span>👥</span>
+                <span>Teams</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('templates')">
+                <span>📋</span>
+                <span>Templates</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('documents')">
+                <span>📄</span>
+                <span>Documents</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('users')">
+                <span>👤</span>
+                <span>Users</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('system')">
+                <span>⚙️</span>
+                <span>System Health</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('logs')">
+                <span>📝</span>
+                <span>Activity Logs</span>
+            </div>
+            <div class="admin-nav-item" onclick="showSection('settings')">
+                <span>🔧</span>
+                <span>Settings</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <h2>Admin Dashboard</h2>
+                <p>Overview of system status and key metrics</p>
+
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <div>Total Documents</div>
+                        <div class="admin-stat-value">1,247</div>
+                        <div>↑ 15% this month</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div>Active Teams</div>
+                        <div class="admin-stat-value">10</div>
+                        <div>All systems go</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div>Templates</div>
+                        <div class="admin-stat-value">26</div>
+                        <div>Fully operational</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div>Storage Used</div>
+                        <div class="admin-stat-value">2.4GB</div>
+                        <div>24% of capacity</div>
+                    </div>
+                </div>
+
+                <h3>Quick Actions</h3>
+                <div class="action-buttons" style="margin: var(--spacing-lg) 0;">
+                    <button class="btn primary" onclick="backupSystem()">💾 Backup System</button>
+                    <button class="btn secondary" onclick="exportAllData()">📤 Export All Data</button>
+                    <button class="btn secondary" onclick="clearCache()">🗑️ Clear Cache</button>
+                    <button class="btn secondary" onclick="runMaintenance()">🔧 Run Maintenance</button>
+                </div>
+
+                <h3>Recent Activity</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Team</th>
+                            <th>Action</th>
+                            <th>Document</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2 mins ago</td>
+                            <td>Outreach</td>
+                            <td>Created</td>
+                            <td>Session Report</td>
+                            <td><span class="status-badge active">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>15 mins ago</td>
+                            <td>Warehouse</td>
+                            <td>Updated</td>
+                            <td>Inventory Check</td>
+                            <td><span class="status-badge active">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td>1 hour ago</td>
+                            <td>Board</td>
+                            <td>Exported</td>
+                            <td>Strategic Plan</td>
+                            <td><span class="status-badge active">Success</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Teams Section -->
+            <section id="teams" class="admin-section">
+                <h2>Team Management</h2>
+                <p>Manage teams, permissions, and access levels</p>
+
+                <button class="btn primary" style="margin: var(--spacing-lg) 0;">+ Add New Team</button>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Members</th>
+                            <th>Documents</th>
+                            <th>Templates</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🚶 Outreach</td>
+                            <td>12</td>
+                            <td>327</td>
+                            <td>3</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon-small">✏️</button>
+                                <button class="btn-icon-small">⚙️</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>🎵 Festival/DanceWize</td>
+                            <td>8</td>
+                            <td>156</td>
+                            <td>3</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon-small">✏️</button>
+                                <button class="btn-icon-small">⚙️</button>
+                            </td>
+                        </tr>
+                        <!-- More teams... -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Templates Section -->
+            <section id="templates" class="admin-section">
+                <h2>Template Management</h2>
+                <p>Create, edit, and manage document templates</p>
+
+                <div class="bulk-actions">
+                    <h4>Bulk Actions</h4>
+                    <div class="action-buttons">
+                        <button class="btn secondary">📤 Export Templates</button>
+                        <button class="btn secondary">📥 Import Templates</button>
+                        <button class="btn secondary">🔄 Sync Templates</button>
+                    </div>
+                </div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Template</th>
+                            <th>Team</th>
+                            <th>Fields</th>
+                            <th>Usage</th>
+                            <th>Last Modified</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Session Report (Simple)</td>
+                            <td>Outreach</td>
+                            <td>12</td>
+                            <td>245 times</td>
+                            <td>2024-01-15</td>
+                            <td>
+                                <button class="btn-icon-small">✏️</button>
+                                <button class="btn-icon-small">📋</button>
+                                <button class="btn-icon-small">🗑️</button>
+                            </td>
+                        </tr>
+                        <!-- More templates... -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Documents Section -->
+            <section id="documents" class="admin-section">
+                <h2>Document Management</h2>
+                <p>View, search, and manage all documents</p>
+
+                <div class="bulk-actions">
+                    <h4>Bulk Operations</h4>
+                    <div class="action-buttons">
+                        <button class="btn secondary">📤 Bulk Export</button>
+                        <button class="btn secondary">📧 Bulk Email</button>
+                        <button class="btn danger">🗑️ Bulk Delete</button>
+                    </div>
+                </div>
+
+                <input type="search" placeholder="Search documents..." class="search-input" style="width: 100%; margin: var(--spacing-lg) 0;">
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" onclick="selectAll(this)"></th>
+                            <th>Document</th>
+                            <th>Team</th>
+                            <th>Created</th>
+                            <th>Size</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>Session Report - 2024-01-15</td>
+                            <td>Outreach</td>
+                            <td>Jan 15, 2024 10:30 AM</td>
+                            <td>12 KB</td>
+                            <td>
+                                <button class="btn-icon-small">👁️</button>
+                                <button class="btn-icon-small">📥</button>
+                                <button class="btn-icon-small">🗑️</button>
+                            </td>
+                        </tr>
+                        <!-- More documents... -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- System Health Section -->
+            <section id="system" class="admin-section">
+                <h2>System Health</h2>
+                <p>Monitor system status and performance</p>
+
+                <div class="system-health">
+                    <div class="health-card good">
+                        <h4>✅ Database</h4>
+                        <p>Status: <strong>Healthy</strong></p>
+                        <p>Uptime: 99.9%</p>
+                        <p>Connections: 12/100</p>
+                    </div>
+                    <div class="health-card good">
+                        <h4>✅ Storage</h4>
+                        <p>Status: <strong>Healthy</strong></p>
+                        <p>Used: 2.4GB / 10GB</p>
+                        <p>Free: 76%</p>
+                    </div>
+                    <div class="health-card good">
+                        <h4>✅ Server</h4>
+                        <p>Status: <strong>Running</strong></p>
+                        <p>CPU: 23%</p>
+                        <p>Memory: 1.2GB / 4GB</p>
+                    </div>
+                    <div class="health-card good">
+                        <h4>✅ API</h4>
+                        <p>Status: <strong>Operational</strong></p>
+                        <p>Response Time: 45ms</p>
+                        <p>Requests/min: 127</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: var(--spacing-2xl);">Performance Metrics</h3>
+                <canvas id="performanceChart" style="max-height: 300px;"></canvas>
+            </section>
+
+            <!-- Activity Logs Section -->
+            <section id="logs" class="admin-section">
+                <h2>Activity Logs</h2>
+                <p>System activity and audit trail</p>
+
+                <div class="action-buttons" style="margin: var(--spacing-lg) 0;">
+                    <button class="btn secondary">📥 Export Logs</button>
+                    <button class="btn secondary">🔄 Refresh</button>
+                    <button class="btn danger">🗑️ Clear Old Logs</button>
+                </div>
+
+                <div class="log-entry info">
+                    <strong>[INFO]</strong> 2024-01-15 10:30:15 - User created new document: Session Report
+                </div>
+                <div class="log-entry info">
+                    <strong>[INFO]</strong> 2024-01-15 10:28:42 - Template loaded: outreach/session-report-simple.md
+                </div>
+                <div class="log-entry warning">
+                    <strong>[WARN]</strong> 2024-01-15 10:15:33 - Slow query detected: 2.3s response time
+                </div>
+                <div class="log-entry info">
+                    <strong>[INFO]</strong> 2024-01-15 09:45:12 - Backup completed successfully (Size: 1.2GB)
+                </div>
+                <div class="log-entry error">
+                    <strong>[ERROR]</strong> 2024-01-15 09:30:07 - Failed to send email notification (Network timeout)
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="admin-section">
+                <h2>System Settings</h2>
+                <p>Configure system-wide settings and preferences</p>
+
+                <h3>General Settings</h3>
+                <div class="form-group">
+                    <label>Organization Name</label>
+                    <input type="text" value="NUAA">
+                </div>
+                <div class="form-group">
+                    <label>Support Email</label>
+                    <input type="email" value="tech@nuaa.org.au">
+                </div>
+
+                <h3>Security Settings</h3>
+                <div class="checkbox-label">
+                    <input type="checkbox" checked>
+                    <span>Require authentication for Web UI</span>
+                </div>
+                <div class="checkbox-label">
+                    <input type="checkbox" checked>
+                    <span>Enable activity logging</span>
+                </div>
+                <div class="checkbox-label">
+                    <input type="checkbox">
+                    <span>Allow public document sharing</span>
+                </div>
+
+                <h3>Storage Settings</h3>
+                <div class="form-group">
+                    <label>Maximum File Size (MB)</label>
+                    <input type="number" value="10">
+                </div>
+                <div class="form-group">
+                    <label>Auto-delete documents after (days)</label>
+                    <input type="number" value="365">
+                </div>
+
+                <div class="action-buttons" style="margin-top: var(--spacing-xl);">
+                    <button class="btn primary">💾 Save Settings</button>
+                    <button class="btn secondary">↶ Reset to Defaults</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/theme-switcher.js"></script>
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            event.target.closest('.admin-nav-item').classList.add('active');
+        }
+
+        function backupSystem() {
+            if (confirm('Create a full system backup? This may take a few minutes.')) {
+                alert('🔄 Backup started! You\'ll be notified when complete.');
+            }
+        }
+
+        function exportAllData() {
+            alert('📤 Preparing data export... This will download a ZIP file with all documents.');
+        }
+
+        function clearCache() {
+            if (confirm('Clear system cache? This may temporarily slow down the system.')) {
+                alert('✅ Cache cleared successfully!');
+            }
+        }
+
+        function runMaintenance() {
+            if (confirm('Run system maintenance? This will optimize database and clean up old files.')) {
+                alert('🔧 Maintenance started! This will run in the background.');
+            }
+        }
+
+        function confirmLogout() {
+            if (confirm('Logout from admin panel?')) {
+                window.location.href = '/';
+            }
+        }
+
+        function selectAll(checkbox) {
+            document.querySelectorAll('.admin-table tbody input[type="checkbox"]').forEach(cb => {
+                cb.checked = checkbox.checked;
+            });
+        }
+    </script>
+
+    <!-- Advanced Features Integration -->
+    <script src="/static/js/theme-switcher.js"></script>
+    <script src="/static/js/keyboard-shortcuts-enhanced.js"></script>
+</body>
+</html>

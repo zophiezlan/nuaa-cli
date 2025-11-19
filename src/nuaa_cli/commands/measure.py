@@ -82,7 +82,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
         # Validate inputs
         program_name = validate_program_name(program_name, console)
-        evaluation_period = validate_text_field(evaluation_period, "evaluation_period", 100, console)
+        evaluation_period = validate_text_field(
+            evaluation_period, "evaluation_period", 100, console
+        )
         budget = validate_text_field(budget, "budget", 100, console)
 
         feature_dir = get_or_create_feature_dir(program_name)

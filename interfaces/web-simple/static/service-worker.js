@@ -3,7 +3,7 @@
    NUAA Web Tools
    ============================================ */
 
-const CACHE_VERSION = 'nuaa-tools-v1.0.0';
+const CACHE_VERSION = 'nuaa-tools-v2.0.0';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -14,10 +14,16 @@ const STATIC_ASSETS = [
     '/static/css/main.css',
     '/static/css/dashboard.css',
     '/static/css/form.css',
+    '/static/css/themes.css',
     '/static/js/main.js',
     '/static/js/dashboard.js',
     '/static/js/form.js',
+    '/static/js/theme-switcher.js',
+    '/static/js/version-history.js',
+    '/static/js/keyboard-shortcuts-enhanced.js',
     '/static/manifest.json',
+    '/analytics',
+    '/admin',
     '/offline'
 ];
 

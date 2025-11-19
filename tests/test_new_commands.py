@@ -37,7 +37,8 @@ class TestEngageCommand:
                 files = list(nuaa_dir.glob("*/stakeholder-engagement-plan.md"))
                 if files:
                     content = files[0].read_text()
-                    assert "Peer Support Program" in content or "[Name]" in content
+                    # Program name is sanitized to "Peer-Support-Program"
+                    assert "Peer-Support-Program" in content or "Peer Support Program" in content or "[Name]" in content
         finally:
             os.chdir(old_cwd)
 
@@ -82,7 +83,8 @@ class TestPartnerCommand:
                 files = list(nuaa_dir.glob("*/partnership-agreement.md"))
                 if files:
                     content = files[0].read_text()
-                    assert "Harm Reduction Program" in content or "[Name]" in content
+                    # Program name is sanitized to "Harm-Reduction-Program"
+                    assert "Harm-Reduction-Program" in content or "Harm Reduction Program" in content or "[Name]" in content
         finally:
             os.chdir(old_cwd)
 
@@ -172,7 +174,8 @@ class TestRiskCommand:
                 files = list(nuaa_dir.glob("*/risk-register.md"))
                 if files:
                     content = files[0].read_text()
-                    assert "Community Outreach" in content or "[Name]" in content
+                    # Program name is sanitized to "Community-Outreach"
+                    assert "Community-Outreach" in content or "Community Outreach" in content or "[Name]" in content
         finally:
             os.chdir(old_cwd)
 

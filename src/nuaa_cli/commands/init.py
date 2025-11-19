@@ -158,9 +158,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
             "--ignore-agent-tools",
             help="Skip checks for AI agent tools like Claude Code",
         ),
-        no_git: bool = typer.Option(
-            False, "--no-git", help="Skip git repository initialization"
-        ),
+        no_git: bool = typer.Option(False, "--no-git", help="Skip git repository initialization"),
         here: bool = typer.Option(
             False,
             "--here",
@@ -313,9 +311,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
 
         # Validate project name and --here flag are mutually exclusive
         if here and project_name:
-            console.print(
-                "[red]Error:[/red] Cannot specify both project name and --here flag"
-            )
+            console.print("[red]Error:[/red] Cannot specify both project name and --here flag")
             raise typer.Exit(1)
 
         # Ensure either project name or --here is provided
@@ -400,9 +396,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
         else:
             # Create options dict for selection (agent_key: display_name)
             ai_choices = {key: config["name"] for key, config in AGENT_CONFIG.items()}
-            selected_ai = select_with_arrows(
-                ai_choices, "Choose your AI assistant:", "copilot"
-            )
+            selected_ai = select_with_arrows(ai_choices, "Choose your AI assistant:", "copilot")
 
         # Validate required AI agent tools are installed
         if not ignore_agent_tools:
@@ -480,9 +474,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
         git_error_message = None
 
         # Execute main initialization workflow with live progress display
-        with Live(
-            tracker.render(), console=console, refresh_per_second=8, transient=True
-        ) as live:
+        with Live(tracker.render(), console=console, refresh_per_second=8, transient=True) as live:
             tracker.attach_refresh(lambda: live.update(tracker.render()))
 
             try:
@@ -593,9 +585,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
             except RuntimeError as e:
                 tracker.error("final", str(e))
                 console.print(
-                    Panel(
-                        f"Initialization failed: {e}", title="Failure", border_style="red"
-                    )
+                    Panel(f"Initialization failed: {e}", title="Failure", border_style="red")
                 )
                 if debug:
                     _env_pairs = [
@@ -658,9 +648,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
         # Build next steps instructions
         steps_lines = []
         if not here:
-            steps_lines.append(
-                f"1. Go to the project folder: [cyan]cd {project_name}[/cyan]"
-            )
+            steps_lines.append(f"1. Go to the project folder: [cyan]cd {project_name}[/cyan]")
             step_num = 2
         else:
             steps_lines.append("1. You're already in the project directory!")
@@ -690,16 +678,12 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
         steps_lines.append("")
         steps_lines.append("   [bold]Planning & Management:[/bold]")
         steps_lines.append("   • [cyan]/nuaa.engage[/] - Create stakeholder engagement plans")
-        steps_lines.append(
-            "   • [cyan]/nuaa.partner[/] - Generate partnership agreements (MOUs)"
-        )
+        steps_lines.append("   • [cyan]/nuaa.partner[/] - Generate partnership agreements (MOUs)")
         steps_lines.append("   • [cyan]/nuaa.risk[/] - Build comprehensive risk registers")
         steps_lines.append("")
         steps_lines.append("   [bold]Events & Training:[/bold]")
         steps_lines.append("   • [cyan]/nuaa.event[/] - Plan workshops, forums, and events")
-        steps_lines.append(
-            "   • [cyan]/nuaa.train[/] - Design training curricula for peer workers"
-        )
+        steps_lines.append("   • [cyan]/nuaa.train[/] - Design training curricula for peer workers")
         steps_lines.append("")
         steps_lines.append("   [bold]Refinement:[/bold]")
         steps_lines.append("   • [cyan]/nuaa.refine[/] - Refine and improve outputs")

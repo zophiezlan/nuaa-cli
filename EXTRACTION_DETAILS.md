@@ -4,7 +4,7 @@
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/git_utils.py` (NEW)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 370-415 (run_command + is_git_repo)
 - Lines 417-455 (init_git_repo)
 
@@ -122,7 +122,7 @@ from rich.console import Console
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/ui.py` (NEW)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 221-239 (get_key)
 - Lines 242-323 (select_with_arrows)
 
@@ -257,7 +257,7 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/scripts.py` (NEW)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 924-973 (ensure_executable_scripts)
 
 ### Complete Code to Copy:
@@ -337,7 +337,7 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/banner.py` (NEW)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 209-216 (BANNER constant)
 - Line 218 (TAGLINE constant)
 - Lines 328-334 (BannerGroup class)
@@ -401,7 +401,7 @@ def show_banner():
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/download.py` (NEW)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 138-171 (_safe_extract_zip)
 - Lines 458-490 (handle_vscode_settings)
 - Lines 493-534 (merge_json_files)
@@ -446,7 +446,7 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/commands/init.py` (NEW - or move existing)
 
-**Exact lines to extract from __init__.py**: 
+**Exact lines to extract from __init__.py**:
 - Lines 976-1408 (entire init command)
 
 **Imports needed**:
@@ -494,10 +494,10 @@ console = Console()
 
 **Register function signature**:
 ```python
-def register(app: typer.Typer, agent_config: dict, script_type_choices: dict, 
+def register(app: typer.Typer, agent_config: dict, script_type_choices: dict,
              ssl_context, console: Console) -> None:
     """Register the init command with the Typer app."""
-    
+
     @app.command()
     def init(
         project_name: str | None = typer.Argument(...),
@@ -557,8 +557,7 @@ Several extracted modules need access to:
 
 4. **ssl_context** - Only needed by init.py (via download.py), pass as parameter
 
-**Recommended approach**: 
+**Recommended approach**:
 - Each module creates its own `console = Console()`
 - Modules like `download_and_extract_template` accept `console` as optional parameter
 - init.py receives these configuration objects and passes them where needed
-

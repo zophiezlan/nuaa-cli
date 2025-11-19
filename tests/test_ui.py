@@ -6,7 +6,7 @@ normalization and arrow-key selection menus using mocked readchar input.
 """
 
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 import typer
 from rich.console import Console
 
@@ -107,7 +107,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -124,7 +124,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -141,7 +141,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -158,7 +158,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -175,7 +175,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -192,7 +192,7 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
@@ -206,10 +206,7 @@ class TestSelectWithArrows:
 
     def test_select_with_arrows_escape_cancels(self):
         """Test that pressing Escape cancels selection."""
-        options = {
-            "claude": "Claude by Anthropic",
-            "copilot": "GitHub Copilot"
-        }
+        options = {"claude": "Claude by Anthropic", "copilot": "GitHub Copilot"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Simulate: Escape key
@@ -222,10 +219,7 @@ class TestSelectWithArrows:
 
     def test_select_with_arrows_keyboard_interrupt_cancels(self):
         """Test that KeyboardInterrupt (Ctrl+C) cancels selection."""
-        options = {
-            "claude": "Claude by Anthropic",
-            "copilot": "GitHub Copilot"
-        }
+        options = {"claude": "Claude by Anthropic", "copilot": "GitHub Copilot"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Simulate: Ctrl+C (raises KeyboardInterrupt)
@@ -241,18 +235,14 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Start on copilot, then press Enter immediately
             mock_get_key.return_value = "enter"
 
-            result = select_with_arrows(
-                options,
-                "Choose an AI agent",
-                default_key="copilot"
-            )
+            result = select_with_arrows(options, "Choose an AI agent", default_key="copilot")
 
             # Should select copilot (the default)
             assert result == "copilot"
@@ -262,67 +252,47 @@ class TestSelectWithArrows:
         options = {
             "claude": "Claude by Anthropic",
             "copilot": "GitHub Copilot",
-            "cursor": "Cursor AI"
+            "cursor": "Cursor AI",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Start on cursor, navigate down (wrap to claude), then Enter
             mock_get_key.side_effect = ["down", "enter"]
 
-            result = select_with_arrows(
-                options,
-                "Choose an AI agent",
-                default_key="cursor"
-            )
+            result = select_with_arrows(options, "Choose an AI agent", default_key="cursor")
 
             # Should wrap from cursor to claude
             assert result == "claude"
 
     def test_select_with_arrows_invalid_default_key(self):
         """Test that invalid default key falls back to first option."""
-        options = {
-            "claude": "Claude by Anthropic",
-            "copilot": "GitHub Copilot"
-        }
+        options = {"claude": "Claude by Anthropic", "copilot": "GitHub Copilot"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Invalid default, should start on first (claude)
             mock_get_key.return_value = "enter"
 
-            result = select_with_arrows(
-                options,
-                "Choose an AI agent",
-                default_key="invalid_key"
-            )
+            result = select_with_arrows(options, "Choose an AI agent", default_key="invalid_key")
 
             # Should fall back to first option (claude)
             assert result == "claude"
 
     def test_select_with_arrows_custom_console(self):
         """Test using a custom Rich console."""
-        options = {
-            "claude": "Claude by Anthropic",
-            "copilot": "GitHub Copilot"
-        }
+        options = {"claude": "Claude by Anthropic", "copilot": "GitHub Copilot"}
 
         custom_console = Console()
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             mock_get_key.return_value = "enter"
 
-            result = select_with_arrows(
-                options,
-                "Choose an AI agent",
-                console=custom_console
-            )
+            result = select_with_arrows(options, "Choose an AI agent", console=custom_console)
 
             assert result == "claude"
 
     def test_select_with_arrows_single_option(self):
         """Test selection with only one option available."""
-        options = {
-            "claude": "Claude by Anthropic"
-        }
+        options = {"claude": "Claude by Anthropic"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             mock_get_key.return_value = "enter"
@@ -333,9 +303,7 @@ class TestSelectWithArrows:
 
     def test_select_with_arrows_single_option_navigation(self):
         """Test that navigation with single option wraps to itself."""
-        options = {
-            "claude": "Claude by Anthropic"
-        }
+        options = {"claude": "Claude by Anthropic"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Navigate up and down, should stay on same option
@@ -347,18 +315,12 @@ class TestSelectWithArrows:
 
     def test_select_with_arrows_custom_prompt_text(self):
         """Test with custom prompt text."""
-        options = {
-            "yes": "Proceed with action",
-            "no": "Cancel action"
-        }
+        options = {"yes": "Proceed with action", "no": "Cancel action"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             mock_get_key.return_value = "enter"
 
-            result = select_with_arrows(
-                options,
-                "Do you want to continue?"
-            )
+            result = select_with_arrows(options, "Do you want to continue?")
 
             assert result == "yes"
 
@@ -373,17 +335,21 @@ class TestSelectWithArrowsIntegration:
             "option2": "Second option",
             "option3": "Third option",
             "option4": "Fourth option",
-            "option5": "Fifth option"
+            "option5": "Fifth option",
         }
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Complex pattern: down x2, up, down x3, up x2, enter
             mock_get_key.side_effect = [
-                "down", "down",  # -> option3
-                "up",             # -> option2
-                "down", "down", "down",  # -> option5
-                "up", "up",       # -> option3
-                "enter"
+                "down",
+                "down",  # -> option3
+                "up",  # -> option2
+                "down",
+                "down",
+                "down",  # -> option5
+                "up",
+                "up",  # -> option3
+                "enter",
             ]
 
             result = select_with_arrows(options, "Select an option")
@@ -392,18 +358,16 @@ class TestSelectWithArrowsIntegration:
 
     def test_full_cycle_navigation(self):
         """Test navigating through all options in both directions."""
-        options = {
-            "a": "Option A",
-            "b": "Option B",
-            "c": "Option C"
-        }
+        options = {"a": "Option A", "b": "Option B", "c": "Option C"}
 
         with patch("nuaa_cli.ui.get_key") as mock_get_key:
             # Navigate down through all, wrap around, go up, select
             mock_get_key.side_effect = [
-                "down", "down", "down",  # Back to 'a' (wrapped)
-                "up",                     # Wrap to 'c'
-                "enter"
+                "down",
+                "down",
+                "down",  # Back to 'a' (wrapped)
+                "up",  # Wrap to 'c'
+                "enter",
             ]
 
             result = select_with_arrows(options, "Select")

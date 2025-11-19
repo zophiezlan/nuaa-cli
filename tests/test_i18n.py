@@ -6,10 +6,9 @@ and locale-aware formatting for dates, numbers, and currencies.
 """
 
 import os
-import locale as system_locale
 import pytest
 from datetime import datetime
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from pathlib import Path
 
 from nuaa_cli.i18n import (
@@ -201,6 +200,7 @@ class TestTranslationFunction:
         """Test that translation function auto-initializes if needed."""
         # Reset the module's _translate variable
         from nuaa_cli import i18n
+
         i18n._translate = None
 
         result = _("Test")
@@ -230,6 +230,7 @@ class TestGetCurrentLocale:
     def test_get_current_locale_auto_initializes(self):
         """Test that get_current_locale auto-initializes if needed."""
         from nuaa_cli import i18n
+
         i18n._current_locale = None
 
         locale = get_current_locale()

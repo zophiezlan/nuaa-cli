@@ -37,7 +37,7 @@ class TestShowBanner:
 
     def test_show_banner_with_default_console(self):
         """Test show_banner with default console."""
-        with patch('nuaa_cli.banner.Console') as MockConsole:
+        with patch("nuaa_cli.banner.Console") as MockConsole:
             mock_console = Mock()
             MockConsole.return_value = mock_console
 
@@ -83,13 +83,14 @@ class TestBannerGroup:
     def test_banner_group_is_typer_group(self):
         """Test that BannerGroup inherits from TyperGroup."""
         from typer.core import TyperGroup
+
         assert issubclass(BannerGroup, TyperGroup)
 
     def test_banner_group_format_help_shows_banner(self):
         """Test that format_help shows banner."""
         group = BannerGroup()
 
-        with patch('nuaa_cli.banner.show_banner') as mock_show_banner:
+        with patch("nuaa_cli.banner.show_banner") as mock_show_banner:
             # Create mock context and formatter
             ctx = Mock()
             formatter = Mock()
@@ -115,8 +116,8 @@ class TestBannerGroup:
         """Test that BannerGroup calls parent format_help."""
         group = BannerGroup()
 
-        with patch('nuaa_cli.banner.show_banner'):
-            with patch.object(group.__class__.__bases__[0], 'format_help') as mock_super:
+        with patch("nuaa_cli.banner.show_banner"):
+            with patch.object(group.__class__.__bases__[0], "format_help") as mock_super:
                 ctx = Mock()
                 formatter = Mock()
 

@@ -96,7 +96,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
         # Validate inputs
         program_name = validate_program_name(program_name, console)
-        target_population = validate_text_field(target_population, "target_population", 500, console)
+        target_population = validate_text_field(
+            target_population, "target_population", 500, console
+        )
         duration = validate_text_field(duration, "duration", 100, console)
 
         # Determine feature directory

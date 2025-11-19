@@ -2,7 +2,6 @@
 
 import os
 import stat
-from pathlib import Path
 from unittest.mock import Mock
 
 import pytest
@@ -197,7 +196,7 @@ class TestEnsureExecutableScripts:
         script_file.chmod(0o644)
 
         # Mock os.chmod to raise PermissionError
-        import nuaa_cli.scripts
+
         original_chmod = os.chmod
 
         def mock_chmod(path, mode):

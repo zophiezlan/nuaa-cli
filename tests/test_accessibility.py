@@ -6,7 +6,6 @@ output modes, and accessible formatting for diverse user needs.
 """
 
 import os
-import pytest
 from unittest.mock import patch
 
 from nuaa_cli.accessibility import (
@@ -137,6 +136,7 @@ class TestAccessibilityFunctions:
         with patch.dict(os.environ, {}, clear=True):
             # Reset the global config
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert is_screen_reader_active() is False
@@ -145,6 +145,7 @@ class TestAccessibilityFunctions:
         """Test screen reader detection with NVDA."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert is_screen_reader_active() is True
@@ -153,6 +154,7 @@ class TestAccessibilityFunctions:
         """Test getting default output mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert get_output_mode() == OutputMode.STANDARD
@@ -161,6 +163,7 @@ class TestAccessibilityFunctions:
         """Test setting output mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             set_output_mode(OutputMode.HIGH_CONTRAST)
@@ -177,6 +180,7 @@ class TestFormatForAccessibility:
         """Test formatting info message in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test message", level="info")
@@ -187,6 +191,7 @@ class TestFormatForAccessibility:
         """Test formatting success message in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Success!", level="success")
@@ -197,6 +202,7 @@ class TestFormatForAccessibility:
         """Test formatting error message in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Error occurred", level="error")
@@ -207,6 +213,7 @@ class TestFormatForAccessibility:
         """Test formatting warning message in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Warning!", level="warning")
@@ -217,6 +224,7 @@ class TestFormatForAccessibility:
         """Test formatting for screen reader mode."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test", level="success")
@@ -227,6 +235,7 @@ class TestFormatForAccessibility:
         """Test formatting for no-color mode."""
         with patch.dict(os.environ, {"NO_COLOR": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test", level="error")
@@ -237,6 +246,7 @@ class TestFormatForAccessibility:
         """Test formatting for high contrast mode."""
         with patch.dict(os.environ, {"NUAA_HIGH_CONTRAST": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test", level="success")
@@ -248,6 +258,7 @@ class TestFormatForAccessibility:
         """Test formatting for dyslexia-friendly mode."""
         with patch.dict(os.environ, {"NUAA_DYSLEXIA_FRIENDLY": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test message", level="info")
@@ -258,6 +269,7 @@ class TestFormatForAccessibility:
         """Test formatting without symbols."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_for_accessibility("Test", level="info", include_symbols=False)
@@ -271,6 +283,7 @@ class TestAnnounceForScreenReader:
         """Test announcement when screen reader is active."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             announce_for_screen_reader("Test message", importance="polite")
@@ -282,6 +295,7 @@ class TestAnnounceForScreenReader:
         """Test announcement with assertive importance."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             announce_for_screen_reader("Important!", importance="assertive")
@@ -294,6 +308,7 @@ class TestAnnounceForScreenReader:
         """Test announcement when screen reader is not active."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             announce_for_screen_reader("Test message")
@@ -310,6 +325,7 @@ class TestGetNavigationHints:
         """Test navigation hints in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             hints = get_navigation_hints()
@@ -323,6 +339,7 @@ class TestGetNavigationHints:
         """Test navigation hints for screen reader users."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             hints = get_navigation_hints()
@@ -336,6 +353,7 @@ class TestGetNavigationHints:
         """Test that all expected hint keys are present."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             hints = get_navigation_hints()
@@ -352,6 +370,7 @@ class TestFormatProgress:
         """Test progress formatting in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_progress(3, 10, "Processing files")
@@ -364,6 +383,7 @@ class TestFormatProgress:
         """Test progress formatting for screen readers."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_progress(3, 10, "Processing files")
@@ -375,6 +395,7 @@ class TestFormatProgress:
         """Test progress formatting in simple mode."""
         with patch.dict(os.environ, {"NUAA_SIMPLE_MODE": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_progress(5, 20, "Loading")
@@ -386,6 +407,7 @@ class TestFormatProgress:
         """Test progress percentage calculation."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             result = format_progress(5, 10, "Test")
@@ -401,6 +423,7 @@ class TestGetLineLength:
         """Test line length in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             length = get_line_length()
@@ -410,6 +433,7 @@ class TestGetLineLength:
         """Test line length in dyslexia-friendly mode (shorter)."""
         with patch.dict(os.environ, {"NUAA_DYSLEXIA_FRIENDLY": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             length = get_line_length()
@@ -419,6 +443,7 @@ class TestGetLineLength:
         """Test line length in simple mode."""
         with patch.dict(os.environ, {"NUAA_SIMPLE_MODE": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             length = get_line_length()
@@ -432,6 +457,7 @@ class TestShouldUseEmoji:
         """Test emoji usage in standard mode."""
         with patch.dict(os.environ, {}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert should_use_emoji() is True
@@ -440,6 +466,7 @@ class TestShouldUseEmoji:
         """Test emoji disabled for screen readers."""
         with patch.dict(os.environ, {"NVDA": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert should_use_emoji() is False
@@ -448,6 +475,7 @@ class TestShouldUseEmoji:
         """Test emoji disabled in no-color mode."""
         with patch.dict(os.environ, {"NO_COLOR": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert should_use_emoji() is False
@@ -456,6 +484,7 @@ class TestShouldUseEmoji:
         """Test emoji disabled in simple mode."""
         with patch.dict(os.environ, {"NUAA_SIMPLE_MODE": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             assert should_use_emoji() is False
@@ -464,6 +493,7 @@ class TestShouldUseEmoji:
         """Test emoji allowed in high contrast mode."""
         with patch.dict(os.environ, {"NUAA_HIGH_CONTRAST": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             # High contrast still allows emoji
@@ -473,6 +503,7 @@ class TestShouldUseEmoji:
         """Test emoji allowed in dyslexia-friendly mode."""
         with patch.dict(os.environ, {"NUAA_DYSLEXIA_FRIENDLY": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             # Dyslexia-friendly still allows emoji
@@ -485,12 +516,13 @@ class TestAccessibilityIntegration:
     def test_multiple_accessibility_preferences(self):
         """Test behavior with multiple accessibility preferences set."""
         # Screen reader takes precedence
-        with patch.dict(os.environ, {
-            "NVDA": "1",
-            "NUAA_HIGH_CONTRAST": "1",
-            "NUAA_SIMPLE_MODE": "1"
-        }, clear=True):
+        with patch.dict(
+            os.environ,
+            {"NVDA": "1", "NUAA_HIGH_CONTRAST": "1", "NUAA_SIMPLE_MODE": "1"},
+            clear=True,
+        ):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             # Screen reader mode should win
@@ -501,6 +533,7 @@ class TestAccessibilityIntegration:
         """Test complete workflow with accessibility features."""
         with patch.dict(os.environ, {"NUAA_HIGH_CONTRAST": "1"}, clear=True):
             from nuaa_cli import accessibility
+
             accessibility._config = AccessibilityConfig()
 
             # Format different message types

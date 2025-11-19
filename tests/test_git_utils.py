@@ -2,8 +2,7 @@
 
 import os
 import subprocess
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 import pytest
 from rich.console import Console
@@ -104,10 +103,7 @@ class TestInitGitRepo:
 
         # Verify commit was made
         result = subprocess.run(
-            ["git", "log", "--oneline"],
-            cwd=tmp_path,
-            capture_output=True,
-            text=True
+            ["git", "log", "--oneline"], cwd=tmp_path, capture_output=True, text=True
         )
         assert "Initial commit from NUAA template" in result.stdout
 
@@ -156,7 +152,7 @@ class TestInitGitRepo:
 
         assert os.getcwd() == original_cwd
 
-    @patch('nuaa_cli.git_utils.subprocess.run')
+    @patch("nuaa_cli.git_utils.subprocess.run")
     def test_init_git_repo_handles_git_failure(self, mock_run, tmp_path):
         """Test handling of git command failures."""
         # Mock git command to fail
@@ -182,12 +178,7 @@ class TestInitGitRepo:
         assert error is None
 
         # Verify all files were committed
-        result = subprocess.run(
-            ["git", "ls-files"],
-            cwd=tmp_path,
-            capture_output=True,
-            text=True
-        )
+        result = subprocess.run(["git", "ls-files"], cwd=tmp_path, capture_output=True, text=True)
         assert "file1.txt" in result.stdout
         assert "file2.md" in result.stdout
         assert "subdir/file3.py" in result.stdout

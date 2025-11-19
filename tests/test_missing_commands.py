@@ -7,8 +7,6 @@ reports, and changelog refinements.
 """
 
 import os
-import pytest
-from pathlib import Path
 from typer.testing import CliRunner
 
 from nuaa_cli import app
@@ -26,8 +24,7 @@ class TestProposeCommand:
         try:
             os.chdir(tmp_path)
             result = runner.invoke(
-                app,
-                ["propose", "Peer Support Network", "NSW Health", "$75000", "12 months"]
+                app, ["propose", "Peer Support Network", "NSW Health", "$75000", "12 months"]
             )
 
             # Should succeed or fail gracefully
@@ -57,15 +54,13 @@ class TestProposeCommand:
 
             # Create first proposal
             result1 = runner.invoke(
-                app,
-                ["propose", "Test Program", "Funder A", "$50000", "6 months"]
+                app, ["propose", "Test Program", "Funder A", "$50000", "6 months"]
             )
 
             if result1.exit_code == 0:
                 # Create second proposal with force flag
                 result2 = runner.invoke(
-                    app,
-                    ["propose", "Test Program", "Funder B", "$100000", "12 months", "--force"]
+                    app, ["propose", "Test Program", "Funder B", "$100000", "12 months", "--force"]
                 )
 
                 # Should succeed
@@ -89,15 +84,13 @@ class TestProposeCommand:
 
             # Create first proposal
             result1 = runner.invoke(
-                app,
-                ["propose", "Test Program", "Funder A", "$50000", "6 months"]
+                app, ["propose", "Test Program", "Funder A", "$50000", "6 months"]
             )
 
             if result1.exit_code == 0:
                 # Try to create second proposal without force
                 result2 = runner.invoke(
-                    app,
-                    ["propose", "Test Program", "Funder B", "$100000", "12 months"]
+                    app, ["propose", "Test Program", "Funder B", "$100000", "12 months"]
                 )
 
                 # May succeed or fail depending on implementation
@@ -124,8 +117,7 @@ class TestProposeCommand:
             os.chdir(tmp_path)
             # Test with valid program name
             result = runner.invoke(
-                app,
-                ["propose", "Valid Program Name", "Funder", "$1000", "1 year"]
+                app, ["propose", "Valid Program Name", "Funder", "$1000", "1 year"]
             )
             # Should succeed or fail gracefully, not crash
             assert result.exit_code in [0, 1]
@@ -141,10 +133,7 @@ class TestMeasureCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["measure", "Peer Support Network", "12 months", "$15000"]
-            )
+            result = runner.invoke(app, ["measure", "Peer Support Network", "12 months", "$15000"])
 
             # Should succeed or fail gracefully
             assert result.exit_code in [0, 1]
@@ -171,16 +160,12 @@ class TestMeasureCommand:
             os.chdir(tmp_path)
 
             # Create first framework
-            result1 = runner.invoke(
-                app,
-                ["measure", "Test Program", "6 months", "$5000"]
-            )
+            result1 = runner.invoke(app, ["measure", "Test Program", "6 months", "$5000"])
 
             if result1.exit_code == 0:
                 # Update with force flag
                 result2 = runner.invoke(
-                    app,
-                    ["measure", "Test Program", "12 months", "$10000", "--force"]
+                    app, ["measure", "Test Program", "12 months", "$10000", "--force"]
                 )
 
                 # Should succeed
@@ -204,10 +189,7 @@ class TestMeasureCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["measure", "Valid Program", "1 year", "$20000"]
-            )
+            result = runner.invoke(app, ["measure", "Valid Program", "1 year", "$20000"])
             # Should handle gracefully
             assert result.exit_code in [0, 1]
         finally:
@@ -222,10 +204,7 @@ class TestDocumentCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["document", "Mobile Needle Exchange"]
-            )
+            result = runner.invoke(app, ["document", "Mobile Needle Exchange"])
 
             # Should succeed or fail gracefully
             assert result.exit_code in [0, 1]
@@ -288,10 +267,7 @@ class TestReportCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["report", "Peer Support Network"]
-            )
+            result = runner.invoke(app, ["report", "Peer Support Network"])
 
             # Should succeed or fail gracefully
             assert result.exit_code in [0, 1]
@@ -324,8 +300,7 @@ class TestReportCommand:
 
             for report_type in report_types:
                 result = runner.invoke(
-                    app,
-                    ["report", f"Program_{report_type}", "--type", report_type]
+                    app, ["report", f"Program_{report_type}", "--type", report_type]
                 )
 
                 # Should succeed or fail gracefully
@@ -333,7 +308,7 @@ class TestReportCommand:
 
                 if result.exit_code == 0:
                     nuaa_dir = tmp_path / "nuaa"
-                    report_files = list(nuaa_dir.glob(f"*/report.md"))
+                    report_files = list(nuaa_dir.glob("*/report.md"))
                     if report_files:
                         content = report_files[-1].read_text()
                         # Check that report type is reflected in content
@@ -353,8 +328,7 @@ class TestReportCommand:
             if result1.exit_code == 0:
                 # Update with force
                 result2 = runner.invoke(
-                    app,
-                    ["report", "Test Program", "--type", "annual", "--force"]
+                    app, ["report", "Test Program", "--type", "annual", "--force"]
                 )
 
                 # Should succeed
@@ -396,10 +370,7 @@ class TestRefineCommand:
 
             # First create a program with design command (or similar)
             # For testing, we'll try refine directly
-            result = runner.invoke(
-                app,
-                ["refine", "Test Program", "--note", "Added new feature"]
-            )
+            result = runner.invoke(app, ["refine", "Test Program", "--note", "Added new feature"])
 
             # May fail if program doesn't exist, which is expected
             # Exit code 0 = success, 1 = graceful failure
@@ -422,17 +393,11 @@ class TestRefineCommand:
             os.chdir(tmp_path)
 
             # Create first entry
-            result1 = runner.invoke(
-                app,
-                ["refine", "Test Program", "--note", "First change"]
-            )
+            result1 = runner.invoke(app, ["refine", "Test Program", "--note", "First change"])
 
             if result1.exit_code == 0:
                 # Add second entry
-                result2 = runner.invoke(
-                    app,
-                    ["refine", "Test Program", "--note", "Second change"]
-                )
+                result2 = runner.invoke(app, ["refine", "Test Program", "--note", "Second change"])
 
                 # Should succeed
                 assert result2.exit_code in [0, 1]
@@ -480,10 +445,7 @@ class TestRefineCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["refine", "NonexistentProgram", "--note", "Test"]
-            )
+            result = runner.invoke(app, ["refine", "NonexistentProgram", "--note", "Test"])
 
             # Should fail gracefully with exit code 1
             assert result.exit_code == 1
@@ -495,10 +457,7 @@ class TestRefineCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app,
-                ["refine", "Valid Program", "--note", "Valid note text"]
-            )
+            result = runner.invoke(app, ["refine", "Valid Program", "--note", "Valid note text"])
             # Should handle gracefully
             assert result.exit_code in [0, 1]
         finally:
@@ -540,27 +499,17 @@ class TestMissingCommandsIntegration:
 
             # Create proposal
             result1 = runner.invoke(
-                app,
-                ["propose", program_name, "Test Funder", "$50000", "12 months"]
+                app, ["propose", program_name, "Test Funder", "$50000", "12 months"]
             )
 
             # Create impact framework
-            result2 = runner.invoke(
-                app,
-                ["measure", program_name, "1 year", "$5000"]
-            )
+            result2 = runner.invoke(app, ["measure", program_name, "1 year", "$5000"])
 
             # Create program analysis
-            result3 = runner.invoke(
-                app,
-                ["document", program_name]
-            )
+            result3 = runner.invoke(app, ["document", program_name])
 
             # Create report
-            result4 = runner.invoke(
-                app,
-                ["report", program_name, "--type", "final"]
-            )
+            result4 = runner.invoke(app, ["report", program_name, "--type", "final"])
 
             # All commands should succeed or fail gracefully
             for result in [result1, result2, result3, result4]:

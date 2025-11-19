@@ -81,9 +81,7 @@ def _github_token(cli_token: Optional[str] = None) -> Optional[str]:
         >>> token
         'ghp_xyz789'
     """
-    return (
-        (cli_token or os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or "").strip()
-    ) or None
+    return ((cli_token or os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or "").strip()) or None
 
 
 def _github_auth_headers(cli_token: Optional[str] = None) -> dict:
@@ -257,9 +255,7 @@ def _safe_extract_zip(
             member_path.relative_to(extract_path)
         except ValueError:
             # Path traversal detected
-            console.print(
-                f"[red]Security Error:[/red] ZIP file contains invalid path: {member}"
-            )
+            console.print(f"[red]Security Error:[/red] ZIP file contains invalid path: {member}")
             console.print("[dim]This file may be malicious. Extraction aborted.[/dim]")
             raise typer.Exit(1)
 
@@ -549,7 +545,7 @@ def download_template_from_github(
 
     zip_path = download_dir / filename
     if verbose:
-        console.print(f"[cyan]Downloading template...[/cyan]")
+        console.print("[cyan]Downloading template...[/cyan]")
 
     try:
         with http_client.stream(
@@ -605,7 +601,9 @@ def download_template_from_github(
         if zip_path.exists():
             zip_path.unlink()
         console.print(
-            Panel("Download timed out. Please try again.", title="Download Error", border_style="red")
+            Panel(
+                "Download timed out. Please try again.", title="Download Error", border_style="red"
+            )
         )
         raise typer.Exit(1)
     except httpx.ConnectError:
@@ -631,7 +629,11 @@ def download_template_from_github(
         if zip_path.exists():
             zip_path.unlink()
         console.print(
-            Panel(f"Permission denied writing to: {zip_path}", title="Download Error", border_style="red")
+            Panel(
+                f"Permission denied writing to: {zip_path}",
+                title="Download Error",
+                border_style="red",
+            )
         )
         raise typer.Exit(1)
     except OSError as e:
@@ -785,14 +787,16 @@ def download_and_extract_template(
                             tracker.add("flatten", "Flatten nested directory")
                             tracker.complete("flatten")
                         elif verbose:
-                            console.print(f"[cyan]Found nested directory structure[/cyan]")
+                            console.print("[cyan]Found nested directory structure[/cyan]")
 
                     for item in source_dir.iterdir():
                         dest_path = project_path / item.name
                         if item.is_dir():
                             if dest_path.exists():
                                 if verbose and not tracker:
-                                    console.print(f"[yellow]Merging directory:[/yellow] {item.name}")
+                                    console.print(
+                                        f"[yellow]Merging directory:[/yellow] {item.name}"
+                                    )
                                 for sub_item in item.rglob("*"):
                                     if sub_item.is_file():
                                         rel_path = sub_item.relative_to(item)
@@ -820,7 +824,7 @@ def download_and_extract_template(
                                 console.print(f"[yellow]Overwriting file:[/yellow] {item.name}")
                             shutil.copy2(item, dest_path)
                     if verbose and not tracker:
-                        console.print(f"[cyan]Template files merged into current directory[/cyan]")
+                        console.print("[cyan]Template files merged into current directory[/cyan]")
             else:
                 _safe_extract_zip(zip_ref, project_path, console)
 
@@ -848,7 +852,7 @@ def download_and_extract_template(
                         tracker.add("flatten", "Flatten nested directory")
                         tracker.complete("flatten")
                     elif verbose:
-                        console.print(f"[cyan]Flattened nested directory structure[/cyan]")
+                        console.print("[cyan]Flattened nested directory structure[/cyan]")
 
     except zipfile.BadZipFile:
         if tracker:
@@ -873,7 +877,7 @@ def download_and_extract_template(
             tracker.error("extract", f"Permission denied: {e}")
         else:
             if verbose:
-                console.print(f"[red]Error extracting template:[/red] Permission denied")
+                console.print("[red]Error extracting template:[/red] Permission denied")
                 if debug:
                     console.print(Panel(str(e), title="Extraction Error", border_style="red"))
 

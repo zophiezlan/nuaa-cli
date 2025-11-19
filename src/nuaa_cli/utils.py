@@ -208,7 +208,7 @@ def sanitize_name(name: str, console: Console, allow_path_sep: bool = False) -> 
     sanitized = "".join(c for c in name if c in safe_chars)
 
     # Clean up multiple spaces/dashes
-    sanitized = re.sub(r'[ -]+', '-', sanitized).strip('-')
+    sanitized = re.sub(r"[ -]+", "-", sanitized).strip("-")
 
     if sanitized != original:
         console.print(

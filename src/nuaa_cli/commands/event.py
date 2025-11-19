@@ -13,7 +13,7 @@ from ..scaffold import (
     _prepend_metadata,
     write_markdown_if_needed,
 )
-from ..utils import validate_program_name, validate_text_field
+from ..utils import validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):
@@ -103,7 +103,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         # Validate inputs
         event_name = validate_text_field(event_name, "event_name", 200, console)
         event_type = validate_text_field(event_type, "event_type", 100, console)
-        expected_attendance = validate_text_field(expected_attendance, "expected_attendance", 100, console)
+        expected_attendance = validate_text_field(
+            expected_attendance, "expected_attendance", 100, console
+        )
 
         # Determine feature directory
         if feature:

@@ -23,13 +23,13 @@ The `__init__.py` file is **1,590 lines** and contains multiple logical concerns
 **Status**: Partially exists in `github_client.py` - RECOMMEND CONSOLIDATION
 
 **Current Duplicates in __init__.py**:
-- Lines 64-66: `_github_token()` 
+- Lines 64-66: `_github_token()`
 - Lines 69-72: `_github_auth_headers()`
 - Lines 75-101: `_parse_rate_limit_headers()`
 - Lines 104-135: `_format_rate_limit_error()`
 
-**Recommendation**: 
-These functions already exist as methods in `github_client.py` (lines 52-131). The ones in `__init__.py` are standalone functions while `github_client.py` has them as class methods. 
+**Recommendation**:
+These functions already exist as methods in `github_client.py` (lines 52-131). The ones in `__init__.py` are standalone functions while `github_client.py` has them as class methods.
 
 **Action**: Add standalone helper functions to `github_client.py` that delegate to the class, OR migrate all code to use the `GitHubClient` class directly.
 
@@ -76,8 +76,8 @@ from .github_client import GitHubClient  # For HTTP operations
 **Function signatures**:
 ```python
 def _safe_extract_zip(
-    zip_ref: zipfile.ZipFile, 
-    extract_path: Path, 
+    zip_ref: zipfile.ZipFile,
+    extract_path: Path,
     console: Console
 ) -> None: ...
 
@@ -107,16 +107,16 @@ def download_and_extract_template(
 ) -> Path: ...
 
 def handle_vscode_settings(
-    sub_item, 
-    dest_file, 
-    rel_path, 
-    verbose=False, 
+    sub_item,
+    dest_file,
+    rel_path,
+    verbose=False,
     tracker=None
 ) -> None: ...
 
 def merge_json_files(
-    existing_path: Path, 
-    new_content: dict, 
+    existing_path: Path,
+    new_content: dict,
     verbose: bool = False
 ) -> dict: ...
 ```
@@ -164,7 +164,7 @@ def run_command(
 def is_git_repo(path: Path | None = None) -> bool: ...
 
 def init_git_repo(
-    project_path: Path, 
+    project_path: Path,
     quiet: bool = False
 ) -> Tuple[bool, Optional[str]]: ...
 ```
@@ -197,7 +197,7 @@ from .utils import StepTracker
 **Function signature**:
 ```python
 def ensure_executable_scripts(
-    project_path: Path, 
+    project_path: Path,
     tracker: StepTracker | None = None
 ) -> None: ...
 ```
@@ -240,8 +240,8 @@ import typer
 def get_key() -> str: ...
 
 def select_with_arrows(
-    options: dict, 
-    prompt_text: str = "Select an option", 
+    options: dict,
+    prompt_text: str = "Select an option",
     default_key: str | None = None
 ) -> str: ...
 ```
@@ -437,7 +437,7 @@ Standalone modules:
 **CRITICAL**: Extract in this order to avoid circular imports:
 
 1. **git_utils.py** (Phase 3) - no internal dependencies
-2. **ui.py** (Phase 5) - no internal dependencies  
+2. **ui.py** (Phase 5) - no internal dependencies
 3. **scripts.py** (Phase 4) - depends on utils.py (already exists)
 4. **banner.py** (Phase 6) - no internal dependencies
 5. **download.py** (Phase 2) - depends on github_client.py, utils.StepTracker
@@ -489,4 +489,3 @@ After extraction, test these in order:
 | commands/init.py | 450 | 1 main + 1 register | All above | Final |
 | github_client.py | Consolidate | Add helper functions | Existing module | Medium |
 | __init__.py | 250-300 | Remaining CLI framework | All modules | Final |
-

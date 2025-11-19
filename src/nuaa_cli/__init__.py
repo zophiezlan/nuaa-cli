@@ -74,7 +74,6 @@ from .download import (
 )
 
 
-
 from .scaffold import (
     _slugify,
     _find_templates_root,
@@ -111,7 +110,6 @@ AGENT_CONFIG = _load_agent_config()
 SCRIPT_TYPE_CHOICES = {"sh": "POSIX Shell (bash/zsh)", "ps": "PowerShell"}
 
 
-
 console = Console()
 
 app = typer.Typer(
@@ -130,22 +128,6 @@ def callback(ctx: typer.Context):
         show_banner()
         console.print(Align.center("[dim]Run 'nuaa --help' for usage information[/dim]"))
         console.print()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## init command now registered from commands/init.py

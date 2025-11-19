@@ -13,7 +13,7 @@ from ..scaffold import (
     _prepend_metadata,
     write_markdown_if_needed,
 )
-from ..utils import validate_program_name, validate_text_field
+from ..utils import validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):

@@ -1,3 +1,10 @@
+---
+description: Create or update program risk register and mitigation strategies
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh risk {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 risk {ARGS}
+---
+
 # /nuaa.risk - Risk Register Command
 
 **Purpose**: Create comprehensive risk registers for proactive program risk management

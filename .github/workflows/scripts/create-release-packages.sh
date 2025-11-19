@@ -93,8 +93,8 @@ generate_commands() {
       toml)
         body=$(printf '%s\n' "$body" | sed 's/\\/\\\\/g')
         { echo "description = \"$description\""; echo; echo "prompt = \"\"\""; echo "$body"; echo "\"\"\""; } > "$output_dir/nuaa.$name.$ext" ;;
-      md)
-        echo "$body" > "$output_dir/nuaa.$name.$ext" ;;
+      md|markdown)
+        echo "$body" > "$output_dir/nuaa.$name.md" ;;
       agent.md)
         echo "$body" > "$output_dir/nuaa.$name.$ext" ;;
     esac

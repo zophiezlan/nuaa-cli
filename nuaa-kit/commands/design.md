@@ -1,3 +1,10 @@
+---
+description: Create comprehensive program design with logic model and impact framework
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh design {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 design {ARGS}
+---
+
 # /nuaa.design - Program Design Command
 
 Template: See [program-design.md](../templates/program-design.md). Related: [logic-model.md](../templates/logic-model.md), [impact-framework.md](../templates/impact-framework.md).

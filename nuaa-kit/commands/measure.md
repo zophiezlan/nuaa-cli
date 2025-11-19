@@ -1,3 +1,10 @@
+---
+description: Define or update impact measurement and evaluation framework
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh measure {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 measure {ARGS}
+---
+
 # /nuaa.measure - Impact Measurement Command
 
 Template: See [impact-framework.md](../templates/impact-framework.md). Related: [logic-model.md](../templates/logic-model.md), [program-design.md](../templates/program-design.md).

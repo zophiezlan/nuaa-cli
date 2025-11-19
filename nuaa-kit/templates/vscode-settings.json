@@ -1,0 +1,52 @@
+{
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.instructionFiles": [
+    {
+      "file": ".github/agents/nuaa.design.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.propose.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.measure.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.engage.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.document.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.train.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.risk.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.report.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.refine.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.partner.md",
+      "enabled": true
+    },
+    {
+      "file": ".github/agents/nuaa.event.md",
+      "enabled": true
+    }
+  ],
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "gpt-4"
+  }
+}

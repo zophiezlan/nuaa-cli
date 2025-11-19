@@ -1,4 +1,8 @@
 ---
+description: Generate program progress reports and outcome documentation
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh report {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 report {ARGS}
 status: implemented
 version: 1.0.0
 mode: active

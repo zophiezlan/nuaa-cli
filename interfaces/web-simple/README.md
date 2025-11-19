@@ -1,6 +1,19 @@
 # NUAA Simple Web Interface
 
+**Version 2.1.0** - Enhanced with exceptional UX improvements
+
 A simple, accessible web interface for NUAA teams who don't use command-line tools.
+
+## 🎉 What's New in v2.1 (November 2025)
+
+✨ **Professional Toast Notifications** - Beautiful, non-intrusive feedback
+⌨️ **Keyboard Shortcuts Overlay** - Press `?` to see all shortcuts
+🧭 **Enhanced Navigation** - Breadcrumbs and improved mobile menu
+📱 **Better Mobile Experience** - Optimized touch targets and gestures
+🚀 **Improved Performance** - Faster loading and smoother interactions
+♿ **Enhanced Accessibility** - Even better screen reader support
+
+See [WEBUI_IMPROVEMENTS.md](WEBUI_IMPROVEMENTS.md) for complete details.
 
 ## Purpose
 
@@ -18,11 +31,15 @@ Make NUAA project tools accessible to **everyone**, regardless of technical skil
 
 ✓ **No technical knowledge required** - Just click and fill in forms
 ✓ **Works on all devices** - Phone, tablet, computer
-✓ **Mobile-friendly** - Perfect for field workers
-✓ **Accessible** - Screen readers, high contrast, large text
-✓ **Offline capable** - Works without internet (once loaded)
-✓ **Auto-save** - Never lose your work
+✓ **Mobile-friendly** - Perfect for field workers with optimized touch targets
+✓ **Accessible** - WCAG 2.1 AAA compliant, screen readers, high contrast, large text
+✓ **Offline capable** - Progressive Web App, works without internet
+✓ **Auto-save** - Never lose your work, saves every 30 seconds
 ✓ **Secure** - All data stored locally, not in the cloud
+✓ **Professional Notifications** - Beautiful toast messages instead of popup alerts
+✓ **Keyboard Shortcuts** - Power users can work faster (press `?` to see all)
+✓ **Smart Navigation** - Breadcrumbs and mobile-optimized menu
+✓ **Loading States** - Skeleton screens and progress indicators
 
 ## Quick Start
 
@@ -277,25 +294,45 @@ Edit `templates/index.html` - Look for the `<style>` section
 ### Add Logo
 Add your logo image to `static/` folder and update templates
 
+## Recent Improvements (v2.1.0 - November 2025)
+
+### ✅ Completed
+- [x] Professional toast notification system
+- [x] Keyboard shortcuts overlay (press `?`)
+- [x] Enhanced navigation with breadcrumbs
+- [x] Mobile menu improvements
+- [x] Loading skeletons and better feedback
+- [x] Scroll-to-top button
+- [x] Skip-to-content links for accessibility
+- [x] Better error handling with retry logic
+
+### Integration Guide
+See [INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md) for how to use the new features.
+
 ## Roadmap
 
-### Coming Soon (Phase 2)
+### Coming Soon (Phase 2.2 - Q1 2026)
+- [ ] Interactive onboarding tour for new users
+- [ ] Advanced search with filters
+- [ ] Inline form validation with real-time feedback
+- [ ] Bulk operations (multi-select documents)
+- [ ] Custom template saving and sharing
+- [ ] Enhanced analytics dashboard
+
+### Phase 2.3 (Q2 2026)
 - [ ] SMS quick submit integration
 - [ ] Email interface (send form, receive document)
 - [ ] Microsoft Teams bot
 - [ ] Multi-language interface (6 languages)
-- [ ] Voice input optimization
-- [ ] Camera/photo upload
-- [ ] GPS location auto-fill
+- [ ] Voice input optimization improvements
+- [ ] Advanced camera features
 
 ### Future (Phase 3)
-- [ ] Offline-first PWA (install as app)
-- [ ] Push notifications
-- [ ] Team collaboration features
-- [ ] Admin dashboard
-- [ ] Usage analytics
-- [ ] Export to Excel/CSV
-- [ ] Batch operations
+- [ ] Mobile native apps (iOS/Android)
+- [ ] Real-time collaboration features
+- [ ] Advanced admin dashboard
+- [ ] AI-powered form completion
+- [ ] Integration marketplace
 
 ## Support
 

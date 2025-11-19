@@ -59,16 +59,16 @@ if (Test-Path $GenReleasesDir) {
 }
 New-Item -ItemType Directory -Path $GenReleasesDir -Force | Out-Null
 
-function Rewrite-Paths {
+function ConvertTo-NuaaPath {
     param([string]$Content)
 
-    $Content = $Content -replace '(/?)\bmemory/', '.nuaa/memory/'
-    $Content = $Content -replace '(/?)\bscripts/', '.nuaa/scripts/'
-    $Content = $Content -replace '(/?)\btemplates/', '.nuaa/templates/'
+    $Content = $Content -replace '(/?)memory/', '.nuaa/memory/'
+    $Content = $Content -replace '(/?)scripts/', '.nuaa/scripts/'
+    $Content = $Content -replace '(/?)templates/', '.nuaa/templates/'
     return $Content
 }
 
-function Generate-Commands {
+function New-CommandFile {
     param(
         [string]$Agent,
         [string]$Extension,
@@ -159,7 +159,7 @@ function Generate-Commands {
         # Apply other substitutions
         $body = $body -replace '\{ARGS\}', $ArgFormat
         $body = $body -replace '__AGENT__', $Agent
-        $body = Rewrite-Paths -Content $body
+        $body = ConvertTo-NuaaPath -Content $body
 
         # Generate output file based on extension
         $outputFile = Join-Path $OutputDir "nuaa.$name.$Extension"
@@ -180,7 +180,7 @@ function Generate-Commands {
     }
 }
 
-function Generate-CopilotPrompts {
+function New-CopilotPrompt {
     param(
         [string]$AgentsDir,
         [string]$PromptsDir
@@ -209,7 +209,7 @@ function Generate-CopilotPrompts {
     }
 }
 
-function Build-Variant {
+function New-ReleaseVariant {
     param(
         [string]$Agent,
         [string]$Script
@@ -275,12 +275,12 @@ function Build-Variant {
     $outputDir = Join-Path $baseDir $agentData.folder
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 
-    Generate-Commands -Agent $Agent -Extension $agentFormat.ToLower() -ArgFormat $argPlaceholder -OutputDir $outputDir -ScriptVariant $Script
+    New-CommandFile -Agent $Agent -Extension $agentFormat.ToLower() -ArgFormat $argPlaceholder -OutputDir $outputDir -ScriptVariant $Script
 
     # Special handling for certain agents
     if ($Agent -eq 'copilot') {
         $promptsDir = Join-Path $baseDir ".github/prompts"
-        Generate-CopilotPrompts -AgentsDir $outputDir -PromptsDir $promptsDir
+        New-CopilotPrompt -AgentsDir $outputDir -PromptsDir $promptsDir
 
         $vscodeDir = Join-Path $baseDir ".vscode"
         New-Item -ItemType Directory -Path $vscodeDir -Force | Out-Null
@@ -312,19 +312,19 @@ $AgentsData = Get-Content -Path $AgentsJsonPath | ConvertFrom-Json
 $AllAgents = $AgentsData.PSObject.Properties.Name
 $AllScripts = @('sh', 'ps')
 
-function Normalize-List {
-    param([string]$Input)
+function Convert-ToNormalizedList {
+    param([string]$InputString)
 
-    if ([string]::IsNullOrEmpty($Input)) {
+    if ([string]::IsNullOrEmpty($InputString)) {
         return @()
     }
 
     # Split by comma or space and remove duplicates while preserving order
-    $items = $Input -split '[,\s]+' | Where-Object { $_ } | Select-Object -Unique
+    $items = $InputString -split '[,\s]+' | Where-Object { $_ } | Select-Object -Unique
     return $items
 }
 
-function Validate-Subset {
+function Test-ValidSubset {
     param(
         [string]$Type,
         [string[]]$Allowed,
@@ -343,8 +343,8 @@ function Validate-Subset {
 
 # Determine agent list
 if (-not [string]::IsNullOrEmpty($Agents)) {
-    $AgentList = Normalize-List -Input $Agents
-    if (-not (Validate-Subset -Type 'agent' -Allowed $AllAgents -Items $AgentList)) {
+    $AgentList = Convert-ToNormalizedList -InputString $Agents
+    if (-not (Test-ValidSubset -Type 'agent' -Allowed $AllAgents -Items $AgentList)) {
         exit 1
     }
 }
@@ -354,8 +354,8 @@ else {
 
 # Determine script list
 if (-not [string]::IsNullOrEmpty($Scripts)) {
-    $ScriptList = Normalize-List -Input $Scripts
-    if (-not (Validate-Subset -Type 'script' -Allowed $AllScripts -Items $ScriptList)) {
+    $ScriptList = Convert-ToNormalizedList -InputString $Scripts
+    if (-not (Test-ValidSubset -Type 'script' -Allowed $AllScripts -Items $ScriptList)) {
         exit 1
     }
 }
@@ -369,7 +369,7 @@ Write-Host "Scripts: $($ScriptList -join ', ')"
 # Build all variants
 foreach ($agent in $AgentList) {
     foreach ($script in $ScriptList) {
-        Build-Variant -Agent $agent -Script $script
+        New-ReleaseVariant -Agent $agent -Script $script
     }
 }
 

@@ -16,3 +16,28 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
       - id: check-toml
+  - repo: local
+    hooks:
+      - id: powershell-script-analyzer
+        name: PowerShell Script Analyzer
+        entry: pwsh
+        args:
+          - -NoProfile
+          - -Command
+          - |
+            $files = $args
+            $hasErrors = $false
+            foreach ($file in $files) {
+              if ($file -like '*.ps1') {
+                Write-Host "Analyzing $file..."
+                $results = Invoke-ScriptAnalyzer -Path $file -Severity Warning,Error
+                if ($results) {
+                  $results | Format-Table -AutoSize
+                  $hasErrors = $true
+                }
+              }
+            }
+            if ($hasErrors) { exit 1 }
+        language: system
+        files: \.ps1$
+        pass_filenames: true

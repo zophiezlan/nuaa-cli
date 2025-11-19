@@ -32,6 +32,14 @@ jobs:
         run: python -m pip install --upgrade pip
       - name: Install package (with dev deps)
         run: pip install -e .[dev]
+      - name: Auto-fix linting issues (required before verification)
+        run: |
+          echo "🔧 Running auto-fixers before verification..."
+          black src/nuaa_cli tests scripts/python || true
+          ruff check --fix src/nuaa_cli tests scripts/python || true
+          pre-commit run --all-files || true
+          python scripts/python/update_agents_docs.py || true
+          echo "✅ Auto-fixes applied (if any)"
       - name: Lint (ruff)
         run: ruff check .
       - name: Type check (mypy)

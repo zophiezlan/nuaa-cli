@@ -102,7 +102,9 @@ class TestGitHubClient:
         """Test rate limit handling when fetching latest release."""
         mock_response = Mock()
         mock_response.status_code = 403
-        mock_response.headers = httpx.Headers({"X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1700000000"})
+        mock_response.headers = httpx.Headers(
+            {"X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1700000000"}
+        )
 
         mock_client = MagicMock()
         mock_client.__enter__.return_value.get.return_value = mock_response
@@ -140,7 +142,9 @@ class TestGitHubClient:
         )
 
         client = GitHubClient()
-        formatted = client._format_rate_limit_error(403, mock_headers, "https://api.github.com/test")
+        formatted = client._format_rate_limit_error(
+            403, mock_headers, "https://api.github.com/test"
+        )
 
         assert "403" in formatted or "rate limit" in formatted.lower()
 

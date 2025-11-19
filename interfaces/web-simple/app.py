@@ -20,9 +20,6 @@ from pathlib import Path
 import os
 import socket
 from datetime import datetime, timedelta
-import json
-import glob
-from collections import defaultdict
 import io
 
 app = Flask(__name__)
@@ -289,12 +286,14 @@ def api_stats(team_id):
     # Drafts are stored in localStorage, so we return 0 for now
     # The frontend will update this from localStorage
 
-    return jsonify({
-        "total": total_docs,
-        "recent": recent_docs,
-        "drafts": drafts,
-        "templates": len(TEAMS[team_id]["templates"])
-    })
+    return jsonify(
+        {
+            "total": total_docs,
+            "recent": recent_docs,
+            "drafts": drafts,
+            "templates": len(TEAMS[team_id]["templates"]),
+        }
+    )
 
 
 @app.route("/api/documents/<team_id>")
@@ -308,24 +307,24 @@ def api_documents(team_id):
 
     if output_dir.exists():
         # Get all markdown files
-        all_files = sorted(
-            output_dir.rglob("*.md"),
-            key=lambda p: p.stat().st_mtime,
-            reverse=True
-        )
+        all_files = sorted(output_dir.rglob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
 
         # Get limit from query params
         limit = int(request.args.get("limit", 10))
 
         for file_path in all_files[:limit]:
             rel_path = file_path.relative_to(output_dir)
-            documents.append({
-                "id": str(rel_path).replace("/", "_").replace(".md", ""),
-                "name": file_path.stem.replace("-", " ").title(),
-                "date": datetime.fromtimestamp(file_path.stat().st_mtime).strftime("%Y-%m-%d %H:%M"),
-                "path": str(file_path),
-                "size": file_path.stat().st_size
-            })
+            documents.append(
+                {
+                    "id": str(rel_path).replace("/", "_").replace(".md", ""),
+                    "name": file_path.stem.replace("-", " ").title(),
+                    "date": datetime.fromtimestamp(file_path.stat().st_mtime).strftime(
+                        "%Y-%m-%d %H:%M"
+                    ),
+                    "path": str(file_path),
+                    "size": file_path.stat().st_size,
+                }
+            )
 
     return jsonify({"documents": documents})
 
@@ -367,13 +366,17 @@ def api_search():
                             context = " ".join(lines[start:end])
                             break
 
-                    results.append({
-                        "title": file_path.stem.replace("-", " ").title(),
-                        "path": str(file_path),
-                        "team": str(file_path.parent.parent.name),
-                        "date": datetime.fromtimestamp(file_path.stat().st_mtime).strftime("%Y-%m-%d"),
-                        "context": context[:200] + "..." if len(context) > 200 else context
-                    })
+                    results.append(
+                        {
+                            "title": file_path.stem.replace("-", " ").title(),
+                            "path": str(file_path),
+                            "team": str(file_path.parent.parent.name),
+                            "date": datetime.fromtimestamp(file_path.stat().st_mtime).strftime(
+                                "%Y-%m-%d"
+                            ),
+                            "context": context[:200] + "..." if len(context) > 200 else context,
+                        }
+                    )
             except Exception:
                 continue
 
@@ -405,7 +408,7 @@ def view_document(team_id, doc_path):
             team=TEAMS[team_id],
             doc_name=file_path.stem.replace("-", " ").title(),
             content=html_content,
-            raw_path=str(file_path)
+            raw_path=str(file_path),
         )
     except Exception as e:
         return f"Error loading document: {str(e)}", 500
@@ -425,12 +428,14 @@ def export_pdf():
         output.write(f"NUAA Document Export\n{'=' * 50}\n\n{content}".encode("utf-8"))
         output.seek(0)
 
-        response = make_response(send_file(
-            output,
-            mimetype="application/pdf",
-            as_attachment=True,
-            download_name=f"{filename}.pdf"
-        ))
+        response = make_response(
+            send_file(
+                output,
+                mimetype="application/pdf",
+                as_attachment=True,
+                download_name=f"{filename}.pdf",
+            )
+        )
 
         return response
     except Exception as e:
@@ -454,12 +459,14 @@ def export_word():
         output.write(rtf_content.encode("utf-8"))
         output.seek(0)
 
-        response = make_response(send_file(
-            output,
-            mimetype="application/rtf",
-            as_attachment=True,
-            download_name=f"{filename}.rtf"
-        ))
+        response = make_response(
+            send_file(
+                output,
+                mimetype="application/rtf",
+                as_attachment=True,
+                download_name=f"{filename}.rtf",
+            )
+        )
 
         return response
     except Exception as e:
@@ -478,11 +485,13 @@ def send_email():
         # In production, integrate with email service (SendGrid, AWS SES, etc.)
         # For now, return success with instructions
 
-        return jsonify({
-            "success": True,
-            "message": f"Email functionality coming soon! Document prepared for: {recipient}",
-            "instructions": "Please copy the content and email manually for now."
-        })
+        return jsonify(
+            {
+                "success": True,
+                "message": f"Email functionality coming soon! Document prepared for: {recipient}",
+                "instructions": "Please copy the content and email manually for now.",
+            }
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -498,7 +507,8 @@ def markdown_to_html(markdown_text):
 
     # Bold
     import re
-    html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
+
+    html = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", html)
 
     # Lists
     lines = html.split("\n")

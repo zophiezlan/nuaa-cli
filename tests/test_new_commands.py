@@ -38,7 +38,11 @@ class TestEngageCommand:
                 if files:
                     content = files[0].read_text()
                     # Program name is sanitized to "Peer-Support-Program"
-                    assert "Peer-Support-Program" in content or "Peer Support Program" in content or "[Name]" in content
+                    assert (
+                        "Peer-Support-Program" in content
+                        or "Peer Support Program" in content
+                        or "[Name]" in content
+                    )
         finally:
             os.chdir(old_cwd)
 
@@ -84,7 +88,11 @@ class TestPartnerCommand:
                 if files:
                     content = files[0].read_text()
                     # Program name is sanitized to "Harm-Reduction-Program"
-                    assert "Harm-Reduction-Program" in content or "Harm Reduction Program" in content or "[Name]" in content
+                    assert (
+                        "Harm-Reduction-Program" in content
+                        or "Harm Reduction Program" in content
+                        or "[Name]" in content
+                    )
         finally:
             os.chdir(old_cwd)
 
@@ -175,7 +183,11 @@ class TestRiskCommand:
                 if files:
                     content = files[0].read_text()
                     # Program name is sanitized to "Community-Outreach"
-                    assert "Community-Outreach" in content or "Community Outreach" in content or "[Name]" in content
+                    assert (
+                        "Community-Outreach" in content
+                        or "Community Outreach" in content
+                        or "[Name]" in content
+                    )
         finally:
             os.chdir(old_cwd)
 

@@ -281,9 +281,7 @@ def _process_template(
         console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
         raise typer.Exit(1)
     except PermissionError:
-        console.print(
-            "[red]Permission denied:[/red] Cannot read template or write output file"
-        )
+        console.print("[red]Permission denied:[/red] Cannot read template or write output file")
         raise typer.Exit(1)
     except OSError as e:
         console.print(f"[red]File system error:[/red] {e}")

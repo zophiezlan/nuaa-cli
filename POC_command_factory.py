@@ -23,9 +23,11 @@ from pathlib import Path
 # CORE FACTORY PATTERN (Goes in: src/nuaa_cli/command_factory.py)
 # ============================================================================
 
+
 @dataclass
 class FieldConfig:
     """Configuration for a command field parameter."""
+
     name: str
     help_text: str
     max_length: int = 500
@@ -36,6 +38,7 @@ class FieldConfig:
 @dataclass
 class TemplateCommandConfig:
     """Complete configuration for a template-based command."""
+
     command_name: str
     template_name: str
     output_filename: str
@@ -68,12 +71,7 @@ class TemplateCommandFactory:
             """Generated register function for this command."""
 
             # Build the command function dynamically
-            def command_function(
-                program_name: str,
-                *args,
-                force: bool = False,
-                **kwargs
-            ):
+            def command_function(program_name: str, *args, force: bool = False, **kwargs):
                 """Generated command function."""
                 if show_banner_fn:
                     show_banner_fn()
@@ -93,7 +91,7 @@ class TemplateCommandFactory:
                     mapping=mapping,
                     program_name=program_name,
                     force=force,
-                    console=console
+                    console=console,
                 )
 
             # Set metadata and register with app
@@ -114,11 +112,7 @@ class TemplateCommandFactory:
         return name.strip()
 
     def _build_field_mapping(
-        self,
-        program_name: str,
-        args: tuple,
-        kwargs: dict,
-        console
+        self, program_name: str, args: tuple, kwargs: dict, console
     ) -> Dict[str, str]:
         """Build field mapping from arguments."""
         mapping = {
@@ -137,9 +131,7 @@ class TemplateCommandFactory:
 
             # Validate field length
             if value and len(value) > field.max_length:
-                raise ValueError(
-                    f"Field '{field.name}' exceeds max length {field.max_length}"
-                )
+                raise ValueError(f"Field '{field.name}' exceeds max length {field.max_length}")
 
             mapping[field.name.upper()] = value
 
@@ -151,12 +143,7 @@ class TemplateCommandFactory:
         return Path(f"./nuaa/{program_name.lower().replace(' ', '-')}")
 
     def _process_template(
-        self,
-        feature_dir: Path,
-        mapping: Dict[str, str],
-        program_name: str,
-        force: bool,
-        console
+        self, feature_dir: Path, mapping: Dict[str, str], program_name: str, force: bool, console
     ):
         """
         Load template, apply replacements, write file.
@@ -258,7 +245,7 @@ PROPOSE_CONFIG = TemplateCommandConfig(
         "duration": m["DURATION"],
         "created": m["DATE"],
         "status": "draft",
-    }
+    },
 )
 
 # Example 2: measure.py - BEFORE: 115 lines, AFTER: 23 lines
@@ -284,7 +271,7 @@ MEASURE_CONFIG = TemplateCommandConfig(
         "evaluation_period": m["EVALUATION_PERIOD"],
         "budget": m["BUDGET"],
         "created": m["DATE"],
-    }
+    },
 )
 
 # Example 3: engage.py - BEFORE: 108 lines, AFTER: 21 lines
@@ -303,13 +290,14 @@ ENGAGE_CONFIG = TemplateCommandConfig(
     fields=[
         FieldConfig("stakeholders", "Key stakeholders to engage", max_length=500),
         FieldConfig("timeline", "Engagement timeline", max_length=100),
-    ]
+    ],
 )
 
 
 # ============================================================================
 # DEMONSTRATION
 # ============================================================================
+
 
 def demonstrate_factory_pattern():
     """Show how the factory pattern dramatically reduces code."""
@@ -345,7 +333,7 @@ def demonstrate_factory_pattern():
             funder="NSW Health",
             amount="$50,000",
             duration="12 months",
-            force=False
+            force=False,
         )
     except Exception as e:
         print(f"Demo completed (expected: {e})")

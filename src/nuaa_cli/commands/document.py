@@ -3,7 +3,7 @@
 import typer
 from rich.console import Console
 
-from ..command_factory import FieldConfig, TemplateCommandConfig, TemplateCommandHandler
+from ..command_factory import TemplateCommandConfig, TemplateCommandHandler
 
 # Configuration for the document command
 CONFIG = TemplateCommandConfig(

@@ -1,4 +1,8 @@
 ---
+description: Refine and improve existing program documentation
+scripts:
+  sh: bash .nuaa/scripts/bash/update-agent-context.sh {ARGS}
+  ps: powershell .nuaa/scripts/powershell/update-agent-context.ps1 {ARGS}
 status: implemented
 version: 1.0.0
 mode: active

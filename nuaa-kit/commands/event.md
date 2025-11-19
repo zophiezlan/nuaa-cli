@@ -1,3 +1,10 @@
+---
+description: Plan and organize NUAA events and community activities
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh event {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 event {ARGS}
+---
+
 # /nuaa.event - Event Planning Command
 
 **Purpose**: Plan workshops, forums, launches, celebrations, and community events

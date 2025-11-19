@@ -1,3 +1,10 @@
+---
+description: Design comprehensive training curriculum for peer workers and staff
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh train {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 train {ARGS}
+---
+
 # /nuaa.train - Training Curriculum Command
 
 **Purpose**: Design comprehensive training curricula for peer workers, volunteers, or staff

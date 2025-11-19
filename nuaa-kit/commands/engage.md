@@ -1,3 +1,10 @@
+---
+description: Create comprehensive stakeholder engagement plan
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh engage {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 engage {ARGS}
+---
+
 # /nuaa.engage - Stakeholder Engagement Plan Command
 
 **Purpose**: Create a comprehensive stakeholder engagement plan for a NUAA program

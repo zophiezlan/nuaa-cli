@@ -1,3 +1,10 @@
+---
+description: Generate comprehensive funding proposal from program design
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh propose {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 propose {ARGS}
+---
+
 # /nuaa.propose - Funding Proposal Command
 
 Template: See [proposal.md](../templates/proposal.md). Related: [program-design.md](../templates/program-design.md), [logic-model.md](../templates/logic-model.md), [impact-framework.md](../templates/impact-framework.md).

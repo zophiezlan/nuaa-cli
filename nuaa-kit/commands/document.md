@@ -1,4 +1,8 @@
 ---
+description: Generate comprehensive program documentation and reports
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh document {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 document {ARGS}
 status: implemented
 version: 1.0.0
 mode: active

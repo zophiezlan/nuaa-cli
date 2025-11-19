@@ -1,3 +1,10 @@
+---
+description: Create partnership agreements and collaboration frameworks
+scripts:
+  sh: bash .nuaa/scripts/bash/create-new-feature.sh partner {ARGS}
+  ps: powershell .nuaa/scripts/powershell/create-new-feature.ps1 partner {ARGS}
+---
+
 # /nuaa.partner - Partnership Agreement Command
 
 **Purpose**: Generate formal partnership agreements (MOUs) for collaborations

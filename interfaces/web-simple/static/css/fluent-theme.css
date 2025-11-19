@@ -1,0 +1,339 @@
+/* ============================================
+   Fluent UI Theme Integration
+   Version: 1.0.0
+   ============================================ */
+
+/* ===== Fluent UI Design Tokens ===== */
+:root {
+  /* Fluent UI Compatible Colors */
+  --fluent-blue-10: #061724;
+  --fluent-blue-20: #082338;
+  --fluent-blue-30: #0a2e4a;
+  --fluent-blue-40: #0c3b5e;
+  --fluent-blue-50: #0e4775;
+  --fluent-blue-60: #115ea3;
+  --fluent-blue-70: #0f6cbd;
+  --fluent-blue-80: #2886de;
+  --fluent-blue-90: #479ef5;
+  --fluent-blue-100: #62abf5;
+
+  /* Update primary colors to match Fluent Design */
+  --primary-color: #0f6cbd;
+  --primary-dark: #115ea3;
+  --primary-light: #d6e8fa;
+}
+
+/* ===== Fluent UI Component Styling ===== */
+
+/* Fluent Button Customization */
+fluent-button {
+  font-family: var(--font-family-base);
+  margin: 4px;
+}
+
+fluent-button::part(control) {
+  border-radius: var(--border-radius-sm);
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+/* Fluent Card Styling */
+fluent-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+fluent-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+fluent-card::part(control) {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--gray-300);
+}
+
+/* Fluent Text Field */
+fluent-text-field,
+fluent-text-area {
+  width: 100%;
+  margin: var(--spacing-sm) 0;
+}
+
+fluent-text-field::part(root),
+fluent-text-area::part(root) {
+  border-radius: var(--border-radius-sm);
+}
+
+fluent-text-field::part(control),
+fluent-text-area::part(control) {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  padding: 12px 16px;
+}
+
+/* Fluent Checkbox */
+fluent-checkbox {
+  margin: var(--spacing-sm);
+}
+
+fluent-checkbox::part(control) {
+  width: 20px;
+  height: 20px;
+}
+
+/* Fluent Badge */
+fluent-badge {
+  font-size: var(--font-size-sm);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Fluent Progress */
+fluent-progress {
+  width: 100%;
+  height: 4px;
+}
+
+fluent-progress::part(progress) {
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+}
+
+/* Fluent Dialog */
+fluent-dialog {
+  font-family: var(--font-family-base);
+}
+
+fluent-dialog::part(overlay) {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+fluent-dialog::part(control) {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 600px;
+  padding: 0;
+}
+
+/* ===== Team Cards with Fluent UI ===== */
+.team-card {
+  padding: var(--spacing-xl);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+fluent-card.team-card:hover {
+  border-color: var(--primary-color);
+}
+
+/* ===== Stat Cards with Fluent UI ===== */
+fluent-card.stat-card {
+  background: linear-gradient(135deg, #0f6cbd, #115ea3);
+  color: white;
+  text-align: center;
+}
+
+fluent-card.stat-card::part(control) {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-xl);
+}
+
+/* ===== Template Cards with Fluent UI ===== */
+fluent-card.template-card {
+  cursor: pointer;
+  padding: var(--spacing-lg);
+}
+
+fluent-card.template-card:hover {
+  border-color: var(--primary-color);
+}
+
+/* ===== Action Buttons with Fluent UI ===== */
+fluent-button.action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-sm) 0;
+  width: 100%;
+}
+
+fluent-button.action-btn::part(control) {
+  justify-content: flex-start;
+  padding: 12px 16px;
+}
+
+/* ===== Navigation Buttons ===== */
+fluent-button.btn-icon {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+fluent-button.btn-icon::part(control) {
+  padding: 8px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* ===== Accessibility Toggle Button ===== */
+fluent-button.accessibility-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== Form Actions ===== */
+.form-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-actions fluent-button {
+  min-width: 120px;
+}
+
+/* ===== Modal Styling with Fluent Dialog ===== */
+fluent-dialog .modal-content {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+fluent-dialog .modal-header {
+  padding: var(--spacing-xl);
+  border-bottom: 1px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+fluent-dialog .modal-body {
+  padding: var(--spacing-xl);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+fluent-dialog .modal-footer {
+  padding: var(--spacing-xl);
+  border-top: 1px solid var(--gray-300);
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}
+
+/* ===== Search Input with Fluent Text Field ===== */
+.search-input {
+  width: 100%;
+}
+
+/* ===== Quick Report Textarea ===== */
+fluent-text-area.quick-report-textarea {
+  width: 100%;
+  min-height: 200px;
+}
+
+/* ===== Sidebar Section Buttons ===== */
+.sidebar-section fluent-button {
+  margin: var(--spacing-xs) 0;
+}
+
+/* ===== Dark Mode Support for Fluent UI ===== */
+body.dark-mode {
+  --neutral-foreground-rest: #ffffff;
+  --neutral-fill-rest: #2a2a2a;
+}
+
+body.dark-mode fluent-card::part(control) {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark-mode fluent-button::part(control) {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+body.dark-mode fluent-text-field::part(control),
+body.dark-mode fluent-text-area::part(control) {
+  background: #333;
+  color: #ffffff;
+  border-color: #555;
+}
+
+/* ===== High Contrast Mode ===== */
+body.high-contrast fluent-button::part(control) {
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast fluent-card::part(control) {
+  border: 2px solid #ffffff;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  fluent-button.action-btn {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions fluent-button {
+    width: 100%;
+  }
+
+  fluent-button.accessibility-toggle {
+    position: static;
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* ===== Animation Enhancements ===== */
+@keyframes fluent-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+fluent-card {
+  animation: fluent-fade-in 0.3s ease-out;
+}
+
+/* ===== Focus Visible Enhancements ===== */
+fluent-button:focus-visible,
+fluent-text-field:focus-visible,
+fluent-checkbox:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== Custom Fluent Design System Alignment ===== */
+* {
+  --design-unit: 4;
+  --base-height-multiplier: 10;
+  --base-horizontal-spacing-multiplier: 3;
+  --density: 0;
+}
+
+/* Ensure proper spacing and alignment */
+fluent-button,
+fluent-text-field,
+fluent-text-area,
+fluent-checkbox {
+  --design-unit: 4px;
+}

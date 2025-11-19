@@ -1,5 +1,9 @@
 # Local Development Guide
 
+> **Note**: This guide is for **developers** working on the NUAA CLI tool itself. If you're an **end user** looking to use NUAA for your projects, see the [README](../README.md) instead.
+
+---
+
 This guide shows how to iterate on the `nuaa` CLI (formerly `specify`) locally without publishing a release or committing to `main` first.
 
 > Scripts now have both Bash (`.sh`) and PowerShell (`.ps1`) variants. The CLI auto-selects based on OS unless you pass `--script sh|ps`.

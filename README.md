@@ -168,29 +168,40 @@ Run tests yourself:
 
 ## ⚡ Get Started
 
-### Quick Installation
+### Quick Installation for Your Project
 
-NUAA Project Kit is available in the `/nuaa-kit` directory of this repository. To start using it:
+NUAA CLI is installed directly into **your project** (not cloned as a repository). Most users will interact with it through the **WebUI** - no command line experience needed!
 
-1. **Clone the repository:**
+**Step 1: Install NUAA CLI in your project**
 
-   ```bash
-   git clone https://github.com/zophiezlan/nuaa-cli.git
-   cd nuaa-cli/nuaa-kit
-   ```
+```bash
+# Run this in your project directory
+uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
+```
 
-2. **Review the Quick Start Guide:**
+This command will:
+- Install NUAA CLI tools into your project
+- Create `.nuaa/` directory with templates and scripts
+- Set up your chosen AI assistant integration (Claude, Copilot, Gemini, etc.)
+- Initialize a git repository (optional)
 
-   ```bash
-   cat QUICKSTART.md
-   ```
+**Step 2: Start the WebUI (Recommended for most users)**
 
-3. **Try your first command:**
-   Launch your AI assistant in the `nuaa-kit` directory and use:
+```bash
+# After init completes, start the web interface
+python .nuaa/scripts/start_webui.py
+# Or if you prefer: uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa webui
+```
 
-   ```bash
-   /nuaa.design Design a peer-led workshop series on stigma reduction in healthcare settings
-   ```
+Then open your browser to `http://localhost:5000` and start creating program designs, proposals, and impact frameworks through an easy-to-use web interface!
+
+**Step 3 (Alternative): Use AI Assistant Commands**
+
+If you prefer working with AI assistants directly, use the slash commands:
+
+```bash
+/nuaa.design Design a peer-led workshop series on stigma reduction in healthcare settings
+```
 
 ### System Requirements
 
@@ -200,132 +211,104 @@ NUAA Project Kit is available in the `/nuaa-kit` directory of this repository. T
 - [Python 3.11+](https://www.python.org/downloads/)
 - [Git](https://git-scm.com/downloads)
 
-### 📦 Installation & Setup (For Beginners)
+### 📦 Getting Started (Step-by-Step for Beginners)
 
-**Using VSCode Terminal** - Follow these simple steps to install and use NUAA Project Kit:
+**Don't have command line experience? No problem!** NUAA CLI comes with a web interface that requires no technical knowledge.
 
-#### Step 1: Open VSCode Terminal
+#### Step 1: Install NUAA CLI in Your Project
 
-1. Open Visual Studio Code
-2. Press `` Ctrl+` `` (Windows/Linux) or `` Cmd+` `` (macOS) to open the integrated terminal
-3. Or go to **Terminal → New Terminal** from the menu
+1. **Open your terminal** (or Command Prompt on Windows, or Terminal app on Mac)
 
-#### Step 2: Clone the Repository
+2. **Navigate to your project folder**:
+   ```bash
+   cd /path/to/your-project-folder
+   # Or create a new folder: mkdir my-nuaa-project && cd my-nuaa-project
+   ```
 
-In the VSCode terminal, run:
+3. **Run the installation command**:
+   ```bash
+   uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
+   ```
 
-```bash
-git clone https://github.com/zophiezlan/nuaa-cli.git
-cd nuaa-cli
-```
+4. **Follow the prompts**:
+   - Choose your AI assistant (Claude, Copilot, Gemini, etc.) - or skip if unsure
+   - Choose script type (just press Enter for default)
 
-#### Step 3: Install the NUAA CLI
+5. **Wait for installation** - This downloads templates and sets up your project (takes about 30 seconds)
 
-Choose one of these methods:
+#### Step 2: Start Using NUAA
 
-**Option A: Using pip (Recommended for beginners)**
+You have two options:
 
-```bash
-# Install the CLI tool
-pip install -e .
-
-# Verify installation
-nuaa --help
-```
-
-**Option B: Using uv (Faster, recommended for developers)**
+**Option A: WebUI (Recommended for most users - No coding required!)**
 
 ```bash
-# Install uv if you don't have it
-pip install uv
-
-# Install the CLI with uv
-uv sync
-
-# Verify installation
-uv run nuaa --help
+# Start the web interface
+python .nuaa/scripts/start_webui.py
 ```
 
-#### Step 4: Verify Everything Works
+Then open your browser to: `http://localhost:5000`
 
-Test that the installation was successful:
+You'll see a simple, user-friendly interface where you can:
+- Click to create program designs
+- Fill in forms to generate proposals
+- Export documents to Word/Excel
+
+**Option B: AI Assistant Commands (For those comfortable with AI tools)**
+
+If you're using an AI assistant like Claude Code or GitHub Copilot, you can use slash commands:
 
 ```bash
-# Check the CLI version
-nuaa version
-
-# See all available commands
-nuaa --help
+/nuaa.design Create a peer-led naloxone distribution program
+/nuaa.propose Generate funding proposal for the program
+/nuaa.measure Define impact measurement framework
 ```
 
-You should see the NUAA CLI version and a list of available commands.
-
-#### Step 5: Start Using NUAA Kit
-
-Navigate to the NUAA Kit directory and start using the AI-assisted workflows:
-
-```bash
-cd nuaa-kit
-
-# Open the Quick Start Guide
-cat QUICKSTART.md
-```
-
-Now you can use NUAA commands with your AI assistant (like GitHub Copilot in VSCode):
-
-```bash
-/nuaa.design Design a peer-led workshop series on stigma reduction in healthcare settings
-```
-
-#### Common Installation Issues
+#### Common Questions
 
 <details>
-<summary><b>🔧 "Command not found: nuaa"</b></summary>
+<summary><b>❓ What if I don't have Python installed?</b></summary>
 
-If you get this error, try:
+You'll need Python 3.11 or newer. Download it from [python.org/downloads](https://www.python.org/downloads/)
 
-```bash
-# Make sure you're in the right directory
-cd /path/to/nuaa-cli
-
-# Reinstall
-pip install -e .
-
-# If using uv, use: uv run nuaa instead of just nuaa
-uv run nuaa --help
-```
-
-</details>
-
-<details>
-<summary><b>🔧 "Python version too old"</b></summary>
-
-NUAA requires Python 3.11 or newer. Check your version:
-
+Check your version:
 ```bash
 python --version
 ```
 
-If you need to upgrade Python, visit [python.org/downloads](https://www.python.org/downloads/)
+</details>
+
+<details>
+<summary><b>❓ What if I don't have uvx installed?</b></summary>
+
+uvx comes with Python 3.11+. If you get "command not found", install it:
+
+```bash
+pip install uvx
+```
 
 </details>
 
 <details>
-<summary><b>🔧 "pip: command not found"</b></summary>
+<summary><b>❓ Can I use this on my phone or tablet?</b></summary>
 
-Try using `pip3` instead:
+Yes! Once the WebUI is running, you can access it from any device on the same network. Your team member will give you the URL (it looks like `http://192.168.1.x:5000`).
 
-```bash
-pip3 install -e .
-```
+</details>
+
+<details>
+<summary><b>❓ Do I need to install an AI assistant?</b></summary>
+
+Not if you're using the WebUI! The WebUI works standalone. AI assistants are only needed if you want to use the slash commands method.
 
 </details>
 
 #### Next Steps
 
-- 📖 Read the [NUAA Kit Quick Start Guide](./nuaa-kit/QUICKSTART.md) for your first week
-- 🎯 Review [Core Features](#-core-features) below to understand what you can do
-- 💬 Join the discussion on [GitHub Issues](https://github.com/zophiezlan/nuaa-cli/issues) if you need help
+- 🌐 **For WebUI users**: Open the interface and click around - it's intuitive!
+- 🤖 **For AI assistant users**: Try your first `/nuaa.design` command
+- 📖 **Need more help?**: Check out the [WebUI Guide](./interfaces/web-simple/README.md)
+- 💬 **Got questions?**: Open a [GitHub Issue](https://github.com/zophiezlan/nuaa-cli/issues)
 
 ## 🎯 Core Features
 
@@ -357,62 +340,68 @@ Define clear impact frameworks with:
 - Data collection template generation
 - Export to Excel for tracking
 
-## 📋 Quick Start Guide
+## 📋 Workflows & Use Cases
 
-### Deploy in Weeks
+### Your First Week with NUAA
 
-### Use the NUAA CLI Workflows
+After running `nuaa init .` in your project, you'll have everything you need to start creating professional program designs, proposals, and impact frameworks.
 
-Once you have this repository checked out, you can add the `nuaa` function to your PowerShell profile (Windows) so commands are easy to run:
+#### Week 1: WebUI Basics (Recommended for Most Users)
 
-```powershell
-pwsh -File scripts/powershell/add-nuaa-function.ps1 -Version v0.3.0
+**Day 1-2: Get Familiar**
+1. Start the WebUI: `python .nuaa/scripts/start_webui.py`
+2. Open browser to `http://localhost:5000`
+3. Explore the interface - click through the different sections
+4. Try creating a simple program design using the guided form
+
+**Day 3-4: Create Your First Program Design**
+1. Click "Program Design" in the WebUI
+2. Fill in the form with your program details:
+   - Program name: "Peer Naloxone Distribution"
+   - Target population: "People at risk of opioid overdose"
+   - Duration: "12 months"
+3. Review the generated logic model
+4. Export to Word for review with your team
+
+**Day 5: Generate a Funding Proposal**
+1. Click "Funding Proposal" in the WebUI
+2. Select your program design as the basis
+3. Add funder details (e.g., "NSW Health", "$50,000", "12 months")
+4. Customize the proposal for your funder's requirements
+5. Export to Word and add attachments
+
+#### Week 2-3: Advanced Features
+
+**Impact Measurement**
+- Use the "Impact Framework" section to define evaluation indicators
+- Export evaluation plan to Excel for tracking
+
+**Team Collaboration**
+- Share the WebUI URL with team members on your network
+- Multiple people can work on different programs simultaneously
+- Export and share documents via email or SharePoint
+
+#### Week 4+: Ongoing Use
+
+**Regular Workflows**
+- Weekly: Document outreach sessions and program activities
+- Monthly: Update program designs based on learnings
+- Quarterly: Generate progress reports for funders
+- Annually: Conduct program evaluations
+
+**For Advanced Users: AI Assistant Commands**
+
+If you're comfortable with AI assistants, you can use slash commands for faster workflows:
+
+```bash
+/nuaa.design Create program design for Peer Naloxone Distribution targeting people at risk of opioid overdose over 12 months
+/nuaa.propose Generate NSW Health funding proposal for $50,000 over 12 months
+/nuaa.measure Define impact framework for 12-month evaluation with $7,000 budget
+/nuaa.document Document existing Outreach & Needle Exchange program
+/nuaa.report Create final report for Peer Naloxone Distribution program
 ```
 
-Open a new PowerShell window and try:
-
-```powershell
-nuaa version
-
-# Create a new feature (scaffolds program design, logic model, impact framework)
-nuaa design "Peer Naloxone Distribution" "people at risk of opioid overdose" "12 months"
-
-# Generate a proposal linked to that design
-nuaa propose "Peer Naloxone Distribution" "NSW Health" "$50000" "12 months"
-
-# Define or refresh the impact framework
-nuaa measure "Peer Naloxone Distribution" "12 months" "$7000"
-
-# Brownfield documentation for an existing program
-nuaa document "Outreach & Needle Exchange"
-
-# Report scaffold
-nuaa report "Peer Naloxone Distribution" --type final
-
-# Record a refinement in the feature changelog
-nuaa refine "Peer Naloxone Distribution" --note "Updated budget and indicators after pilot"
-```
-
-Outputs are created under `nuaa/NNN-<slug>/` using the templates in `nuaa-kit/templates/`.
-
-#### Phase 1: Core Setup (Week 1)
-
-1. Install dependencies
-2. Configure Microsoft 365 integration
-3. Import NUAA-specific templates
-4. Train staff on first command: `/nuaa.design`
-
-#### Phase 2: Initial Use (Week 2-3)
-
-- Create first program design using logic model generator
-- Generate proposal for upcoming funding opportunity
-- Test impact measurement framework
-
-#### Phase 3: Iteration (Week 4+)
-
-- Refine based on staff feedback
-- Expand to additional commands
-- Full Microsoft 365 automation deployment
+All outputs are saved in your project's `.nuaa/outputs/` directory with organized folders for each program.
 
 ## 🤖 Supported AI Agents
 
@@ -550,60 +539,36 @@ If you discover a security vulnerability, please:
 
 We take security seriously and will respond promptly to verified reports.
 
-## 🧪 Automation & quality checks
+## 🔧 For Developers: Contributing to NUAA CLI
 
-This repo bakes in a few guardrails to keep things tidy and in sync:
+**Note**: This section is for people developing the NUAA CLI tool itself. If you're an end user wanting to use NUAA for your projects, you can skip this section!
 
-- Single source of truth for supported agents in `src/nuaa_cli/agents.json`
-- Supported Agents tables in this README and `AGENTS.md` are auto-generated from the manifest
-- Parity check ensures bash and PowerShell scripts cover all agents listed in the manifest
-- CI runs lint, type checks, unit tests, coverage, security scans, and E2E tests across Windows and Ubuntu
-- **Auto-formatters and linters** fix issues automatically before you commit
+If you want to contribute to NUAA CLI development, see [CONTRIBUTING.md](./CONTRIBUTING.md) for:
 
-### 🔧 Quick Fix Commands
+- Setting up your development environment
+- Running tests and linters
+- Code quality automation
+- CI/CD workflows
+- Creating pull requests
 
-Before committing, auto-fix all code style issues:
+### Quick Developer Commands
 
 ```bash
-# Using Make (recommended)
-make fix          # Auto-format and fix all issues
-make check        # Run all checks (lint, test, security)
-make ci           # Run full CI suite locally
+# Clone the repository (for developers only!)
+git clone https://github.com/zophiezlan/nuaa-cli.git
+cd nuaa-cli
 
-# Or use the scripts directly
-./scripts/bash/fix.sh              # Linux/Mac
-.\scripts\powershell\fix.ps1       # Windows
+# Install with development dependencies
+make install-dev
 
-# Individual tools
-make format       # Just formatting
-make test-cov     # Tests with coverage
-make security     # Security scan
+# Run all quality checks
+make check
+
+# Auto-fix code style issues
+make fix
 ```
 
-### 📋 Available Make Commands
-
-Run `make help` to see all available commands:
-
-- `make install-dev` - Install with development dependencies
-- `make format` - Auto-format code with black and ruff
-- `make lint` - Check code style
-- `make test` - Run tests
-- `make test-cov` - Run tests with coverage report
-- `make security` - Run security scan
-- `make check` - Run all checks
-- `make fix` - Auto-fix all issues
-- `make ci` - Run full CI suite locally
-- `make clean` - Clean generated files
-
-### 🔍 Manual Commands
-
-If you prefer running commands individually:
-
-- Update docs from manifest: `python scripts/python/update_agents_docs.py`
-- Verify script parity: `python scripts/python/verify_agent_script_parity.py`
-- Run tests: `pytest`
-- Format code: `black . && ruff check --fix .`
-- Security scan: `bandit -r src/nuaa_cli`
+For complete development documentation, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## 🌟 NUAA-Specific Principles
 

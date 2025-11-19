@@ -1,5 +1,9 @@
 # NUAA CLI Translation Guide
 
+> **Note**: This guide is for **contributors** who want to help translate the NUAA CLI tool itself. If you're an **end user** looking to use NUAA for your projects, see the [README](README.md) instead.
+
+---
+
 **Welcome to the NUAA CLI Translation Community!**
 
 This guide will help you contribute translations to make NUAA CLI accessible to more communities.

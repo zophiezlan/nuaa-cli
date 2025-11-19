@@ -41,7 +41,12 @@ class TestProposeCommand:
 
                 # Check content
                 content = proposal_files[0].read_text()
-                assert "Peer Support Network" in content or "PROGRAM_NAME" in content
+                # Program name is sanitized to "Peer-Support-Network"
+                assert (
+                    "Peer-Support-Network" in content
+                    or "Peer Support Network" in content
+                    or "PROGRAM_NAME" in content
+                )
                 assert "NSW Health" in content or "FUNDER" in content
         finally:
             os.chdir(old_cwd)
@@ -149,7 +154,12 @@ class TestMeasureCommand:
 
                 # Check content
                 content = framework_files[0].read_text()
-                assert "Peer Support Network" in content or "PROGRAM_NAME" in content
+                # Program name is sanitized to "Peer-Support-Network"
+                assert (
+                    "Peer-Support-Network" in content
+                    or "Peer Support Network" in content
+                    or "PROGRAM_NAME" in content
+                )
         finally:
             os.chdir(old_cwd)
 
@@ -220,7 +230,12 @@ class TestDocumentCommand:
 
                 # Check content
                 content = analysis_files[0].read_text()
-                assert "Mobile Needle Exchange" in content or "PROGRAM_NAME" in content
+                # Program name is sanitized to "Mobile-Needle-Exchange"
+                assert (
+                    "Mobile-Needle-Exchange" in content
+                    or "Mobile Needle Exchange" in content
+                    or "PROGRAM_NAME" in content
+                )
         finally:
             os.chdir(old_cwd)
 

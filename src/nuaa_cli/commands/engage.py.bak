@@ -1,8 +1,5 @@
-"""Stakeholder engagement plan command using factory pattern."""
-
 from datetime import datetime
 from typing import Optional
-import re
 
 import typer
 from rich.console import Console
@@ -11,7 +8,6 @@ from rich.panel import Panel
 from ..scaffold import (
     _next_feature_dir,
     _slugify,
-    _ensure_nuaa_root,
     _load_template,
     _apply_replacements,
     _prepend_metadata,
@@ -21,7 +17,6 @@ from ..utils import validate_program_name, validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):
-    """Register the engage command with the Typer app."""
     console = console or Console()
 
     @app.command()
@@ -107,15 +102,8 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
         # Determine feature directory
         if feature:
-            # If full number provided, respect it; otherwise create next
-            if re.match(r"^\d{3}-", feature):
-                feature_dir = _ensure_nuaa_root() / feature
-                feature_dir.mkdir(parents=True, exist_ok=True)
-                num_str = feature[:3]
-                slug = feature.split("-", 1)[1]
-            else:
-                slug = _slugify(feature)
-                feature_dir, num_str, _ = _next_feature_dir(slug)
+            slug = _slugify(feature)
+            feature_dir, num_str, _ = _next_feature_dir(slug)
         else:
             feature_dir, num_str, slug = _next_feature_dir(program_name)
 
@@ -129,7 +117,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             "SLUG": slug,
         }
 
-        # Process stakeholder-engagement-plan.md template
+        # stakeholder-engagement-plan.md
         try:
             template = _load_template("stakeholder-engagement-plan.md")
             filled = _apply_replacements(template, mapping)

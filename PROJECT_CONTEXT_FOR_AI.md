@@ -3,6 +3,7 @@
 ## Critical Understanding: Two Distinct Audiences
 
 ### 1. Tool Developers (Minority - ~3 people)
+
 **Location**: Working in the `nuaa-cli` repository (this repo)
 **What they do**: Develop, test, and maintain the CLI tool itself
 **Setup**: Clone repo → `pip install -e .[dev]` → develop/test
@@ -10,6 +11,7 @@
 **Focus**: Source code quality, CI/CD, releases, linting the CLI codebase
 
 ### 2. End Users (Majority - hundreds/thousands)
+
 **Location**: Their own project repositories
 **What they do**: Use NUAA CLI for AI-assisted project management
 **Setup**: `uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .`
@@ -21,6 +23,7 @@
 ## Key Project Architecture Points
 
 ### Installation Method for End Users
+
 ```bash
 # Users DON'T clone the nuaa-cli repo
 # They run this in THEIR project:
@@ -28,6 +31,7 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 ```
 
 This:
+
 - Installs NUAA CLI into their project
 - Creates `.nuaa/` directory with templates, scripts, memory
 - Sets up agent-specific files (`.github/agents/`, `.claude/commands/`, etc.)
@@ -35,15 +39,18 @@ This:
 - Does NOT require dev dependencies
 
 ### Primary User Interface: WebUI
+
 **Most users will interact via the WebUI, NOT VS Code**
 
 **Important implications:**
+
 - Documentation should prioritize WebUI workflows
 - Instructions should be WebUI-first, CLI-second
 - VS Code tasks/setup are for DEVELOPERS of the tool, not end users
 - End users don't need to know about linting, pre-commit hooks, etc.
 
 ### What Users Get After `nuaa init .`
+
 ```
 their-project/
 ├── .nuaa/
@@ -57,6 +64,7 @@ their-project/
 ```
 
 **They do NOT get:**
+
 - pyproject.toml
 - tests/
 - src/nuaa_cli/
@@ -69,23 +77,27 @@ their-project/
 ## Auto-Fix & Linting Architecture
 
 ### Purpose: FOR TOOL DEVELOPERS ONLY
+
 The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining the **CLI tool's source code**, NOT for end user projects.
 
 ### Current Implementation
+
 - **Location**: `.github/workflows/` (CI/CD for the CLI tool itself)
 - **Triggers**: Push/PR to nuaa-cli repo
 - **What it fixes**: Python code in `src/nuaa_cli/`, test files, development scripts
 - **Reusable action**: `.github/actions/auto-fix-lint/action.yml`
 
 ### Coverage
-| Workflow | Purpose | Auto-fix |
-|----------|---------|----------|
-| CI (`ci.yml`) | Test the CLI tool | ✅ Before tests |
-| Release (`release.yml`) | Create release packages | ✅ Before verify |
-| E2E (`e2e.yml`) | Smoke test CLI commands | ✅ Before tests |
-| Auto-fix (`auto-fix.yml`) | Fix PRs automatically | ✅ Commits fixes |
+
+| Workflow                  | Purpose                 | Auto-fix         |
+| ------------------------- | ----------------------- | ---------------- |
+| CI (`ci.yml`)             | Test the CLI tool       | ✅ Before tests  |
+| Release (`release.yml`)   | Create release packages | ✅ Before verify |
+| E2E (`e2e.yml`)           | Smoke test CLI commands | ✅ Before tests  |
+| Auto-fix (`auto-fix.yml`) | Fix PRs automatically   | ✅ Commits fixes |
 
 ### What This Means for Users
+
 **End users don't see or care about any of this.** They just run `nuaa init .` and use the tool. The auto-fix infrastructure ensures that when developers push updates to the CLI, those updates are properly tested and formatted.
 
 ---
@@ -93,19 +105,22 @@ The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining 
 ## Documentation & Instructions Priorities
 
 ### ❌ Wrong Focus (Current Problem)
+
 - Too much emphasis on cloning the repo
 - Instructions assume people are working IN the nuaa-cli repo
 - Developer workflows mixed with user workflows
 - VS Code tasks presented as primary interface
 
 ### ✅ Correct Focus (Should Be)
+
 1. **WebUI First**: Most documentation should focus on web interface
 2. **Init-Based**: All user docs should start with `nuaa init .`
 3. **Agent Agnostic**: Support all AI agents equally (Claude, Copilot, Gemini, etc.)
 4. **Non-Technical Friendly**: Many users may not be comfortable with CLI/terminal
 5. **Project Context**: Users work in THEIR projects, not the nuaa-cli repo
 
-### Documentation Structure Should Be:
+### Documentation Structure Should Be
+
 ```
 📚 User Documentation (95% of docs)
 ├── Getting Started
@@ -137,14 +152,16 @@ The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining 
 
 ## Common Anti-Patterns to Avoid
 
-### ❌ Don't Say:
+### ❌ Don't Say
+
 - "Clone the nuaa-cli repository"
 - "Run the auto-fix task in VS Code"
 - "Install dev dependencies"
 - "Set up pre-commit hooks"
 - "Run pytest to test your project"
 
-### ✅ Do Say:
+### ✅ Do Say
+
 - "Run `nuaa init .` in your project directory"
 - "Open the WebUI to start your workflow"
 - "Choose your AI assistant (Copilot/Claude/Gemini)"
@@ -155,7 +172,8 @@ The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining 
 
 ## File Distribution
 
-### These Files Are For CLI Development (Stay in nuaa-cli repo):
+### These Files Are For CLI Development (Stay in nuaa-cli repo)
+
 - `.github/workflows/` - CI/CD for the tool
 - `.github/actions/` - Reusable workflow actions
 - `tests/` - Unit tests for the CLI
@@ -166,14 +184,16 @@ The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining 
 - `scripts/python/` - Development scripts
 - `benchmarks/`, `mutation_testing/` - Dev tools
 
-### These Files Go To User Projects (via `nuaa init`):
+### These Files Go To User Projects (via `nuaa init`)
+
 - `.nuaa/memory/` - Project constitution & context
 - `.nuaa/scripts/` - Workflow scripts (bash/ps1)
 - `.nuaa/templates/` - Document templates
 - Agent-specific files (`.github/agents/`, `.claude/commands/`, etc.)
 - `QUICKSTART.md` - User-facing quick start guide
 
-### These Files Are Context/Reference (Don't go anywhere):
+### These Files Are Context/Reference (Don't go anywhere)
+
 - `nuaa-kit/` - Template source files
 - `docs/` - Documentation source
 - `interfaces/` - WebUI, email bridge, Teams bot
@@ -185,9 +205,11 @@ The auto-fix workflows, pre-commit hooks, and linting setup are for maintaining 
 ## WebUI Considerations
 
 ### Current State
+
 The WebUI is in `interfaces/web-simple/` and provides a simplified interface for running NUAA workflows without needing terminal access.
 
 ### What This Means for Instructions
+
 - Most users will access NUAA through the WebUI
 - Instructions should show WebUI screenshots/workflows
 - Terminal commands are secondary (for advanced users)
@@ -195,7 +217,9 @@ The WebUI is in `interfaces/web-simple/` and provides a simplified interface for
 - Accessibility features are critical (keyboard navigation, screen readers)
 
 ### Integration with `nuaa init`
+
 After running `nuaa init .`, users should be able to:
+
 1. Start the WebUI with a simple command
 2. Access all NUAA workflows through browser
 3. Not need to touch configuration files

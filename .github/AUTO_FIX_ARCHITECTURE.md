@@ -1,11 +1,13 @@
 # Auto-Fix Linting Architecture
 
 ## Overview
+
 All workflows that run on `push` or `pull_request` now automatically fix linting issues **BEFORE** running any tests. This ensures that linting errors never block releases or CI runs.
 
 ## Architecture
 
 ### Reusable Action
+
 - **Location**: `.github/actions/auto-fix-lint/action.yml`
 - **Purpose**: Centralized auto-fix logic used by all workflows
 - **What it does**:
@@ -32,6 +34,7 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
 ## Execution Order
 
 ### On Direct Push to Main
+
 1. **CI Workflow** triggers first
    - Setup Python
    - Install dependencies
@@ -53,6 +56,7 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
    - Creates release packages (no verification needed - CI already verified)
 
 ### On Pull Request
+
 1. **Auto-fix Workflow** triggers
    - **🔧 AUTO-FIX RUNS** (fixes are committed back to PR branch)
    - Creates a commit with fixes if needed
@@ -68,21 +72,25 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
 ## Why This Works
 
 ### Layer 1: Pre-commit Hooks (Development)
+
 - Developers can run `pre-commit run --all-files` locally
 - Catches issues before commit
 - Includes PowerShell Script Analyzer
 
 ### Layer 2: Auto-fix PR Workflow (Continuous)
+
 - Runs on every PR
 - Automatically commits fixes back to the PR
 - Keeps PR branch clean
 
 ### Layer 3: Auto-fix in Every Workflow (Safety Net)
+
 - Even if previous layers miss something, every workflow fixes issues before testing
 - Ensures tests always run against properly formatted code
 - No manual intervention needed
 
 ### Layer 4: Unified Action (Maintainability)
+
 - Single source of truth: `.github/actions/auto-fix-lint/action.yml`
 - Easy to update - change once, affects all workflows
 - Consistent behavior everywhere
@@ -102,16 +110,19 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
 ## Maintenance
 
 ### To Add a New Auto-fix Tool
+
 1. Edit `.github/actions/auto-fix-lint/action.yml`
 2. Add the new tool command to the composite action
 3. All workflows automatically get the new fix
 
 ### To Update Existing Fix
+
 1. Edit `.github/actions/auto-fix-lint/action.yml`
 2. Change the command or parameters
 3. All workflows automatically use the new logic
 
 ### To Add Auto-fix to a New Workflow
+
 ```yaml
 - name: 🔧 Auto-fix linting issues (REQUIRED before tests)
   uses: ./.github/actions/auto-fix-lint
@@ -120,6 +131,7 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
 ## PowerShell Linting
 
 PowerShell Script Analyzer is now integrated into:
+
 - Pre-commit hooks (`.pre-commit-config.yaml`)
 - Checks for unapproved verbs, reserved variables, and other issues
 - Runs automatically with `pre-commit run --all-files`
@@ -127,15 +139,18 @@ PowerShell Script Analyzer is now integrated into:
 ## Files Modified
 
 ### New Files
+
 - `.github/actions/auto-fix-lint/action.yml` - Reusable composite action
 
 ### Updated Files (Latest Changes)
+
 - `.github/actions/auto-fix-lint/action.yml` - Added `--unsafe-fixes` flag, now checks entire codebase
 - `.github/workflows/release.yml` - Now uses `workflow_run` to wait for CI completion, added path filtering
 - `pyproject.toml` - Extended line-length to 120, added per-file ignores for commands and scripts
 - `.github/AUTO_FIX_ARCHITECTURE.md` - Updated documentation
 
 ### Previously Updated Files
+
 - `.github/workflows/ci.yml` - Uses auto-fix action
 - `.github/workflows/e2e.yml` - Uses auto-fix action
 - `.github/workflows/scripts/create-release-packages.ps1` - Fixed function names to use approved verbs
@@ -146,6 +161,7 @@ PowerShell Script Analyzer is now integrated into:
 🎉 **Linting issues will NEVER block releases again!**
 
 The workflow execution order is now:
+
 1. **CI runs** → auto-fixes code in-memory → verifies everything passes
 2. **Release waits** → only runs if CI succeeds AND release-relevant files changed
 3. **No more race conditions** → proper dependency chain ensures correct order

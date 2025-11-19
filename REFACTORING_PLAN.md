@@ -1,8 +1,9 @@
-# Detailed Refactoring Plan for /home/user/nuaa-cli/src/nuaa_cli/__init__.py
+# Detailed Refactoring Plan for /home/user/nuaa-cli/src/nuaa_cli/**init**.py
 
 ## Current State Analysis
 
 The `__init__.py` file is **1,590 lines** and contains multiple logical concerns:
+
 - HTTP/GitHub API utilities (lines 64-136)
 - ZIP download and extraction (lines 138-722)
 - JSON file merging (lines 458-534)
@@ -22,7 +23,8 @@ The `__init__.py` file is **1,590 lines** and contains multiple logical concerns
 
 **Status**: Partially exists in `github_client.py` - RECOMMEND CONSOLIDATION
 
-**Current Duplicates in __init__.py**:
+**Current Duplicates in **init**.py**:
+
 - Lines 64-66: `_github_token()`
 - Lines 69-72: `_github_auth_headers()`
 - Lines 75-101: `_parse_rate_limit_headers()`
@@ -40,6 +42,7 @@ These functions already exist as methods in `github_client.py` (lines 52-131). T
 **Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/download.py`
 
 **Functions to extract** (Lines 138-722):
+
 1. `_safe_extract_zip()` - lines 138-171
 2. `download_template_from_github()` - lines 537-722
 3. `download_and_extract_template()` - lines 724-921
@@ -47,6 +50,7 @@ These functions already exist as methods in `github_client.py` (lines 52-131). T
 5. `merge_json_files()` - lines 493-534
 
 **Imports needed**:
+
 ```python
 import os
 import zipfile
@@ -67,6 +71,7 @@ from .github_client import GitHubClient  # For HTTP operations
 ```
 
 **Dependencies**:
+
 - `rich` (for console output and progress bars)
 - `httpx` (for HTTP requests)
 - `typer` (for exit handling)
@@ -74,6 +79,7 @@ from .github_client import GitHubClient  # For HTTP operations
 - External console object
 
 **Function signatures**:
+
 ```python
 def _safe_extract_zip(
     zip_ref: zipfile.ZipFile,
@@ -130,11 +136,13 @@ def merge_json_files(
 **Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/git_utils.py`
 
 **Functions to extract** (Lines 370-455):
+
 1. `run_command()` - lines 370-393
 2. `is_git_repo()` - lines 396-414
 3. `init_git_repo()` - lines 417-455
 
 **Imports needed**:
+
 ```python
 import os
 import subprocess
@@ -147,12 +155,14 @@ from rich.console import Console
 ```
 
 **Dependencies**:
+
 - `subprocess` (system commands)
 - `pathlib.Path`
 - `typer` (exit handling)
 - `rich.console.Console` (for output)
 
 **Function signatures**:
+
 ```python
 def run_command(
     cmd: list[str],
@@ -178,9 +188,11 @@ def init_git_repo(
 **Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/scripts.py`
 
 **Function to extract** (Lines 924-973):
+
 1. `ensure_executable_scripts()` - lines 924-973
 
 **Imports needed**:
+
 ```python
 import os
 from pathlib import Path
@@ -189,12 +201,14 @@ from .utils import StepTracker
 ```
 
 **Dependencies**:
+
 - `os` (chmod operations)
 - `pathlib`
 - `rich.console.Console`
 - Internal: `utils.StepTracker`
 
 **Function signature**:
+
 ```python
 def ensure_executable_scripts(
     project_path: Path,
@@ -211,10 +225,12 @@ def ensure_executable_scripts(
 **Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/ui.py`
 
 **Functions to extract** (Lines 221-323):
+
 1. `get_key()` - lines 221-239
 2. `select_with_arrows()` - lines 242-323
 
 **Imports needed**:
+
 ```python
 import sys
 import readchar
@@ -230,12 +246,14 @@ import typer
 ```
 
 **Dependencies**:
+
 - `readchar` (keyboard input)
 - `rich` (terminal UI)
 - `typer` (exit handling)
 - External: `console` object (Rich Console)
 
 **Function signatures**:
+
 ```python
 def get_key() -> str: ...
 
@@ -255,12 +273,14 @@ def select_with_arrows(
 **Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/banner.py`
 
 **Items to extract** (Lines 209-358):
+
 1. `BANNER` constant - lines 209-216
 2. `TAGLINE` constant - line 218
 3. `BannerGroup` class - lines 328-334
 4. `show_banner()` function - lines 346-358
 
 **Imports needed**:
+
 ```python
 from rich.console import Console
 from rich.text import Text
@@ -269,11 +289,13 @@ from typer.core import TyperGroup
 ```
 
 **Dependencies**:
+
 - `rich` (terminal output)
 - `typer` (CLI framework)
 - External: `console` object (Rich Console)
 
 **Class/Function signatures**:
+
 ```python
 BANNER = """..."""
 TAGLINE = "..."
@@ -290,12 +312,14 @@ def show_banner() -> None: ...
 
 ### Phase 7: Extract Init Command → **init_cmd.py**
 
-**Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/commands/init.py` (move from __init__.py)
+**Extract to**: `/home/user/nuaa-cli/src/nuaa_cli/commands/init.py` (move from **init**.py)
 
 **Function to extract** (Lines 976-1408):
+
 1. `init()` command function - lines 976-1408
 
 **Imports needed**:
+
 ```python
 import os
 import sys
@@ -332,6 +356,7 @@ import truststore
 ```
 
 **Dependencies**:
+
 - `download.py` (download_and_extract_template)
 - `scripts.py` (ensure_executable_scripts)
 - `git_utils.py` (is_git_repo, init_git_repo)
@@ -343,6 +368,7 @@ import truststore
 - External: `console`, `app` (Typer app instance)
 
 **Function signature**:
+
 ```python
 def init(
     project_name: str | None = typer.Argument(...),
@@ -364,11 +390,12 @@ def register(app: typer.Typer, agent_config: dict, console: Console) -> None: ..
 
 ---
 
-## What Should Remain in __init__.py
+## What Should Remain in **init**.py
 
 After extraction, `__init__.py` should contain only:
 
 **Lines to keep**:
+
 1. Module docstring - lines 13-28
 2. Imports (clean up after extraction) - lines 30-61
 3. Global configuration - lines 188-205 (`AGENT_CONFIG`, `_load_agent_config()`)
@@ -381,7 +408,8 @@ After extraction, `__init__.py` should contain only:
 
 **Lines to remove**: All extracted functions/classes
 
-**New imports in __init__.py**:
+**New imports in **init**.py**:
+
 ```python
 import os
 import json
@@ -400,6 +428,7 @@ from .scaffold import _ensure_nuaa_root
 ```
 
 **Key configuration**:
+
 - `AGENT_CONFIG` (lines 188-205)
 - `SCRIPT_TYPE_CHOICES` (line 207)
 - Global `console` object (line 325)
@@ -443,15 +472,16 @@ Standalone modules:
 5. **download.py** (Phase 2) - depends on github_client.py, utils.StepTracker
 6. **commands/init.py** (Phase 7) - depends on everything above
 7. **Consolidate HTTP utilities** (Phase 1) - refactor github_client.py
-8. **Cleanup __init__.py** - remove extracted code, update imports
+8. **Cleanup **init**.py** - remove extracted code, update imports
 
 ---
 
 ## File Size Impact Analysis
 
-**Current __init__.py**: 1,590 lines (59.7 KB)
+**Current **init**.py**: 1,590 lines (59.7 KB)
 
 **After extraction**:
+
 - `__init__.py`: ~250-300 lines (app setup, config, check command, registration)
 - `git_utils.py`: ~80 lines
 - `ui.py`: ~110 lines
@@ -479,13 +509,13 @@ After extraction, test these in order:
 
 ## Summary Table
 
-| Module | Lines | Functions | Dependencies | Priority |
-|--------|-------|-----------|--------------|----------|
-| git_utils.py | 80 | 3 | subprocess, typer | High |
-| ui.py | 110 | 2 | readchar, rich, typer | High |
-| scripts.py | 65 | 1 | os, utils.StepTracker | High |
-| banner.py | 80 | 1 class + 1 func + 2 const | rich, typer | Medium |
-| download.py | 380 | 5 | httpx, zipfile, utils, github_client | Critical |
-| commands/init.py | 450 | 1 main + 1 register | All above | Final |
-| github_client.py | Consolidate | Add helper functions | Existing module | Medium |
-| __init__.py | 250-300 | Remaining CLI framework | All modules | Final |
+| Module           | Lines       | Functions                  | Dependencies                         | Priority |
+| ---------------- | ----------- | -------------------------- | ------------------------------------ | -------- |
+| git_utils.py     | 80          | 3                          | subprocess, typer                    | High     |
+| ui.py            | 110         | 2                          | readchar, rich, typer                | High     |
+| scripts.py       | 65          | 1                          | os, utils.StepTracker                | High     |
+| banner.py        | 80          | 1 class + 1 func + 2 const | rich, typer                          | Medium   |
+| download.py      | 380         | 5                          | httpx, zipfile, utils, github_client | Critical |
+| commands/init.py | 450         | 1 main + 1 register        | All above                            | Final    |
+| github_client.py | Consolidate | Add helper functions       | Existing module                      | Medium   |
+| **init**.py      | 250-300     | Remaining CLI framework    | All modules                          | Final    |

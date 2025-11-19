@@ -16,16 +16,16 @@ The NUAA CLI project has undergone a comprehensive review and quality improvemen
 
 ## Quality Metrics
 
-| Category | Status | Score |
-|----------|--------|-------|
-| **Tests** | ✅ Passing | 8/8 tests pass |
-| **Coverage** | ✅ Tracked | 29% (baseline established) |
-| **Type Safety** | ✅ Clean | 0 mypy errors |
-| **Code Style** | ✅ Clean | 0 black/ruff issues |
-| **Security** | ✅ Clean | High severity issues addressed |
-| **Documentation** | ✅ Complete | Comprehensive docs |
-| **CI/CD** | ✅ Ready | All checks configured |
-| **Dependencies** | ✅ Pinned | All versions constrained |
+| Category          | Status      | Score                          |
+| ----------------- | ----------- | ------------------------------ |
+| **Tests**         | ✅ Passing  | 8/8 tests pass                 |
+| **Coverage**      | ✅ Tracked  | 29% (baseline established)     |
+| **Type Safety**   | ✅ Clean    | 0 mypy errors                  |
+| **Code Style**    | ✅ Clean    | 0 black/ruff issues            |
+| **Security**      | ✅ Clean    | High severity issues addressed |
+| **Documentation** | ✅ Complete | Comprehensive docs             |
+| **CI/CD**         | ✅ Ready    | All checks configured          |
+| **Dependencies**  | ✅ Pinned   | All versions constrained       |
 
 ---
 

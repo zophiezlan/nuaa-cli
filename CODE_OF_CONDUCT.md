@@ -17,23 +17,23 @@ diverse, inclusive, and healthy community.
 Examples of behavior that contributes to a positive environment for our
 community include:
 
-* Demonstrating empathy and kindness toward other people
-* Being respectful of differing opinions, viewpoints, and experiences
-* Giving and gracefully accepting constructive feedback
-* Accepting responsibility and apologizing to those affected by our mistakes,
+- Demonstrating empathy and kindness toward other people
+- Being respectful of differing opinions, viewpoints, and experiences
+- Giving and gracefully accepting constructive feedback
+- Accepting responsibility and apologizing to those affected by our mistakes,
   and learning from the experience
-* Focusing on what is best not just for us as individuals, but for the overall
+- Focusing on what is best not just for us as individuals, but for the overall
   community
 
 Examples of unacceptable behavior include:
 
-* The use of sexualized language or imagery, and sexual attention or advances of
+- The use of sexualized language or imagery, and sexual attention or advances of
   any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or email address,
+- Trolling, insulting or derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or email address,
   without their explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
+- Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
 ## Enforcement Responsibilities
@@ -136,8 +136,8 @@ For answers to common questions about this code of conduct, see the FAQ at
 
 In addition to the standards above, contributors to the NUAA CLI project are expected to:
 
-* **Respect lived experience**: Acknowledge and value the expertise that comes from lived experience of people who use drugs
-* **Practice harm reduction**: Approach all discussions with a harm reduction philosophy - non-judgmental, evidence-based, and person-centered
-* **Maintain confidentiality**: Never share identifying information about community members or program participants
-* **Support peer-led approaches**: Recognize that people with lived experience should be at the center of program design and implementation
-* **Promote cultural safety**: Be respectful of diverse communities, including Aboriginal and Torres Strait Islander peoples, LGBTIQ+ communities, and people from culturally and linguistically diverse backgrounds
+- **Respect lived experience**: Acknowledge and value the expertise that comes from lived experience of people who use drugs
+- **Practice harm reduction**: Approach all discussions with a harm reduction philosophy - non-judgmental, evidence-based, and person-centered
+- **Maintain confidentiality**: Never share identifying information about community members or program participants
+- **Support peer-led approaches**: Recognize that people with lived experience should be at the center of program design and implementation
+- **Promote cultural safety**: Be respectful of diverse communities, including Aboriginal and Torres Strait Islander peoples, LGBTIQ+ communities, and people from culturally and linguistically diverse backgrounds

@@ -21,6 +21,7 @@ If you can send an email, you can use NUAA tools. It's that simple.
 **Subject**: What you want to create
 
 Examples:
+
 - "Outreach Report"
 - "Distribution Log"
 - "Help Me Choose" (if you're not sure)
@@ -36,6 +37,7 @@ You'll get an email back with a question.
 **Just reply with your answer.** That's it!
 
 Example:
+
 ```
 From: NUAA Tools
 Subject: Question 1 of 5
@@ -63,12 +65,14 @@ After you answer all the questions, you'll get your finished document as an emai
 ### Example: Peer Distribution Log
 
 **You send**:
+
 ```
 To: nuaa@nuaa.org.au
 Subject: Distribution Log
 ```
 
 **System replies**:
+
 ```
 Hi! I'll help you create your distribution log.
 
@@ -78,6 +82,7 @@ Question 1: What date?
 **You reply**: "Today"
 
 **System replies**:
+
 ```
 Question 2: How many people did you distribute to?
 ```
@@ -85,6 +90,7 @@ Question 2: How many people did you distribute to?
 **You reply**: "5 people"
 
 **System replies**:
+
 ```
 Question 3: What did you distribute?
 (Example: 15 needles, 20 swabs)
@@ -93,6 +99,7 @@ Question 3: What did you distribute?
 **You reply**: "15 needles, 20 swabs, 10 tourniquets"
 
 **System replies**:
+
 ```
 Question 4: Do you need resupply?
 ```
@@ -100,6 +107,7 @@ Question 4: Do you need resupply?
 **You reply**: "No"
 
 **System replies**:
+
 ```
 ✅ All done! Your distribution log is attached.
 
@@ -134,20 +142,24 @@ You'll get a quick confirmation email.
 Just put one of these in your subject line:
 
 ### Field Work
+
 - Outreach Report
 - Distribution Log
 - Festival Report
 
 ### Office Work
+
 - Call Log (Peerline)
 - Funding Proposal
 - Board Paper
 
 ### Warehouse
+
 - Shipment Log
 - Inventory Update
 
 ### Not Sure?
+
 - Help Me Choose
 - I Need Help
 
@@ -172,13 +184,16 @@ Just put one of these in your subject line:
 ## Getting Help
 
 ### During the Process
+
 Reply with:
+
 - "help" - Get help with current question
 - "example" - See an example answer
 - "skip" - Skip this question
 - "back" - Go back one question
 
 ### General Help
+
 - **Email**: tech@nuaa.org.au
 - **Phone**: [number]
 - **Ask any NUAA staff member**
@@ -260,6 +275,6 @@ You should get a reply within minutes!
 
 ---
 
-*Keep this guide handy - print it or save it to your computer*
+_Keep this guide handy - print it or save it to your computer_
 
 **Version 1.0** | November 2025 | NUAA

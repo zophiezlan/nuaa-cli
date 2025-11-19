@@ -19,12 +19,14 @@ No computer needed! Submit reports right from the field using your phone.
 **For**: Quick updates, distribution logs, outreach check-ins
 
 **How**:
+
 1. Open your text messages
 2. Text to: `[number]`
 3. Write your update
 4. Send!
 
 **Example**:
+
 ```
 Text to: [number]
 
@@ -34,6 +36,7 @@ All good
 ```
 
 **You get back**:
+
 ```
 ✅ Report saved!
 View: [link]
@@ -41,6 +44,7 @@ Need resupply? Reply YES/NO
 ```
 
 **Format**:
+
 ```
 [TYPE] [Location]
 [Numbers and supplies]
@@ -48,6 +52,7 @@ Need resupply? Reply YES/NO
 ```
 
 **Types**:
+
 - OUTREACH
 - DISTRIBUTE (peer distribution)
 - FESTIVAL
@@ -60,6 +65,7 @@ Need resupply? Reply YES/NO
 **For**: Full reports with more details
 
 **How**:
+
 1. Open your phone's web browser
 2. Go to: `nuaa.org.au/tools` (or bookmark it!)
 3. Tap your team name
@@ -73,6 +79,7 @@ Need resupply? Reply YES/NO
 ✓ Old phones too!
 
 **Features**:
+
 - Large buttons (easy to tap)
 - Can use voice typing
 - Auto-saves as you go
@@ -86,6 +93,7 @@ Need resupply? Reply YES/NO
 **For**: When you have a few minutes
 
 **How**:
+
 1. Open your email app
 2. Email to: `nuaa@nuaa.org.au`
 3. Subject: Report type
@@ -98,17 +106,18 @@ See "Email-Only Users" guide for details.
 
 ## Quick Comparison
 
-| Method | Time | Best For | Internet Needed? |
-|--------|------|----------|------------------|
-| **Text (SMS)** | 30 sec | Quick updates | No |
-| **Mobile Web** | 5 min | Full reports | Yes (but saves offline) |
-| **Email** | 5 min | Anywhere | Yes |
+| Method         | Time   | Best For      | Internet Needed?        |
+| -------------- | ------ | ------------- | ----------------------- |
+| **Text (SMS)** | 30 sec | Quick updates | No                      |
+| **Mobile Web** | 5 min  | Full reports  | Yes (but saves offline) |
+| **Email**      | 5 min  | Anywhere      | Yes                     |
 
 ---
 
 ## SMS Quick Reference
 
 ### Outreach Update
+
 ```
 OUTREACH [Location]
 [# people] [# needles]
@@ -116,6 +125,7 @@ OUTREACH [Location]
 ```
 
 Example:
+
 ```
 OUTREACH Redfern
 15 people 30 needles
@@ -125,6 +135,7 @@ Good session
 ---
 
 ### Distribution Log
+
 ```
 DISTRIBUTE
 [# people] [# needles]
@@ -132,6 +143,7 @@ DISTRIBUTE
 ```
 
 Example:
+
 ```
 DISTRIBUTE
 8 people 25 needles
@@ -141,6 +153,7 @@ Resupply YES
 ---
 
 ### Festival/Event
+
 ```
 FESTIVAL [Event Name]
 [# contacts] [Notes]
@@ -148,6 +161,7 @@ FESTIVAL [Event Name]
 ```
 
 Example:
+
 ```
 FESTIVAL Lost Paradise
 50 contacts 2 medical referrals
@@ -157,6 +171,7 @@ Urgent NO
 ---
 
 ### Resupply Request
+
 ```
 RESUPPLY
 [What you need]
@@ -164,6 +179,7 @@ RESUPPLY
 ```
 
 Example:
+
 ```
 RESUPPLY
 Needles 1ml and 3ml
@@ -191,12 +207,14 @@ By Friday
 ### Saving to Home Screen (Like an App!)
 
 **iPhone**:
+
 1. Open `nuaa.org.au/tools` in Safari
 2. Tap share button (square with arrow)
 3. Tap "Add to Home Screen"
 4. Now it's an icon on your phone!
 
 **Android**:
+
 1. Open `nuaa.org.au/tools` in Chrome
 2. Tap menu (three dots)
 3. Tap "Add to Home Screen"
@@ -233,11 +251,13 @@ By Friday
 ## What Works Offline?
 
 ### ✅ Works Without Signal
+
 - Start a web form (it saves locally)
 - Take photos
 - Write notes
 
 ### ❌ Needs Signal
+
 - Submit final report
 - Send SMS
 - Send email
@@ -249,12 +269,14 @@ By Friday
 ## Privacy & Safety
 
 ### Safe to Use
+
 ✓ No names of people you contact
 ✓ Only numbers and general info
 ✓ Secure connection
 ✓ Can't be read by others
 
 ### Don't Include
+
 ✗ People's names
 ✗ Identifying details
 ✗ Sensitive personal info
@@ -266,24 +288,28 @@ By Friday
 ## Troubleshooting
 
 ### "Web page won't load"
+
 - Check you have signal/WiFi
 - Try closing and reopening browser
 - Clear browser cache
 - Try different browser
 
 ### "SMS not sending"
+
 - Check you have the right number
 - Check your phone credit/plan
 - Try regular text first to test
 - Use email or web instead
 
 ### "Form won't submit"
+
 - Check all required fields filled
 - Try again in 1 minute
 - Check internet connection
 - Save draft and try later
 
 ### "Lost my draft"
+
 - Web saves automatically
 - Check browser's "Recently Closed"
 - Contact tech support - might be recoverable
@@ -293,15 +319,18 @@ By Friday
 ## Getting Help
 
 ### Urgent Issues (During Session)
+
 **Phone**: [coordinator number]
 **Text**: [coordinator number]
 
 ### Technical Help
+
 **Email**: tech@nuaa.org.au
 **Phone**: [tech support number]
 **Available**: Business hours
 
 ### Can't Remember How?
+
 - This guide (keep photo on phone!)
 - Ask team mates
 - Call office
@@ -340,6 +369,7 @@ Before your first session:
 ## Try It Right Now!
 
 **Test SMS**:
+
 ```
 Text to: [number]
 
@@ -368,6 +398,6 @@ Go to `nuaa.org.au/tools` and try the practice form
 
 ---
 
-*Screenshot this guide or save to your phone*
+_Screenshot this guide or save to your phone_
 
 **Version 1.0** | November 2025 | NUAA

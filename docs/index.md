@@ -1,6 +1,6 @@
 # NUAA Project
 
-## *AI-Assisted Project Management for NSW Users and AIDS Association*
+## _AI-Assisted Project Management for NSW Users and AIDS Association_
 
 **A specialized adaptation of Spec-Driven methodology for program design, proposal writing, implementation planning, and impact measurement at NUAA.**
 

@@ -23,12 +23,14 @@ This assessment reviews the NUAA CLI project documentation and structure against
 **Context Violation**: Anti-pattern "Clone the nuaa-cli repository" (PROJECT_CONTEXT line 141)
 
 **Current (WRONG)**:
+
 ```bash
 git clone https://github.com/zophiezlan/nuaa-cli.git
 cd nuaa-cli/nuaa-kit
 ```
 
 **Should Be**:
+
 ```bash
 uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 ```
@@ -54,6 +56,7 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 
 **Location**: README.md lines 396
 **Issue**: References paths that don't exist for end users:
+
 - "Outputs are created under `nuaa/NNN-<slug>/`" - where?
 - "using the templates in `nuaa-kit/templates/`" - users don't have nuaa-kit!
 
@@ -67,6 +70,7 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 
 **Location**: nuaa-kit/QUICKSTART.md lines 35, 46, 66
 **Issue**: Assumes users are working inside cloned nuaa-cli repo:
+
 - "Open `nuaa-kit/README.md`"
 - "in `nuaa-kit/templates/`"
 - "Look at the commands in `nuaa-kit/commands/`"
@@ -106,6 +110,7 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 
 **Location**: Root directory documentation
 **Issue**: No clear separation of:
+
 - User documentation (95% of audience)
 - Developer documentation (5% of audience)
 
@@ -147,15 +152,15 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 
 Using the assessment questions from PROJECT_CONTEXT (lines 206-217):
 
-| Question | Status | Notes |
-|----------|--------|-------|
-| **User Journey**: Does documentation follow "install via uvx → init → use WebUI"? | ❌ NO | README shows "clone repo" instead |
-| **Separation of Concerns**: Are developer tasks clearly separated? | ❌ NO | Developer tools mixed in README |
-| **Accessibility**: Can non-technical users use the system? | ⚠️ PARTIAL | WebUI exists but not prioritized |
-| **Agent Equality**: Are all AI agents treated equally? | ✅ YES | Good multi-agent support |
-| **Minimal Overhead**: Does `nuaa init` add only what's needed? | ✅ YES | init.py looks correct |
-| **WebUI Priority**: Is web interface positioned as primary? | ❌ NO | CLI commands shown first |
-| **Clear Context**: Is it obvious who content is for? | ❌ NO | Developer/user content mixed |
+| Question                                                                          | Status     | Notes                             |
+| --------------------------------------------------------------------------------- | ---------- | --------------------------------- |
+| **User Journey**: Does documentation follow "install via uvx → init → use WebUI"? | ❌ NO      | README shows "clone repo" instead |
+| **Separation of Concerns**: Are developer tasks clearly separated?                | ❌ NO      | Developer tools mixed in README   |
+| **Accessibility**: Can non-technical users use the system?                        | ⚠️ PARTIAL | WebUI exists but not prioritized  |
+| **Agent Equality**: Are all AI agents treated equally?                            | ✅ YES     | Good multi-agent support          |
+| **Minimal Overhead**: Does `nuaa init` add only what's needed?                    | ✅ YES     | init.py looks correct             |
+| **WebUI Priority**: Is web interface positioned as primary?                       | ❌ NO      | CLI commands shown first          |
+| **Clear Context**: Is it obvious who content is for?                              | ❌ NO      | Developer/user content mixed      |
 
 **Score**: 2/7 passing criteria
 
@@ -166,17 +171,20 @@ Using the assessment questions from PROJECT_CONTEXT (lines 206-217):
 ### Priority 1 (Critical - Must Fix)
 
 1. **Rewrite README.md "Get Started" section**:
+
    - Remove all "git clone" instructions
    - Lead with: `uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .`
    - Explain what this creates in THEIR project (not nuaa-cli repo)
    - Show WebUI startup as next step
 
 2. **Create DEVELOPMENT.md**:
+
    - Move all developer-specific content from README
    - Include: make commands, linting, testing, CI/CD
    - Update CONTRIBUTING.md to reference DEVELOPMENT.md
 
 3. **Fix nuaa-kit/QUICKSTART.md**:
+
    - Rewrite assuming user ran `nuaa init .` in their project
    - Explain where templates are (in `.nuaa/` directory)
    - Show WebUI as primary way to access features
@@ -189,6 +197,7 @@ Using the assessment questions from PROJECT_CONTEXT (lines 206-217):
 ### Priority 2 (Important - Should Fix)
 
 5. **Restructure README.md**:
+
    - Section 1: What is NUAA CLI (for end users)
    - Section 2: Quick Start (WebUI-first)
    - Section 3: Advanced (CLI usage)
@@ -202,6 +211,7 @@ Using the assessment questions from PROJECT_CONTEXT (lines 206-217):
 ### Priority 3 (Nice to Have - Can Fix Later)
 
 7. **Create Documentation Index**:
+
    - `docs/README.md` with clear user vs developer sections
    - Quick links to most common tasks
 

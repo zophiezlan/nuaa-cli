@@ -60,6 +60,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Person-First Language
 
 **Always Use:**
+
 - People who use drugs
 - People with lived experience
 - Person experiencing homelessness
@@ -68,6 +69,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Aboriginal and Torres Strait Islander peoples
 
 **Never Use:**
+
 - Addicts, junkies, crackheads
 - Ex-users, former addicts
 - The homeless
@@ -77,19 +79,20 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 
 ### Non-Stigmatizing Terminology
 
-| Instead of | Use |
-|------------|-----|
-| Clean/dirty (re: drug testing) | Positive/negative test result |
-| Drug abuse | Drug use / substance use |
-| Substance abuser | Person who uses drugs |
-| Suffering from | Living with / experiencing |
-| Victim of overdose | Person who experienced overdose |
-| Infected with HIV | Living with HIV / diagnosed with HIV |
-| HIV/AIDS | HIV (AIDS is a late-stage condition) |
+| Instead of                     | Use                                  |
+| ------------------------------ | ------------------------------------ |
+| Clean/dirty (re: drug testing) | Positive/negative test result        |
+| Drug abuse                     | Drug use / substance use             |
+| Substance abuser               | Person who uses drugs                |
+| Suffering from                 | Living with / experiencing           |
+| Victim of overdose             | Person who experienced overdose      |
+| Infected with HIV              | Living with HIV / diagnosed with HIV |
+| HIV/AIDS                       | HIV (AIDS is a late-stage condition) |
 
 ### Gender-Inclusive Language
 
 **Practices:**
+
 - Use "they/them" as singular pronouns
 - Include "people of all genders" not just "men and women"
 - Offer options: male, female, non-binary, another term, prefer not to say
@@ -97,6 +100,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Avoid gendered job titles (use "police officer" not "policeman")
 
 **Examples in templates:**
+
 - "The participant and their support person..."
 - "People of all genders are welcome..."
 - "Staff members will introduce themselves with their pronouns..."
@@ -112,6 +116,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 > "We acknowledge the Traditional Custodians of the land on which we meet, the [Nation name] people, and pay our respects to Elders past, present, and emerging. We recognize that this land was never ceded and that sovereignty was never ceded."
 
 **In written materials:**
+
 - Include Acknowledgment of Country in all major documents
 - Use artwork by Aboriginal and Torres Strait Islander artists (with permission and payment)
 - Ensure Aboriginal and Torres Strait Islander voices are centered
@@ -119,12 +124,14 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Data Sovereignty
 
 **Indigenous Data Sovereignty principles:**
+
 - Aboriginal and Torres Strait Islander peoples have the right to control data about themselves
 - Data collection requires community consultation
 - Data should benefit Aboriginal and Torres Strait Islander communities
 - Cultural protocols must be followed
 
 **In NUAA CLI:**
+
 - Flag when programs collect Aboriginal and Torres Strait Islander data
 - Include consultation requirements in program designs
 - Provide guidance on data governance
@@ -133,6 +140,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Cultural Protocols
 
 **Respect for:**
+
 - Sorry business (mourning periods)
 - Cultural obligations and ceremonies
 - Family and community responsibilities
@@ -140,6 +148,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Oral traditions and storytelling
 
 **Avoid:**
+
 - Tokenistic consultation
 - Asking for "free" cultural input
 - Using imagery without permission
@@ -152,6 +161,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Pronouns and Names
 
 **Best Practices:**
+
 - Ask for pronouns, don't assume
 - Use chosen names, not deadnames
 - Update records when names/pronouns change
@@ -159,6 +169,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Include pronouns in email signatures and name tags
 
 **In NUAA CLI templates:**
+
 - Pronoun fields in all forms
 - Name change processes
 - Privacy protections for trans participants
@@ -166,6 +177,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Gender-Affirming Services
 
 **Considerations:**
+
 - Trans-specific health needs
 - Access to hormone therapy
 - Gender-affirming surgery support
@@ -173,6 +185,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Family and relationship impacts
 
 **Avoid:**
+
 - Binary gender assumptions
 - Invasive questions about bodies
 - Disclosure requirements
@@ -181,6 +194,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Diverse Sexualities
 
 **Inclusive language:**
+
 - LGBTIQ+ (not just LGBT)
 - Same-sex attracted
 - Queer (only if community uses it)
@@ -194,6 +208,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Language Access
 
 **Provide:**
+
 - Professional interpreters (not family members)
 - Translated materials in priority languages
 - Bilingual staff where possible
@@ -201,6 +216,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Plain language
 
 **Priority languages for NSW (based on community demographics):**
+
 1. Vietnamese
 2. Arabic
 3. Mandarin/Cantonese
@@ -210,6 +226,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Cultural Competence
 
 **Recognize:**
+
 - Different health beliefs and practices
 - Family decision-making structures
 - Migration trauma and experiences
@@ -217,6 +234,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Religious and cultural observances
 
 **Avoid:**
+
 - Assuming Western health models are universal
 - Ignoring cultural healers and practices
 - Scheduling during cultural/religious events
@@ -229,6 +247,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Accessibility First
 
 **Ensure:**
+
 - Physical accessibility of venues
 - Accessible documents (screen readers, large print)
 - Auslan interpreters if needed
@@ -238,11 +257,13 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Language
 
 **Use:**
+
 - Person-first language ("person with disability")
 - Identity-first if preferred ("autistic person")
 - Specific disability types (not "handicapped" or "crippled")
 
 **Avoid:**
+
 - Ableist metaphors ("falling on deaf ears", "blind to")
 - Inspiration porn
 - Assumptions about capability
@@ -254,12 +275,14 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Harm Reduction Language
 
 **Core messages:**
+
 - You don't have to stop using to deserve support
 - Safer use is valid
 - Small changes matter
 - Your choices are yours
 
 **Avoid:**
+
 - Abstinence-only messaging
 - Shaming language
 - Binary success/failure framing
@@ -268,12 +291,14 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Peer-Led Approaches
 
 **Center:**
+
 - Lived experience expertise
 - Peer workers as professionals
 - Community-designed solutions
 - Horizontal power structures
 
 **Avoid:**
+
 - "Saving" narratives
 - Deficit-based framing
 - Ignoring peer knowledge
@@ -286,6 +311,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Rights-Based Approach
 
 **Recognize:**
+
 - Sex work as work
 - Decriminalization advocacy
 - Worker rights and safety
@@ -293,11 +319,13 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 - Intersections with drug use
 
 **Use:**
+
 - Sex worker (not prostitute)
 - People engaged in sex work
 - Sex work industry
 
 **Avoid:**
+
 - Conflating sex work with trafficking
 - Rescue narratives
 - Criminalization language
@@ -310,17 +338,20 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 ### Non-Criminalization
 
 **Recognize:**
+
 - Structural factors in criminalization
 - Disproportionate impact on marginalized communities
 - Trauma of incarceration
 - Barriers to reintegration
 
 **Use:**
+
 - People in contact with the justice system
 - People who have been incarcerated
 - People with convictions
 
 **Avoid:**
+
 - Criminals, offenders, inmates
 - Ex-cons, felons
 - Permanent labels
@@ -333,6 +364,7 @@ This framework ensures that NUAA CLI and all generated content is culturally saf
 Use this checklist when developing programs or content:
 
 ### Language and Representation
+
 - [ ] Person-first, non-stigmatizing language throughout
 - [ ] Gender-inclusive language (they/them, people of all genders)
 - [ ] Diverse names and examples (not just Anglo names)
@@ -342,6 +374,7 @@ Use this checklist when developing programs or content:
 - [ ] No ableist metaphors or stigmatizing terms
 
 ### Consultation and Participation
+
 - [ ] Community members consulted in design
 - [ ] Lived experience at center of decision-making
 - [ ] Fair compensation for participation ($300/session)
@@ -350,6 +383,7 @@ Use this checklist when developing programs or content:
 - [ ] Ongoing community engagement plan
 
 ### Accessibility
+
 - [ ] Physically accessible venues
 - [ ] Accessible documents (screen readers, large print, plain language)
 - [ ] Language interpretation available
@@ -357,6 +391,7 @@ Use this checklist when developing programs or content:
 - [ ] Multiple ways to participate (online, phone, in-person)
 
 ### Content
+
 - [ ] Trauma-informed approach
 - [ ] Harm reduction philosophy evident
 - [ ] Choice and autonomy emphasized
@@ -366,6 +401,7 @@ Use this checklist when developing programs or content:
 - [ ] Celebrates strengths and resilience
 
 ### Data and Privacy
+
 - [ ] Informed consent processes
 - [ ] Privacy protections clear
 - [ ] Data sovereignty principles followed
@@ -380,6 +416,7 @@ Use this checklist when developing programs or content:
 ### Program Design (`/nuaa.design`)
 
 **Automatically includes:**
+
 - Cultural safety considerations section
 - Community consultation requirements
 - Peer worker involvement
@@ -390,6 +427,7 @@ Use this checklist when developing programs or content:
 ### Stakeholder Engagement (`/nuaa.engage`)
 
 **Prompts for:**
+
 - Aboriginal and Torres Strait Islander consultation
 - LGBTIQ+ community engagement
 - CALD community representation
@@ -400,6 +438,7 @@ Use this checklist when developing programs or content:
 ### Impact Measurement (`/nuaa.measure`)
 
 **Ensures:**
+
 - Culturally appropriate indicators
 - Community-defined outcomes
 - Disaggregated data collection (with consent)
@@ -409,6 +448,7 @@ Use this checklist when developing programs or content:
 ### Proposals (`/nuaa.propose`)
 
 **Highlights:**
+
 - Cultural competence of team
 - Community partnerships
 - Lived experience representation
@@ -423,17 +463,20 @@ Use this checklist when developing programs or content:
 All NUAA CLI users should complete:
 
 1. **Harm Reduction Foundations** (2 hours)
+
    - Principles of harm reduction
    - Non-judgmental practice
    - Trauma-informed care
 
 2. **Cultural Safety Training** (4 hours)
+
    - Aboriginal and Torres Strait Islander cultural safety
    - LGBTIQ+ inclusion
    - Disability awareness
    - CALD competence
 
 3. **Peer Work Principles** (2 hours)
+
    - Lived experience expertise
    - Peer boundaries
    - Reflective practice
@@ -448,25 +491,30 @@ All NUAA CLI users should complete:
 ## Resources
 
 ### Aboriginal and Torres Strait Islander Resources
+
 - **AIATSIS Code of Ethics**: https://aiatsis.gov.au/research/ethical-research
 - **Aboriginal Health & Medical Research Council**: https://www.ahmrc.org.au/
 - **National Aboriginal and Torres Strait Islander Health Plan**
 
 ### LGBTIQ+ Resources
+
 - **ACON (formerly AIDS Council of NSW)**: https://www.acon.org.au/
 - **Transgender Victoria Style Guide**: https://transgendervictoria.com/
 - **Australian Human Rights Commission - LGBTI Rights**: https://humanrights.gov.au/our-work/lgbti-rights
 
 ### Harm Reduction Resources
+
 - **Harm Reduction International**: https://www.hri.global/
 - **Australian Injecting & Illicit Drug Users League (AIVL)**: http://www.aivl.org.au/
 - **NUAA Resources**: https://www.nuaa.org.au/
 
 ### Disability Resources
+
 - **People with Disability Australia**: https://pwd.org.au/
 - **Web Content Accessibility Guidelines (WCAG)**: https://www.w3.org/WAI/WCAG21/quickref/
 
 ### Language Access
+
 - **Translating and Interpreting Service (TIS National)**: 131 450
 - **Multicultural NSW**: https://www.multicultural.nsw.gov.au/
 
@@ -494,6 +542,7 @@ If you identify culturally unsafe content:
 ### Amendment Process
 
 This framework is a living document:
+
 - Community feedback welcomed
 - Updated annually at minimum
 - Version controlled in git
@@ -504,6 +553,7 @@ This framework is a living document:
 ## Acknowledgments
 
 This framework was developed with input from:
+
 - NUAA staff and members
 - Aboriginal and Torres Strait Islander advisors
 - LGBTIQ+ community members
@@ -531,6 +581,6 @@ NUAA CLI commits to:
 
 ---
 
-*Last Updated: 2025-11-18*
-*Version: 1.0*
-*Next Review: 2026-11-18*
+_Last Updated: 2025-11-18_
+_Version: 1.0_
+_Next Review: 2026-11-18_

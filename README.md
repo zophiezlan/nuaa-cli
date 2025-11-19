@@ -62,6 +62,7 @@ Available in 6 languages to serve our diverse communities:
 - **Spanish** - es
 
 Set your language:
+
 ```bash
 export LANGUAGE=vi_VN  # Vietnamese
 nuaa --help
@@ -94,6 +95,7 @@ nuaa --help
 ```
 
 Features:
+
 - No visual-only indicators
 - Clear status announcements
 - Structured navigation hints
@@ -106,6 +108,7 @@ Features:
 Every feature works with keyboard only - no mouse required.
 
 **Essential shortcuts:**
+
 - `↑↓` or `j/k` - Navigate menus
 - `Enter` - Select
 - `Esc` or `Ctrl+C` - Cancel
@@ -123,6 +126,7 @@ nuaa onboard  # Interactive onboarding wizard
 ```
 
 Features:
+
 - One question at a time
 - Clear progress indicators (Step X of Y)
 - Plain language (Grade 8-10 reading level)
@@ -131,6 +135,7 @@ Features:
 ### 🌏 Cultural Safety
 
 Built-in cultural safety features:
+
 - Person-first, non-stigmatizing language
 - Harm reduction philosophy
 - Gender-inclusive language (they/them pronouns)
@@ -143,6 +148,7 @@ Built-in cultural safety features:
 ### 🎯 Automated Accessibility Testing
 
 We automatically check for:
+
 - Readability (plain language standards)
 - Stigmatizing language detection
 - Alt text for images
@@ -150,6 +156,7 @@ We automatically check for:
 - Color-only meaning
 
 Run tests yourself:
+
 ```bash
 ./scripts/accessibility/run_accessibility_tests.sh
 ```
@@ -180,6 +187,7 @@ uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
 ```
 
 This command will:
+
 - Install NUAA CLI tools into your project
 - Create `.nuaa/` directory with templates and scripts
 - Set up your chosen AI assistant integration (Claude, Copilot, Gemini, etc.)
@@ -220,17 +228,20 @@ If you prefer working with AI assistants directly, use the slash commands:
 1. **Open your terminal** (or Command Prompt on Windows, or Terminal app on Mac)
 
 2. **Navigate to your project folder**:
+
    ```bash
    cd /path/to/your-project-folder
    # Or create a new folder: mkdir my-nuaa-project && cd my-nuaa-project
    ```
 
 3. **Run the installation command**:
+
    ```bash
    uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .
    ```
 
 4. **Follow the prompts**:
+
    - Choose your AI assistant (Claude, Copilot, Gemini, etc.) - or skip if unsure
    - Choose script type (just press Enter for default)
 
@@ -250,6 +261,7 @@ python .nuaa/scripts/start_webui.py
 Then open your browser to: `http://localhost:5000`
 
 You'll see a simple, user-friendly interface where you can:
+
 - Click to create program designs
 - Fill in forms to generate proposals
 - Export documents to Word/Excel
@@ -272,6 +284,7 @@ If you're using an AI assistant like Claude Code or GitHub Copilot, you can use 
 You'll need Python 3.11 or newer. Download it from [python.org/downloads](https://www.python.org/downloads/)
 
 Check your version:
+
 ```bash
 python --version
 ```
@@ -349,12 +362,14 @@ After running `nuaa init .` in your project, you'll have everything you need to 
 #### Week 1: WebUI Basics (Recommended for Most Users)
 
 **Day 1-2: Get Familiar**
+
 1. Start the WebUI: `python .nuaa/scripts/start_webui.py`
 2. Open browser to `http://localhost:5000`
 3. Explore the interface - click through the different sections
 4. Try creating a simple program design using the guided form
 
 **Day 3-4: Create Your First Program Design**
+
 1. Click "Program Design" in the WebUI
 2. Fill in the form with your program details:
    - Program name: "Peer Naloxone Distribution"
@@ -364,6 +379,7 @@ After running `nuaa init .` in your project, you'll have everything you need to 
 4. Export to Word for review with your team
 
 **Day 5: Generate a Funding Proposal**
+
 1. Click "Funding Proposal" in the WebUI
 2. Select your program design as the basis
 3. Add funder details (e.g., "NSW Health", "$50,000", "12 months")
@@ -373,10 +389,12 @@ After running `nuaa init .` in your project, you'll have everything you need to 
 #### Week 2-3: Advanced Features
 
 **Impact Measurement**
+
 - Use the "Impact Framework" section to define evaluation indicators
 - Export evaluation plan to Excel for tracking
 
 **Team Collaboration**
+
 - Share the WebUI URL with team members on your network
 - Multiple people can work on different programs simultaneously
 - Export and share documents via email or SharePoint
@@ -384,6 +402,7 @@ After running `nuaa init .` in your project, you'll have everything you need to 
 #### Week 4+: Ongoing Use
 
 **Regular Workflows**
+
 - Weekly: Document outreach sessions and program activities
 - Monthly: Update program designs based on learnings
 - Quarterly: Generate progress reports for funders
@@ -409,22 +428,22 @@ NUAA Project Kit works with all major AI coding assistants:
 
 <!-- SUPPORTED_AGENTS_START -->
 
-| Agent | Website | Support |
-|---|---|---|
-| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool) | Official | Full |
-| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md) | Official | Full |
-| GitHub Copilot | Official | Full |
-| [Cursor](https://cursor.sh/docs/cli) | Official | Full |
-| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html) | Official | Full |
-| [opencode](https://www.opencode.com/docs/cli) | Official | Full |
-| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli) | Official | Full |
-| Windsurf | Official | Full |
-| Kilo Code | Official | Full |
-| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md) | Official | Full |
-| Roo Code | Official | Full |
-| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli) | Official | Full |
-| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full |
-| [Amp](https://docs.amp.computer/cli/overview) | Official | Full |
+| Agent                                                                                                    | Website  | Support |
+| -------------------------------------------------------------------------------------------------------- | -------- | ------- |
+| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool)                      | Official | Full    |
+| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md)     | Official | Full    |
+| GitHub Copilot                                                                                           | Official | Full    |
+| [Cursor](https://cursor.sh/docs/cli)                                                                     | Official | Full    |
+| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html)                                        | Official | Full    |
+| [opencode](https://www.opencode.com/docs/cli)                                                            | Official | Full    |
+| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli)                                             | Official | Full    |
+| Windsurf                                                                                                 | Official | Full    |
+| Kilo Code                                                                                                | Official | Full    |
+| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md)                        | Official | Full    |
+| Roo Code                                                                                                 | Official | Full    |
+| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli)                                             | Official | Full    |
+| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full    |
+| [Amp](https://docs.amp.computer/cli/overview)                                                            | Official | Full    |
 
 <!-- SUPPORTED_AGENTS_END -->
 

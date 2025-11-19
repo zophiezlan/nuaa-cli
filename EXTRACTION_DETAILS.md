@@ -4,7 +4,8 @@
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/git_utils.py` (NEW)
 
-**Exact lines to extract from __init__.py**:
+**Exact lines to extract from **init**.py**:
+
 - Lines 370-415 (run_command + is_git_repo)
 - Lines 417-455 (init_git_repo)
 
@@ -101,6 +102,7 @@ def init_git_repo(project_path: Path, quiet: bool = False) -> Tuple[bool, Option
 ```
 
 **Imports to add at top of git_utils.py**:
+
 ```python
 import os
 import subprocess
@@ -111,7 +113,8 @@ import typer
 from rich.console import Console
 ```
 
-**After extraction, update in __init__.py**:
+**After extraction, update in **init**.py**:
+
 - Remove lines 370-455
 - Add import: `from .git_utils import run_command, is_git_repo, init_git_repo`
 - NOTE: `run_command` is only used internally in git operations, consider making it private or internal only
@@ -122,7 +125,8 @@ from rich.console import Console
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/ui.py` (NEW)
 
-**Exact lines to extract from __init__.py**:
+**Exact lines to extract from **init**.py**:
+
 - Lines 221-239 (get_key)
 - Lines 242-323 (select_with_arrows)
 
@@ -235,6 +239,7 @@ def select_with_arrows(
 ```
 
 **Imports to add at top of ui.py**:
+
 ```python
 import readchar
 import typer
@@ -247,7 +252,8 @@ from rich.live import Live
 console = Console()
 ```
 
-**After extraction, update in __init__.py**:
+**After extraction, update in **init**.py**:
+
 - Remove lines 221-323
 - Add import: `from .ui import get_key, select_with_arrows`
 
@@ -257,7 +263,8 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/scripts.py` (NEW)
 
-**Exact lines to extract from __init__.py**:
+**Exact lines to extract from **init**.py**:
+
 - Lines 924-973 (ensure_executable_scripts)
 
 ### Complete Code to Copy:
@@ -317,6 +324,7 @@ def ensure_executable_scripts(project_path: Path, tracker: StepTracker | None = 
 ```
 
 **Imports to add at top of scripts.py**:
+
 ```python
 import os
 from pathlib import Path
@@ -327,7 +335,8 @@ from .utils import StepTracker
 console = Console()
 ```
 
-**After extraction, update in __init__.py**:
+**After extraction, update in **init**.py**:
+
 - Remove lines 924-973
 - Add import: `from .scripts import ensure_executable_scripts`
 
@@ -337,7 +346,8 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/banner.py` (NEW)
 
-**Exact lines to extract from __init__.py**:
+**Exact lines to extract from **init**.py**:
+
 - Lines 209-216 (BANNER constant)
 - Line 218 (TAGLINE constant)
 - Lines 328-334 (BannerGroup class)
@@ -391,7 +401,8 @@ def show_banner():
     console.print()
 ```
 
-**After extraction, update in __init__.py**:
+**After extraction, update in **init**.py**:
+
 - Remove lines 209-218, 328-334, 346-358
 - Add import: `from .banner import BANNER, TAGLINE, BannerGroup, show_banner`
 
@@ -401,8 +412,9 @@ def show_banner():
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/download.py` (NEW)
 
-**Exact lines to extract from __init__.py**:
-- Lines 138-171 (_safe_extract_zip)
+**Exact lines to extract from **init**.py**:
+
+- Lines 138-171 (\_safe_extract_zip)
 - Lines 458-490 (handle_vscode_settings)
 - Lines 493-534 (merge_json_files)
 - Lines 537-722 (download_template_from_github)
@@ -411,6 +423,7 @@ def show_banner():
 **These functions should be extracted in order**. The complete file needs:
 
 **Imports at top**:
+
 ```python
 import os
 import zipfile
@@ -433,10 +446,12 @@ from .utils import StepTracker
 console = Console()
 ```
 
-**Complete functions** (see __init__.py lines 138-171, 458-490, 493-534, 537-722, 724-921):
-- Copy all 5 functions as-is from __init__.py
+**Complete functions** (see **init**.py lines 138-171, 458-490, 493-534, 537-722, 724-921):
 
-**After extraction, update in __init__.py**:
+- Copy all 5 functions as-is from **init**.py
+
+**After extraction, update in **init**.py**:
+
 - Remove lines 138-171, 458-490, 493-534, 537-722, 724-921
 - Add import: `from .download import download_and_extract_template, handle_vscode_settings, download_template_from_github`
 
@@ -446,10 +461,12 @@ console = Console()
 
 **File location**: `/home/user/nuaa-cli/src/nuaa_cli/commands/init.py` (NEW - or move existing)
 
-**Exact lines to extract from __init__.py**:
+**Exact lines to extract from **init**.py**:
+
 - Lines 976-1408 (entire init command)
 
 **Imports needed**:
+
 ```python
 import os
 import sys
@@ -493,6 +510,7 @@ console = Console()
 ```
 
 **Register function signature**:
+
 ```python
 def register(app: typer.Typer, agent_config: dict, script_type_choices: dict,
              ssl_context, console: Console) -> None:
@@ -515,7 +533,8 @@ def register(app: typer.Typer, agent_config: dict, script_type_choices: dict,
         # [Copy entire function body from lines 1043-1408]
 ```
 
-**After extraction, update in __init__.py**:
+**After extraction, update in **init**.py**:
+
 - Remove lines 976-1408
 - In command registration section (lines 1479-1581), replace the old init registration with:
   ```python
@@ -531,22 +550,24 @@ def register(app: typer.Typer, agent_config: dict, script_type_choices: dict,
 
 ## Files Summary - What to Extract and In What Order
 
-| Step | File | Lines | Action | Dependencies |
-|------|------|-------|--------|--------------|
-| 1 | git_utils.py | 370-455 | NEW FILE - Create | None |
-| 2 | ui.py | 221-323 | NEW FILE - Create | readchar, rich |
-| 3 | scripts.py | 924-973 | NEW FILE - Create | utils.StepTracker |
-| 4 | banner.py | 209-218, 328-334, 346-358 | NEW FILE - Create | rich, typer |
-| 5 | download.py | 138-171, 458-534, 537-921 | NEW FILE - Create | httpx, github_client |
-| 6 | commands/init.py | 976-1408 | NEW FILE - Create | All above + scaffold |
-| 7 | __init__.py | All extracted lines | DELETE + Update | Clean up imports |
+| Step | File             | Lines                     | Action            | Dependencies         |
+| ---- | ---------------- | ------------------------- | ----------------- | -------------------- |
+| 1    | git_utils.py     | 370-455                   | NEW FILE - Create | None                 |
+| 2    | ui.py            | 221-323                   | NEW FILE - Create | readchar, rich       |
+| 3    | scripts.py       | 924-973                   | NEW FILE - Create | utils.StepTracker    |
+| 4    | banner.py        | 209-218, 328-334, 346-358 | NEW FILE - Create | rich, typer          |
+| 5    | download.py      | 138-171, 458-534, 537-921 | NEW FILE - Create | httpx, github_client |
+| 6    | commands/init.py | 976-1408                  | NEW FILE - Create | All above + scaffold |
+| 7    | **init**.py      | All extracted lines       | DELETE + Update   | Clean up imports     |
 
 ---
 
 ## Critical Notes on Passing console and Configuration
 
 Several extracted modules need access to:
+
 1. **console** global object - Either:
+
    - Pass as parameter to functions
    - Create locally in each module
    - Import from shared location
@@ -558,6 +579,7 @@ Several extracted modules need access to:
 4. **ssl_context** - Only needed by init.py (via download.py), pass as parameter
 
 **Recommended approach**:
+
 - Each module creates its own `console = Console()`
 - Modules like `download_and_extract_template` accept `console` as optional parameter
 - init.py receives these configuration objects and passes them where needed

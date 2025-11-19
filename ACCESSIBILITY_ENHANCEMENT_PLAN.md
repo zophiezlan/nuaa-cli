@@ -31,6 +31,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Multi-language support with community translations
 
 **Implementation**:
+
 - [ ] Add `gettext` or `babel` internationalization framework
 - [ ] Extract all user-facing strings into translation catalog
 - [ ] Create translation infrastructure (`locales/` directory)
@@ -49,6 +50,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Auto-detect system language on first run
 
 **Files to Create**:
+
 - `src/nuaa_cli/i18n/__init__.py` - Translation loader
 - `src/nuaa_cli/i18n/translations.py` - Translation management
 - `locales/en_AU/LC_MESSAGES/nuaa_cli.po` - English catalog
@@ -63,6 +65,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Fully optimized for screen reader users
 
 **Implementation**:
+
 - [ ] Add structured semantic markup to all CLI output
 - [ ] Screen reader-friendly progress indicators (no spinner animations)
 - [ ] Descriptive ARIA-like labels for all interactive elements
@@ -75,6 +78,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Announce errors and warnings clearly with context
 
 **Files to Create**:
+
 - `src/nuaa_cli/accessibility/__init__.py` - Accessibility utilities
 - `src/nuaa_cli/accessibility/screen_reader.py` - Screen reader optimizations
 - `src/nuaa_cli/accessibility/audio_feedback.py` - Audio cue system
@@ -88,6 +92,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Multiple visual modes for different needs
 
 **Implementation**:
+
 - [ ] High contrast mode (`--high-contrast`)
 - [ ] No-color mode (`--no-color`) for color blindness
 - [ ] Dyslexia-friendly formatting mode (`--dyslexia-friendly`):
@@ -107,6 +112,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Configurable color schemes
 
 **Files to Create**:
+
 - `src/nuaa_cli/accessibility/visual_modes.py` - Visual accessibility modes
 - `src/nuaa_cli/accessibility/contrast_checker.py` - Contrast verification
 - `config/color_schemes/` - Alternative color schemes
@@ -120,6 +126,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Clear, simple, cognitively accessible
 
 **Implementation**:
+
 - [ ] Simplified command mode (`--simple-mode`):
   - One question at a time
   - No nested menus
@@ -136,6 +143,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Interactive tutorials with immediate feedback
 
 **Files to Create**:
+
 - `src/nuaa_cli/accessibility/simple_mode.py` - Simplified interaction mode
 - `src/nuaa_cli/commands/explain.py` - Command explanation system
 - `docs/accessibility/cognitive-accessibility-guide.md` - Cognitive accessibility guide
@@ -148,6 +156,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Multiple learning paths for different backgrounds
 
 **Implementation**:
+
 - [ ] Interactive onboarding wizard (`nuaa onboard`):
   - Skill level assessment (beginner/intermediate/advanced)
   - Preferred learning style (visual/text/hands-on)
@@ -167,6 +176,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] "Getting started" checklist tracker
 
 **Files to Create**:
+
 - `src/nuaa_cli/commands/onboard.py` - Interactive onboarding wizard
 - `src/nuaa_cli/learning/skill_assessment.py` - Skill level detection
 - `src/nuaa_cli/learning/tutorial_system.py` - Interactive tutorials
@@ -181,6 +191,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Culturally safe for all NUAA communities
 
 **Implementation**:
+
 - [ ] Diverse example names and scenarios in templates:
   - Aboriginal and Torres Strait Islander names
   - Vietnamese, Thai, Arabic, Chinese names
@@ -201,6 +212,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Content warnings for potentially triggering content
 
 **Files to Create**:
+
 - `src/nuaa_cli/cultural_safety/__init__.py` - Cultural safety module
 - `src/nuaa_cli/cultural_safety/protocol_checker.py` - Cultural protocol checks
 - `nuaa-kit/templates/diverse-examples/` - Diverse example library
@@ -215,6 +227,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Comprehensive accessibility CI/CD pipeline
 
 **Implementation**:
+
 - [ ] Automated accessibility linting:
   - Check for plain language (readability scores)
   - Verify non-color-only indicators
@@ -233,6 +246,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Community accessibility audit process
 
 **Files to Create**:
+
 - `scripts/accessibility/check_readability.py` - Readability checker
 - `scripts/accessibility/check_contrast.py` - Contrast checker
 - `scripts/accessibility/lint_stigma.py` - Stigmatizing language detector
@@ -248,6 +262,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Multi-format, multi-level documentation
 
 **Implementation**:
+
 - [ ] Documentation in multiple formats:
   - Plain text (for screen readers)
   - Large print PDF
@@ -266,6 +281,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Community-contributed tips section
 
 **Files to Create**:
+
 - `docs/simplified/` - Simplified documentation
 - `docs/visual-guides/` - Visual guides with images
 - `docs/audio/` - Audio documentation links
@@ -280,6 +296,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Full keyboard accessibility with multiple input methods
 
 **Implementation**:
+
 - [ ] Comprehensive keyboard shortcut documentation
 - [ ] Alternative input method support:
   - Voice control commands documentation
@@ -294,6 +311,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Repeat key rate accommodations
 
 **Files to Create**:
+
 - `docs/accessibility/keyboard-guide.md` - Comprehensive keyboard guide
 - `docs/accessibility/alternative-input-methods.md` - Alternative input guide
 - `config/keyboard_shortcuts.yaml` - Customizable shortcuts config
@@ -306,6 +324,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 **Target State**: Accessible, helpful error support
 
 **Implementation**:
+
 - [ ] Error messages in multiple languages
 - [ ] Plain language error explanations
 - [ ] Step-by-step error recovery guides
@@ -318,6 +337,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - [ ] Accessibility-specific support channel
 
 **Files to Create**:
+
 - `docs/troubleshooting/error-guide.md` - Error reference guide
 - `docs/support/accessibility-support.md` - Accessibility support guide
 - `SUPPORT.md` - Community support information
@@ -327,6 +347,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Implementation Phases
 
 ### Phase 1: Foundation (Week 1-2)
+
 - Internationalization infrastructure
 - Screen reader optimization
 - Visual accessibility modes
@@ -334,6 +355,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Enhanced documentation structure
 
 ### Phase 2: Expansion (Week 3-4)
+
 - Interactive onboarding wizard
 - Cultural safety enhancements
 - Cognitive accessibility features
@@ -341,6 +363,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Multi-format documentation
 
 ### Phase 3: Refinement (Week 5-6)
+
 - Community translation contributions
 - Accessibility audit and fixes
 - User testing with diverse groups
@@ -348,6 +371,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Training materials creation
 
 ### Phase 4: Launch & Iteration (Week 7+)
+
 - Public launch of accessibility features
 - Community feedback collection
 - Ongoing accessibility improvements
@@ -359,6 +383,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Success Metrics
 
 ### Quantitative:
+
 - **Translation Coverage**: 80%+ of interface translated to priority languages
 - **WCAG Compliance**: AAA level for all visual elements
 - **Readability Scores**:
@@ -369,6 +394,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - **Setup Time**: <15 minutes for beginners (down from 30+)
 
 ### Qualitative:
+
 - Positive feedback from users with disabilities
 - Successful adoption by non-English speakers
 - Community members can contribute translations
@@ -381,6 +407,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Community Engagement
 
 ### Accessibility Champions Program:
+
 - Recruit 5-10 community members with lived experience
 - Monthly accessibility review sessions
 - Compensation for participation ($300/session as per NUAA principles)
@@ -388,12 +415,14 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Peer testing and feedback
 
 ### Translation Contributors:
+
 - Open call for community translators
 - Translation bounty program
 - Recognition in contributors list
 - Translation quality review process
 
 ### Accessibility Advisory Committee:
+
 - Quarterly meetings
 - Review roadmap and priorities
 - Provide expert guidance
@@ -404,6 +433,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Resources Required
 
 ### Technical:
+
 - i18n library implementation (40 hours)
 - Accessibility features development (80 hours)
 - Testing framework development (30 hours)
@@ -411,12 +441,14 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Total: ~210 hours of development time
 
 ### Design:
+
 - Visual accessibility design (20 hours)
 - Documentation design (20 hours)
 - User testing facilitation (30 hours)
 - Total: ~70 hours of design time
 
 ### Community:
+
 - Accessibility champion recruitment and coordination (20 hours)
 - Translation coordination (30 hours)
 - User testing sessions (40 hours)
@@ -424,6 +456,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Total: ~120 hours of community coordination
 
 ### Budget:
+
 - Accessibility champion sessions: 10 sessions × $300 = $3,000
 - Professional accessibility audit: $2,000
 - Translation services (if needed): $5,000
@@ -435,18 +468,22 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Risk Mitigation
 
 ### Technical Complexity:
+
 - **Risk**: i18n implementation may be complex
 - **Mitigation**: Use established libraries, start with one language, iterate
 
 ### Community Capacity:
+
 - **Risk**: Limited community capacity for testing/translation
 - **Mitigation**: Start small, provide clear support, compensate fairly
 
 ### Backwards Compatibility:
+
 - **Risk**: Changes may break existing workflows
 - **Mitigation**: Maintain legacy command support, clear migration guide
 
 ### Scope Creep:
+
 - **Risk**: Too many features delay launch
 - **Mitigation**: Phased approach, MVP first, iterate based on feedback
 
@@ -455,6 +492,7 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 ## Maintenance Plan
 
 ### Ongoing:
+
 - Monthly accessibility audits
 - Quarterly community feedback sessions
 - Annual comprehensive accessibility review
@@ -462,12 +500,14 @@ This plan outlines comprehensive enhancements to make NUAA CLI maximally accessi
 - Regular testing with assistive technologies
 
 ### Documentation:
+
 - Keep accessibility guide up to date
 - Document new features with accessibility in mind
 - Maintain translation catalogs
 - Update video tutorials annually
 
 ### Community:
+
 - Support active translation contributors
 - Recognize accessibility contributions
 - Maintain accessibility champions program

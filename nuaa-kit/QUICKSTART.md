@@ -45,6 +45,7 @@ your-project/
 ```
 
 **Key locations**:
+
 - **Templates**: `.nuaa/templates/` - All document templates
 - **Commands**: In your AI agent's folder (`.claude/commands/`, etc.)
 - **Scripts**: `.nuaa/scripts/` - Automation scripts for workflows
@@ -60,6 +61,7 @@ your-project/
 You have two ways to use NUAA:
 
 **Option A: WebUI (Recommended for most users)**
+
 ```bash
 python .nuaa/scripts/start_webui.py
 # Then open http://localhost:5000 in your browser
@@ -81,12 +83,14 @@ If you're using Claude Code, GitHub Copilot, or another AI assistant, use slash 
 Your project now has **19 comprehensive templates** in `.nuaa/templates/`:
 
 **Core templates**:
+
 - `program-design.md` - Program design structure
 - `proposal.md` - Funding proposal format
 - `logic-model.md` - Logic model template
 - `impact-framework.md` - Evaluation framework
 
 **Planning & management templates**:
+
 - `stakeholder-engagement-plan.md` - Stakeholder mapping and engagement
 - `partnership-agreement.md` - MOUs and formal agreements
 - `risk-register.md` - Risk identification and mitigation
@@ -101,12 +105,14 @@ See `.nuaa/templates/README.md` for the complete catalog of all 19 templates.
 Depending on your interface choice:
 
 **If using WebUI**:
+
 1. Start the WebUI: `python .nuaa/scripts/start_webui.py`
 2. Open browser to `http://localhost:5000`
 3. Click "Program Design" and fill in the form
 4. See your generated program design!
 
 **If using AI Assistant**:
+
 1. Open your AI assistant (Claude, Copilot, etc.)
 2. Type: `/nuaa.design Create a peer-led hepatitis C education program`
 3. Answer the assistant's questions
@@ -142,6 +148,7 @@ Before using `/nuaa.design`, collect:
 **Step 2: Use NUAA to Create the Design**
 
 **Option A: Using WebUI**
+
 1. Start WebUI: `python .nuaa/scripts/start_webui.py`
 2. Click "Program Design"
 3. Fill in the form with your inputs from Step 1
@@ -149,6 +156,7 @@ Before using `/nuaa.design`, collect:
 
 **Option B: Using AI Assistant**
 In your AI chat interface, type:
+
 ```
 /nuaa.design "Peer-Led Hepatitis C Education" "people who inject drugs in Western Sydney" "6 months"
 ```
@@ -202,6 +210,7 @@ Before using `/nuaa.propose`, collect:
 **Step 2: Use NUAA to Create the Proposal**
 
 **Option A: Using WebUI**
+
 1. Start WebUI: `python .nuaa/scripts/start_webui.py`
 2. Click "Funding Proposal"
 3. Select your program design as the basis
@@ -210,6 +219,7 @@ Before using `/nuaa.propose`, collect:
 
 **Option B: Using AI Assistant**
 In your AI chat interface, type:
+
 ```
 /nuaa.propose "Peer-Led Hepatitis C Education" "NSW Health" "$30000" "6 months"
 ```
@@ -266,6 +276,7 @@ Before using `/nuaa.measure`, collect:
 **Step 2: Use NUAA to Create the Framework**
 
 **Option A: Using WebUI**
+
 1. Start WebUI: `python .nuaa/scripts/start_webui.py`
 2. Click "Impact Framework"
 3. Select your program design
@@ -274,6 +285,7 @@ Before using `/nuaa.measure`, collect:
 
 **Option B: Using AI Assistant**
 In your AI chat interface, type:
+
 ```
 /nuaa.measure "Peer-Led Hepatitis C Education" "9 months" "$3000"
 ```
@@ -360,6 +372,7 @@ Prepare for evaluation:
 ```
 
 This generates a comprehensive plan covering:
+
 - Event program and schedule
 - Logistics (venue, catering, equipment)
 - Accessibility and participant support
@@ -383,6 +396,7 @@ This generates a comprehensive plan covering:
 ```
 
 This generates an MOU template covering:
+
 - Roles and responsibilities
 - Governance and decision-making
 - Information sharing protocols

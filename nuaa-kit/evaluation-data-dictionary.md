@@ -167,4 +167,4 @@ This dictionary standardizes indicator variable names, types, allowed values, co
 
 ---
 
-*End of draft dictionary — invite peer researcher review before marking status: final.*
+_End of draft dictionary — invite peer researcher review before marking status: final._

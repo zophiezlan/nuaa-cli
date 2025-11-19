@@ -360,15 +360,15 @@ pre-commit run --all-files
 
 ## Impact Assessment
 
-| Category | Before | After | Improvement |
-|----------|--------|-------|-------------|
-| **Dependencies** | Unpinned | Versioned | ⬆️ Stability |
-| **Test Coverage** | Unknown | Measurable | ⬆️ Quality |
-| **Security** | Manual | Automated | ⬆️ Safety |
-| **Logging** | None | Structured | ⬆️ Debuggability |
-| **Code Organization** | Monolithic | Modular | ⬆️ Maintainability |
-| **Documentation** | Minimal | Comprehensive | ⬆️ Usability |
-| **Type Safety** | Basic | Enhanced | ⬆️ Reliability |
+| Category              | Before     | After         | Improvement        |
+| --------------------- | ---------- | ------------- | ------------------ |
+| **Dependencies**      | Unpinned   | Versioned     | ⬆️ Stability       |
+| **Test Coverage**     | Unknown    | Measurable    | ⬆️ Quality         |
+| **Security**          | Manual     | Automated     | ⬆️ Safety          |
+| **Logging**           | None       | Structured    | ⬆️ Debuggability   |
+| **Code Organization** | Monolithic | Modular       | ⬆️ Maintainability |
+| **Documentation**     | Minimal    | Comprehensive | ⬆️ Usability       |
+| **Type Safety**       | Basic      | Enhanced      | ⬆️ Reliability     |
 
 ---
 

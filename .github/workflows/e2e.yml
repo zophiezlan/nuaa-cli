@@ -29,8 +29,11 @@ jobs:
             - name: Upgrade pip
               run: python -m pip install --upgrade pip
 
-            - name: Install CLI
-              run: pip install -e .
+            - name: Install CLI (with dev deps for auto-fix)
+              run: pip install -e .[dev]
+
+            - name: 🔧 Auto-fix linting issues (REQUIRED before tests)
+              uses: ./.github/actions/auto-fix-lint
 
             - name: Run E2E smoke test
               shell: bash

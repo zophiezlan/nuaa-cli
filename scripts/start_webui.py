@@ -41,6 +41,7 @@ def find_nuaa_cli_path():
         # Try to find nuaa-cli in site-packages
         try:
             import nuaa_cli
+
             return Path(nuaa_cli.__file__).parent.parent.parent
         except ImportError:
             pass
@@ -60,6 +61,7 @@ def find_nuaa_cli_path():
     # Strategy 3: Check if nuaa-cli is installed
     try:
         import nuaa_cli
+
         cli_path = Path(nuaa_cli.__file__).parent.parent.parent
         webui_path = cli_path / "interfaces" / "web-simple"
         if webui_path.exists():
@@ -91,9 +93,7 @@ def install_dependencies(packages):
     """Install missing dependencies."""
     print(f"\nInstalling required dependencies: {', '.join(packages)}")
     try:
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--quiet"] + packages
-        )
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--quiet"] + packages)
         return True
     except subprocess.CalledProcessError:
         return False
@@ -116,6 +116,7 @@ def start_webui(webui_path):
 
     # Start browser opener in background
     import threading
+
     browser_thread = threading.Thread(target=open_browser, daemon=True)
     browser_thread.start()
 

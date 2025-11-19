@@ -424,7 +424,9 @@ class TestHandleVscodeSettings:
         tracker = StepTracker("Test")
         console = Mock(spec=Console)
 
-        handle_vscode_settings(source, dest, rel_path, verbose=True, tracker=tracker, console=console)
+        handle_vscode_settings(
+            source, dest, rel_path, verbose=True, tracker=tracker, console=console
+        )
 
         # Should NOT print when tracker is present
         assert not console.print.called
@@ -673,7 +675,9 @@ class TestDownloadTemplateFromGithub:
     def test_download_template_network_timeout(self, mock_client_class, tmp_path):
         """Test download_template_from_github handles network timeouts."""
         mock_client = MagicMock()
-        mock_client.__enter__.return_value.get.side_effect = httpx.TimeoutException("Request timed out")
+        mock_client.__enter__.return_value.get.side_effect = httpx.TimeoutException(
+            "Request timed out"
+        )
         mock_client_class.return_value = mock_client
 
         console = Mock(spec=Console)

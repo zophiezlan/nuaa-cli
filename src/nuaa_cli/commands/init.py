@@ -100,7 +100,9 @@ def _load_agent_config() -> dict:
     except FileNotFoundError as e:
         console = Console()
         console.print(f"[red]Error loading agent configuration from agents.json:[/red] {e}")
-        console.print("[yellow]This might happen if the file was not included in the package.[/yellow]")
+        console.print(
+            "[yellow]This might happen if the file was not included in the package.[/yellow]"
+        )
         raise typer.Exit(1)
     except json.JSONDecodeError as e:
         console = Console()
@@ -148,7 +150,9 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
             "--ai",
             help=f"AI assistant to use: {', '.join(AGENT_CONFIG.keys())}",
         ),
-        script_type: Optional[str] = typer.Option(None, "--script", help="Script type to use: sh or ps"),
+        script_type: Optional[str] = typer.Option(
+            None, "--script", help="Script type to use: sh or ps"
+        ),
         ignore_agent_tools: bool = typer.Option(
             False,
             "--ignore-agent-tools",
@@ -165,7 +169,9 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
             "--force",
             help="Force merge/overwrite when using --here (skip confirmation)",
         ),
-        skip_tls: bool = typer.Option(False, "--skip-tls", help="Skip SSL/TLS verification (not recommended)"),
+        skip_tls: bool = typer.Option(
+            False, "--skip-tls", help="Skip SSL/TLS verification (not recommended)"
+        ),
         debug: bool = typer.Option(
             False,
             "--debug",
@@ -323,12 +329,16 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
             # Check if current directory is not empty and handle confirmation
             existing_items = list(project_path.iterdir())
             if existing_items:
-                console.print(f"[yellow]Warning:[/yellow] Current directory is not empty ({len(existing_items)} items)")
+                console.print(
+                    f"[yellow]Warning:[/yellow] Current directory is not empty ({len(existing_items)} items)"
+                )
                 console.print(
                     "[yellow]Template files will be merged with existing content and may overwrite existing files[/yellow]"
                 )
                 if force:
-                    console.print("[cyan]--force supplied: skipping confirmation and proceeding with merge[/cyan]")
+                    console.print(
+                        "[cyan]--force supplied: skipping confirmation and proceeding with merge[/cyan]"
+                    )
                 else:
                     response = typer.confirm("Do you want to continue?")
                     if not response:
@@ -370,7 +380,9 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
         if not no_git:
             should_init_git = check_tool("git")
             if not should_init_git:
-                console.print("[yellow]Git not found - will skip repository initialization[/yellow]")
+                console.print(
+                    "[yellow]Git not found - will skip repository initialization[/yellow]"
+                )
 
         # AI assistant selection (interactive or from command line)
         if ai_assistant:
@@ -522,7 +534,10 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                         ("CWD", str(Path.cwd())),
                     ]
                     _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]" for k, v in _env_pairs]
+                    env_lines = [
+                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
+                        for k, v in _env_pairs
+                    ]
                     console.print(
                         Panel(
                             "\n".join(env_lines),
@@ -551,7 +566,10 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                         ("CWD", str(Path.cwd())),
                     ]
                     _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]" for k, v in _env_pairs]
+                    env_lines = [
+                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
+                        for k, v in _env_pairs
+                    ]
                     console.print(
                         Panel(
                             "\n".join(env_lines),
@@ -566,7 +584,9 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
 
             except RuntimeError as e:
                 tracker.error("final", str(e))
-                console.print(Panel(f"Initialization failed: {e}", title="Failure", border_style="red"))
+                console.print(
+                    Panel(f"Initialization failed: {e}", title="Failure", border_style="red")
+                )
                 if debug:
                     _env_pairs = [
                         ("Python", sys.version.split()[0]),
@@ -574,7 +594,10 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                         ("CWD", str(Path.cwd())),
                     ]
                     _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]" for k, v in _env_pairs]
+                    env_lines = [
+                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
+                        for k, v in _env_pairs
+                    ]
                     console.print(
                         Panel(
                             "\n".join(env_lines),

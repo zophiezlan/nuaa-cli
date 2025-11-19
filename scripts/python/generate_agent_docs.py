@@ -14,7 +14,9 @@ def generate_agents_table(agents_data: dict, for_readme: bool = False) -> str:
 
     for key, data in agents_data.items():
         if for_readme:
-            website = f"[{data['name']}]({data['install_url']})" if data["install_url"] else data["name"]
+            website = (
+                f"[{data['name']}]({data['install_url']})" if data["install_url"] else data["name"]
+            )
             support = "Full"  # Assuming full support for all listed agents
             row = [website, "Official", support]
         else:
@@ -46,7 +48,13 @@ def update_markdown_file(file_path: Path, table_content: str, marker_start: str,
         print(f"Warning: Markers not found in {file_path}. Skipping update.")
         return
 
-    new_content = content[: start_index + len(marker_start)] + "\n\n" + table_content + "\n\n" + content[end_index:]
+    new_content = (
+        content[: start_index + len(marker_start)]
+        + "\n\n"
+        + table_content
+        + "\n\n"
+        + content[end_index:]
+    )
 
     file_path.write_text(new_content, encoding="utf-8")
     print(f"Successfully updated {file_path}")

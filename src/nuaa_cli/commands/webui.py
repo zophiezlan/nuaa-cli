@@ -50,6 +50,7 @@ def _find_webui_path() -> Optional[Path]:
     # Strategy 1: Check if running from installed package
     try:
         import nuaa_cli
+
         cli_path = Path(nuaa_cli.__file__).parent.parent
         webui_path = cli_path / "interfaces" / "web-simple"
         if webui_path.exists() and (webui_path / "app.py").exists():
@@ -225,7 +226,9 @@ def register(app: typer.Typer, show_banner=None, console: Console = None) -> Non
     def webui(
         host: str = typer.Option("127.0.0.1", "--host", "-h", help="Host to bind to"),
         port: int = typer.Option(5000, "--port", "-p", help="Port to bind to"),
-        no_browser: bool = typer.Option(False, "--no-browser", help="Don't open browser automatically"),
+        no_browser: bool = typer.Option(
+            False, "--no-browser", help="Don't open browser automatically"
+        ),
     ):
         """Start the NUAA Simple Web Interface."""
         _webui_command(host, port, no_browser, console or Console())

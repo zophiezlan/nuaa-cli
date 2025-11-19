@@ -106,7 +106,9 @@ def ensure_executable_scripts(
         (tracker.error if failures else tracker.complete)("chmod", detail)
     else:
         if updated:
-            _console.print(f"[cyan]Updated execute permissions on {updated} script(s) recursively[/cyan]")
+            _console.print(
+                f"[cyan]Updated execute permissions on {updated} script(s) recursively[/cyan]"
+            )
         if failures:
             _console.print("[yellow]Some scripts could not be updated:[/yellow]")
             for failure in failures:

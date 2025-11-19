@@ -35,6 +35,7 @@ The Email Bridge allows NUAA team members to create reports and documents by sim
 ### Example 1: Outreach Report
 
 **Email 1 (You send)**:
+
 ```
 To: nuaa@nuaa.org.au
 Subject: Outreach Report
@@ -43,6 +44,7 @@ Hi, I need to submit my outreach report for today.
 ```
 
 **Email 2 (System sends)**:
+
 ```
 From: NUAA Tools <nuaa@nuaa.org.au>
 Subject: Re: Outreach Report - Question 1 of 5
@@ -60,6 +62,7 @@ Tips:
 ```
 
 **Email 3 (You reply)**:
+
 ```
 November 18, 2025, from 8pm to 11pm
 ```
@@ -67,6 +70,7 @@ November 18, 2025, from 8pm to 11pm
 *(System continues asking questions...)*
 
 **Final Email (System sends)**:
+
 ```
 From: NUAA Tools <nuaa@nuaa.org.au>
 Subject: Your Outreach Report is Ready
@@ -87,6 +91,7 @@ Thank you for your work!
 ### Example 2: Quick Update (SMS-style)
 
 **You send**:
+
 ```
 To: nuaa@nuaa.org.au
 Subject: Quick Outreach Update
@@ -98,6 +103,7 @@ Need resupply by Friday
 ```
 
 **System replies**:
+
 ```
 From: NUAA Tools <nuaa@nuaa.org.au>
 Subject: Quick Update Received
@@ -274,6 +280,7 @@ SMTP_PORT=587
    - Create app-specific password
 
 2. **Install the bridge**:
+
    ```bash
    cd interfaces/email-bridge
    pip install -r requirements.txt
@@ -282,16 +289,19 @@ SMTP_PORT=587
    ```
 
 3. **Test the connection**:
+
    ```bash
    python test_connection.py
    ```
 
 4. **Run the bridge**:
+
    ```bash
    python email_bridge.py
    ```
 
 5. **Set up as service** (runs automatically):
+
    ```bash
    # Linux/Mac
    sudo cp nuaa-email-bridge.service /etc/systemd/system/
@@ -303,6 +313,7 @@ SMTP_PORT=587
    ```
 
 6. **Monitor logs**:
+
    ```bash
    tail -f logs/email-bridge.log
    ```
@@ -408,6 +419,7 @@ Works perfectly with:
 - See the final document
 
 **Quick Reference Card** (business card size)
+
 ```
 ┌─────────────────────────────────┐
 │  NUAA Email Reports             │

@@ -245,7 +245,7 @@ A: Yes! Any NUAA staff member can help. Or call [number].
 
 ---
 
-## Try It Now!
+## Try It Now
 
 **Right now**, send an email to test it:
 

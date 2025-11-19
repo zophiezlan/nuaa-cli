@@ -117,7 +117,7 @@ class TestBannerGroup:
         group = BannerGroup()
 
         with patch("nuaa_cli.banner.show_banner"):
-            with patch.object(group.__class__.__bases__[0], "format_help") as mock_super:
+            with patch.object(group.__class__.__bases__[0], "format_help"):
                 ctx = Mock()
                 formatter = Mock()
 

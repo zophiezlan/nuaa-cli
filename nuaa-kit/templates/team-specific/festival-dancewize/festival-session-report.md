@@ -254,7 +254,7 @@ Give completed form to your shift coordinator
 
 ---
 
-## Thank You!
+## Thank You
 
 Your work keeps festival-goers safer and helps build trust with our community.
 Every conversation matters. Take care of yourself too!

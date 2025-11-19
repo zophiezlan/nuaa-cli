@@ -57,13 +57,12 @@ def initialize(language: Optional[str] = None) -> None:
     locale_dir = get_locale_dir()
 
     try:
-        translation = gettext.translation(
-            "nuaa_cli", localedir=str(locale_dir), languages=[language, "en_AU"]
-        )
+        translation = gettext.translation("nuaa_cli", localedir=str(locale_dir), languages=[language, "en_AU"])
         _translate = translation.gettext
     except FileNotFoundError:
         # Fallback to default (no translation)
-        _translate = lambda s: s
+        def _translate(s):
+            return s
 
     # Set system locale for date/number formatting (best effort)
     try:
@@ -180,7 +179,7 @@ def format_currency(amount: float, currency: str = "AUD") -> str:
     Returns:
         Formatted currency string
     """
-    current_locale = get_current_locale()
+    get_current_locale()
 
     # Simple formatting with locale awareness
     try:

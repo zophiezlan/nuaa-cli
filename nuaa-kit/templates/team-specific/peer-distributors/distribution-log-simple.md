@@ -123,7 +123,7 @@ Day: _________________ Time: _________________
 
 ---
 
-## Thank You!
+## Thank You
 
 Your work helps keep our community safer.
 Every contact you make matters.

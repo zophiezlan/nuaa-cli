@@ -184,6 +184,7 @@ NUAA Bot: ✅ Update logged!
 ### Smart Features
 
 #### Auto-Complete
+
 ```
 You: Location was King's
 
@@ -192,6 +193,7 @@ NUAA Bot: Did you mean "King's Cross"?
 ```
 
 #### Data From History
+
 ```
 NUAA Bot: What supplies did you distribute?
 
@@ -203,6 +205,7 @@ NUAA Bot: ✅ Got it! Using:
 ```
 
 #### Collaboration
+
 ```
 You: @NUAA create funding proposal
      @Sarah can you help with this?
@@ -214,6 +217,7 @@ NUAA Bot: 👥 Now working with you and Sarah.
 ```
 
 #### Approval Workflow
+
 ```
 NUAA Bot: Your report is ready!
           Send to [Manager] for approval?
@@ -446,6 +450,7 @@ az container create --name nuaa-bot --image nuaa-bot
 4. Done!
 
 **Quick Reference Card**:
+
 ```
 ┌─────────────────────────────────────┐
 │  NUAA Teams Bot Quick Commands      │

@@ -52,6 +52,7 @@ We currently support or are working on:
    ```
 
 2. **Install translation tools:**
+
    ```bash
    pip install babel polib
    ```
@@ -248,16 +249,16 @@ Not all strings are equally important. Here's the priority order:
 
 ### Medium Priority
 
-6. Documentation strings
-7. Progress indicators
-8. Warning messages
-9. Informational messages
+1. Documentation strings
+2. Progress indicators
+3. Warning messages
+4. Informational messages
 
 ### Low Priority (Can Wait)
 
-10. Debug messages
-11. Developer-facing strings
-12. Advanced feature descriptions
+1. Debug messages
+2. Developer-facing strings
+3. Advanced feature descriptions
 
 ---
 
@@ -315,13 +316,13 @@ For more terms, see: `nuaa-kit/glossary.md`
 
 ## Recognition and Compensation
 
-### Recognition:
+### Recognition
 
 - All translators are listed in CONTRIBUTORS.md
 - Language maintainers listed in each language file
 - Special thanks in release notes
 
-### Compensation:
+### Compensation
 
 Following NUAA principles of fair consumer remuneration:
 
@@ -392,7 +393,7 @@ To receive compensation:
 
 ---
 
-## Thank You!
+## Thank You
 
 Your translation work makes NUAA CLI accessible to more people and demonstrates our commitment to cultural safety and inclusivity. Every string you translate helps someone access important harm reduction resources in their own language.
 

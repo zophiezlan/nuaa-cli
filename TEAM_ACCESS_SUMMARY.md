@@ -585,7 +585,7 @@ _"I can log distributions right after I make them instead of trying to remember 
 4. ✅ **Web users**: Can use simple web interface
 5. ✅ **Technical users**: Can use CLI
 
-### Coverage by Work Type:
+### Coverage by Work Type
 
 - ✅ Outreach (mobile SMS/web)
 - ✅ Festival (mobile web)

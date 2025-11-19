@@ -33,16 +33,19 @@ Add these script tags to your HTML templates (best placed before closing `</body
 #### Replace Alert Dialogs with Toast Notifications
 
 **Before:**
+
 ```javascript
 alert('Document saved successfully!');
 ```
 
 **After:**
+
 ```javascript
 window.notify.success('Document saved successfully!');
 ```
 
 **More examples:**
+
 ```javascript
 // Success notification
 window.notify.success('Your document has been submitted!', 'Success');
@@ -178,6 +181,7 @@ window.navigation.renderBreadcrumbs();
 Update your HTML templates to include breadcrumb navigation:
 
 **Before:**
+
 ```html
 <nav class="top-nav">
     <div class="nav-container">
@@ -187,6 +191,7 @@ Update your HTML templates to include breadcrumb navigation:
 ```
 
 **After:**
+
 ```html
 <nav class="top-nav">
     <div class="nav-container">
@@ -252,6 +257,7 @@ All new components support:
 ### Notifications Not Showing
 
 1. Check if `notifications.js` is loaded:
+
    ```javascript
    console.log(typeof window.notify); // Should output 'object'
    ```
@@ -263,6 +269,7 @@ All new components support:
 ### Keyboard Shortcuts Not Working
 
 1. Check if `keyboard-shortcuts.js` is loaded:
+
    ```javascript
    console.log(typeof window.keyboardShortcuts); // Should output 'object'
    ```

@@ -102,9 +102,7 @@ class TestInitGitRepo:
         assert (tmp_path / ".git").exists()
 
         # Verify commit was made
-        result = subprocess.run(
-            ["git", "log", "--oneline"], cwd=tmp_path, capture_output=True, text=True
-        )
+        result = subprocess.run(["git", "log", "--oneline"], cwd=tmp_path, capture_output=True, text=True)
         assert "Initial commit from NUAA template" in result.stdout
 
     def test_init_git_repo_empty_directory(self, tmp_path):

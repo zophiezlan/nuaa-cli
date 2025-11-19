@@ -94,8 +94,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             "",
             f"Generated: {created}",
             "",
-            "This is a scaffold report. Populate the sections based on your "
-            "impact framework and collected data.",
+            "This is a scaffold report. Populate the sections based on your " "impact framework and collected data.",
             "",
             "## Overview",
             "",

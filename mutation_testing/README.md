@@ -115,36 +115,42 @@ mutmut html
 Mutmut introduces these types of mutations:
 
 1. **Arithmetic Operators**
+
    ```python
    # Original: x + y
    # Mutation: x - y, x * y, x / y
    ```
 
 2. **Comparison Operators**
+
    ```python
    # Original: x > y
    # Mutation: x < y, x >= y, x == y
    ```
 
 3. **Boolean Operators**
+
    ```python
    # Original: x and y
    # Mutation: x or y, not (x and y)
    ```
 
 4. **Return Values**
+
    ```python
    # Original: return True
    # Mutation: return False, return None
    ```
 
 5. **String Mutations**
+
    ```python
    # Original: "hello"
    # Mutation: "", "XX"
    ```
 
 6. **Number Mutations**
+
    ```python
    # Original: 42
    # Mutation: 43, 41, 0
@@ -155,6 +161,7 @@ Mutmut introduces these types of mutations:
 ### Speed Up Mutation Testing
 
 1. **Use Coverage Data**
+
    ```bash
    # Only mutate covered code
    pytest --cov=src/nuaa_cli --cov-report=
@@ -162,18 +169,21 @@ Mutmut introduces these types of mutations:
    ```
 
 2. **Parallel Execution**
+
    ```bash
    # Run 4 workers in parallel
    mutmut run --use-coverage --parallelize 4
    ```
 
 3. **Test Specific Modules**
+
    ```bash
    # Focus on specific files
    mutmut run --paths-to-mutate=src/nuaa_cli/utils.py,src/nuaa_cli/validation.py
    ```
 
 4. **Cache Results**
+
    ```bash
    # Reuse previous results
    mutmut run --use-coverage --cache-only-mutants-that-failed

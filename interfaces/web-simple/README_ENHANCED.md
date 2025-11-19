@@ -168,12 +168,14 @@
 ### For Administrators
 
 1. **Install dependencies**:
+
    ```bash
    cd interfaces/web-simple
    pip install -r requirements.txt
    ```
 
 2. **Run the server**:
+
    ```bash
    python app_enhanced.py
    ```
@@ -200,11 +202,13 @@
 ### Step-by-Step Setup
 
 #### 1. Clone or Navigate to Directory
+
 ```bash
 cd /path/to/nuaa-cli/interfaces/web-simple
 ```
 
 #### 2. Install Python Dependencies
+
 ```bash
 # Basic installation (required)
 pip install Flask==3.0.0 Flask-CORS==4.0.0
@@ -216,21 +220,25 @@ pip install -r requirements.txt
 #### 3. Optional: Advanced Features
 
 For **PDF export**:
+
 ```bash
 pip install reportlab WeasyPrint
 ```
 
 For **Word document export**:
+
 ```bash
 pip install python-docx
 ```
 
 For **Excel export**:
+
 ```bash
 pip install pandas openpyxl
 ```
 
 For **image processing**:
+
 ```bash
 pip install Pillow
 ```
@@ -238,6 +246,7 @@ pip install Pillow
 #### 4. Configure (Optional)
 
 Create a `.env` file:
+
 ```env
 SECRET_KEY=your-secret-key-here
 MAX_FILE_SIZE=10485760  # 10MB
@@ -248,11 +257,13 @@ DEBUG=False
 #### 5. Run the Server
 
 **Development**:
+
 ```bash
 python app_enhanced.py
 ```
 
 **Production** (using Gunicorn):
+
 ```bash
 gunicorn -w 4 -b 0.0.0.0:5000 app_enhanced:app
 ```
@@ -383,6 +394,7 @@ TEAMS = {
 
 1. Create template file in `nuaa-kit/templates/team-specific/[team-id]/`
 2. Use markdown syntax with placeholders:
+
    ```markdown
    # Report Title
 
@@ -390,6 +402,7 @@ TEAMS = {
    **Name**: _{name}
    **Description**: _{description}
    ```
+
 3. Add to team's templates list in app
 4. Restart server
 
@@ -423,6 +436,7 @@ Edit `static/css/main.css` to change:
 ## API Documentation
 
 ### Base URL
+
 ```
 http://localhost:5000/api
 ```
@@ -437,6 +451,7 @@ For production, implement API keys or OAuth.
 Get statistics for a team
 
 **Response**:
+
 ```json
 {
   "total": 42,
@@ -452,6 +467,7 @@ Get documents for a team
 - `limit` (optional): Number of documents (default: 10)
 
 **Response**:
+
 ```json
 {
   "documents": [
@@ -473,6 +489,7 @@ Search documents
 - `q` (required): Search query
 
 **Response**:
+
 ```json
 {
   "results": [
@@ -491,6 +508,7 @@ Search documents
 Submit a form
 
 **Request Body**:
+
 ```json
 {
   "team_id": "outreach",
@@ -505,6 +523,7 @@ Submit a form
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -517,6 +536,7 @@ Submit a form
 Quick report submission
 
 **Request Body**:
+
 ```json
 {
   "team_id": "outreach",
@@ -525,6 +545,7 @@ Quick report submission
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -539,6 +560,7 @@ Upload a file
 **Request**: multipart/form-data with 'file' field
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -559,17 +581,20 @@ Export a document
 ## Deployment
 
 ### Option 1: Local Development
+
 ```bash
 python app_enhanced.py
 ```
 
 ### Option 2: Production with Gunicorn
+
 ```bash
 gunicorn -w 4 -b 0.0.0.0:5000 app_enhanced:app
 ```
 
 ### Option 3: Docker
 Create `Dockerfile`:
+
 ```dockerfile
 FROM python:3.12-slim
 WORKDIR /app
@@ -581,6 +606,7 @@ CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app_enhanced:app"]
 ```
 
 Build and run:
+
 ```bash
 docker build -t nuaa-web .
 docker run -p 5000:5000 nuaa-web
@@ -589,12 +615,14 @@ docker run -p 5000:5000 nuaa-web
 ### Option 4: Cloud Deployment
 
 **Heroku**:
+
 ```bash
 heroku create nuaa-tools
 git push heroku main
 ```
 
 **Azure**:
+
 ```bash
 az webapp up --name nuaa-tools --runtime "PYTHON:3.12"
 ```
@@ -641,6 +669,7 @@ Use Elastic Beanstalk or EC2
 ### Debug Mode
 
 Enable detailed logging:
+
 ```python
 app.run(debug=True)
 ```

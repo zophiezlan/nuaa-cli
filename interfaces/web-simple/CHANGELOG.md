@@ -244,16 +244,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Upgrading from v1.0 to v2.0
 
 1. **Backup your data**:
+
    ```bash
    cp -r outputs outputs_backup
    ```
 
 2. **Install new dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Use the new app**:
+
    ```bash
    python app_enhanced.py
    ```

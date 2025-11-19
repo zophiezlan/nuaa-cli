@@ -496,29 +496,29 @@ Problem? → Check internet → Check link → Still stuck? → Call [number]
 
 ### Do Next (Week 2) - High Impact
 
-8. ✅ Create demo videos
-9. ✅ Create phone wallpaper
-10. ✅ Email to board members
-11. ✅ SMS test number
-12. ✅ QR codes
-13. ✅ Feedback form
-14. ✅ Practice mode
+1. ✅ Create demo videos
+2. ✅ Create phone wallpaper
+3. ✅ Email to board members
+4. ✅ SMS test number
+5. ✅ QR codes
+6. ✅ Feedback form
+7. ✅ Practice mode
 
 ### Do Soon (Week 3-4) - Medium Impact
 
-15. ✅ Team champions program
-16. ✅ Office hours schedule
-17. ✅ Usage dashboard
-18. ✅ Email template library
-19. ✅ Auto-complete features
-20. ✅ Error monitoring
+1. ✅ Team champions program
+2. ✅ Office hours schedule
+3. ✅ Usage dashboard
+4. ✅ Email template library
+5. ✅ Auto-complete features
+6. ✅ Error monitoring
 
 ### Ongoing - Continuous
 
-21. ✅ Weekly success stories
-22. ✅ Monthly review meetings
-23. ✅ Troubleshooting updates
-24. ✅ Team-specific training
+1. ✅ Weekly success stories
+2. ✅ Monthly review meetings
+3. ✅ Troubleshooting updates
+4. ✅ Team-specific training
 
 ---
 

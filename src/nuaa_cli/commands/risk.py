@@ -21,13 +21,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def risk(
-        program_name: str = typer.Argument(
-            ..., help="Program name (used to derive feature folder)"
-        ),
+        program_name: str = typer.Argument(..., help="Program name (used to derive feature folder)"),
         duration: str = typer.Argument(..., help="Program duration (e.g., '12 months')"),
-        feature: Optional[str] = typer.Option(
-            None, help="Override feature slug (e.g., '001-custom-slug')"
-        ),
+        feature: Optional[str] = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a risk register for proactive risk management.

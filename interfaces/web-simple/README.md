@@ -46,11 +46,13 @@ Make NUAA project tools accessible to **everyone**, regardless of technical skil
 ### For NUAA Staff Setting Up
 
 1. **Install Python requirements**:
+
    ```bash
    pip install flask
    ```
 
 2. **Start the web server**:
+
    ```bash
    cd interfaces/web-simple
    python app.py
@@ -144,7 +146,7 @@ That's it! No command line, no complicated software.
 
 ## Mobile Features
 
-### Works Great On Phones!
+### Works Great On Phones
 - **Responsive design** - Adapts to any screen size
 - **Touch-friendly** - Large buttons, easy to tap
 - **Works offline** - Use in the field without signal
@@ -271,6 +273,7 @@ A: Click the "Help" button anytime, or contact [support email/phone].
 
 ### Add Your Own Team
 Edit `app.py`:
+
 ```python
 TEAMS = {
     "your-team": {

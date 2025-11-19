@@ -6,7 +6,6 @@ visual modes, and accessible output formatting.
 """
 
 from enum import Enum
-from typing import Optional
 import os
 
 

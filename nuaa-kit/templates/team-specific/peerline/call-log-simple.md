@@ -266,7 +266,7 @@ Post in private Peerline channel (photo of form)
 
 ---
 
-## Thank You!
+## Thank You
 
 Your peer support helps people make safer choices and feel less alone.
 Every call matters. Take care of yourself too.

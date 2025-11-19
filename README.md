@@ -27,7 +27,6 @@
 - [♿ Accessibility & Inclusion](#-accessibility--inclusion)
 - [⚡ Get Started](#-get-started)
 - [🎯 Core Features](#-core-features)
-- [📋 Quick Start Guide](#-quick-start-guide)
 - [🔧 Prerequisites](#-prerequisites)
 - [📖 Learn More](#-learn-more)
 - [🔒 Security](#-security)

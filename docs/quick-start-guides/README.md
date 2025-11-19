@@ -189,7 +189,7 @@ Send a test email, SMS, or open the web page.
 
 ## 🆘 Need Help Deciding?
 
-### Answer These Questions:
+### Answer These Questions
 
 **1. What device do you use most?**
 

@@ -366,7 +366,7 @@ Before your first session:
 
 ---
 
-## Try It Right Now!
+## Try It Right Now
 
 **Test SMS**:
 

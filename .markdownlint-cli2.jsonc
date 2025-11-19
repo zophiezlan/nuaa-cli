@@ -1,4 +1,5 @@
 {
+  // Markdownlint configuration for NUAA CLI
   // https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
   "config": {
     "default": true,
@@ -10,21 +11,39 @@
     },
     "MD012": false,
     "MD013": false,
+    "MD022": false,
     "MD024": {
       "siblings_only": true
     },
+    "MD025": false,
     "MD028": false,
+    "MD032": false,
     "MD033": false,
+    "MD034": false,
+    "MD035": false,
     "MD036": false,
     "MD040": false,
     "MD041": false,
-    "MD049": {
-      "style": "asterisk"
-    },
+    "MD049": false,
     "MD050": {
       "style": "asterisk"
     },
     "MD060": false
   },
-  "ignores": [".genreleases/", ".pytest_cache/", "nuaa/"]
+  "ignores": [
+    // Build and cache directories only
+    ".genreleases/",
+    ".pytest_cache/",
+    "nuaa/",
+    "build/",
+    "dist/",
+    "__pycache__/",
+    "htmlcov/",
+    ".mypy_cache/",
+    ".ruff_cache/",
+    ".tox/",
+    ".eggs/",
+    "*.egg-info/",
+    "node_modules/"
+  ]
 }

@@ -36,7 +36,7 @@ Pick the option that sounds easiest to you:
 
 **Perfect for:** People setting up on their own computer
 
-#### For Windows Users:
+#### For Windows Users
 
 1. Download the file `START-WEBUI.bat`
 2. Double-click the file
@@ -47,7 +47,7 @@ Pick the option that sounds easiest to you:
 **Time:** 2 minutes
 **Skills needed:** Downloading and double-clicking
 
-#### For Mac Users:
+#### For Mac Users
 
 1. Download the file `START-WEBUI.sh`
 2. Double-click the file
@@ -80,7 +80,7 @@ Pick the option that sounds easiest to you:
 
 ## 📱 Using NUAA on Your Phone (Mobile Users)
 
-### iPhone/iPad:
+### iPhone/iPad
 
 1. Open the NUAA link in Safari
 2. Tap the Share button (box with arrow)
@@ -88,7 +88,7 @@ Pick the option that sounds easiest to you:
 4. Tap "Add"
 5. Now you have a NUAA app icon on your home screen!
 
-### Android:
+### Android
 
 1. Open the NUAA link in Chrome
 2. Tap the three dots menu (⋮)
@@ -106,7 +106,7 @@ Pick the option that sounds easiest to you:
 
 ## ✅ What to Do After Setup
 
-### 1. Bookmark It!
+### 1. Bookmark It
 
 **Why:** So you can find it easily next time
 
@@ -195,7 +195,7 @@ If you're running it locally, keep the window with the black text open (you can 
 
 Add to home screen for the best mobile experience - it works like a real app!
 
-### Try Things!
+### Try Things
 
 You can't break anything! Feel free to click around and explore. Forms aren't submitted unless you click "Submit".
 
@@ -261,7 +261,7 @@ tech@nuaa.org.au - They respond quickly!
 
 ---
 
-## 🎉 You're Ready!
+## 🎉 You're Ready
 
 That's it! You now know everything you need to get started with NUAA.
 

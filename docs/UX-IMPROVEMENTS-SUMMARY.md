@@ -48,6 +48,7 @@ Created 5 detailed user personas representing different NUAA staff:
 - ✅ Clear error messages with solutions
 
 **User Experience:**
+
 ```
 1. Run script
 2. Watch progress bar (6 steps)
@@ -119,6 +120,7 @@ Created 5 detailed user personas representing different NUAA staff:
 - ✅ Socket-based network sharing
 
 **API Response Example:**
+
 ```json
 {
   "ip": "192.168.1.100",

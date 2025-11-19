@@ -37,11 +37,13 @@ Get your team accessing NUAA WebUI in under 5 minutes, regardless of their techn
 #### 1. Check Python Installation
 
 **Windows:**
+
 ```cmd
 python --version
 ```
 
 **Mac/Linux:**
+
 ```bash
 python3 --version
 ```
@@ -58,6 +60,7 @@ Option A: Download ZIP
 - Extract to a folder like `C:\NUAA` (Windows) or `~/NUAA` (Mac)
 
 Option B: Use Git (if you know it)
+
 ```bash
 git clone https://github.com/zophiezlan/nuaa-cli.git
 cd nuaa-cli
@@ -101,6 +104,7 @@ From other devices on your network:
 - Post it on a whiteboard
 
 **Sample message to send:**
+
 ```
 Hi team! 👋
 
@@ -159,18 +163,25 @@ Questions? Ask me!
 
 1. Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
 2. Login:
+
    ```bash
    heroku login
    ```
+
 3. Create app:
+
    ```bash
    heroku create nuaa-webui
    ```
+
 4. Deploy:
+
    ```bash
    git push heroku main
    ```
+
 5. Open:
+
    ```bash
    heroku open
    ```
@@ -208,6 +219,7 @@ That's it! Access at `http://your-server:5000`
 4. Follow prompts
 
 **Option 2: Homebrew** (if you have it)
+
 ```bash
 brew install python3
 ```
@@ -297,6 +309,7 @@ def index():
 ```
 
 Then install:
+
 ```bash
 pip install flask-httpauth
 ```
@@ -338,6 +351,7 @@ h1 {
 
 1. Save logo as `static/logo.png`
 2. Edit `templates/index.html`:
+
    ```html
    <header>
        <img src="/static/logo.png" alt="Logo" style="max-width: 200px;">
@@ -352,6 +366,7 @@ h1 {
 ### Server Won't Start
 
 **Error:** "Address already in use"
+
 ```bash
 # Find what's using port 5000
 # Windows:
@@ -364,6 +379,7 @@ lsof -i :5000
 ```
 
 **Error:** "Module not found"
+
 ```bash
 pip install flask werkzeug
 ```
@@ -386,6 +402,7 @@ pip install flask werkzeug
 2. Reduce number of templates loaded
 3. Enable caching in Flask
 4. Use production server (gunicorn):
+
    ```bash
    pip install gunicorn
    gunicorn -w 4 -b 0.0.0.0:5000 app:app
@@ -512,7 +529,7 @@ Use this to ensure everything is working:
 
 ---
 
-## 🎉 You're Done!
+## 🎉 You're Done
 
 Your team now has easy access to NUAA tools without any technical barriers.
 

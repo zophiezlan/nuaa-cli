@@ -37,6 +37,7 @@ gemini nuaa.<command> [arguments]
 ```
 
 For example:
+
 ```bash
 gemini nuaa.design "Peer Naloxone Program" "People at risk of opioid overdose" "12 months"
 ```

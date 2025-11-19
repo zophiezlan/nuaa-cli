@@ -257,7 +257,7 @@ This document outlines user personas and experience journeys for various NUAA st
 
 ### For Non-Technical Users (Sarah, Marcus, Lily)
 
-#### MUST HAVE:
+#### MUST HAVE
 1. **Zero-install web access**
    - Public hosted version: `https://nuaa.app`
    - No GitHub account needed
@@ -282,7 +282,7 @@ This document outlines user personas and experience journeys for various NUAA st
    - Touch-optimized UI
    - Data-efficient
 
-#### NICE TO HAVE:
+#### NICE TO HAVE
 - QR code for instant mobile access
 - SMS-based access for feature phones
 - Voice interface for accessibility
@@ -292,7 +292,7 @@ This document outlines user personas and experience journeys for various NUAA st
 
 ### For Medium-Tech Users (Dr. Aisha, James)
 
-#### MUST HAVE:
+#### MUST HAVE
 1. **Reliable automated setup**
    - Dependency auto-detection/installation
    - Clear error messages with solutions
@@ -311,7 +311,7 @@ This document outlines user personas and experience journeys for various NUAA st
    - Audit logs
    - Data encryption options
 
-#### NICE TO HAVE:
+#### NICE TO HAVE
 - CLI for power users (James)
 - API for integrations
 - Custom branding options

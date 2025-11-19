@@ -496,6 +496,42 @@ def send_email():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/analytics")
+def analytics_dashboard():
+    """Analytics dashboard"""
+    return render_template("analytics.html")
+
+
+@app.route("/admin")
+def admin_panel():
+    """Admin panel"""
+    return render_template("admin.html")
+
+
+@app.route("/api/analytics")
+def api_analytics():
+    """API endpoint for analytics data"""
+    period = request.args.get("period", "30")
+
+    # Collect statistics across all teams
+    total_docs = 0
+    active_teams = 0
+
+    for team_id in TEAMS.keys():
+        output_dir = NUAA_CLI_PATH / "outputs" / team_id
+        if output_dir.exists():
+            docs = list(output_dir.rglob("*.md"))
+            if len(docs) > 0:
+                active_teams += 1
+                total_docs += len(docs)
+
+    return jsonify({
+        "totalDocs": total_docs,
+        "activeTeams": active_teams,
+        "templatesUsed": sum(len(team["templates"]) for team in TEAMS.values())
+    })
+
+
 def markdown_to_html(markdown_text):
     """Basic markdown to HTML conversion"""
     html = markdown_text

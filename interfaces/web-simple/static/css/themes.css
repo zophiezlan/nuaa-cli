@@ -1,0 +1,341 @@
+/* ============================================
+   Theme System - Dark Mode & Custom Themes
+   ============================================ */
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --background-primary: #1a1a1a;
+    --background-secondary: #2a2a2a;
+    --background-tertiary: #3a3a3a;
+
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-tertiary: #808080;
+
+    --border-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+
+    /* Keep primary colors but adjust for dark mode */
+    --primary-color: #4a7bc8;
+    --primary-dark: #3a5f9e;
+    --primary-light: #1e3a6e;
+
+    background: var(--background-primary);
+    color: var(--text-primary);
+}
+
+/* Dark Mode Component Overrides */
+body.dark-mode .container,
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .top-nav,
+body.dark-mode .sidebar-section,
+body.dark-mode .form-main,
+body.dark-mode .form-header,
+body.dark-mode .document-form,
+body.dark-mode .template-card,
+body.dark-mode .stat-card,
+body.dark-mode .help-panel {
+    background: var(--background-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .team-card {
+    background: var(--background-tertiary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .team-card:hover {
+    background: var(--background-secondary);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: var(--background-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: var(--primary-color);
+    background: var(--background-secondary);
+}
+
+body.dark-mode .btn.secondary {
+    background: var(--background-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .btn.secondary:hover {
+    background: var(--background-secondary);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .welcome-banner {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+}
+
+body.dark-mode .intro,
+body.dark-mode .features,
+body.dark-mode .help-section {
+    background: var(--background-tertiary);
+    color: var(--text-primary);
+}
+
+body.dark-mode .progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+}
+
+body.dark-mode .toast {
+    background: var(--background-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-mode .search-overlay {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .search-input {
+    background: var(--background-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .notification-panel {
+    background: var(--background-secondary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .template-tag {
+    background: var(--primary-light);
+    color: var(--primary-color);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .team-name,
+body.dark-mode .template-name {
+    color: var(--primary-color);
+}
+
+body.dark-mode .empty-state,
+body.dark-mode .field-hint,
+body.dark-mode .template-description {
+    color: var(--text-secondary);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-base);
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(20deg);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .theme-toggle {
+    background: #ffc107;
+    color: #000;
+}
+
+/* Smooth theme transition */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom Theme: High Contrast (for accessibility) */
+body.theme-high-contrast {
+    --background-primary: #000;
+    --background-secondary: #000;
+    --background-tertiary: #000;
+
+    --text-primary: #fff;
+    --text-secondary: #fff;
+
+    --primary-color: #ffff00;
+    --primary-dark: #ffff00;
+    --primary-light: #333;
+
+    --border-color: #fff;
+}
+
+body.theme-high-contrast *:not(.btn) {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+body.theme-high-contrast .btn.primary {
+    background: #ffff00 !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
+}
+
+body.theme-high-contrast .btn.secondary {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+/* Custom Theme: Sepia (reading mode) */
+body.theme-sepia {
+    --background-primary: #f4ecd8;
+    --background-secondary: #f9f6ed;
+    --background-tertiary: #ebe4d1;
+
+    --text-primary: #5c4d37;
+    --text-secondary: #7a6a52;
+
+    --primary-color: #8b7355;
+    --primary-dark: #6a5742;
+
+    --border-color: #d4c4a8;
+}
+
+/* Custom Theme: Ocean Blue */
+body.theme-ocean {
+    --primary-color: #006994;
+    --primary-dark: #004d6d;
+    --primary-light: #e0f2f7;
+
+    --secondary-color: #00acc1;
+    --success-color: #26a69a;
+}
+
+/* Print Styles for Dark Mode */
+@media print {
+    body.dark-mode {
+        background: white !important;
+        color: black !important;
+    }
+
+    body.dark-mode * {
+        background: white !important;
+        color: black !important;
+        border-color: #ccc !important;
+    }
+
+    .theme-toggle {
+        display: none !important;
+    }
+}
+
+/* Theme Selector Panel */
+.theme-selector {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-xl);
+    z-index: 999;
+    min-width: 250px;
+    display: none;
+}
+
+body.dark-mode .theme-selector {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.theme-selector.show {
+    display: block;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+body.dark-mode .theme-option {
+    border-color: var(--border-color);
+}
+
+.theme-option:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.theme-option.active {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.theme-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--gray-400);
+}
+
+.theme-preview.light {
+    background: linear-gradient(135deg, #f5f5f5, #ffffff);
+}
+
+.theme-preview.dark {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+}
+
+.theme-preview.high-contrast {
+    background: linear-gradient(135deg, #000, #ffff00);
+}
+
+.theme-preview.sepia {
+    background: linear-gradient(135deg, #f4ecd8, #ebe4d1);
+}
+
+.theme-preview.ocean {
+    background: linear-gradient(135deg, #006994, #00acc1);
+}

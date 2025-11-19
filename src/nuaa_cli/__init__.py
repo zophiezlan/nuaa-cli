@@ -70,7 +70,6 @@ from .download import (
     download_and_extract_template,
     handle_vscode_settings,
     merge_json_files,
-    _safe_extract_zip,
 )
 
 

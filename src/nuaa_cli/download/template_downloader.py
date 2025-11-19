@@ -1,45 +1,31 @@
 #!/usr/bin/env python3
 """
-NUAA CLI Download Module
-========================
+Template Download Orchestration
+================================
 
-This module provides comprehensive functionality for downloading and extracting
-NUAA project templates from GitHub releases. It handles:
+This module provides the main download orchestration functionality for
+downloading and extracting NUAA project templates from GitHub releases.
 
-- Secure ZIP file extraction with path traversal protection
-- GitHub API rate limiting and authentication
-- VSCode settings.json merging for smooth IDE integration
-- Deep JSON merging for configuration files
-- Template downloading with progress tracking
-- Intelligent directory structure flattening
-
-The module ensures robust error handling for network issues, file system errors,
-and malicious archive content.
-
-Key Functions:
+Functions:
     - download_template_from_github: Fetch templates from GitHub releases
     - download_and_extract_template: Complete workflow for template setup
-    - merge_json_files: Deep merge JSON configuration files
-    - handle_vscode_settings: Special handling for VSCode settings
-    - _safe_extract_zip: Secure ZIP extraction with security checks
 
-Security Features:
-    - Path traversal attack prevention in ZIP extraction
-    - SSL/TLS verification with truststore
-    - GitHub token support for higher rate limits
-    - Comprehensive error handling and user feedback
+Features:
+    - GitHub release fetching
+    - Secure ZIP extraction
+    - Directory flattening
+    - Merge with existing directories
+    - VSCode settings handling
+    - Progress tracking
 
 Author: NUAA Project
 License: MIT
 """
 
-import json
-import os
 import shutil
 import ssl
 import tempfile
 import zipfile
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Tuple
 
@@ -50,354 +36,13 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from .utils import StepTracker
+from .github_client import get_auth_headers, format_rate_limit_error
+from .vscode_settings import handle_vscode_settings
+from .zip_handler import safe_extract_zip
+from ..utils import StepTracker
 
 # Initialize SSL context with truststore for secure connections
 ssl_context = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-
-
-def _github_token(cli_token: Optional[str] = None) -> Optional[str]:
-    """
-    Return sanitized GitHub token or None.
-
-    Priority order:
-    1. CLI argument token
-    2. GH_TOKEN environment variable
-    3. GITHUB_TOKEN environment variable
-
-    Args:
-        cli_token: Token passed via CLI argument
-
-    Returns:
-        Sanitized token string or None if no token available
-
-    Examples:
-        >>> token = _github_token("ghp_abc123")
-        >>> token
-        'ghp_abc123'
-
-        >>> os.environ["GH_TOKEN"] = "ghp_xyz789"
-        >>> token = _github_token()
-        >>> token
-        'ghp_xyz789'
-    """
-    return ((cli_token or os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or "").strip()) or None
-
-
-def _github_auth_headers(cli_token: Optional[str] = None) -> dict:
-    """
-    Return Authorization header dict only when a non-empty token exists.
-
-    Args:
-        cli_token: Token passed via CLI argument
-
-    Returns:
-        Dictionary with Authorization header if token exists, empty dict otherwise
-
-    Examples:
-        >>> headers = _github_auth_headers("ghp_abc123")
-        >>> headers
-        {'Authorization': 'Bearer ghp_abc123'}
-
-        >>> headers = _github_auth_headers(None)
-        >>> headers
-        {}
-    """
-    token = _github_token(cli_token)
-    return {"Authorization": f"Bearer {token}"} if token else {}
-
-
-def _parse_rate_limit_headers(headers: httpx.Headers) -> dict:
-    """
-    Extract and parse GitHub rate-limit headers.
-
-    Parses standard GitHub API rate limit headers and retry-after headers
-    to provide useful information about API quota status.
-
-    Args:
-        headers: Response headers from GitHub API request
-
-    Returns:
-        Dictionary containing parsed rate limit information with keys:
-        - limit: Total requests allowed per hour
-        - remaining: Requests remaining in current window
-        - reset_epoch: Unix timestamp when limit resets
-        - reset_time: DateTime object for reset time (UTC)
-        - reset_local: DateTime object for reset time (local timezone)
-        - retry_after_seconds: Seconds to wait before retrying (if applicable)
-
-    Examples:
-        >>> headers = httpx.Headers({
-        ...     'X-RateLimit-Limit': '5000',
-        ...     'X-RateLimit-Remaining': '4999',
-        ...     'X-RateLimit-Reset': '1234567890'
-        ... })
-        >>> info = _parse_rate_limit_headers(headers)
-        >>> info['limit']
-        '5000'
-    """
-    info = {}
-
-    # Standard GitHub rate-limit headers
-    if "X-RateLimit-Limit" in headers:
-        info["limit"] = headers.get("X-RateLimit-Limit")
-    if "X-RateLimit-Remaining" in headers:
-        info["remaining"] = headers.get("X-RateLimit-Remaining")
-    if "X-RateLimit-Reset" in headers:
-        reset_epoch = int(headers.get("X-RateLimit-Reset", "0"))
-        if reset_epoch:
-            reset_time = datetime.fromtimestamp(reset_epoch, tz=timezone.utc)
-            info["reset_epoch"] = reset_epoch
-            info["reset_time"] = reset_time
-            info["reset_local"] = reset_time.astimezone()
-
-    # Retry-After header (seconds or HTTP-date)
-    if "Retry-After" in headers:
-        retry_after = headers.get("Retry-After")
-        try:
-            info["retry_after_seconds"] = int(retry_after)
-        except ValueError:
-            # HTTP-date format - not implemented, just store as string
-            info["retry_after"] = retry_after
-
-    return info
-
-
-def _format_rate_limit_error(status_code: int, headers: httpx.Headers, url: str) -> str:
-    """
-    Format a user-friendly error message with rate-limit information.
-
-    Creates a comprehensive error message including rate limit details and
-    troubleshooting guidance for GitHub API rate limiting issues.
-
-    Args:
-        status_code: HTTP status code from failed request
-        headers: Response headers containing rate limit information
-        url: URL that was requested
-
-    Returns:
-        Formatted multi-line error message string with troubleshooting tips
-
-    Examples:
-        >>> headers = httpx.Headers({'X-RateLimit-Remaining': '0'})
-        >>> error = _format_rate_limit_error(403, headers, 'https://api.github.com/repos/foo/bar')
-        >>> 'Rate Limit Information' in error
-        True
-    """
-    rate_info = _parse_rate_limit_headers(headers)
-
-    lines = [f"GitHub API returned status {status_code} for {url}"]
-    lines.append("")
-
-    if rate_info:
-        lines.append("[bold]Rate Limit Information:[/bold]")
-        if "limit" in rate_info:
-            lines.append(f"  • Rate Limit: {rate_info['limit']} requests/hour")
-        if "remaining" in rate_info:
-            lines.append(f"  • Remaining: {rate_info['remaining']}")
-        if "reset_local" in rate_info:
-            reset_str = rate_info["reset_local"].strftime("%Y-%m-%d %H:%M:%S %Z")
-            lines.append(f"  • Resets at: {reset_str}")
-        if "retry_after_seconds" in rate_info:
-            lines.append(f"  • Retry after: {rate_info['retry_after_seconds']} seconds")
-        lines.append("")
-
-    # Add troubleshooting guidance
-    lines.append("[bold]Troubleshooting Tips:[/bold]")
-    lines.append("  • If you're on a shared CI or corporate environment, you may be rate-limited.")
-    lines.append(
-        "  • Consider using a GitHub token via --github-token or the GH_TOKEN/GITHUB_TOKEN"
-    )
-    lines.append("    environment variable to increase rate limits.")
-    lines.append(
-        "  • Authenticated requests have a limit of 5,000/hour vs 60/hour for unauthenticated."
-    )
-
-    return "\n".join(lines)
-
-
-def _safe_extract_zip(
-    zip_ref: zipfile.ZipFile, extract_path: Path, console: Console = Console()
-) -> None:
-    """
-    Safely extract ZIP file contents, preventing path traversal attacks.
-
-    Validates all paths in the ZIP archive before extraction to ensure no
-    malicious paths attempt to write outside the target directory. This prevents
-    security vulnerabilities from specially crafted ZIP files.
-
-    Args:
-        zip_ref: Open ZipFile object to extract
-        extract_path: Target directory for extraction
-        console: Rich console for error output (defaults to new Console instance)
-
-    Raises:
-        ValueError: If ZIP contains malicious paths attempting traversal
-        typer.Exit: If validation fails (exits with code 1)
-
-    Examples:
-        >>> import zipfile
-        >>> from pathlib import Path
-        >>> # Safe extraction
-        >>> with zipfile.ZipFile('template.zip', 'r') as zf:
-        ...     _safe_extract_zip(zf, Path('/tmp/safe_dir'))
-
-        >>> # Malicious ZIP with path traversal attempt would raise ValueError
-    """
-    extract_path = extract_path.resolve()
-
-    for member in zip_ref.namelist():
-        # Get the target path
-        member_path = (extract_path / member).resolve()
-
-        # Ensure the resolved path is within the intended extract directory
-        try:
-            member_path.relative_to(extract_path)
-        except ValueError:
-            # Path traversal detected
-            console.print(f"[red]Security Error:[/red] ZIP file contains invalid path: {member}")
-            console.print("[dim]This file may be malicious. Extraction aborted.[/dim]")
-            raise typer.Exit(1)
-
-    # All paths validated, safe to extract
-    zip_ref.extractall(extract_path)
-
-
-def handle_vscode_settings(
-    sub_item: Path,
-    dest_file: Path,
-    rel_path: Path,
-    verbose: bool = False,
-    tracker: Optional[StepTracker] = None,
-    console: Console = Console(),
-) -> None:
-    """
-    Handle merging or copying of .vscode/settings.json files.
-
-    Special handling for VSCode settings to merge new settings with existing
-    ones rather than overwriting. This preserves user customizations while
-    adding new template settings.
-
-    Args:
-        sub_item: Source settings.json file path
-        dest_file: Destination settings.json file path
-        rel_path: Relative path for logging purposes
-        verbose: Whether to print detailed progress messages
-        tracker: Optional StepTracker for progress tracking
-        console: Rich console for output (defaults to new Console instance)
-
-    Raises:
-        None: All exceptions are caught and handled gracefully with fallback to copy
-
-    Examples:
-        >>> from pathlib import Path
-        >>> handle_vscode_settings(
-        ...     Path('template/.vscode/settings.json'),
-        ...     Path('project/.vscode/settings.json'),
-        ...     Path('.vscode/settings.json'),
-        ...     verbose=True
-        ... )
-    """
-
-    def log(message: str, color: str = "green") -> None:
-        if verbose and not tracker:
-            console.print(f"[{color}]{message}[/] {rel_path}")
-
-    try:
-        with open(sub_item, "r", encoding="utf-8") as f:
-            new_settings = json.load(f)
-
-        if dest_file.exists():
-            merged = merge_json_files(
-                dest_file, new_settings, verbose=verbose and not tracker, console=console
-            )
-            with open(dest_file, "w", encoding="utf-8") as f:
-                json.dump(merged, f, indent=4)
-                f.write("\n")
-            log("Merged:", "green")
-        else:
-            shutil.copy2(sub_item, dest_file)
-            log("Copied (no existing settings.json):", "blue")
-
-    except FileNotFoundError as e:
-        log(f"Warning: Settings file not found, copying source instead: {e}", "yellow")
-        shutil.copy2(sub_item, dest_file)
-    except PermissionError as e:
-        log(
-            f"Warning: Permission denied accessing settings file, copying instead: {e}",
-            "yellow",
-        )
-        shutil.copy2(sub_item, dest_file)
-    except json.JSONDecodeError as e:
-        log(f"Warning: Invalid JSON in settings file, copying source instead: {e}", "yellow")
-        shutil.copy2(sub_item, dest_file)
-    except OSError as e:
-        log(f"Warning: File system error, copying instead: {e}", "yellow")
-        shutil.copy2(sub_item, dest_file)
-
-
-def merge_json_files(
-    existing_path: Path,
-    new_content: dict,
-    verbose: bool = False,
-    console: Console = Console(),
-) -> dict:
-    """
-    Merge new JSON content into existing JSON file.
-
-    Performs a deep merge where:
-    - New keys are added
-    - Existing keys are preserved unless overwritten by new content
-    - Nested dictionaries are merged recursively
-    - Lists and other values are replaced (not merged)
-
-    Args:
-        existing_path: Path to existing JSON file
-        new_content: New JSON content to merge in
-        verbose: Whether to print merge details
-        console: Rich console for output (defaults to new Console instance)
-
-    Returns:
-        Merged JSON content as dict
-
-    Examples:
-        >>> from pathlib import Path
-        >>> existing = Path('config.json')
-        >>> new_data = {'new_key': 'value', 'nested': {'key': 'value'}}
-        >>> merged = merge_json_files(existing, new_data)
-        >>> 'new_key' in merged
-        True
-
-        >>> # Deep merge example
-        >>> existing_content = {'a': 1, 'b': {'c': 2}}
-        >>> new_content = {'b': {'d': 3}, 'e': 4}
-        >>> # Result: {'a': 1, 'b': {'c': 2, 'd': 3}, 'e': 4}
-    """
-    try:
-        with open(existing_path, "r", encoding="utf-8") as f:
-            existing_content = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        # If file doesn't exist or is invalid, just use new content
-        return new_content
-
-    def deep_merge(base: dict, update: dict) -> dict:
-        """Recursively merge update dict into base dict."""
-        result = base.copy()
-        for key, value in update.items():
-            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
-                # Recursively merge nested dictionaries
-                result[key] = deep_merge(result[key], value)
-            else:
-                # Add new key or replace existing value
-                result[key] = value
-        return result
-
-    merged = deep_merge(existing_content, new_content)
-
-    if verbose:
-        console.print(f"[cyan]Merged JSON file:[/cyan] {existing_path.name}")
-
-    return merged
 
 
 def download_template_from_github(
@@ -467,12 +112,12 @@ def download_template_from_github(
             api_url,
             timeout=30,
             follow_redirects=True,
-            headers=_github_auth_headers(github_token),
+            headers=get_auth_headers(github_token),
         )
         status = response.status_code
         if status != 200:
             # Format detailed error message with rate-limit info
-            error_msg = _format_rate_limit_error(status, response.headers, api_url)
+            error_msg = format_rate_limit_error(status, response.headers, api_url)
             if debug:
                 error_msg += f"\n\n[dim]Response body (truncated 500):[/dim]\n{response.text[:500]}"
             raise RuntimeError(error_msg)
@@ -554,11 +199,11 @@ def download_template_from_github(
             download_url,
             timeout=60,
             follow_redirects=True,
-            headers=_github_auth_headers(github_token),
+            headers=get_auth_headers(github_token),
         ) as response:
             if response.status_code != 200:
                 # Handle rate-limiting on download as well
-                error_msg = _format_rate_limit_error(
+                error_msg = format_rate_limit_error(
                     response.status_code, response.headers, download_url
                 )
                 if debug:
@@ -770,7 +415,7 @@ def download_and_extract_template(
             if is_current_dir:
                 with tempfile.TemporaryDirectory() as temp_dir:
                     temp_path = Path(temp_dir)
-                    _safe_extract_zip(zip_ref, temp_path, console)
+                    safe_extract_zip(zip_ref, temp_path, console)
 
                     extracted_items = list(temp_path.iterdir())
                     if tracker:
@@ -827,7 +472,7 @@ def download_and_extract_template(
                     if verbose and not tracker:
                         console.print("[cyan]Template files merged into current directory[/cyan]")
             else:
-                _safe_extract_zip(zip_ref, project_path, console)
+                safe_extract_zip(zip_ref, project_path, console)
 
                 extracted_items = list(project_path.iterdir())
                 if tracker:

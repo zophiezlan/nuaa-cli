@@ -1,0 +1,31 @@
+[mutmut]
+# Mutation testing configuration for NUAA CLI
+
+# Paths to mutate
+paths_to_mutate=src/nuaa_cli/
+
+# Directories to exclude
+exclude_patterns=
+    __pycache__
+    *.pyc
+    tests/
+    benchmarks/
+    docs/
+
+# Test command
+runner=pytest -x --assert=plain --tb=short
+
+# Test time multiplier (increase if tests are slow)
+test_time_multiplier=2.0
+
+# Use coverage data to only mutate covered lines
+use_coverage=True
+
+# Only mutate changed files (useful for CI)
+# use_patch_file=changes.patch
+
+# Dict synonyms (for Python 3.9+)
+dict_synonyms=dict, OrderedDict, defaultdict
+
+# Cache directory
+cache_only_mutants_that_failed=True

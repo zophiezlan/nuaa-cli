@@ -6,6 +6,7 @@ for the NUAA Project Kit CLI interface.
 """
 
 import typer
+import click.formatting
 from rich.align import Align
 from rich.console import Console
 from rich.text import Text
@@ -66,7 +67,7 @@ class BannerGroup(TyperGroup):
         >>> app = typer.Typer(cls=BannerGroup)
     """
 
-    def format_help(self, ctx: typer.Context, formatter: typer.core.HelpFormatter) -> None:
+    def format_help(self, ctx: typer.Context, formatter: click.formatting.HelpFormatter) -> None:
         """
         Format help text with banner prepended.
 

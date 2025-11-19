@@ -1,0 +1,45 @@
+# Development Dockerfile with testing and development tools
+FROM python:3.11-slim
+
+# Set metadata
+LABEL maintainer="NUAA Project"
+LABEL description="NUAA CLI Development Environment"
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+# Install system dependencies including development tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    make \
+    curl \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 nuaa && \
+    mkdir -p /home/nuaa/.nuaa-cli /workspace && \
+    chown -R nuaa:nuaa /home/nuaa /workspace
+
+# Set working directory
+WORKDIR /workspace
+
+# Copy project files
+COPY --chown=nuaa:nuaa . .
+
+# Switch to non-root user
+USER nuaa
+
+# Install Python dependencies including dev dependencies
+RUN pip install --user --no-cache-dir -e ".[dev]"
+
+# Add user bin to PATH
+ENV PATH="/home/nuaa/.local/bin:${PATH}"
+
+# Set up volumes
+VOLUME ["/workspace", "/home/nuaa/.nuaa-cli"]
+
+# Default command for development
+CMD ["/bin/bash"]

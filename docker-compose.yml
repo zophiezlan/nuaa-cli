@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  nuaa-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nuaa-cli:latest
+    container_name: nuaa-cli
+    volumes:
+      - ./workspace:/workspace
+      - nuaa-config:/home/nuaa/.nuaa-cli
+    environment:
+      - LANGUAGE=en_AU
+      - NUAA_ACCESSIBILITY_MODE=standard
+    stdin_open: true
+    tty: true
+
+  nuaa-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: nuaa-cli:dev
+    container_name: nuaa-cli-dev
+    volumes:
+      - .:/workspace
+      - nuaa-config-dev:/home/nuaa/.nuaa-cli
+    environment:
+      - LANGUAGE=en_AU
+      - DEBUG=1
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+volumes:
+  nuaa-config:
+    driver: local
+  nuaa-config-dev:
+    driver: local

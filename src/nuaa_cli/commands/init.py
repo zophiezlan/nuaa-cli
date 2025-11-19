@@ -71,6 +71,7 @@ from ..git_utils import init_git_repo, is_git_repo
 from ..scripts import ensure_executable_scripts
 from ..ui import select_with_arrows
 from ..utils import StepTracker, check_tool
+from ..error_handler import display_debug_environment, handle_network_error
 
 # SSL context for secure connections
 ssl_context = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
@@ -519,36 +520,10 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                 tracker.complete("final", "project ready")
 
             except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError) as e:
-                tracker.error("final", f"Network error: {e}")
-                console.print(
-                    Panel(
-                        f"Network error during initialization: {e}",
-                        title="Failure",
-                        border_style="red",
-                    )
-                )
                 if debug:
-                    _env_pairs = [
-                        ("Python", sys.version.split()[0]),
-                        ("Platform", sys.platform),
-                        ("CWD", str(Path.cwd())),
-                    ]
-                    _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [
-                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
-                        for k, v in _env_pairs
-                    ]
-                    console.print(
-                        Panel(
-                            "\n".join(env_lines),
-                            title="Debug Environment",
-                            border_style="magenta",
-                        )
-                    )
-                # Clean up partial directory if not current directory
-                if not here and project_path.exists():
-                    shutil.rmtree(project_path)
-                raise typer.Exit(1)
+                    display_debug_environment(console)
+                cleanup_path = project_path if not here else None
+                handle_network_error(e, "initialization", console, cleanup_path, tracker, debug)
 
             except (zipfile.BadZipFile, PermissionError, OSError) as e:
                 tracker.error("final", f"File system error: {e}")
@@ -560,23 +535,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                     )
                 )
                 if debug:
-                    _env_pairs = [
-                        ("Python", sys.version.split()[0]),
-                        ("Platform", sys.platform),
-                        ("CWD", str(Path.cwd())),
-                    ]
-                    _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [
-                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
-                        for k, v in _env_pairs
-                    ]
-                    console.print(
-                        Panel(
-                            "\n".join(env_lines),
-                            title="Debug Environment",
-                            border_style="magenta",
-                        )
-                    )
+                    display_debug_environment(console)
                 # Clean up partial directory if not current directory
                 if not here and project_path.exists():
                     shutil.rmtree(project_path)
@@ -588,23 +547,7 @@ def register(app, show_banner_fn=None, console: Optional[Console] = None):
                     Panel(f"Initialization failed: {e}", title="Failure", border_style="red")
                 )
                 if debug:
-                    _env_pairs = [
-                        ("Python", sys.version.split()[0]),
-                        ("Platform", sys.platform),
-                        ("CWD", str(Path.cwd())),
-                    ]
-                    _label_width = max(len(k) for k, _ in _env_pairs)
-                    env_lines = [
-                        f"{k.ljust(_label_width)} → [bright_black]{v}[/bright_black]"
-                        for k, v in _env_pairs
-                    ]
-                    console.print(
-                        Panel(
-                            "\n".join(env_lines),
-                            title="Debug Environment",
-                            border_style="magenta",
-                        )
-                    )
+                    display_debug_environment(console)
                 # Clean up partial directory if not current directory
                 if not here and project_path.exists():
                     shutil.rmtree(project_path)

@@ -36,7 +36,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from .github_client import get_auth_headers, format_rate_limit_error
+from ..github_client import get_auth_headers, format_rate_limit_error
 from .vscode_settings import handle_vscode_settings
 from .zip_handler import safe_extract_zip
 from ..utils import StepTracker

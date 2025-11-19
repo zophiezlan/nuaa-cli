@@ -311,6 +311,14 @@ except Exception:
     # Safe fallback: ignore registration failure; command suite still usable
     pass
 
+try:
+    from .commands.webui import register as _register_webui
+
+    _register_webui(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
 
 def main():
     app()

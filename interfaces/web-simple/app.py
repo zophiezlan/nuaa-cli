@@ -525,11 +525,13 @@ def api_analytics():
                 active_teams += 1
                 total_docs += len(docs)
 
-    return jsonify({
-        "totalDocs": total_docs,
-        "activeTeams": active_teams,
-        "templatesUsed": sum(len(team["templates"]) for team in TEAMS.values())
-    })
+    return jsonify(
+        {
+            "totalDocs": total_docs,
+            "activeTeams": active_teams,
+            "templatesUsed": sum(len(team["templates"]) for team in TEAMS.values()),
+        }
+    )
 
 
 def markdown_to_html(markdown_text):

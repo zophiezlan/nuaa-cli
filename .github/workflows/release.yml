@@ -1,13 +1,13 @@
 name: Create Release
 
 on:
-  push:
+  # Wait for CI to complete before running release
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
     branches: [main]
-    paths:
-      - "memory/**"
-      - "scripts/**"
-      - "templates/**"
-      - ".github/workflows/**"
+  # Manual trigger with version override
   workflow_dispatch:
     inputs:
       version:
@@ -16,34 +16,46 @@ on:
         type: string
 
 jobs:
-  verify:
+  # Check if release-relevant files changed
+  check-changes:
     runs-on: ubuntu-latest
+    # Only run if CI succeeded (or manual workflow_dispatch)
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: |
-            pyproject.toml
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-      - name: Install package (with dev deps)
-        run: pip install -e .[dev]
-      - name: 🔧 Auto-fix linting issues (REQUIRED before verification)
-        uses: ./.github/actions/auto-fix-lint
-      - name: Lint (ruff)
-        run: ruff check .
-      - name: Type check (mypy)
-        run: mypy .
-        continue-on-error: true
-      - name: Tests (pytest)
-        run: pytest -q
+          fetch-depth: 2
+
+      - name: Check for relevant changes
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "Manual trigger - creating release"
+            exit 0
+          fi
+
+          # Check if release-relevant paths changed in the last commit
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          if echo "$CHANGED_FILES" | grep -qE '^(memory/|scripts/|templates/|\.github/workflows/)'; then
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "Release-relevant files changed - will create release"
+          else
+            echo "should_release=false" >> $GITHUB_OUTPUT
+            echo "No release-relevant files changed - skipping release"
+          fi
 
   release:
-    needs: verify
+    needs: check-changes
+    if: needs.check-changes.outputs.should_release == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write

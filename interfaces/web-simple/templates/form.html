@@ -8,14 +8,19 @@
       {{ template_name.replace('.md', '').replace('-', ' ').title() }} - {{
       team.name }}
     </title>
+
+    <!-- Fluent UI Web Components -->
+    <script type="module" src="https://unpkg.com/@fluentui/web-components@2.6.1"></script>
+
     <link rel="stylesheet" href="/static/css/main.css" />
     <link rel="stylesheet" href="/static/css/form.css" />
     <link rel="stylesheet" href="/static/css/themes.css" />
+    <link rel="stylesheet" href="/static/css/fluent-theme.css" />
   </head>
   <body>
     <!-- Progress Bar -->
     <div class="progress-container">
-      <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+      <fluent-progress id="progressBar" value="0" max="100" style="width: 100%;"></fluent-progress>
     </div>
 
     <!-- Top Navigation -->
@@ -32,29 +37,33 @@
           >
         </div>
         <div class="nav-actions">
-          <button
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="showVersionHistory()"
             aria-label="Version history"
           >
-            <span>📜</span>
-          </button>
-          <button
+            📜
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="toggleAutoSave()"
             id="autoSaveBtn"
             aria-label="Toggle auto-save"
+            style="position: relative;"
           >
-            <span>💾</span>
+            💾
             <span class="status-indicator" id="saveStatus"></span>
-          </button>
-          <button
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="previewDocument()"
             aria-label="Preview"
           >
-            <span>👁️</span>
-          </button>
+            👁️
+          </fluent-button>
         </div>
       </div>
     </nav>
@@ -88,18 +97,18 @@
 
         <div class="help-panel">
           <h3>🔗 Quick Actions</h3>
-          <button class="action-btn" onclick="loadTemplate()">
+          <fluent-button class="action-btn" appearance="neutral" onclick="loadTemplate()" style="width: 100%; justify-content: flex-start;">
             <span>📋</span>
             <span>Load From Template</span>
-          </button>
-          <button class="action-btn" onclick="loadDraft()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="loadDraft()" style="width: 100%; justify-content: flex-start;">
             <span>📂</span>
             <span>Load Draft</span>
-          </button>
-          <button class="action-btn" onclick="clearForm()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="clearForm()" style="width: 100%; justify-content: flex-start;">
             <span>🗑️</span>
             <span>Clear Form</span>
-          </button>
+          </fluent-button>
         </div>
 
         <div class="help-panel">
@@ -108,13 +117,15 @@
             Contact support at
             <a href="mailto:tech@nuaa.org.au">tech@nuaa.org.au</a>
           </p>
-          <button
+          <fluent-button
             class="action-btn"
+            appearance="neutral"
             onclick="window.open('/help/{{ team_id }}', '_blank')"
+            style="width: 100%; justify-content: flex-start;"
           >
             <span>❓</span>
             <span>Open Help Guide</span>
-          </button>
+          </fluent-button>
         </div>
       </aside>
 
@@ -148,35 +159,35 @@
                   accept="image/*,.pdf,.doc,.docx"
                   hidden
                 />
-                <button
+                <fluent-button
+                  appearance="outline"
                   type="button"
-                  class="btn secondary"
                   onclick="document.getElementById('fileInput').click()"
                 >
                   Choose Files
-                </button>
+                </fluent-button>
               </div>
               <div id="fileList" class="file-list"></div>
             </div>
 
             <!-- Camera Capture -->
             <div class="camera-section">
-              <button
+              <fluent-button
+                appearance="outline"
                 type="button"
-                class="btn secondary"
                 onclick="capturePhoto()"
               >
                 <span>📷</span>
                 <span>Take Photo</span>
-              </button>
-              <button
+              </fluent-button>
+              <fluent-button
+                appearance="outline"
                 type="button"
-                class="btn secondary"
                 onclick="captureVideo()"
               >
                 <span>🎥</span>
                 <span>Record Video</span>
-              </button>
+              </fluent-button>
             </div>
           </div>
 
@@ -184,11 +195,10 @@
           <div class="form-section">
             <h3>📍 Location (Optional)</h3>
             <label class="checkbox-label">
-              <input
-                type="checkbox"
+              <fluent-checkbox
                 id="includeLocation"
                 onchange="toggleLocation()"
-              />
+              ></fluent-checkbox>
               <span>Include my current location</span>
             </label>
             <div id="locationInfo" class="location-info" style="display: none">
@@ -199,77 +209,77 @@
 
           <!-- Action Buttons -->
           <div class="form-actions">
-            <button type="button" class="btn secondary" onclick="saveDraft()">
+            <fluent-button appearance="neutral" type="button" onclick="saveDraft()">
               <span>💾</span>
               <span>Save Draft</span>
-            </button>
-            <button
+            </fluent-button>
+            <fluent-button
+              appearance="neutral"
               type="button"
-              class="btn secondary"
               onclick="previewDocument()"
             >
               <span>👁️</span>
               <span>Preview</span>
-            </button>
-            <button type="submit" class="btn primary">
+            </fluent-button>
+            <fluent-button appearance="accent" type="submit">
               <span>✓</span>
               <span>Submit Document</span>
-            </button>
+            </fluent-button>
           </div>
         </form>
       </main>
     </div>
 
     <!-- Preview Modal -->
-    <div id="previewModal" class="modal" style="display: none">
+    <fluent-dialog id="previewModal" modal class="modal" style="display: none">
       <div class="modal-content large">
         <div class="modal-header">
           <h2>📄 Document Preview</h2>
           <div class="modal-actions">
-            <button class="btn secondary" onclick="exportPreview('pdf')">
+            <fluent-button appearance="neutral" onclick="exportPreview('pdf')">
               Export PDF
-            </button>
-            <button class="btn secondary" onclick="exportPreview('docx')">
+            </fluent-button>
+            <fluent-button appearance="neutral" onclick="exportPreview('docx')">
               Export Word
-            </button>
-            <button class="modal-close" onclick="closePreview()">
+            </fluent-button>
+            <fluent-button appearance="stealth" class="modal-close" onclick="closePreview()">
               &times;
-            </button>
+            </fluent-button>
           </div>
         </div>
         <div class="modal-body">
           <div id="previewContent" class="preview-content"></div>
         </div>
       </div>
-    </div>
+    </fluent-dialog>
 
     <!-- Camera Modal -->
-    <div id="cameraModal" class="modal" style="display: none">
+    <fluent-dialog id="cameraModal" modal class="modal" style="display: none">
       <div class="modal-content">
         <div class="modal-header">
           <h2>📷 Capture Photo</h2>
-          <button class="modal-close" onclick="closeCameraModal()">
+          <fluent-button appearance="stealth" class="modal-close" onclick="closeCameraModal()">
             &times;
-          </button>
+          </fluent-button>
         </div>
         <div class="modal-body">
           <video id="cameraFeed" autoplay playsinline></video>
           <canvas id="photoCanvas" style="display: none"></canvas>
         </div>
         <div class="modal-footer">
-          <button class="btn secondary" onclick="closeCameraModal()">
+          <fluent-button appearance="neutral" onclick="closeCameraModal()">
             Cancel
-          </button>
-          <button class="btn primary" onclick="takePhoto()">
+          </fluent-button>
+          <fluent-button appearance="accent" onclick="takePhoto()">
             <span>📸</span>
             <span>Capture</span>
-          </button>
+          </fluent-button>
         </div>
       </div>
-    </div>
+    </fluent-dialog>
 
     <!-- Success Modal -->
-    <div id="successModal" class="modal" style="display: none">
+    <fluent-dialog id="successModal" modal class="modal" style="display: none">
       <div class="modal-content">
         <div class="modal-header success">
           <h2>✅ Success!</h2>
@@ -284,18 +294,18 @@
           <p class="success-file" id="successFile"></p>
         </div>
         <div class="modal-footer">
-          <button
-            class="btn secondary"
+          <fluent-button
+            appearance="neutral"
             onclick="window.location.href='/team/{{ team_id }}'"
           >
             Back to Dashboard
-          </button>
-          <button class="btn primary" onclick="createAnother()">
+          </fluent-button>
+          <fluent-button appearance="accent" onclick="createAnother()">
             Create Another
-          </button>
+          </fluent-button>
         </div>
       </div>
-    </div>
+    </fluent-dialog>
 
     <script src="/static/js/form.js"></script>
     <script>
@@ -527,12 +537,18 @@
       }
 
       function updateProgress() {
-        const allFields = document.querySelectorAll("input, textarea, select");
+        const allFields = document.querySelectorAll("input, textarea, select, fluent-text-field, fluent-text-area");
         const filledFields = Array.from(allFields).filter(
-          (field) => field.value.trim() !== ""
+          (field) => {
+            const value = field.value || field.currentValue || "";
+            return value.toString().trim() !== "";
+          }
         );
         const progress = (filledFields.length / allFields.length) * 100;
-        document.getElementById("progressBar").style.width = progress + "%";
+        const progressBar = document.getElementById("progressBar");
+        if (progressBar) {
+          progressBar.setAttribute("value", Math.round(progress));
+        }
       }
 
       // Auto-save functionality

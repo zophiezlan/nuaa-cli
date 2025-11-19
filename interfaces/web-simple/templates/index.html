@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2c5aa0" />
     <title>NUAA Project Tools - Simple Access</title>
+
+    <!-- Fluent UI Web Components -->
+    <script type="module" src="https://unpkg.com/@fluentui/web-components@2.6.1"></script>
+
     <link rel="stylesheet" href="/static/css/main.css" />
     <link rel="stylesheet" href="/static/css/themes.css" />
+    <link rel="stylesheet" href="/static/css/fluent-theme.css" />
     <style>
       * {
         margin: 0;
@@ -241,13 +246,14 @@
     </style>
   </head>
   <body>
-    <button
+    <fluent-button
       class="accessibility-toggle"
+      appearance="accent"
       onclick="toggleAccessibility()"
       aria-label="Toggle accessibility options"
     >
       ♿ Accessibility
-    </button>
+    </fluent-button>
 
     <!-- Quick Navigation Bar -->
     <div
@@ -259,36 +265,18 @@
         justify-content: flex-end;
       "
     >
-      <a
-        href="/analytics"
-        class="btn secondary"
-        style="
-          text-decoration: none;
-          padding: 10px 20px;
-          background: white;
-          border: 2px solid #2c5aa0;
-          border-radius: 5px;
-          color: #2c5aa0;
-          font-weight: 500;
-        "
+      <fluent-button
+        appearance="outline"
+        onclick="window.location.href='/analytics'"
       >
         📊 Analytics
-      </a>
-      <a
-        href="/admin"
-        class="btn secondary"
-        style="
-          text-decoration: none;
-          padding: 10px 20px;
-          background: white;
-          border: 2px solid #2c5aa0;
-          border-radius: 5px;
-          color: #2c5aa0;
-          font-weight: 500;
-        "
+      </fluent-button>
+      <fluent-button
+        appearance="outline"
+        onclick="window.location.href='/admin'"
       >
         🔧 Admin
-      </a>
+      </fluent-button>
     </div>
 
     <div class="container">
@@ -312,15 +300,16 @@
 
       <div class="teams-grid">
         {% for team_id, team in teams.items() %}
-        <a
-          href="/team/{{ team_id }}"
+        <fluent-card
           class="team-card"
+          onclick="window.location.href='/team/{{ team_id }}'"
+          style="cursor: pointer;"
           aria-label="{{ team.name }}"
         >
           <div class="team-icon" aria-hidden="true">{{ team.icon }}</div>
           <div class="team-name">{{ team.name }}</div>
           <div class="team-description">{{ team.description }}</div>
-        </a>
+        </fluent-card>
         {% endfor %}
       </div>
 
@@ -384,18 +373,21 @@
 
         modal.innerHTML = `
                 <h2 style="margin-bottom: 20px; color: #2c5aa0;">Accessibility Options</h2>
-                <button onclick="document.body.classList.toggle('high-contrast'); this.parentElement.remove();"
-                        style="display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1.1em; cursor: pointer;">
+                <fluent-button onclick="document.body.classList.toggle('high-contrast'); this.parentElement.remove();"
+                        appearance="neutral"
+                        style="display: block; width: 100%; margin: 10px 0;">
                     Toggle High Contrast
-                </button>
-                <button onclick="document.body.classList.toggle('large-text'); this.parentElement.remove();"
-                        style="display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1.1em; cursor: pointer;">
+                </fluent-button>
+                <fluent-button onclick="document.body.classList.toggle('large-text'); this.parentElement.remove();"
+                        appearance="neutral"
+                        style="display: block; width: 100%; margin: 10px 0;">
                     Toggle Large Text
-                </button>
-                <button onclick="this.parentElement.remove();"
-                        style="display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1.1em; cursor: pointer; background: #ccc;">
+                </fluent-button>
+                <fluent-button onclick="this.parentElement.remove();"
+                        appearance="lightweight"
+                        style="display: block; width: 100%; margin: 10px 0;">
                     Close
-                </button>
+                </fluent-button>
             `;
 
         const overlay = document.createElement("div");

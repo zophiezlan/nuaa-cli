@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2c5aa0" />
     <title>{{ team.name }} - NUAA Tools</title>
+
+    <!-- Fluent UI Web Components -->
+    <script type="module" src="https://unpkg.com/@fluentui/web-components@2.6.1"></script>
+
     <link rel="stylesheet" href="/static/css/main.css" />
     <link rel="stylesheet" href="/static/css/dashboard.css" />
     <link rel="stylesheet" href="/static/css/themes.css" />
+    <link rel="stylesheet" href="/static/css/fluent-theme.css" />
   </head>
   <body>
     <!-- Top Navigation -->
@@ -22,47 +27,54 @@
           <span class="team-name">{{ team.name }}</span>
         </div>
         <div class="nav-actions">
-          <button
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="toggleSearch()"
             aria-label="Search documents"
           >
-            <span>🔍</span>
-          </button>
-          <button
+            🔍
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="window.location.href='/analytics'"
             aria-label="Analytics"
           >
-            <span>📊</span>
-          </button>
-          <button
+            📊
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="window.location.href='/admin'"
             aria-label="Admin"
           >
-            <span>🔧</span>
-          </button>
-          <button
+            🔧
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="toggleNotifications()"
             aria-label="Notifications"
+            style="position: relative;"
           >
-            <span>🔔</span>
-            <span
-              class="notification-badge"
+            🔔
+            <fluent-badge
               id="notificationBadge"
-              style="display: none"
-              >0</span
+              appearance="filled"
+              color="danger"
+              style="display: none; position: absolute; top: -5px; right: -5px;"
+              >0</fluent-badge
             >
-          </button>
-          <button
+          </fluent-button>
+          <fluent-button
+            appearance="stealth"
             class="btn-icon"
             onclick="window.location.href='/accessibility'"
             aria-label="Accessibility settings"
           >
-            <span>♿</span>
-          </button>
+            ♿
+          </fluent-button>
         </div>
       </div>
     </nav>
@@ -70,20 +82,22 @@
     <!-- Search Overlay -->
     <div id="searchOverlay" class="search-overlay" style="display: none">
       <div class="search-container">
-        <input
+        <fluent-text-field
           type="text"
           id="searchInput"
           placeholder="Search documents, templates, or team resources..."
           class="search-input"
           onkeyup="performSearch(event)"
-        />
-        <button
+          style="width: 100%;"
+        ></fluent-text-field>
+        <fluent-button
+          appearance="stealth"
           onclick="toggleSearch()"
           class="search-close"
           aria-label="Close search"
         >
           ✕
-        </button>
+        </fluent-button>
         <div id="searchResults" class="search-results"></div>
       </div>
     </div>
@@ -93,53 +107,55 @@
       <aside class="sidebar">
         <div class="sidebar-section">
           <h3>Quick Actions</h3>
-          <button class="action-btn primary" onclick="showQuickReport()">
+          <fluent-button class="action-btn" appearance="accent" onclick="showQuickReport()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">⚡</span>
             <span>Quick Report</span>
-          </button>
-          <button class="action-btn" onclick="showRecentDocuments()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="showRecentDocuments()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">📄</span>
             <span>Recent Documents</span>
-          </button>
-          <button class="action-btn" onclick="showDrafts()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="showDrafts()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">💾</span>
             <span>Saved Drafts</span>
-          </button>
+          </fluent-button>
         </div>
 
         <div class="sidebar-section">
           <h3>Tools</h3>
-          <button class="action-btn" onclick="exportDocuments()">
+          <fluent-button class="action-btn" appearance="neutral" onclick="exportDocuments()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">📤</span>
             <span>Export</span>
-          </button>
-          <button class="action-btn" onclick="showStatistics()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="showStatistics()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">📊</span>
             <span>Statistics</span>
-          </button>
-          <button
+          </fluent-button>
+          <fluent-button
             class="action-btn"
+            appearance="neutral"
             onclick="window.location.href='/help/{{ team_id }}'"
+            style="width: 100%; justify-content: flex-start;"
           >
             <span class="btn-icon">❓</span>
             <span>Help & Support</span>
-          </button>
+          </fluent-button>
         </div>
 
         <div class="sidebar-section">
           <h3>Integrations</h3>
-          <button class="action-btn" onclick="shareToTeams()">
+          <fluent-button class="action-btn" appearance="neutral" onclick="shareToTeams()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">👥</span>
             <span>Share to Teams</span>
-          </button>
-          <button class="action-btn" onclick="sendEmail()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="sendEmail()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">📧</span>
             <span>Email Report</span>
-          </button>
-          <button class="action-btn" onclick="syncSharePoint()">
+          </fluent-button>
+          <fluent-button class="action-btn" appearance="neutral" onclick="syncSharePoint()" style="width: 100%; justify-content: flex-start;">
             <span class="btn-icon">☁️</span>
             <span>Sync SharePoint</span>
-          </button>
+          </fluent-button>
         </div>
       </aside>
 
@@ -153,28 +169,28 @@
 
         <!-- Stats Cards -->
         <div class="stats-grid">
-          <div class="stat-card">
+          <fluent-card class="stat-card">
             <div class="stat-icon">📝</div>
             <div class="stat-info">
               <div class="stat-value" id="totalDocs">0</div>
               <div class="stat-label">Total Documents</div>
             </div>
-          </div>
-          <div class="stat-card">
+          </fluent-card>
+          <fluent-card class="stat-card">
             <div class="stat-icon">🕐</div>
             <div class="stat-info">
               <div class="stat-value" id="recentDocs">0</div>
               <div class="stat-label">This Week</div>
             </div>
-          </div>
-          <div class="stat-card">
+          </fluent-card>
+          <fluent-card class="stat-card">
             <div class="stat-icon">💾</div>
             <div class="stat-info">
               <div class="stat-value" id="draftCount">0</div>
               <div class="stat-label">Saved Drafts</div>
             </div>
-          </div>
-          <div class="stat-card">
+          </fluent-card>
+          <fluent-card class="stat-card">
             <div class="stat-icon">⭐</div>
             <div class="stat-info">
               <div class="stat-value" id="templateCount">
@@ -182,7 +198,7 @@
               </div>
               <div class="stat-label">Templates</div>
             </div>
-          </div>
+          </fluent-card>
         </div>
 
         <!-- Templates Section -->
@@ -209,27 +225,30 @@
 
           <div class="templates-grid" id="templatesContainer">
             {% for template in team.templates %}
-            <div
+            <fluent-card
               class="template-card"
               onclick="window.location.href='/template/{{ team_id }}/{{ template }}'"
+              style="cursor: pointer;"
             >
               <div class="template-header">
                 <span class="template-icon">📋</span>
                 <div class="template-actions">
-                  <button
+                  <fluent-button
+                    appearance="stealth"
                     class="btn-icon-small"
                     onclick="event.stopPropagation(); favoriteTemplate('{{ template }}')"
                     aria-label="Favorite"
                   >
                     ⭐
-                  </button>
-                  <button
+                  </fluent-button>
+                  <fluent-button
+                    appearance="stealth"
                     class="btn-icon-small"
                     onclick="event.stopPropagation(); shareTemplate('{{ template }}')"
                     aria-label="Share"
                   >
                     📤
-                  </button>
+                  </fluent-button>
                 </div>
               </div>
               <h3 class="template-name">
@@ -239,12 +258,12 @@
                 Create a {{ template.replace('.md', '').replace('-', ' ') }}
               </p>
               <div class="template-meta">
-                <span class="template-tag">Template</span>
+                <fluent-badge appearance="lightweight">Template</fluent-badge>
                 <span class="template-usage" id="usage-{{ template }}"
                   >Used 0 times</span
                 >
               </div>
-            </div>
+            </fluent-card>
             {% endfor %}
           </div>
         </section>
@@ -287,23 +306,27 @@
     </div>
 
     <!-- Quick Report Modal -->
-    <div id="quickReportModal" class="modal" style="display: none">
+    <fluent-dialog id="quickReportModal" modal style="display: none">
       <div class="modal-content">
         <div class="modal-header">
           <h2>Quick Report</h2>
-          <button class="modal-close" onclick="closeQuickReport()">
+          <fluent-button appearance="stealth" class="modal-close" onclick="closeQuickReport()">
             &times;
-          </button>
+          </fluent-button>
         </div>
         <div class="modal-body">
-          <textarea
+          <fluent-text-area
             id="quickReportText"
             placeholder="Type your quick report here... No formatting needed, just the facts!"
             rows="8"
             class="quick-report-textarea"
-          ></textarea>
+            style="width: 100%;"
+          ></fluent-text-area>
           <div class="form-group">
-            <label> <input type="checkbox" id="addPhoto" /> Add Photo </label>
+            <label>
+              <fluent-checkbox id="addPhoto"></fluent-checkbox>
+              Add Photo
+            </label>
             <input
               type="file"
               id="photoUpload"
@@ -314,21 +337,22 @@
           </div>
           <div class="form-group">
             <label>
-              <input type="checkbox" id="addLocation" /> Add Location
+              <fluent-checkbox id="addLocation"></fluent-checkbox>
+              Add Location
             </label>
             <span id="locationStatus"></span>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn secondary" onclick="saveDraft()">
+          <fluent-button appearance="neutral" onclick="saveDraft()">
             💾 Save Draft
-          </button>
-          <button class="btn primary" onclick="submitQuickReport()">
+          </fluent-button>
+          <fluent-button appearance="accent" onclick="submitQuickReport()">
             📤 Submit
-          </button>
+          </fluent-button>
         </div>
       </div>
-    </div>
+    </fluent-dialog>
 
     <!-- Notification Panel -->
     <div

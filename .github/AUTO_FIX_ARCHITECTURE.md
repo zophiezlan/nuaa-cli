@@ -34,7 +34,7 @@ All workflows that run on `push` or `pull_request` now automatically fix linting
    - Install dependencies
    - **🔧 AUTO-FIX RUNS** (fixes applied in-memory, not committed)
    - Run tests with fixed code
-   
+
 2. **Release Workflow** triggers (if paths match)
    - Setup Python
    - Install dependencies

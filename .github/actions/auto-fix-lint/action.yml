@@ -10,31 +10,31 @@ runs:
       run: |
         echo "🔧 Auto-fixing linting issues (REQUIRED before any tests)..."
         echo ""
-        
+
         # Run Black formatter
         echo "▶️ Running Black formatter..."
         black src/nuaa_cli tests scripts/python 2>&1 || true
         echo "✅ Black complete"
         echo ""
-        
+
         # Run Ruff with auto-fix
         echo "▶️ Running Ruff auto-fix..."
         ruff check --fix src/nuaa_cli tests scripts/python 2>&1 || true
         echo "✅ Ruff complete"
         echo ""
-        
+
         # Run pre-commit hooks (includes trailing whitespace, EOF, YAML/TOML checks)
         echo "▶️ Running pre-commit hooks..."
         pre-commit run --all-files 2>&1 || true
         echo "✅ Pre-commit complete"
         echo ""
-        
+
         # Update agent documentation
         echo "▶️ Updating agent documentation..."
         python scripts/python/update_agents_docs.py 2>&1 || true
         echo "✅ Agent docs updated"
         echo ""
-        
+
         echo "✅ All auto-fixes applied successfully!"
         echo ""
         echo "📊 Changes summary:"

@@ -3,17 +3,17 @@
 ## Critical Understanding: Two Distinct Audiences
 
 ### 1. Tool Developers (Minority - ~3 people)
-**Location**: Working in the `nuaa-cli` repository (this repo)  
-**What they do**: Develop, test, and maintain the CLI tool itself  
-**Setup**: Clone repo → `pip install -e .[dev]` → develop/test  
-**Tools needed**: Full dev environment (ruff, black, pytest, mypy, pre-commit, etc.)  
+**Location**: Working in the `nuaa-cli` repository (this repo)
+**What they do**: Develop, test, and maintain the CLI tool itself
+**Setup**: Clone repo → `pip install -e .[dev]` → develop/test
+**Tools needed**: Full dev environment (ruff, black, pytest, mypy, pre-commit, etc.)
 **Focus**: Source code quality, CI/CD, releases, linting the CLI codebase
 
 ### 2. End Users (Majority - hundreds/thousands)
-**Location**: Their own project repositories  
-**What they do**: Use NUAA CLI for AI-assisted project management  
-**Setup**: `uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .`  
-**Tools needed**: Just the CLI tool itself, no dev dependencies  
+**Location**: Their own project repositories
+**What they do**: Use NUAA CLI for AI-assisted project management
+**Setup**: `uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .`
+**Tools needed**: Just the CLI tool itself, no dev dependencies
 **Focus**: Their project work, using the WebUI and NUAA workflows
 
 ---
@@ -219,10 +219,10 @@ When evaluating the project, consider:
 
 ## Summary
 
-**The nuaa-cli repo** = Tool development environment  
-**User projects** = Where the tool is used (via `nuaa init`)  
-**Primary interface** = WebUI (not VS Code, not terminal)  
-**Primary users** = Non-developers using AI for project management  
+**The nuaa-cli repo** = Tool development environment
+**User projects** = Where the tool is used (via `nuaa init`)
+**Primary interface** = WebUI (not VS Code, not terminal)
+**Primary users** = Non-developers using AI for project management
 **Primary workflow** = Init → WebUI → AI commands → Document generation
 
 Everything else (linting, testing, CI/CD, VS Code tasks) is infrastructure for maintaining the tool itself, invisible to end users.

@@ -7,12 +7,10 @@ VSCode settings handling, and template download/extraction workflows.
 
 import json
 import os
-import subprocess
-import tempfile
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest.mock import Mock, MagicMock, patch, call
+from unittest.mock import Mock, MagicMock, patch
 
 import httpx
 import pytest
@@ -199,9 +197,7 @@ class TestGitHubHelpers:
 
     def test_format_rate_limit_error_429_status(self):
         """Test _format_rate_limit_error with 429 Too Many Requests status."""
-        headers = httpx.Headers(
-            {"X-RateLimit-Remaining": "0", "Retry-After": "120"}
-        )
+        headers = httpx.Headers({"X-RateLimit-Remaining": "0", "Retry-After": "120"})
         error_msg = _format_rate_limit_error(429, headers, "https://api.github.com/test")
 
         assert "429" in error_msg
@@ -374,9 +370,7 @@ class TestHandleVscodeSettings:
         dest.write_text("invalid json content {")
 
         console = Mock(spec=Console)
-        handle_vscode_settings(
-            source, dest, rel_path, verbose=True, console=console
-        )
+        handle_vscode_settings(source, dest, rel_path, verbose=True, console=console)
 
         # Should have copied source over broken dest
         assert json.loads(dest.read_text()) == {"valid": "json"}
@@ -400,9 +394,7 @@ class TestHandleVscodeSettings:
             return original_open(*args, **kwargs)
 
         with patch("builtins.open", side_effect=mock_open):
-            handle_vscode_settings(
-                source, dest, rel_path, verbose=True, console=console
-            )
+            handle_vscode_settings(source, dest, rel_path, verbose=True, console=console)
 
         # Should have attempted to print warning
         assert console.print.called
@@ -416,9 +408,7 @@ class TestHandleVscodeSettings:
         source.write_text('{"test": "value"}')
 
         console = Mock(spec=Console)
-        handle_vscode_settings(
-            source, dest, rel_path, verbose=True, console=console
-        )
+        handle_vscode_settings(source, dest, rel_path, verbose=True, console=console)
 
         # Should have printed status message
         assert console.print.called
@@ -451,9 +441,7 @@ class TestHandleVscodeSettings:
 
         # Should raise FileNotFoundError since source doesn't exist
         with pytest.raises(FileNotFoundError):
-            handle_vscode_settings(
-                source, dest, rel_path, verbose=True, console=console
-            )
+            handle_vscode_settings(source, dest, rel_path, verbose=True, console=console)
 
 
 class TestMergeJsonFiles:
@@ -573,9 +561,7 @@ class TestMergeJsonFiles:
         new_content = {"new": "data"}
 
         console = Mock(spec=Console)
-        result = merge_json_files(
-            existing_file, new_content, verbose=True, console=console
-        )
+        result = merge_json_files(existing_file, new_content, verbose=True, console=console)
 
         assert console.print.called
         print_args = console.print.call_args[0][0]
@@ -711,9 +697,7 @@ class TestDownloadTemplateFromGithub:
     def test_download_template_connection_error(self, mock_client_class, tmp_path):
         """Test download_template_from_github handles connection errors."""
         mock_client = MagicMock()
-        mock_client.__enter__.return_value.get.side_effect = httpx.ConnectError(
-            "Connection failed"
-        )
+        mock_client.__enter__.return_value.get.side_effect = httpx.ConnectError("Connection failed")
         mock_client_class.return_value = mock_client
 
         console = Mock(spec=Console)

@@ -9,12 +9,17 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
-from pathlib import Path
 import uuid
 
 # Import NUAA CLI functions
-from nuaa_cli.scaffold import (_slugify, _ensure_nuaa_root, _next_feature_dir,
-                                _load_template, _apply_replacements, _prepend_metadata, _write_markdown)
+from nuaa_cli.scaffold import (
+    _ensure_nuaa_root,
+    _next_feature_dir,
+    _load_template,
+    _apply_replacements,
+    _prepend_metadata,
+    _write_markdown,
+)
 from nuaa_cli.utils import validate_program_name, validate_text_field
 from rich.console import Console
 
@@ -95,7 +100,9 @@ async def create_program_design(request: ProgramDesignRequest, background_tasks:
     try:
         # Validate inputs
         program_name = validate_program_name(request.program_name, console)
-        target_population = validate_text_field(request.target_population, "target_population", 500, console)
+        target_population = validate_text_field(
+            request.target_population, "target_population", 500, console
+        )
         duration = validate_text_field(request.duration, "duration", 100, console)
 
         # Generate project ID
@@ -111,6 +118,7 @@ async def create_program_design(request: ProgramDesignRequest, background_tasks:
 
         # Create design files
         from datetime import datetime
+
         created = datetime.now().strftime("%Y-%m-%d")
 
         mapping = {
@@ -190,7 +198,9 @@ async def create_impact_framework(request: MeasureRequest):
     """
     try:
         program_name = validate_program_name(request.program_name, console)
-        evaluation_period = validate_text_field(request.evaluation_period, "evaluation_period", 100, console)
+        evaluation_period = validate_text_field(
+            request.evaluation_period, "evaluation_period", 100, console
+        )
         budget = validate_text_field(request.budget, "budget", 100, console)
 
         project_id = str(uuid.uuid4())
@@ -231,4 +241,5 @@ async def get_project(project_id: str):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

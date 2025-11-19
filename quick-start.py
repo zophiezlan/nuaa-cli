@@ -22,24 +22,26 @@ from pathlib import Path
 
 class Colors:
     """ANSI color codes for terminal output"""
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    END = '\033[0m'
-    BOLD = '\033[1m'
+
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    CYAN = "\033[96m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    RED = "\033[91m"
+    END = "\033[0m"
+    BOLD = "\033[1m"
 
 
 def clear_screen():
     """Clear the terminal screen"""
-    os.system('cls' if platform.system() == 'Windows' else 'clear')
+    os.system("cls" if platform.system() == "Windows" else "clear")
 
 
 def print_banner():
     """Print welcome banner"""
-    print(f"""
+    print(
+        f"""
 {Colors.CYAN}╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
 ║        {Colors.BOLD}NUAA Quick Start - WebUI Setup{Colors.END}{Colors.CYAN}                  ║
@@ -48,12 +50,13 @@ def print_banner():
 ║        This will take about 60 seconds...                    ║
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝{Colors.END}
-""")
+"""
+    )
 
 
 def print_step(step_num, total_steps, message):
     """Print a progress step"""
-    print(f"\n{Colors.BLUE}[{step_num}/{total_steps}]{Colors.END} {message}...", end='', flush=True)
+    print(f"\n{Colors.BLUE}[{step_num}/{total_steps}]{Colors.END} {message}...", end="", flush=True)
 
 
 def print_success(message="Done!"):
@@ -90,7 +93,7 @@ def check_dependency(package_name):
 
 def install_dependencies():
     """Install required dependencies"""
-    required_packages = ['flask', 'werkzeug']
+    required_packages = ["flask", "werkzeug"]
     missing_packages = [pkg for pkg in required_packages if not check_dependency(pkg)]
 
     if not missing_packages:
@@ -99,9 +102,9 @@ def install_dependencies():
     try:
         # Try to install missing packages
         subprocess.check_call(
-            [sys.executable, '-m', 'pip', 'install', '--quiet', '--user'] + missing_packages,
+            [sys.executable, "-m", "pip", "install", "--quiet", "--user"] + missing_packages,
             stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
+            stderr=subprocess.DEVNULL,
         )
         return True, missing_packages
     except subprocess.CalledProcessError:
@@ -112,13 +115,13 @@ def find_webui_path():
     """Find the WebUI directory"""
     current_dir = Path(__file__).parent
     possible_paths = [
-        current_dir / 'interfaces' / 'web-simple',
-        current_dir / 'web-simple',
-        current_dir / '..' / 'interfaces' / 'web-simple',
+        current_dir / "interfaces" / "web-simple",
+        current_dir / "web-simple",
+        current_dir / ".." / "interfaces" / "web-simple",
     ]
 
     for path in possible_paths:
-        if path.exists() and (path / 'app.py').exists():
+        if path.exists() and (path / "app.py").exists():
             return path.resolve()
 
     return None
@@ -128,6 +131,7 @@ def get_local_ip():
     """Get local IP address for sharing"""
     try:
         import socket
+
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
         ip = s.getsockname()[0]
@@ -140,47 +144,47 @@ def get_local_ip():
 def create_desktop_shortcut(webui_path):
     """Create a desktop shortcut for easy access"""
     system = platform.system()
-    desktop = Path.home() / 'Desktop'
+    desktop = Path.home() / "Desktop"
 
     if not desktop.exists():
         return False
 
     try:
-        if system == 'Windows':
+        if system == "Windows":
             # Create batch file
-            shortcut_path = desktop / 'NUAA WebUI.bat'
-            with open(shortcut_path, 'w') as f:
-                f.write(f'@echo off\n')
+            shortcut_path = desktop / "NUAA WebUI.bat"
+            with open(shortcut_path, "w") as f:
+                f.write("@echo off\n")
                 f.write(f'cd /d "{webui_path}"\n')
-                f.write(f'start "" "http://localhost:5000"\n')
-                f.write(f'python app.py\n')
-                f.write(f'pause\n')
+                f.write('start "" "http://localhost:5000"\n')
+                f.write("python app.py\n")
+                f.write("pause\n")
             return True
 
-        elif system == 'Darwin':  # macOS
+        elif system == "Darwin":  # macOS
             # Create shell script
-            shortcut_path = desktop / 'NUAA WebUI.command'
-            with open(shortcut_path, 'w') as f:
-                f.write(f'#!/bin/bash\n')
+            shortcut_path = desktop / "NUAA WebUI.command"
+            with open(shortcut_path, "w") as f:
+                f.write("#!/bin/bash\n")
                 f.write(f'cd "{webui_path}"\n')
-                f.write(f'open "http://localhost:5000"\n')
-                f.write(f'python3 app.py\n')
+                f.write('open "http://localhost:5000"\n')
+                f.write("python3 app.py\n")
             os.chmod(shortcut_path, 0o755)
             return True
 
-        elif system == 'Linux':
+        elif system == "Linux":
             # Create desktop file
-            shortcut_path = desktop / 'NUAA-WebUI.desktop'
-            with open(shortcut_path, 'w') as f:
-                f.write('[Desktop Entry]\n')
-                f.write('Version=1.0\n')
-                f.write('Type=Application\n')
-                f.write('Name=NUAA WebUI\n')
-                f.write('Comment=NUAA Harm Reduction WebUI\n')
-                f.write(f'Exec=python3 {webui_path}/app.py\n')
-                f.write(f'Path={webui_path}\n')
-                f.write('Terminal=false\n')
-                f.write('Categories=Office;Utility;\n')
+            shortcut_path = desktop / "NUAA-WebUI.desktop"
+            with open(shortcut_path, "w") as f:
+                f.write("[Desktop Entry]\n")
+                f.write("Version=1.0\n")
+                f.write("Type=Application\n")
+                f.write("Name=NUAA WebUI\n")
+                f.write("Comment=NUAA Harm Reduction WebUI\n")
+                f.write(f"Exec=python3 {webui_path}/app.py\n")
+                f.write(f"Path={webui_path}\n")
+                f.write("Terminal=false\n")
+                f.write("Categories=Office;Utility;\n")
             os.chmod(shortcut_path, 0o755)
             return True
 
@@ -198,15 +202,15 @@ def start_webui(webui_path):
 
         # Start the server
         env = os.environ.copy()
-        env['FLASK_APP'] = 'app.py'
-        env['FLASK_ENV'] = 'development'
+        env["FLASK_APP"] = "app.py"
+        env["FLASK_ENV"] = "development"
 
         process = subprocess.Popen(
-            [sys.executable, 'app.py'],
+            [sys.executable, "app.py"],
             env=env,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
 
         # Wait a moment for server to start
@@ -238,7 +242,7 @@ def main():
         print_error(f"Python {version} is too old")
         print(f"\n{Colors.RED}Sorry! NUAA requires Python 3.8 or newer.{Colors.END}")
         print(f"You have Python {version}")
-        print(f"\nPlease download Python from: https://www.python.org/downloads/")
+        print("\nPlease download Python from: https://www.python.org/downloads/")
         input("\nPress Enter to exit...")
         sys.exit(1)
     print_success(f"Python {version}")
@@ -248,7 +252,9 @@ def main():
     success, packages = install_dependencies()
     if not success:
         print_error("Failed to install dependencies")
-        print(f"\n{Colors.RED}Could not install required packages: {', '.join(packages)}{Colors.END}")
+        print(
+            f"\n{Colors.RED}Could not install required packages: {', '.join(packages)}{Colors.END}"
+        )
         print("\nPlease try running:")
         print(f"  pip install {' '.join(packages)}")
         input("\nPress Enter to exit...")
@@ -291,7 +297,7 @@ def main():
     print_step(6, total_steps, "Opening browser")
     time.sleep(1)
     try:
-        webbrowser.open('http://localhost:5000')
+        webbrowser.open("http://localhost:5000")
         print_success("Browser opened")
     except Exception:
         print_warning("Could not open browser automatically")
@@ -299,7 +305,8 @@ def main():
     # Success message
     local_ip = get_local_ip()
 
-    print(f"""
+    print(
+        f"""
 {Colors.GREEN}╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
 ║        {Colors.BOLD}SUCCESS! NUAA WebUI is now running!{Colors.END}{Colors.GREEN}                ║
@@ -332,7 +339,8 @@ def main():
 {Colors.YELLOW}═══════════════════════════════════════════════════════════════{Colors.END}
 
 Server is running... (Press Ctrl+C to stop)
-""")
+"""
+    )
 
     try:
         # Keep the script running and show server output
@@ -346,7 +354,7 @@ Server is running... (Press Ctrl+C to stop)
         print(f"{Colors.GREEN}Server stopped. Goodbye!{Colors.END}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:

@@ -32,22 +32,22 @@ NUAA CLI supports multiple AI agents by generating agent-specific command files 
 
 <!-- AGENTS_TABLE_START -->
 
-| Agent                      | Directory              | Format   | CLI Tool       | Description                 |
-| -------------------------- | ---------------------- | -------- | -------------- | --------------------------- |
-| **Claude Code**            | `.claude/commands/`    | Markdown | `claude`       | Anthropic's Claude Code CLI |
-| **Gemini CLI**             | `.gemini/commands/`    | TOML     | `gemini`       | Google's Gemini CLI         |
-| **GitHub Copilot**         | `.github/agents/`      | Markdown | `N/A`          | GitHub Copilot in VS Code   |
-| **Cursor**                 | `.cursor/rules/`       | Markdown | `cursor-agent` | Cursor CLI                  |
-| **Qwen Code**              | `.qwen/commands/`      | TOML     | `qwen`         | Alibaba's Qwen Code CLI     |
-| **opencode**               | `.opencode/command/`   | Markdown | `opencode`     | opencode CLI                |
-| **Codex CLI**              | `.codex/commands/`     | Markdown | `codex`        | Codex CLI                   |
-| **Windsurf**               | `.windsurf/workflows/` | Markdown | `N/A`          | Windsurf IDE workflows      |
-| **Kilo Code**              | `.kilocode/rules/`     | Markdown | `N/A`          | Kilo Code IDE               |
-| **Auggie CLI**             | `.augment/rules/`      | Markdown | `auggie`       | Auggie CLI                  |
-| **Roo Code**               | `.roo/rules/`          | Markdown | `N/A`          | Roo Code IDE                |
-| **CodeBuddy CLI**          | `.codebuddy/commands/` | Markdown | `codebuddy`    | CodeBuddy CLI               |
-| **Amazon Q Developer CLI** | `.amazonq/prompts/`    | Markdown | `q`            | Amazon Q Developer CLI      |
-| **Amp**                    | `.agents/commands/`    | Markdown | `amp`          | Amp CLI                     |
+| Agent | Directory | Format | CLI Tool | Description |
+|---|---|---|---|---|
+| **Claude Code** | `.claude/commands/` | Markdown | `claude` | Anthropic's Claude Code CLI |
+| **Gemini CLI** | `.gemini/commands/` | TOML | `gemini` | Google's Gemini CLI |
+| **GitHub Copilot** | `.github/agents/` | Markdown | `N/A` | GitHub Copilot in VS Code |
+| **Cursor** | `.cursor/rules/` | Markdown | `cursor-agent` | Cursor CLI |
+| **Qwen Code** | `.qwen/commands/` | TOML | `qwen` | Alibaba's Qwen Code CLI |
+| **opencode** | `.opencode/command/` | Markdown | `opencode` | opencode CLI |
+| **Codex CLI** | `.codex/commands/` | Markdown | `codex` | Codex CLI |
+| **Windsurf** | `.windsurf/workflows/` | Markdown | `N/A` | Windsurf IDE workflows |
+| **Kilo Code** | `.kilocode/rules/` | Markdown | `N/A` | Kilo Code IDE |
+| **Auggie CLI** | `.augment/rules/` | Markdown | `auggie` | Auggie CLI |
+| **Roo Code** | `.roo/rules/` | Markdown | `N/A` | Roo Code IDE |
+| **CodeBuddy CLI** | `.codebuddy/commands/` | Markdown | `codebuddy` | CodeBuddy CLI |
+| **Amazon Q Developer CLI** | `.amazonq/prompts/` | Markdown | `q` | Amazon Q Developer CLI |
+| **Amp** | `.agents/commands/` | Markdown | `amp` | Amp CLI |
 
 <!-- AGENTS_TABLE_END -->
 

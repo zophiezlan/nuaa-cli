@@ -150,16 +150,22 @@ class GitHubClient:
 
         with httpx.Client(verify=self.ssl_context) as client:
             try:
-                response = client.get(url, headers=self._get_headers(), timeout=30, follow_redirects=True)
+                response = client.get(
+                    url, headers=self._get_headers(), timeout=30, follow_redirects=True
+                )
                 log_api_call(url, "GET", response.status_code)
 
                 if response.status_code == 403:
-                    error_msg = self._format_rate_limit_error(response.status_code, response.headers, url)
+                    error_msg = self._format_rate_limit_error(
+                        response.status_code, response.headers, url
+                    )
                     logger.error(f"Rate limit exceeded: {error_msg}")
                     raise GitHubRateLimitError(error_msg)
 
                 if response.status_code != 200:
-                    error_msg = self._format_rate_limit_error(response.status_code, response.headers, url)
+                    error_msg = self._format_rate_limit_error(
+                        response.status_code, response.headers, url
+                    )
                     logger.error(f"API error: {error_msg}")
                     raise RuntimeError(error_msg)
 
@@ -198,7 +204,9 @@ class GitHubClient:
                     follow_redirects=True,
                 ) as response:
                     if response.status_code != 200:
-                        error_msg = self._format_rate_limit_error(response.status_code, response.headers, download_url)
+                        error_msg = self._format_rate_limit_error(
+                            response.status_code, response.headers, download_url
+                        )
                         raise RuntimeError(error_msg)
 
                     total_size = int(response.headers.get("content-length", 0))
@@ -242,7 +250,9 @@ class GitHubClient:
             Asset dict if found, None otherwise
         """
         assets = release_data.get("assets", [])
-        matching = [asset for asset in assets if pattern in asset["name"] and asset["name"].endswith(".zip")]
+        matching = [
+            asset for asset in assets if pattern in asset["name"] and asset["name"].endswith(".zip")
+        ]
 
         if matching:
             logger.debug(f"Found {len(matching)} matching assets for pattern '{pattern}'")

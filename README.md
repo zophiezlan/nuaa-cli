@@ -463,22 +463,22 @@ NUAA Project Kit works with all major AI coding assistants:
 
 <!-- SUPPORTED_AGENTS_START -->
 
-| Agent                                                                                                    | Website  | Support |
-| -------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool)                      | Official | Full    |
-| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md)     | Official | Full    |
-| GitHub Copilot                                                                                           | Official | Full    |
-| [Cursor](https://cursor.sh/docs/cli)                                                                     | Official | Full    |
-| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html)                                        | Official | Full    |
-| [opencode](https://www.opencode.com/docs/cli)                                                            | Official | Full    |
-| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli)                                             | Official | Full    |
-| Windsurf                                                                                                 | Official | Full    |
-| Kilo Code                                                                                                | Official | Full    |
-| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md)                        | Official | Full    |
-| Roo Code                                                                                                 | Official | Full    |
-| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli)                                             | Official | Full    |
-| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full    |
-| [Amp](https://docs.amp.computer/cli/overview)                                                            | Official | Full    |
+| Agent | Website | Support |
+|---|---|---|
+| [Claude Code](https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool) | Official | Full |
+| [Gemini CLI](https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md) | Official | Full |
+| GitHub Copilot | Official | Full |
+| [Cursor](https://cursor.sh/docs/cli) | Official | Full |
+| [Qwen Code](https://help.aliyun.com/document_detail/2601612.html) | Official | Full |
+| [opencode](https://www.opencode.com/docs/cli) | Official | Full |
+| [Codex CLI](https://www.npmjs.com/package/@openai/codex-cli) | Official | Full |
+| Windsurf | Official | Full |
+| Kilo Code | Official | Full |
+| [Auggie CLI](https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md) | Official | Full |
+| Roo Code | Official | Full |
+| [CodeBuddy CLI](https://www.npmjs.com/package/codebuddy-cli) | Official | Full |
+| [Amazon Q Developer CLI](https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html) | Official | Full |
+| [Amp](https://docs.amp.computer/cli/overview) | Official | Full |
 
 <!-- SUPPORTED_AGENTS_END -->
 

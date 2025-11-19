@@ -174,6 +174,42 @@ Run tests yourself:
 
 ## ⚡ Get Started
 
+### 🌟 For Non-Technical Users (NEW!)
+
+**Zero technical skills? No problem!** We've made NUAA super easy to use:
+
+#### Option 1: One-Click Start (Easiest) ⭐
+
+**Perfect for peer workers, field staff, and anyone who wants to avoid the command line:**
+
+1. **Download** the starter file for your system:
+   - Windows: `START-WEBUI.bat`
+   - Mac/Linux: `START-WEBUI.sh`
+
+2. **Double-click** the file
+
+3. **Your browser opens automatically** - bookmark the page!
+
+**That's it!** No installation, no terminal, no technical knowledge needed.
+
+**Time:** 60 seconds | **Skills:** Just double-clicking!
+
+📖 **Complete guide:** [Quick Start for Non-Technical Users](docs/QUICK-START-NON-TECHNICAL.md)
+
+---
+
+#### Option 2: For Coordinators Setting Up Teams
+
+**Setting up NUAA for your entire team?**
+
+📖 See our [Setup Guide for Coordinators](docs/SETUP-FOR-COORDINATORS.md) - includes:
+- Local server setup (5 minutes)
+- Cloud deployment options
+- Mobile device setup
+- Team training tips
+
+---
+
 ### Quick Installation for Your Project
 
 NUAA CLI is installed directly into **your project** (not cloned as a repository). Most users will interact with it through the **WebUI** - no command line experience needed!

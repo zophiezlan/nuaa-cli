@@ -18,6 +18,7 @@ Features:
 from flask import Flask, render_template, request, jsonify
 from pathlib import Path
 import os
+import socket
 from datetime import datetime
 
 app = Flask(__name__)
@@ -108,6 +109,27 @@ TEAMS = {
 def index():
     """Home page with team selection"""
     return render_template("index.html", teams=TEAMS)
+
+
+@app.route("/welcome")
+def welcome_wizard():
+    """Welcome wizard for first-time users"""
+    return render_template("welcome-wizard.html")
+
+
+@app.route("/api/server-info")
+def server_info():
+    """API endpoint to get server information"""
+    try:
+        # Get local IP address
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+    except Exception:
+        local_ip = "localhost"
+
+    return jsonify({"ip": local_ip, "port": 5000, "status": "running"})
 
 
 @app.route("/team/<team_id>")

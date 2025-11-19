@@ -22,15 +22,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
     @app.command()
     def event(
         event_name: str = typer.Argument(..., help="Event name (e.g., 'Peer Forum Launch')"),
-        event_type: str = typer.Argument(
-            ..., help="Event type (e.g., 'Workshop', 'Forum', 'Training')"
-        ),
-        expected_attendance: str = typer.Argument(
-            ..., help="Expected attendance (e.g., '50 people')"
-        ),
-        feature: Optional[str] = typer.Option(
-            None, help="Override feature slug (e.g., '001-custom-slug')"
-        ),
+        event_type: str = typer.Argument(..., help="Event type (e.g., 'Workshop', 'Forum', 'Training')"),
+        expected_attendance: str = typer.Argument(..., help="Expected attendance (e.g., '50 people')"),
+        feature: Optional[str] = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create an event plan for workshops, forums, launches, or celebrations.
@@ -103,9 +97,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         # Validate inputs
         event_name = validate_text_field(event_name, "event_name", 200, console)
         event_type = validate_text_field(event_type, "event_type", 100, console)
-        expected_attendance = validate_text_field(
-            expected_attendance, "expected_attendance", 100, console
-        )
+        expected_attendance = validate_text_field(expected_attendance, "expected_attendance", 100, console)
 
         # Determine feature directory
         if feature:

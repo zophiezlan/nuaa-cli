@@ -24,9 +24,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         program_name: str = typer.Argument(..., help="Program or partnership name"),
         partner_org: str = typer.Argument(..., help="Partner organization name"),
         duration: str = typer.Argument(..., help="Agreement duration (e.g., '2 years')"),
-        feature: Optional[str] = typer.Option(
-            None, help="Override feature slug (e.g., '001-custom-slug')"
-        ),
+        feature: Optional[str] = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a partnership agreement (MOU) template for a NUAA collaboration.

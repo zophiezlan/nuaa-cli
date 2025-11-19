@@ -21,14 +21,10 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def engage(
-        program_name: str = typer.Argument(
-            ..., help="Program name (used to derive feature folder)"
-        ),
+        program_name: str = typer.Argument(..., help="Program name (used to derive feature folder)"),
         target_population: str = typer.Argument(..., help="Target population description"),
         duration: str = typer.Argument(..., help="Planning period (e.g., '12 months')"),
-        feature: Optional[str] = typer.Option(
-            None, help="Override feature slug (e.g., '001-custom-slug')"
-        ),
+        feature: Optional[str] = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a stakeholder engagement plan for a NUAA program.
@@ -95,9 +91,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
         # Validate inputs
         program_name = validate_program_name(program_name, console)
-        target_population = validate_text_field(
-            target_population, "target_population", 500, console
-        )
+        target_population = validate_text_field(target_population, "target_population", 500, console)
         duration = validate_text_field(duration, "duration", 100, console)
 
         # Determine feature directory

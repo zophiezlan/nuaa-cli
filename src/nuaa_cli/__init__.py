@@ -98,9 +98,7 @@ def _load_agent_config() -> dict:
         console.print(f"[red]Error loading agent configuration from agents.json:[/red] {e}")
         # Provide a more helpful error message if the file is missing in a packaged context
         if isinstance(e, FileNotFoundError):
-            console.print(
-                "[yellow]This might happen if the file was not included in the package.[/yellow]"
-            )
+            console.print("[yellow]This might happen if the file was not included in the package.[/yellow]")
         raise typer.Exit(1)
 
 

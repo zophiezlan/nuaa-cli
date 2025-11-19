@@ -57,9 +57,7 @@ def initialize(language: Optional[str] = None) -> None:
     locale_dir = get_locale_dir()
 
     try:
-        translation = gettext.translation(
-            "nuaa_cli", localedir=str(locale_dir), languages=[language, "en_AU"]
-        )
+        translation = gettext.translation("nuaa_cli", localedir=str(locale_dir), languages=[language, "en_AU"])
         _translate = translation.gettext
     except FileNotFoundError:
         # Fallback to default (no translation)

@@ -44,9 +44,7 @@ def run_command(
 
     try:
         if capture:
-            result = subprocess.run(
-                cmd, check=check_return, capture_output=True, text=True, shell=shell
-            )  # nosec B602
+            result = subprocess.run(cmd, check=check_return, capture_output=True, text=True, shell=shell)  # nosec B602
             return result.stdout.strip()
         else:
             subprocess.run(cmd, check=check_return, shell=shell)  # nosec B602

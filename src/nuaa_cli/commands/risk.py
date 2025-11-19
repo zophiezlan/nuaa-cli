@@ -13,6 +13,7 @@ from ..scaffold import (
     _prepend_metadata,
     write_markdown_if_needed,
 )
+from ..utils import validate_program_name, validate_text_field
 
 
 def register(app, show_banner_fn=None, console: Console | None = None):
@@ -29,9 +30,70 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
-        """Create a risk register for proactive risk management."""
+        """Create a risk register for proactive risk management.
+
+        This command generates a comprehensive risk register that identifies, assesses,
+        and documents strategies for managing potential risks to program delivery, staff
+        safety, participant wellbeing, and organizational reputation. Proactive risk
+        management is essential for ethical service delivery and funder accountability.
+
+        The risk register includes:
+        - **Risk Assessment Framework**: Structured approach to evaluate likelihood and
+          impact using a standardized matrix (Low/Medium/High/Critical)
+        - **Eight Risk Categories**: Pre-populated with harm reduction-specific examples:
+          * Program Delivery Risks: Capacity, service quality, participant engagement
+          * Stakeholder & Partnership Risks: Relationship management, community trust
+          * Financial & Resource Risks: Funding sustainability, budget management
+          * Staffing & HR Risks: Peer workforce support, burnout, supervision
+          * Health & Safety Risks: Overdose response, bloodborne virus exposure
+          * Ethical & Legal Risks: Confidentiality, mandatory reporting, discrimination
+          * Reputational Risks: Media coverage, political backlash, stigma
+          * Cultural Safety Risks: Racism, cultural appropriation, trauma
+        - **Mitigation Strategies**: Preventive controls and response plans for each risk
+        - **Risk Ownership**: Assignment of responsibility for monitoring and action
+        - **Review Process**: Regular risk assessment schedule and incident reporting
+
+        NUAA's risk register balances genuine risk management with avoiding excessive
+        risk aversion that could limit innovative harm reduction approaches. It emphasizes
+        risks to participants (not just organizational risks) and includes cultural safety
+        and peer workforce wellbeing as central concerns.
+
+        Args:
+            program_name: Name of the program or initiative requiring risk management
+                (e.g., "Supervised Injection Facility", "Mobile Needle Exchange").
+                Used to create a feature directory and populate the template.
+            duration: Program duration or risk review cycle (e.g., "12 months", "ongoing",
+                "2-year pilot"). Used to plan risk review frequency and long-term
+                risk evolution.
+            feature: Optional custom feature slug to override auto-generated numbering.
+                Useful for maintaining consistent naming across program documentation.
+            force: If True, overwrites existing risk-register.md file. Default is False
+                to preserve risk assessments, incident logs, and mitigation progress.
+
+        Raises:
+            typer.Exit: Exits with code 1 if the risk register template is not found
+                (requires 'nuaa init'), if permission is denied for file operations, or
+                if other filesystem errors occur.
+
+        Examples:
+            Create risk register for new supervised injection facility:
+                $ nuaa risk "Supervised Injection Facility" "2-year pilot"
+
+            Establish risk management for peer workforce program:
+                $ nuaa risk "Peer Support Network" "12 months"
+
+            Document risks for advocacy campaign:
+                $ nuaa risk "Drug Law Reform Campaign" "ongoing"
+
+            Set up risk register for mobile service with custom slug:
+                $ nuaa risk "Mobile Needle Exchange" "18 months" --feature mobile-nsp-risks
+        """
         if show_banner_fn:
             show_banner_fn()
+
+        # Validate inputs
+        program_name = validate_program_name(program_name, console)
+        duration = validate_text_field(duration, "duration", 100, console)
 
         # Determine feature directory
         if feature:
@@ -87,6 +149,13 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                     border_style="green",
                 )
             )
-        except Exception as e:
-            console.print(f"[red]Failed to create risk-register.md:[/red] {e}")
+        except FileNotFoundError:
+            console.print("[red]Template not found:[/red] risk-register.md")
+            console.print("[dim]Run 'nuaa init' to set up templates[/dim]")
+            raise typer.Exit(1)
+        except PermissionError:
+            console.print("[red]Permission denied:[/red] Cannot read template or write output file")
+            raise typer.Exit(1)
+        except OSError as e:
+            console.print(f"[red]File system error:[/red] {e}")
             raise typer.Exit(1)

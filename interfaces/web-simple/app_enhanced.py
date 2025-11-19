@@ -14,34 +14,33 @@ A comprehensive, accessible web interface for NUAA teams with full features:
 - API endpoints for integrations
 """
 
-from flask import Flask, render_template, request, jsonify, send_file, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_file, session
 from flask_cors import CORS
 from pathlib import Path
 import os
 from datetime import datetime, timedelta
-import json
 import hashlib
 import secrets
 from functools import wraps
-import re
 from collections import defaultdict
-import mimetypes
 
 # Optional imports for advanced features
 try:
     from markdown import markdown
+
     MARKDOWN_AVAILABLE = True
 except ImportError:
     MARKDOWN_AVAILABLE = False
 
 try:
     import pandas as pd
+
     PANDAS_AVAILABLE = True
 except ImportError:
     PANDAS_AVAILABLE = False
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
+app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
 
 # Enable CORS for API endpoints
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -49,18 +48,18 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 # Configuration
 app.config.update(
     MAX_CONTENT_LENGTH=10 * 1024 * 1024,  # 10MB max file size
-    UPLOAD_FOLDER='uploads',
-    ALLOWED_EXTENSIONS={'png', 'jpg', 'jpeg', 'gif', 'pdf', 'doc', 'docx'},
+    UPLOAD_FOLDER="uploads",
+    ALLOWED_EXTENSIONS={"png", "jpg", "jpeg", "gif", "pdf", "doc", "docx"},
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax'
+    SESSION_COOKIE_SAMESITE="Lax",
 )
 
 # Get paths
 NUAA_CLI_PATH = Path(__file__).parent.parent.parent
 TEMPLATES_PATH = NUAA_CLI_PATH / "nuaa-kit" / "templates"
 OUTPUTS_PATH = NUAA_CLI_PATH / "outputs"
-UPLOADS_PATH = Path(app.config['UPLOAD_FOLDER'])
+UPLOADS_PATH = Path(app.config["UPLOAD_FOLDER"])
 
 # Ensure directories exist
 OUTPUTS_PATH.mkdir(exist_ok=True)
@@ -73,70 +72,82 @@ TEAMS = {
         "icon": "🚶",
         "templates": ["session-report-simple.md", "safety-incident.md", "engagement-statistics.md"],
         "description": "Quick field reports and session documentation",
-        "color": "#3498db"
+        "color": "#3498db",
     },
     "festival-dancewize": {
         "name": "Festival/DanceWize",
         "icon": "🎵",
-        "templates": ["festival-session-report.md", "drug-checking-report.md", "volunteer-roster.md"],
+        "templates": [
+            "festival-session-report.md",
+            "drug-checking-report.md",
+            "volunteer-roster.md",
+        ],
         "description": "Event planning and session reports",
-        "color": "#9b59b6"
+        "color": "#9b59b6",
     },
     "peer-distributors": {
         "name": "Peer Distributors",
         "icon": "🤝",
         "templates": ["distribution-log-simple.md", "resupply-request.md"],
         "description": "Distribution tracking and resupply requests",
-        "color": "#2ecc71"
+        "color": "#2ecc71",
     },
     "nsp-warehouse": {
         "name": "NSP Warehouse",
         "icon": "📦",
         "templates": ["distribution-shipment-simple.md", "inventory-check.md", "supplier-order.md"],
         "description": "Inventory and distribution management",
-        "color": "#e67e22"
+        "color": "#e67e22",
     },
     "peerline": {
         "name": "Peerline",
         "icon": "📞",
         "templates": ["call-log-simple.md", "resource-request.md"],
         "description": "Call logging and peer support",
-        "color": "#1abc9c"
+        "color": "#1abc9c",
     },
     "board-management": {
         "name": "Board/Management",
         "icon": "📊",
-        "templates": ["funding-proposal-email-friendly.md", "strategic-plan.md", "impact-report.md"],
+        "templates": [
+            "funding-proposal-email-friendly.md",
+            "strategic-plan.md",
+            "impact-report.md",
+        ],
         "description": "Strategic planning and proposals",
-        "color": "#34495e"
+        "color": "#34495e",
     },
     "comms-advocacy": {
         "name": "Communications/Advocacy",
         "icon": "📢",
         "templates": ["campaign-strategy.md", "media-release.md", "stakeholder-briefing.md"],
         "description": "Campaign planning and media",
-        "color": "#e74c3c"
+        "color": "#e74c3c",
     },
     "training": {
         "name": "Training Team",
         "icon": "📚",
-        "templates": ["training-curriculum.md", "participant-materials.md", "evaluation-framework.md"],
+        "templates": [
+            "training-curriculum.md",
+            "participant-materials.md",
+            "evaluation-framework.md",
+        ],
         "description": "Training and education materials",
-        "color": "#f39c12"
+        "color": "#f39c12",
     },
     "bbv-testing": {
         "name": "BBV Testing",
         "icon": "🏥",
         "templates": ["testing-session.md", "client-education.md", "referral-protocol.md"],
         "description": "Testing protocols and education",
-        "color": "#16a085"
+        "color": "#16a085",
     },
     "workforce-dev": {
         "name": "Workforce Development",
         "icon": "💼",
         "templates": ["position-description.md", "onboarding-checklist.md", "career-pathway.md"],
         "description": "HR and professional development",
-        "color": "#8e44ad"
+        "color": "#8e44ad",
     },
 }
 
@@ -144,8 +155,10 @@ TEAMS = {
 request_counts = defaultdict(lambda: defaultdict(int))
 request_timestamps = defaultdict(lambda: defaultdict(list))
 
+
 def rate_limit(max_requests=100, window_seconds=3600):
     """Simple rate limiting decorator"""
+
     def decorator(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
@@ -155,50 +168,58 @@ def rate_limit(max_requests=100, window_seconds=3600):
 
             # Clean old timestamps
             request_timestamps[client_id][endpoint] = [
-                ts for ts in request_timestamps[client_id][endpoint]
+                ts
+                for ts in request_timestamps[client_id][endpoint]
                 if now - ts < timedelta(seconds=window_seconds)
             ]
 
             # Check rate limit
             if len(request_timestamps[client_id][endpoint]) >= max_requests:
-                return jsonify({
-                    "error": "Rate limit exceeded",
-                    "retry_after": window_seconds
-                }), 429
+                return jsonify({"error": "Rate limit exceeded", "retry_after": window_seconds}), 429
 
             # Record this request
             request_timestamps[client_id][endpoint].append(now)
 
             return f(*args, **kwargs)
+
         return wrapped
+
     return decorator
+
 
 def generate_csrf_token():
     """Generate CSRF token"""
-    if 'csrf_token' not in session:
-        session['csrf_token'] = secrets.token_hex(32)
-    return session['csrf_token']
+    if "csrf_token" not in session:
+        session["csrf_token"] = secrets.token_hex(32)
+    return session["csrf_token"]
+
 
 def validate_csrf_token(token):
     """Validate CSRF token"""
-    return token == session.get('csrf_token')
+    return token == session.get("csrf_token")
+
 
 @app.context_processor
 def inject_csrf_token():
     """Make CSRF token available to all templates"""
     return dict(csrf_token=generate_csrf_token)
 
+
 def allowed_file(filename):
     """Check if file extension is allowed"""
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    return (
+        "." in filename and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
+    )
+
 
 # ===== Routes =====
+
 
 @app.route("/")
 def index():
     """Home page with team selection"""
     return render_template("index.html", teams=TEAMS)
+
 
 @app.route("/team/<team_id>")
 def team_dashboard(team_id):
@@ -208,6 +229,7 @@ def team_dashboard(team_id):
 
     team = TEAMS[team_id]
     return render_template("team_dashboard.html", team_id=team_id, team=team)
+
 
 @app.route("/template/<team_id>/<template_name>")
 def show_template(team_id, template_name):
@@ -239,6 +261,7 @@ def show_template(team_id, template_name):
         template_name=template_name,
         template_content=template_content,
     )
+
 
 @app.route("/submit", methods=["POST"])
 @rate_limit(max_requests=50, window_seconds=3600)
@@ -280,17 +303,18 @@ def submit_form():
     with open(output_file, "w") as f:
         f.write(content)
         f.write("\n\n---\n\n")
-        f.write(f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(
+            f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         f.write(f"**Team**: {TEAMS[team_id]['name']}\n")
 
         if attachments:
             f.write(f"\n**Attachments**: {', '.join(attachments)}\n")
 
-    return jsonify({
-        "success": True,
-        "file": str(output_file),
-        "message": "Form submitted successfully!"
-    })
+    return jsonify(
+        {"success": True, "file": str(output_file), "message": "Form submitted successfully!"}
+    )
+
 
 @app.route("/quick-submit", methods=["POST"])
 @rate_limit(max_requests=100, window_seconds=3600)
@@ -319,40 +343,35 @@ def quick_submit():
         f.write("---\n\n")
         f.write("**Submitted via**: Web Quick Submit\n")
 
-    return jsonify({
-        "success": True,
-        "file": str(output_file),
-        "message": "Quick report saved!"
-    })
+    return jsonify({"success": True, "file": str(output_file), "message": "Quick report saved!"})
+
 
 @app.route("/upload", methods=["POST"])
 @rate_limit(max_requests=20, window_seconds=3600)
 def upload_file():
     """Handle file uploads"""
-    if 'file' not in request.files:
+    if "file" not in request.files:
         return jsonify({"success": False, "error": "No file provided"}), 400
 
-    file = request.files['file']
+    file = request.files["file"]
 
-    if file.filename == '':
+    if file.filename == "":
         return jsonify({"success": False, "error": "No file selected"}), 400
 
     if file and allowed_file(file.filename):
         # Secure the filename
-        filename = secrets.token_hex(8) + '_' + file.filename
+        filename = secrets.token_hex(8) + "_" + file.filename
         filepath = UPLOADS_PATH / filename
 
         file.save(str(filepath))
 
-        return jsonify({
-            "success": True,
-            "filename": filename,
-            "url": f"/uploads/{filename}"
-        })
+        return jsonify({"success": True, "filename": filename, "url": f"/uploads/{filename}"})
 
     return jsonify({"success": False, "error": "File type not allowed"}), 400
 
+
 # ===== API Endpoints =====
+
 
 @app.route("/api/stats/<team_id>")
 @rate_limit(max_requests=200, window_seconds=3600)
@@ -374,11 +393,8 @@ def api_stats(team_id):
     week_ago = datetime.now() - timedelta(days=7)
     recent = sum(1 for doc in all_docs if datetime.fromtimestamp(doc.stat().st_mtime) > week_ago)
 
-    return jsonify({
-        "total": total,
-        "recent": recent,
-        "drafts": 0  # Drafts are stored client-side
-    })
+    return jsonify({"total": total, "recent": recent, "drafts": 0})  # Drafts are stored client-side
+
 
 @app.route("/api/documents/<team_id>")
 @rate_limit(max_requests=200, window_seconds=3600)
@@ -387,7 +403,7 @@ def api_documents(team_id):
     if team_id not in TEAMS:
         return jsonify({"error": "Team not found"}), 404
 
-    limit = request.args.get('limit', 10, type=int)
+    limit = request.args.get("limit", 10, type=int)
     team_dir = OUTPUTS_PATH / team_id
 
     if not team_dir.exists():
@@ -395,16 +411,21 @@ def api_documents(team_id):
 
     # Get all markdown files
     docs = []
-    for doc_path in sorted(team_dir.rglob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:limit]:
-        docs.append({
-            "id": hashlib.md5(str(doc_path).encode()).hexdigest(),
-            "name": doc_path.stem,
-            "path": str(doc_path.relative_to(OUTPUTS_PATH)),
-            "date": datetime.fromtimestamp(doc_path.stat().st_mtime).isoformat(),
-            "size": doc_path.stat().st_size
-        })
+    for doc_path in sorted(team_dir.rglob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[
+        :limit
+    ]:
+        docs.append(
+            {
+                "id": hashlib.md5(str(doc_path).encode()).hexdigest(),
+                "name": doc_path.stem,
+                "path": str(doc_path.relative_to(OUTPUTS_PATH)),
+                "date": datetime.fromtimestamp(doc_path.stat().st_mtime).isoformat(),
+                "size": doc_path.stat().st_size,
+            }
+        )
 
     return jsonify({"documents": docs})
+
 
 @app.route("/api/search/<team_id>")
 @rate_limit(max_requests=100, window_seconds=3600)
@@ -413,7 +434,7 @@ def api_search(team_id):
     if team_id not in TEAMS:
         return jsonify({"error": "Team not found"}), 404
 
-    query = request.args.get('q', '').lower()
+    query = request.args.get("q", "").lower()
 
     if not query or len(query) < 2:
         return jsonify({"results": []})
@@ -427,7 +448,7 @@ def api_search(team_id):
 
     for doc_path in team_dir.rglob("*.md"):
         try:
-            with open(doc_path, 'r') as f:
+            with open(doc_path, "r") as f:
                 content = f.read().lower()
 
                 if query in content or query in doc_path.name.lower():
@@ -437,17 +458,20 @@ def api_search(team_id):
                     snippet_end = min(len(content), idx + 100)
                     snippet = content[snippet_start:snippet_end]
 
-                    results.append({
-                        "id": hashlib.md5(str(doc_path).encode()).hexdigest(),
-                        "name": doc_path.stem,
-                        "title": doc_path.stem.replace('-', ' ').title(),
-                        "snippet": "..." + snippet + "...",
-                        "date": datetime.fromtimestamp(doc_path.stat().st_mtime).isoformat()
-                    })
-        except Exception as e:
+                    results.append(
+                        {
+                            "id": hashlib.md5(str(doc_path).encode()).hexdigest(),
+                            "name": doc_path.stem,
+                            "title": doc_path.stem.replace("-", " ").title(),
+                            "snippet": "..." + snippet + "...",
+                            "date": datetime.fromtimestamp(doc_path.stat().st_mtime).isoformat(),
+                        }
+                    )
+        except Exception:
             continue
 
     return jsonify({"results": results[:20]})  # Limit to 20 results
+
 
 @app.route("/api/export/<team_id>/<doc_id>/<format>")
 @rate_limit(max_requests=50, window_seconds=3600)
@@ -456,7 +480,7 @@ def api_export(team_id, doc_id, format):
     if team_id not in TEAMS:
         return jsonify({"error": "Team not found"}), 404
 
-    if format not in ['pdf', 'docx', 'html', 'txt']:
+    if format not in ["pdf", "docx", "html", "txt"]:
         return jsonify({"error": "Invalid format"}), 400
 
     # Find document by ID
@@ -465,24 +489,24 @@ def api_export(team_id, doc_id, format):
     for doc_path in team_dir.rglob("*.md"):
         if hashlib.md5(str(doc_path).encode()).hexdigest() == doc_id:
             # Read content
-            with open(doc_path, 'r') as f:
+            with open(doc_path, "r") as f:
                 content = f.read()
 
-            if format == 'txt':
+            if format == "txt":
                 return send_file(
                     doc_path,
                     as_attachment=True,
                     download_name=f"{doc_path.stem}.txt",
-                    mimetype='text/plain'
+                    mimetype="text/plain",
                 )
 
-            elif format == 'html':
+            elif format == "html":
                 if MARKDOWN_AVAILABLE:
                     html_content = markdown(content)
                 else:
                     html_content = f"<pre>{content}</pre>"
 
-                return html_content, 200, {'Content-Type': 'text/html'}
+                return html_content, 200, {"Content-Type": "text/html"}
 
             else:
                 # For PDF and DOCX, we'd need additional libraries
@@ -490,14 +514,12 @@ def api_export(team_id, doc_id, format):
 
     return jsonify({"error": "Document not found"}), 404
 
+
 @app.route("/api/analytics")
 @rate_limit(max_requests=100, window_seconds=3600)
 def api_analytics():
     """Get analytics data"""
-    analytics = {
-        "total_teams": len(TEAMS),
-        "teams": {}
-    }
+    analytics = {"total_teams": len(TEAMS), "teams": {}}
 
     for team_id, team in TEAMS.items():
         team_dir = OUTPUTS_PATH / team_id
@@ -507,23 +529,26 @@ def api_analytics():
             analytics["teams"][team_id] = {
                 "name": team["name"],
                 "total_documents": len(docs),
-                "templates": len(team["templates"])
+                "templates": len(team["templates"]),
             }
         else:
             analytics["teams"][team_id] = {
                 "name": team["name"],
                 "total_documents": 0,
-                "templates": len(team["templates"])
+                "templates": len(team["templates"]),
             }
 
     return jsonify(analytics)
 
+
 # ===== Additional Routes =====
+
 
 @app.route("/accessibility")
 def accessibility_settings():
     """Accessibility settings page"""
     return render_template("accessibility.html")
+
 
 @app.route("/help/<team_id>")
 def help_page(team_id):
@@ -534,38 +559,46 @@ def help_page(team_id):
     team = TEAMS[team_id]
     return render_template("help.html", team_id=team_id, team=team)
 
+
 @app.route("/offline")
 def offline_page():
     """Offline fallback page"""
     return render_template("offline.html")
 
+
 @app.route("/manifest.json")
 def manifest():
     """Serve PWA manifest"""
-    return send_file("static/manifest.json", mimetype='application/manifest+json')
+    return send_file("static/manifest.json", mimetype="application/manifest+json")
+
 
 @app.route("/service-worker.js")
 def service_worker():
     """Serve service worker"""
-    return send_file("static/service-worker.js", mimetype='application/javascript')
+    return send_file("static/service-worker.js", mimetype="application/javascript")
+
 
 # ===== Error Handlers =====
 
+
 @app.errorhandler(404)
 def not_found(e):
-    if request.path.startswith('/api/'):
+    if request.path.startswith("/api/"):
         return jsonify({"error": "Not found"}), 404
     return render_template("offline.html"), 404
 
+
 @app.errorhandler(500)
 def server_error(e):
-    if request.path.startswith('/api/'):
+    if request.path.startswith("/api/"):
         return jsonify({"error": "Internal server error"}), 500
     return "Internal server error", 500
+
 
 @app.errorhandler(413)
 def request_entity_too_large(e):
     return jsonify({"error": "File too large (max 10MB)"}), 413
+
 
 # ===== Main =====
 

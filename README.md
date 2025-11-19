@@ -30,6 +30,7 @@
 - [📋 Quick Start Guide](#-quick-start-guide)
 - [🔧 Prerequisites](#-prerequisites)
 - [📖 Learn More](#-learn-more)
+- [🔒 Security](#-security)
 - [👥 Maintainers](#-maintainers)
 - [💬 Support](#-support)
 - [📄 License](#-license)
@@ -477,6 +478,77 @@ For a complete list of supported agents, see the [NUAA Project Kit README](./nua
 - **[Accessibility Guidelines](./nuaa-kit/accessibility-guidelines.md)** - Making outputs accessible
 - **[Evaluation Data Dictionary](./nuaa-kit/evaluation-data-dictionary.md)** - Standard indicators
 - **[Glossary](./nuaa-kit/glossary.md)** - NUAA-specific terminology
+
+## 🔒 Security
+
+NUAA CLI implements multiple layers of security to protect your projects and data.
+
+### Input Validation
+
+All command inputs are validated to prevent security issues:
+
+- **Program names and text fields** are sanitized to prevent path traversal attacks
+- **Length limits** are enforced to prevent buffer issues
+- **Empty values** are rejected with clear error messages
+- **Special characters** are filtered to ensure filesystem safety
+
+### File Operations
+
+Template and file operations are protected:
+
+- **ZIP extraction** validates all paths to prevent path traversal attacks
+- **File permissions** are checked before reading or writing
+- **Temporary files** are securely created and cleaned up
+- **Directory operations** use safe path resolution
+
+### Network Security
+
+GitHub API interactions use industry-standard security:
+
+- **HTTPS/TLS** connections with certificate validation via `truststore`
+- **Rate limiting** is respected to prevent API abuse
+- **Timeouts** prevent hanging connections
+- **Authentication tokens** are read from environment variables (never hardcoded)
+
+### Environment Variables
+
+Sensitive configuration is managed through environment variables:
+
+```bash
+# GitHub authentication (optional, for higher rate limits)
+export GH_TOKEN=your_token_here
+export GITHUB_TOKEN=your_token_here
+
+# See .env.example for complete list of supported variables
+```
+
+**Important:** Never commit your `.env` file or expose your GitHub tokens in logs or screenshots.
+
+### Logging & Data Privacy
+
+Log files are stored securely:
+
+- **Platform-specific directories:**
+  - Linux: `~/.local/state/nuaa-cli/nuaa-cli.log`
+  - macOS: `~/Library/Logs/nuaa-cli/nuaa-cli.log`
+  - Windows: `%LOCALAPPDATA%\nuaa-cli\Logs\nuaa-cli.log`
+- **Sensitive data** is not logged (tokens are masked in debug output)
+- **File permissions** are set to user-only access
+- **Log rotation** can be configured via `LOG_FILE` environment variable
+
+### Reporting Security Issues
+
+If you discover a security vulnerability, please:
+
+1. **Do NOT** open a public issue
+2. Email the maintainers directly (see [Maintainers](#-maintainers) section)
+3. Include:
+   - Description of the vulnerability
+   - Steps to reproduce
+   - Potential impact
+   - Suggested fix (if you have one)
+
+We take security seriously and will respond promptly to verified reports.
 
 ## 🧪 Automation & quality checks
 

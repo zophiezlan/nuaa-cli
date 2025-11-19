@@ -26,7 +26,7 @@ def version() -> None:
     cli_version = "unknown"
     try:
         cli_version = importlib.metadata.version("nuaa-cli")
-    except Exception:
+    except importlib.metadata.PackageNotFoundError:
         # Fallback: pyproject.toml when running from source
         try:
             import tomllib
@@ -36,7 +36,14 @@ def version() -> None:
                 with open(pyproject_path, "rb") as f:
                     data = tomllib.load(f)
                     cli_version = data.get("project", {}).get("version", "unknown")
-        except Exception:
+        except FileNotFoundError:
+            pass
+        except PermissionError:
+            pass
+        except OSError:
+            pass
+        except (KeyError, ValueError):
+            # Invalid TOML format or missing version key
             pass
 
     # Latest release info
@@ -65,9 +72,20 @@ def version() -> None:
                     try:
                         dt = datetime.fromisoformat(release_date.replace("Z", "+00:00"))
                         release_date = dt.strftime("%Y-%m-%d")
-                    except Exception:
+                    except (ValueError, AttributeError):
+                        # Invalid date format
                         pass
-    except Exception:
+    except httpx.TimeoutException:
+        # Network timeout - version info stays as "unknown"
+        pass
+    except httpx.ConnectError:
+        # Cannot connect to GitHub - version info stays as "unknown"
+        pass
+    except httpx.HTTPError:
+        # HTTP error - version info stays as "unknown"
+        pass
+    except (ValueError, KeyError):
+        # JSON parsing error or missing keys - version info stays as "unknown"
         pass
 
     info_table = Table(show_header=False, box=None, padding=(0, 2))

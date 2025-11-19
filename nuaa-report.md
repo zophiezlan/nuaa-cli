@@ -365,30 +365,30 @@ Major advocacy campaigns focus on hepatitis C elimination by 2028, drug law refo
 
 ### Main contact
 
-**Address**: 267 Broadway, NSW 2037  
-**Phone**: (02) 9171 6650  
-**Email**: nuaa@nuaa.org.au  
-**Postal Address**: P.O. Box 350, Strawberry Hills, NSW 2012  
+**Address**: 267 Broadway, NSW 2037
+**Phone**: (02) 9171 6650
+**Email**: nuaa@nuaa.org.au
+**Postal Address**: P.O. Box 350, Strawberry Hills, NSW 2012
 **Website**: www.nuaa.org.au
 
 ### Needle and Syringe Program (NSP)
 
-**Location**: 345 Crown Street, Surry Hills, NSW 2010  
-**Hours**: Monday-Friday 8:30am-6:30pm; Saturday 10am-3pm  
+**Location**: 345 Crown Street, Surry Hills, NSW 2010
+**Hours**: Monday-Friday 8:30am-6:30pm; Saturday 10am-3pm
 **Services**: Walk-in, peer-staffed, anonymous, non-judgmental, free sterile injecting equipment, health promotion, brief interventions, gateway to other health and welfare services
 
 Co-located with Open Clinic on Crown (nurse-led primary health clinic).
 
 ### PeerLine Support Service
 
-**Free Call**: 1800 644 413  
-**Direct**: (02) 8354 7300  
-**Hours**: Monday-Friday 9:00am-5:00pm  
+**Free Call**: 1800 644 413
+**Direct**: (02) 8354 7300
+**Hours**: Monday-Friday 9:00am-5:00pm
 **Services**: Confidential peer-run telephone service providing support with accessing harm reduction services/advice, treatment information, mediation with health professionals and service providers, guidance through complaints processes
 
 ### Exchange on Parker (Nepean Hospital)
 
-**Location**: Building C, Nepean Hospital, Parker Street, Kingswood, NSW 2747  
+**Location**: Building C, Nepean Hospital, Parker Street, Kingswood, NSW 2747
 **Services**: NSP, Aboriginal peer workers, hepatitis C education/screening
 
 ### How to access services
@@ -421,8 +421,8 @@ Co-located with Open Clinic on Crown (nurse-led primary health clinic).
 
 ### Social media
 
-**Twitter/X**: @nuaansw  
-**Facebook**: NSW Users and AIDS Association  
+**Twitter/X**: @nuaansw
+**Facebook**: NSW Users and AIDS Association
 **Instagram**: @nuaansw
 
 ## Conclusion

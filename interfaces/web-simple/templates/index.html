@@ -1,304 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2c5aa0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2c5aa0" />
     <title>NUAA Project Tools - Simple Access</title>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="/static/css/themes.css">
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/static/css/themes.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            line-height: 1.8;
-            background: #f5f5f5;
-            color: #333;
-            padding: 20px;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+          sans-serif;
+        line-height: 1.8;
+        background: #f5f5f5;
+        color: #333;
+        padding: 20px;
+      }
 
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #2c5aa0;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        color: #2c5aa0;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        font-size: 1.3em;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .intro {
+        background: #e8f4f8;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        border-left: 4px solid #2c5aa0;
+      }
+
+      .intro p {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+      }
+
+      .teams-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .team-card {
+        background: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .team-card:hover,
+      .team-card:focus {
+        border-color: #2c5aa0;
+        box-shadow: 0 4px 15px rgba(44, 90, 160, 0.2);
+        transform: translateY(-3px);
+      }
+
+      .team-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+      }
+
+      .team-name {
+        font-size: 1.4em;
+        font-weight: bold;
+        color: #2c5aa0;
+        margin-bottom: 10px;
+      }
+
+      .team-description {
+        font-size: 1em;
+        color: #666;
+      }
+
+      .features {
+        background: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        margin: 40px 0;
+      }
+
+      .features h2 {
+        color: #2c5aa0;
+        margin-bottom: 20px;
+      }
+
+      .features ul {
+        list-style: none;
+        font-size: 1.1em;
+      }
+
+      .features li {
+        padding: 10px 0;
+        padding-left: 30px;
+        position: relative;
+      }
+
+      .features li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      .help-section {
+        background: #fff3cd;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        margin-top: 30px;
+      }
+
+      .help-section h3 {
+        color: #856404;
+        margin-bottom: 15px;
+      }
+
+      .help-section p {
+        color: #856404;
+        font-size: 1.1em;
+      }
+
+      .accessibility-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #2c5aa0;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .accessibility-toggle:hover,
+      .accessibility-toggle:focus {
+        background: #1e3a6e;
+      }
+
+      /* High contrast mode */
+      body.high-contrast {
+        background: #000;
+        color: #fff;
+      }
+
+      body.high-contrast .container {
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+      }
+
+      body.high-contrast .team-card {
+        background: #000;
+        border-color: #fff;
+        color: #fff;
+      }
+
+      body.high-contrast .team-name {
+        color: #ffff00;
+      }
+
+      /* Large text mode */
+      body.large-text {
+        font-size: 1.2em;
+      }
+
+      body.large-text h1 {
+        font-size: 3em;
+      }
+
+      body.large-text .team-name {
+        font-size: 1.6em;
+      }
+
+      @media (max-width: 768px) {
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #2c5aa0;
+          padding: 20px;
         }
 
         h1 {
-            font-size: 2.5em;
-            color: #2c5aa0;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 1.3em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .intro {
-            background: #e8f4f8;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #2c5aa0;
-        }
-
-        .intro p {
-            font-size: 1.1em;
-            margin-bottom: 10px;
+          font-size: 2em;
         }
 
         .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .team-card {
-            background: white;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .team-card:hover, .team-card:focus {
-            border-color: #2c5aa0;
-            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .team-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .team-name {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #2c5aa0;
-            margin-bottom: 10px;
-        }
-
-        .team-description {
-            font-size: 1em;
-            color: #666;
-        }
-
-        .features {
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 40px 0;
-        }
-
-        .features h2 {
-            color: #2c5aa0;
-            margin-bottom: 20px;
-        }
-
-        .features ul {
-            list-style: none;
-            font-size: 1.1em;
-        }
-
-        .features li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        .help-section {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #ffc107;
-            margin-top: 30px;
-        }
-
-        .help-section h3 {
-            color: #856404;
-            margin-bottom: 15px;
-        }
-
-        .help-section p {
-            color: #856404;
-            font-size: 1.1em;
+          grid-template-columns: 1fr;
         }
 
         .accessibility-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #2c5aa0;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          position: static;
+          display: block;
+          margin-bottom: 20px;
+          width: 100%;
         }
+      }
 
-        .accessibility-toggle:hover, .accessibility-toggle:focus {
-            background: #1e3a6e;
-        }
-
-        /* High contrast mode */
-        body.high-contrast {
-            background: #000;
-            color: #fff;
-        }
-
-        body.high-contrast .container {
-            background: #000;
-            color: #fff;
-            border: 2px solid #fff;
-        }
-
-        body.high-contrast .team-card {
-            background: #000;
-            border-color: #fff;
-            color: #fff;
-        }
-
-        body.high-contrast .team-name {
-            color: #ffff00;
-        }
-
-        /* Large text mode */
-        body.large-text {
-            font-size: 1.2em;
-        }
-
-        body.large-text h1 {
-            font-size: 3em;
-        }
-
-        body.large-text .team-name {
-            font-size: 1.6em;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .teams-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .accessibility-toggle {
-                position: static;
-                display: block;
-                margin-bottom: 20px;
-                width: 100%;
-            }
-        }
-
-        /* Keyboard focus indicator */
-        *:focus {
-            outline: 3px solid #2c5aa0;
-            outline-offset: 2px;
-        }
+      /* Keyboard focus indicator */
+      *:focus {
+        outline: 3px solid #2c5aa0;
+        outline-offset: 2px;
+      }
     </style>
-</head>
-<body>
-    <button class="accessibility-toggle" onclick="toggleAccessibility()" aria-label="Toggle accessibility options">
-        ♿ Accessibility
+  </head>
+  <body>
+    <button
+      class="accessibility-toggle"
+      onclick="toggleAccessibility()"
+      aria-label="Toggle accessibility options"
+    >
+      ♿ Accessibility
     </button>
 
     <!-- Quick Navigation Bar -->
-    <div style="max-width: 1200px; margin: 0 auto 20px; display: flex; gap: 10px; justify-content: flex-end;">
-        <a href="/analytics" class="btn secondary" style="text-decoration: none; padding: 10px 20px; background: white; border: 2px solid #2c5aa0; border-radius: 5px; color: #2c5aa0; font-weight: 500;">
-            📊 Analytics
-        </a>
-        <a href="/admin" class="btn secondary" style="text-decoration: none; padding: 10px 20px; background: white; border: 2px solid #2c5aa0; border-radius: 5px; color: #2c5aa0; font-weight: 500;">
-            🔧 Admin
-        </a>
+    <div
+      style="
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      "
+    >
+      <a
+        href="/analytics"
+        class="btn secondary"
+        style="
+          text-decoration: none;
+          padding: 10px 20px;
+          background: white;
+          border: 2px solid #2c5aa0;
+          border-radius: 5px;
+          color: #2c5aa0;
+          font-weight: 500;
+        "
+      >
+        📊 Analytics
+      </a>
+      <a
+        href="/admin"
+        class="btn secondary"
+        style="
+          text-decoration: none;
+          padding: 10px 20px;
+          background: white;
+          border: 2px solid #2c5aa0;
+          border-radius: 5px;
+          color: #2c5aa0;
+          font-weight: 500;
+        "
+      >
+        🔧 Admin
+      </a>
     </div>
 
     <div class="container">
-        <header>
-            <h1>NUAA Project Tools</h1>
-            <p class="subtitle">Simple Access for All Teams</p>
-        </header>
+      <header>
+        <h1>NUAA Project Tools</h1>
+        <p class="subtitle">Simple Access for All Teams</p>
+      </header>
 
-        <div class="intro">
-            <p><strong>Welcome!</strong> This is a simple way to create reports and documents without using the command line.</p>
-            <p><strong>Just click on your team below to get started.</strong> No technical skills required!</p>
-        </div>
+      <div class="intro">
+        <p>
+          <strong>Welcome!</strong> This is a simple way to create reports and
+          documents without using the command line.
+        </p>
+        <p>
+          <strong>Just click on your team below to get started.</strong> No
+          technical skills required!
+        </p>
+      </div>
 
-        <h2 style="color: #2c5aa0; margin-bottom: 20px;">Choose Your Team</h2>
+      <h2 style="color: #2c5aa0; margin-bottom: 20px">Choose Your Team</h2>
 
-        <div class="teams-grid">
-            {% for team_id, team in teams.items() %}
-            <a href="/team/{{ team_id }}" class="team-card" aria-label="{{ team.name }}">
-                <div class="team-icon" aria-hidden="true">{{ team.icon }}</div>
-                <div class="team-name">{{ team.name }}</div>
-                <div class="team-description">{{ team.description }}</div>
-            </a>
-            {% endfor %}
-        </div>
+      <div class="teams-grid">
+        {% for team_id, team in teams.items() %}
+        <a
+          href="/team/{{ team_id }}"
+          class="team-card"
+          aria-label="{{ team.name }}"
+        >
+          <div class="team-icon" aria-hidden="true">{{ team.icon }}</div>
+          <div class="team-name">{{ team.name }}</div>
+          <div class="team-description">{{ team.description }}</div>
+        </a>
+        {% endfor %}
+      </div>
 
-        <div class="features">
-            <h2>Why Use This Tool?</h2>
-            <ul>
-                <li><strong>No computer skills needed</strong> - Just fill in simple forms</li>
-                <li><strong>Works on any device</strong> - Phone, tablet, or computer</li>
-                <li><strong>Saves your time</strong> - Pre-filled templates do the work</li>
-                <li><strong>Professional results</strong> - Well-formatted documents every time</li>
-                <li><strong>Your data is safe</strong> - Everything saved locally, nothing on the cloud</li>
-                <li><strong>Works offline</strong> - No internet needed once loaded</li>
-                <li><strong>Accessible to everyone</strong> - Screen readers, high contrast, large text</li>
-            </ul>
-        </div>
+      <div class="features">
+        <h2>Why Use This Tool?</h2>
+        <ul>
+          <li>
+            <strong>No computer skills needed</strong> - Just fill in simple
+            forms
+          </li>
+          <li>
+            <strong>Works on any device</strong> - Phone, tablet, or computer
+          </li>
+          <li>
+            <strong>Saves your time</strong> - Pre-filled templates do the work
+          </li>
+          <li>
+            <strong>Professional results</strong> - Well-formatted documents
+            every time
+          </li>
+          <li>
+            <strong>Your data is safe</strong> - Everything saved locally,
+            nothing on the cloud
+          </li>
+          <li>
+            <strong>Works offline</strong> - No internet needed once loaded
+          </li>
+          <li>
+            <strong>Accessible to everyone</strong> - Screen readers, high
+            contrast, large text
+          </li>
+        </ul>
+      </div>
 
-        <div class="help-section">
-            <h3>Need Help?</h3>
-            <p><strong>Contact:</strong> tech@nuaa.org.au or call [phone number]</p>
-            <p><strong>Or ask any NUAA staff member</strong> - we're all here to help!</p>
-        </div>
+      <div class="help-section">
+        <h3>Need Help?</h3>
+        <p><strong>Contact:</strong> tech@nuaa.org.au or call [phone number]</p>
+        <p>
+          <strong>Or ask any NUAA staff member</strong> - we're all here to
+          help!
+        </p>
+      </div>
     </div>
 
     <script>
-        function toggleAccessibility() {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
+      function toggleAccessibility() {
+        const modal = document.createElement("div");
+        modal.style.cssText = `
                 position: fixed;
                 top: 50%;
                 left: 50%;
@@ -312,7 +382,7 @@
                 width: 90%;
             `;
 
-            modal.innerHTML = `
+        modal.innerHTML = `
                 <h2 style="margin-bottom: 20px; color: #2c5aa0;">Accessibility Options</h2>
                 <button onclick="document.body.classList.toggle('high-contrast'); this.parentElement.remove();"
                         style="display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1.1em; cursor: pointer;">
@@ -328,8 +398,8 @@
                 </button>
             `;
 
-            const overlay = document.createElement('div');
-            overlay.style.cssText = `
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -338,44 +408,55 @@
                 background: rgba(0,0,0,0.5);
                 z-index: 999;
             `;
-            overlay.onclick = () => {
-                modal.remove();
-                overlay.remove();
-            };
+        overlay.onclick = () => {
+          modal.remove();
+          overlay.remove();
+        };
 
-            document.body.appendChild(overlay);
-            document.body.appendChild(modal);
+        document.body.appendChild(overlay);
+        document.body.appendChild(modal);
+      }
+
+      // Keyboard accessibility
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          const modals = document.querySelectorAll(
+            '[style*="position: fixed"]'
+          );
+          modals.forEach((m) => m.remove());
         }
+      });
 
-        // Keyboard accessibility
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modals = document.querySelectorAll('[style*="position: fixed"]');
-                modals.forEach(m => m.remove());
-            }
-        });
+      // Save accessibility preferences
+      const savedContrast = localStorage.getItem("highContrast");
+      const savedLargeText = localStorage.getItem("largeText");
 
-        // Save accessibility preferences
-        const savedContrast = localStorage.getItem('highContrast');
-        const savedLargeText = localStorage.getItem('largeText');
+      if (savedContrast === "true") {
+        document.body.classList.add("high-contrast");
+      }
+      if (savedLargeText === "true") {
+        document.body.classList.add("large-text");
+      }
 
-        if (savedContrast === 'true') {
-            document.body.classList.add('high-contrast');
-        }
-        if (savedLargeText === 'true') {
-            document.body.classList.add('large-text');
-        }
-
-        // Auto-save preferences
-        const observer = new MutationObserver(() => {
-            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
-            localStorage.setItem('largeText', document.body.classList.contains('large-text'));
-        });
-        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      // Auto-save preferences
+      const observer = new MutationObserver(() => {
+        localStorage.setItem(
+          "highContrast",
+          document.body.classList.contains("high-contrast")
+        );
+        localStorage.setItem(
+          "largeText",
+          document.body.classList.contains("large-text")
+        );
+      });
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
     </script>
 
     <!-- Advanced Features Integration -->
     <script src="/static/js/theme-switcher.js"></script>
-    <script src="/static/js/keyboard-shortcuts-enhanced.js"></script>
-</body>
+    <script src="/static/js/keyboard-shortcuts.js"></script>
+  </body>
 </html>

@@ -1,418 +1,593 @@
 /* ============================================
-   Keyboard Shortcuts Overlay
-   Help users discover and use keyboard shortcuts
+   Enhanced Keyboard Shortcuts System
    ============================================ */
 
-class KeyboardShortcutsOverlay {
-    constructor() {
-        this.shortcuts = [
-            {
-                category: 'Navigation',
-                items: [
-                    { keys: ['Ctrl', 'K'], description: 'Open search', mac: ['⌘', 'K'] },
-                    { keys: ['Ctrl', 'H'], description: 'Go to home', mac: ['⌘', 'H'] },
-                    { keys: ['Alt', '←'], description: 'Go back', mac: ['⌥', '←'] },
-                    { keys: ['Tab'], description: 'Navigate forward' },
-                    { keys: ['Shift', 'Tab'], description: 'Navigate backward' },
-                ]
-            },
-            {
-                category: 'Actions',
-                items: [
-                    { keys: ['Ctrl', 'S'], description: 'Save draft', mac: ['⌘', 'S'] },
-                    { keys: ['Ctrl', 'Enter'], description: 'Submit form', mac: ['⌘', '↵'] },
-                    { keys: ['Ctrl', 'Q'], description: 'Quick report', mac: ['⌘', 'Q'] },
-                    { keys: ['Ctrl', 'P'], description: 'Preview document', mac: ['⌘', 'P'] },
-                    { keys: ['Ctrl', 'N'], description: 'New document', mac: ['⌘', 'N'] },
-                ]
-            },
-            {
-                category: 'Interface',
-                items: [
-                    { keys: ['?'], description: 'Show keyboard shortcuts' },
-                    { keys: ['Esc'], description: 'Close modal/overlay' },
-                    { keys: ['Ctrl', '/'], description: 'Focus search', mac: ['⌘', '/'] },
-                    { keys: ['Alt', 'A'], description: 'Accessibility menu', mac: ['⌥', 'A'] },
-                ]
-            },
-            {
-                category: 'Editing',
-                items: [
-                    { keys: ['Ctrl', 'Z'], description: 'Undo', mac: ['⌘', 'Z'] },
-                    { keys: ['Ctrl', 'Y'], description: 'Redo', mac: ['⌘', 'Y'] },
-                    { keys: ['Ctrl', 'A'], description: 'Select all', mac: ['⌘', 'A'] },
-                    { keys: ['Ctrl', 'C'], description: 'Copy', mac: ['⌘', 'C'] },
-                    { keys: ['Ctrl', 'V'], description: 'Paste', mac: ['⌘', 'V'] },
-                ]
-            }
-        ];
+const KeyboardShortcuts = {
+  shortcuts: {
+    // Navigation
+    "ctrl+h": {
+      action: "goHome",
+      description: "Go to home page",
+      category: "Navigation",
+    },
+    "ctrl+b": {
+      action: "goBack",
+      description: "Go back",
+      category: "Navigation",
+    },
+    "ctrl+k": {
+      action: "focusSearch",
+      description: "Focus search",
+      category: "Navigation",
+    },
+    "alt+1": {
+      action: "goToTeam",
+      description: "Go to team dashboard",
+      category: "Navigation",
+    },
 
-        this.isVisible = false;
-        this.overlay = null;
-        this.isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    // Document Actions
+    "ctrl+s": {
+      action: "saveDocument",
+      description: "Save draft",
+      category: "Document",
+    },
+    "ctrl+shift+s": {
+      action: "saveAndClose",
+      description: "Save and close",
+      category: "Document",
+    },
+    "ctrl+p": {
+      action: "previewDocument",
+      description: "Preview document",
+      category: "Document",
+    },
+    "ctrl+e": {
+      action: "exportDocument",
+      description: "Export document",
+      category: "Document",
+    },
+    "ctrl+shift+e": {
+      action: "emailDocument",
+      description: "Email document",
+      category: "Document",
+    },
 
-        this.init();
-    }
+    // Editing
+    "ctrl+z": { action: "undo", description: "Undo", category: "Editing" },
+    "ctrl+shift+z": {
+      action: "redo",
+      description: "Redo",
+      category: "Editing",
+    },
+    "ctrl+f": {
+      action: "findInDocument",
+      description: "Find in document",
+      category: "Editing",
+    },
+    "ctrl+shift+v": {
+      action: "showVersionHistory",
+      description: "Version history",
+      category: "Editing",
+    },
 
-    init() {
-        // Listen for ? key to show overlay
-        document.addEventListener('keydown', (e) => {
-            if (e.key === '?' && !this.isInputFocused()) {
-                e.preventDefault();
-                this.toggle();
-            } else if (e.key === 'Escape' && this.isVisible) {
-                this.hide();
-            }
-        });
+    // View
+    "ctrl+shift+d": {
+      action: "toggleDarkMode",
+      description: "Toggle dark mode",
+      category: "View",
+    },
+    "ctrl+shift+t": {
+      action: "toggleThemeSelector",
+      description: "Theme selector",
+      category: "View",
+    },
+    "ctrl+shift+k": {
+      action: "showKeyboardShortcuts",
+      description: "Show shortcuts",
+      category: "View",
+    },
+    "ctrl+shift+n": {
+      action: "toggleNotifications",
+      description: "Notifications",
+      category: "View",
+    },
 
-        this.addStyles();
-    }
+    // Quick Actions
+    "ctrl+n": {
+      action: "newDocument",
+      description: "New document",
+      category: "Quick Actions",
+    },
+    "ctrl+q": {
+      action: "quickReport",
+      description: "Quick report",
+      category: "Quick Actions",
+    },
+    "ctrl+shift+a": {
+      action: "showAnalytics",
+      description: "Analytics",
+      category: "Quick Actions",
+    },
+    "ctrl+shift+x": {
+      action: "adminPanel",
+      description: "Admin panel",
+      category: "Quick Actions",
+    },
 
-    isInputFocused() {
-        const activeElement = document.activeElement;
-        return activeElement && (
-            activeElement.tagName === 'INPUT' ||
-            activeElement.tagName === 'TEXTAREA' ||
-            activeElement.isContentEditable
+    // System
+    escape: {
+      action: "closeModals",
+      description: "Close modals/dialogs",
+      category: "System",
+    },
+    "shift+?": {
+      action: "showHelp",
+      description: "Show help",
+      category: "System",
+    },
+  },
+
+  commandPalette: null,
+  isListening: true,
+
+  init() {
+    this.registerShortcuts();
+    this.createHelpPanel();
+    this.createCommandPalette();
+
+    // Listen for ? key to show shortcuts
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "?" && e.shiftKey) {
+        e.preventDefault();
+        this.showHelpPanel();
+      }
+    });
+  },
+
+  registerShortcuts() {
+    document.addEventListener("keydown", (e) => {
+      if (!this.isListening) return;
+
+      // Don't trigger in input fields unless it's a special key
+      if (
+        (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey
+      ) {
+        return;
+      }
+
+      const key = this.getKeyCombo(e);
+      const shortcut = this.shortcuts[key];
+
+      if (shortcut) {
+        e.preventDefault();
+        this.executeAction(shortcut.action, e);
+      }
+    });
+  },
+
+  getKeyCombo(event) {
+    const parts = [];
+    if (event.ctrlKey || event.metaKey) parts.push("ctrl");
+    if (event.altKey) parts.push("alt");
+    if (event.shiftKey) parts.push("shift");
+
+    let key = event.key.toLowerCase();
+    if (key === " ") key = "space";
+
+    parts.push(key);
+    return parts.join("+");
+  },
+
+  executeAction(action, event) {
+    const actions = {
+      // Navigation
+      goHome: () => (window.location.href = "/"),
+      goBack: () => window.history.back(),
+      focusSearch: () => {
+        const searchInput = document.querySelector(
+          '#searchInput, [placeholder*="Search"]'
         );
+        if (searchInput) {
+          searchInput.focus();
+          if (window.toggleSearch) window.toggleSearch();
+        }
+      },
+      goToTeam: () => {
+        const teamLinks = document.querySelectorAll('a[href^="/team/"]');
+        if (teamLinks.length > 0) teamLinks[0].click();
+      },
+
+      // Document Actions
+      saveDocument: () => {
+        if (window.saveDraft) window.saveDraft();
+        else if (document.querySelector('[onclick*="saveDraft"]')) {
+          document.querySelector('[onclick*="saveDraft"]').click();
+        }
+      },
+      saveAndClose: () => {
+        if (window.saveDraft) window.saveDraft();
+        setTimeout(() => window.history.back(), 500);
+      },
+      previewDocument: () => {
+        if (window.previewDocument) window.previewDocument();
+        else if (document.querySelector('[onclick*="preview"]')) {
+          document.querySelector('[onclick*="preview"]').click();
+        }
+      },
+      exportDocument: () => {
+        if (window.exportDocument) window.exportDocument();
+      },
+      emailDocument: () => {
+        if (window.sendEmail) window.sendEmail();
+      },
+
+      // Editing
+      undo: () => {
+        // Browser default - don't prevent
+      },
+      redo: () => {
+        // Browser default - don't prevent
+      },
+      findInDocument: () => {
+        // Browser default - don't prevent
+      },
+      showVersionHistory: () => {
+        if (window.VersionHistory) {
+          const docId = window.location.pathname.split("/").pop() || "current";
+          window.VersionHistory.showVersionHistory(docId, "");
+        }
+      },
+
+      // View
+      toggleDarkMode: () => {
+        if (window.ThemeSwitcher) window.ThemeSwitcher.quickToggle();
+      },
+      toggleThemeSelector: () => {
+        if (window.ThemeSwitcher) window.ThemeSwitcher.toggleThemeSelector();
+      },
+      showKeyboardShortcuts: () => this.showHelpPanel(),
+      toggleNotifications: () => {
+        if (window.toggleNotifications) window.toggleNotifications();
+      },
+
+      // Quick Actions
+      newDocument: () => {
+        const newBtn = document.querySelector('a[href*="/template/"]');
+        if (newBtn) newBtn.click();
+      },
+      quickReport: () => {
+        if (window.showQuickReport) window.showQuickReport();
+      },
+      showAnalytics: () => {
+        window.location.href = "/analytics";
+      },
+      adminPanel: () => {
+        window.location.href = "/admin";
+      },
+
+      // System
+      closeModals: () => {
+        document.querySelectorAll(".modal").forEach((m) => m.remove());
+        document.querySelectorAll('[style*="display: flex"]').forEach((el) => {
+          if (
+            el.classList.contains("modal") ||
+            el.classList.contains("overlay")
+          ) {
+            el.style.display = "none";
+          }
+        });
+      },
+      showHelp: () => this.showHelpPanel(),
+    };
+
+    if (actions[action]) {
+      actions[action]();
+      this.showToast(`⌨️ ${action}`);
     }
+  },
 
-    addStyles() {
-        const style = document.createElement('style');
-        style.id = 'keyboard-shortcuts-styles';
-        style.textContent = `
-            .keyboard-shortcuts-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.75);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10001;
-                padding: 20px;
-                animation: fadeIn 0.2s ease;
-            }
+  createHelpPanel() {
+    // Create help panel HTML
+    const panel = document.createElement("div");
+    panel.id = "keyboardShortcutsPanel";
+    panel.className = "modal";
+    panel.style.display = "none";
+    panel.innerHTML = `
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h2>⌨️ Keyboard Shortcuts</h2>
+                    <button class="modal-close" onclick="this.closest('.modal').style.display='none'">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: var(--gray-600); margin-bottom: var(--spacing-xl);">
+                        Press <kbd>?</kbd> or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> to show this panel anytime
+                    </p>
 
-            .keyboard-shortcuts-content {
-                background: white;
-                border-radius: 12px;
-                max-width: 900px;
-                width: 100%;
-                max-height: 90vh;
-                overflow-y: auto;
-                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-                animation: slideUp 0.3s ease;
-            }
-
-            .keyboard-shortcuts-header {
-                padding: 24px 32px;
-                border-bottom: 1px solid #e8e8e8;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                position: sticky;
-                top: 0;
-                background: white;
-                z-index: 1;
-                border-radius: 12px 12px 0 0;
-            }
-
-            .keyboard-shortcuts-header h2 {
-                margin: 0;
-                color: #333;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-
-            .keyboard-shortcuts-close {
-                background: none;
-                border: none;
-                font-size: 28px;
-                color: #999;
-                cursor: pointer;
-                width: 32px;
-                height: 32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 4px;
-                transition: all 0.2s;
-            }
-
-            .keyboard-shortcuts-close:hover {
-                background: #f5f5f5;
-                color: #333;
-            }
-
-            .keyboard-shortcuts-body {
-                padding: 32px;
-            }
-
-            .keyboard-shortcuts-category {
-                margin-bottom: 32px;
-            }
-
-            .keyboard-shortcuts-category:last-child {
-                margin-bottom: 0;
-            }
-
-            .keyboard-shortcuts-category h3 {
-                color: #2c5aa0;
-                margin-bottom: 16px;
-                font-size: 18px;
-                font-weight: 600;
-            }
-
-            .keyboard-shortcuts-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 12px;
-            }
-
-            .keyboard-shortcut-item {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 12px 16px;
-                background: #f9f9f9;
-                border-radius: 8px;
-                transition: background 0.2s;
-            }
-
-            .keyboard-shortcut-item:hover {
-                background: #e8f4f8;
-            }
-
-            .keyboard-shortcut-description {
-                color: #666;
-                font-size: 14px;
-            }
-
-            .keyboard-shortcut-keys {
-                display: flex;
-                gap: 6px;
-                flex-shrink: 0;
-                margin-left: 12px;
-            }
-
-            .keyboard-key {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 28px;
-                height: 28px;
-                padding: 0 8px;
-                background: white;
-                border: 1px solid #ddd;
-                border-bottom-width: 3px;
-                border-radius: 4px;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-                font-size: 13px;
-                font-weight: 600;
-                color: #333;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            }
-
-            .keyboard-shortcuts-footer {
-                padding: 20px 32px;
-                border-top: 1px solid #e8e8e8;
-                background: #f9f9f9;
-                text-align: center;
-                color: #666;
-                font-size: 14px;
-                border-radius: 0 0 12px 12px;
-            }
-
-            .keyboard-shortcuts-tip {
-                background: #fff3cd;
-                border-left: 4px solid #ffc107;
-                padding: 16px;
-                margin-top: 24px;
-                border-radius: 4px;
-            }
-
-            .keyboard-shortcuts-tip strong {
-                color: #856404;
-            }
-
-            .keyboard-shortcuts-tip p {
-                margin: 0;
-                color: #856404;
-                font-size: 14px;
-            }
-
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-
-            @keyframes slideUp {
-                from {
-                    transform: translateY(30px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
-
-            @media (max-width: 768px) {
-                .keyboard-shortcuts-content {
-                    max-height: 100vh;
-                    border-radius: 0;
-                }
-
-                .keyboard-shortcuts-list {
-                    grid-template-columns: 1fr;
-                }
-
-                .keyboard-shortcuts-header,
-                .keyboard-shortcuts-body,
-                .keyboard-shortcuts-footer {
-                    padding-left: 20px;
-                    padding-right: 20px;
-                }
-            }
-
-            /* Reduced motion support */
-            @media (prefers-reduced-motion: reduce) {
-                .keyboard-shortcuts-overlay,
-                .keyboard-shortcuts-content {
-                    animation: none;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    createOverlay() {
-        const overlay = document.createElement('div');
-        overlay.className = 'keyboard-shortcuts-overlay';
-        overlay.setAttribute('role', 'dialog');
-        overlay.setAttribute('aria-modal', 'true');
-        overlay.setAttribute('aria-labelledby', 'shortcuts-title');
-
-        const categoriesHTML = this.shortcuts.map(category => `
-            <div class="keyboard-shortcuts-category">
-                <h3>${category.icon || ''} ${category.category}</h3>
-                <div class="keyboard-shortcuts-list">
-                    ${category.items.map(item => {
-                        const keys = this.isMac && item.mac ? item.mac : item.keys;
-                        return `
-                            <div class="keyboard-shortcut-item">
-                                <span class="keyboard-shortcut-description">${item.description}</span>
-                                <div class="keyboard-shortcut-keys">
-                                    ${keys.map(key => `
-                                        <kbd class="keyboard-key">${key}</kbd>
-                                    `).join(' ')}
-                                </div>
+                    ${Object.entries(this.groupByCategory())
+                      .map(
+                        ([category, shortcuts]) => `
+                        <div class="shortcuts-category">
+                            <h3>${category}</h3>
+                            <div class="shortcuts-list">
+                                ${shortcuts
+                                  .map(
+                                    (s) => `
+                                    <div class="shortcut-item">
+                                        <div class="shortcut-keys">
+                                            ${this.formatKeyCombo(s.key)}
+                                        </div>
+                                        <div class="shortcut-description">${
+                                          s.description
+                                        }</div>
+                                    </div>
+                                `
+                                  )
+                                  .join("")}
                             </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-        `).join('');
+                        </div>
+                    `
+                      )
+                      .join("")}
 
-        overlay.innerHTML = `
-            <div class="keyboard-shortcuts-content">
-                <div class="keyboard-shortcuts-header">
-                    <h2 id="shortcuts-title">
-                        <span>⌨️</span>
-                        Keyboard Shortcuts
-                    </h2>
-                    <button class="keyboard-shortcuts-close"
-                            aria-label="Close shortcuts overlay"
-                            onclick="window.keyboardShortcuts.hide()">
-                        ×
-                    </button>
-                </div>
-                <div class="keyboard-shortcuts-body">
-                    ${categoriesHTML}
-                    <div class="keyboard-shortcuts-tip">
-                        <strong>💡 Tip:</strong>
-                        <p>Press <kbd class="keyboard-key">?</kbd> anytime to show this guide. Most shortcuts work throughout the application.</p>
+                    <div class="shortcuts-tip" style="margin-top: var(--spacing-2xl); padding: var(--spacing-lg); background: var(--primary-light); border-radius: var(--border-radius);">
+                        <strong>💡 Pro Tip:</strong> Press <kbd>Ctrl</kbd>+<kbd>K</kbd> to open the command palette for quick access to any action!
                     </div>
                 </div>
-                <div class="keyboard-shortcuts-footer">
-                    Press <kbd class="keyboard-key">Esc</kbd> to close
+            </div>
+        `;
+
+    document.body.appendChild(panel);
+
+    // Add styles
+    const style = document.createElement("style");
+    style.textContent = `
+            .shortcuts-category {
+                margin-bottom: var(--spacing-2xl);
+            }
+
+            .shortcuts-category h3 {
+                color: var(--primary-color);
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-sm);
+                border-bottom: 2px solid var(--primary-color);
+            }
+
+            .shortcuts-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: var(--spacing-md);
+            }
+
+            .shortcut-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+                background: var(--gray-50);
+                border-radius: var(--border-radius-sm);
+            }
+
+            .shortcut-keys {
+                display: flex;
+                gap: 4px;
+            }
+
+            .shortcut-keys kbd {
+                padding: 4px 8px;
+                background: white;
+                border: 1px solid var(--gray-400);
+                border-radius: 4px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                box-shadow: 0 2px 0 var(--gray-400);
+            }
+
+            .shortcut-description {
+                color: var(--gray-700);
+            }
+        `;
+    document.head.appendChild(style);
+  },
+
+  showHelpPanel() {
+    const panel = document.getElementById("keyboardShortcutsPanel");
+    if (panel) {
+      panel.style.display = "flex";
+    }
+  },
+
+  createCommandPalette() {
+    // Command palette for quick actions
+    const palette = document.createElement("div");
+    palette.id = "commandPalette";
+    palette.className = "modal";
+    palette.style.display = "none";
+    palette.innerHTML = `
+            <div class="modal-content" style="margin-top: 100px; max-width: 600px;">
+                <div style="position: relative;">
+                    <input type="text" id="commandPaletteInput"
+                           placeholder="Type a command..."
+                           style="width: 100%; padding: 20px; font-size: 1.2rem; border: none; border-radius: var(--border-radius);">
+                    <div id="commandPaletteResults" style="max-height: 400px; overflow-y: auto;"></div>
                 </div>
             </div>
         `;
 
-        // Click outside to close
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                this.hide();
-            }
-        });
+    document.body.appendChild(palette);
 
-        return overlay;
+    // Add command palette listener
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        this.showCommandPalette();
+      }
+    });
+
+    // Search functionality
+    document.addEventListener("input", (e) => {
+      if (e.target.id === "commandPaletteInput") {
+        this.searchCommands(e.target.value);
+      }
+    });
+
+    // Close on escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && palette.style.display === "flex") {
+        palette.style.display = "none";
+      }
+    });
+  },
+
+  showCommandPalette() {
+    const palette = document.getElementById("commandPalette");
+    palette.style.display = "flex";
+
+    const input = document.getElementById("commandPaletteInput");
+    input.value = "";
+    input.focus();
+
+    this.searchCommands("");
+  },
+
+  searchCommands(query) {
+    const results = document.getElementById("commandPaletteResults");
+    const lowerQuery = query.toLowerCase();
+
+    const allCommands = Object.entries(this.shortcuts).map(
+      ([key, shortcut]) => ({
+        key,
+        ...shortcut,
+      })
+    );
+
+    const filtered = query
+      ? allCommands.filter(
+          (cmd) =>
+            cmd.description.toLowerCase().includes(lowerQuery) ||
+            cmd.action.toLowerCase().includes(lowerQuery)
+        )
+      : allCommands.slice(0, 10);
+
+    results.innerHTML = filtered
+      .map(
+        (cmd) => `
+            <div class="command-item" onclick="KeyboardShortcuts.executeAction('${
+              cmd.action
+            }'); document.getElementById('commandPalette').style.display='none';">
+                <div>
+                    <strong>${cmd.description}</strong>
+                    <div style="font-size: 0.85rem; color: var(--gray-600);">${
+                      cmd.category
+                    }</div>
+                </div>
+                <div class="shortcut-keys">
+                    ${this.formatKeyCombo(cmd.key)}
+                </div>
+            </div>
+        `
+      )
+      .join("");
+
+    // Add command-item styles
+    if (!document.getElementById("command-palette-styles")) {
+      const style = document.createElement("style");
+      style.id = "command-palette-styles";
+      style.textContent = `
+                .command-item {
+                    padding: var(--spacing-md);
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: background var(--transition-fast);
+                }
+
+                .command-item:hover {
+                    background: var(--primary-light);
+                }
+            `;
+      document.head.appendChild(style);
     }
+  },
 
-    show() {
-        if (this.isVisible) return;
+  formatKeyCombo(combo) {
+    return combo
+      .split("+")
+      .map((key) => {
+        const keyMap = {
+          ctrl: "⌘",
+          shift: "⇧",
+          alt: "⌥",
+          escape: "Esc",
+        };
+        return `<kbd>${keyMap[key] || key.toUpperCase()}</kbd>`;
+      })
+      .join(" ");
+  },
 
-        this.overlay = this.createOverlay();
-        document.body.appendChild(this.overlay);
-        this.isVisible = true;
+  groupByCategory() {
+    const grouped = {};
+    Object.entries(this.shortcuts).forEach(([key, shortcut]) => {
+      if (!grouped[shortcut.category]) {
+        grouped[shortcut.category] = [];
+      }
+      grouped[shortcut.category].push({ key, ...shortcut });
+    });
+    return grouped;
+  },
 
-        // Focus the close button for keyboard users
-        setTimeout(() => {
-            const closeBtn = this.overlay.querySelector('.keyboard-shortcuts-close');
-            closeBtn.focus();
-        }, 100);
+  showToast(message) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gray-900);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            animation: fadeInOut 2s ease;
+        `;
 
-        // Prevent body scrolling
-        document.body.style.overflow = 'hidden';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
 
-        // Track with analytics if available
-        if (window.NUAA && window.NUAA.analytics) {
-            window.NUAA.analytics.trackEvent('UI', 'show_keyboard_shortcuts', 'overlay');
-        }
+    if (!document.getElementById("toast-animation")) {
+      const style = document.createElement("style");
+      style.id = "toast-animation";
+      style.textContent = `
+                @keyframes fadeInOut {
+                    0%, 100% { opacity: 0; transform: translateY(20px); }
+                    10%, 90% { opacity: 1; transform: translateY(0); }
+                }
+            `;
+      document.head.appendChild(style);
     }
+  },
 
-    hide() {
-        if (!this.isVisible || !this.overlay) return;
+  disable() {
+    this.isListening = false;
+  },
 
-        this.overlay.remove();
-        this.overlay = null;
-        this.isVisible = false;
+  enable() {
+    this.isListening = true;
+  },
+};
 
-        // Restore body scrolling
-        document.body.style.overflow = '';
-    }
-
-    toggle() {
-        if (this.isVisible) {
-            this.hide();
-        } else {
-            this.show();
-        }
-    }
-
-    // Add a shortcut dynamically
-    addShortcut(category, shortcut) {
-        const cat = this.shortcuts.find(c => c.category === category);
-        if (cat) {
-            cat.items.push(shortcut);
-        } else {
-            this.shortcuts.push({
-                category,
-                items: [shortcut]
-            });
-        }
-    }
+// Auto-initialize
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => KeyboardShortcuts.init());
+} else {
+  KeyboardShortcuts.init();
 }
 
-// Create global instance
-window.keyboardShortcuts = new KeyboardShortcutsOverlay();
-
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = KeyboardShortcutsOverlay;
-}
+// Export
+window.KeyboardShortcuts = KeyboardShortcuts;

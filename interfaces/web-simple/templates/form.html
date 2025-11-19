@@ -7,6 +7,7 @@
     <title>{{ template_name.replace('.md', '').replace('-', ' ').title() }} - {{ team.name }}</title>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/themes.css">
 </head>
 <body>
     <!-- Progress Bar -->
@@ -25,6 +26,9 @@
                 <span>{{ template_name.replace('.md', '').replace('-', ' ').title() }}</span>
             </div>
             <div class="nav-actions">
+                <button class="btn-icon" onclick="showVersionHistory()" aria-label="Version history">
+                    <span>📜</span>
+                </button>
                 <button class="btn-icon" onclick="toggleAutoSave()" id="autoSaveBtn" aria-label="Toggle auto-save">
                     <span>💾</span>
                     <span class="status-indicator" id="saveStatus"></span>
@@ -493,6 +497,16 @@
 
             localStorage.setItem(`draft_${teamId}_${templateName}`, JSON.stringify(draft));
 
+            // Save version history
+            const documentId = `${teamId}_${templateName}`;
+            const content = JSON.stringify(data, null, 2);
+            if (window.VersionHistory) {
+                window.VersionHistory.saveVersion(documentId, content, {
+                    user: 'Current User',
+                    comment: auto ? 'Auto-saved' : 'Manual save'
+                });
+            }
+
             updateSaveStatus('saved');
             if (!auto) {
                 showToast('💾 Draft saved successfully!');
@@ -757,6 +771,38 @@
             window.scrollTo(0, 0);
         }
 
+        function showVersionHistory() {
+            const documentId = `${teamId}_${templateName}`;
+            const formData = new FormData(document.getElementById('documentForm'));
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+            const currentContent = JSON.stringify(data, null, 2);
+
+            if (window.VersionHistory) {
+                window.VersionHistory.showVersionHistory(documentId, currentContent);
+            } else {
+                showToast('Version history will be available shortly');
+            }
+        }
+
+        // Listen for version restoration
+        document.addEventListener('versionRestored', function(e) {
+            const { documentId, content } = e.detail;
+            if (documentId === `${teamId}_${templateName}`) {
+                try {
+                    const data = JSON.parse(content);
+                    Object.entries(data).forEach(([key, value]) => {
+                        const field = document.getElementById(key);
+                        if (field) field.value = value;
+                    });
+                    updateProgress();
+                    showToast('✅ Version restored successfully!');
+                } catch (err) {
+                    console.error('Error restoring version:', err);
+                }
+            }
+        });
+
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey || e.metaKey) {
@@ -773,5 +819,10 @@
             }
         });
     </script>
+
+    <!-- Advanced Features Integration -->
+    <script src="/static/js/theme-switcher.js"></script>
+    <script src="/static/js/version-history.js"></script>
+    <script src="/static/js/keyboard-shortcuts-enhanced.js"></script>
 </body>
 </html>

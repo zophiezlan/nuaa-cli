@@ -52,7 +52,7 @@ const KeyboardShortcuts = {
         document.addEventListener('keydown', (e) => {
             if (e.key === '?' && e.shiftKey) {
                 e.preventDefault();
-                this.showHelp Panel();
+                this.showHelpPanel();
             }
         });
     },

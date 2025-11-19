@@ -11,15 +11,15 @@ runs:
         echo "🔧 Auto-fixing linting issues (REQUIRED before any tests)..."
         echo ""
 
-        # Run Black formatter
+        # Run Black formatter on ALL Python code
         echo "▶️ Running Black formatter..."
-        black src/nuaa_cli tests scripts/python 2>&1 || true
+        black . 2>&1 || true
         echo "✅ Black complete"
         echo ""
 
-        # Run Ruff with auto-fix
-        echo "▶️ Running Ruff auto-fix..."
-        ruff check --fix src/nuaa_cli tests scripts/python 2>&1 || true
+        # Run Ruff with auto-fix (including unsafe fixes for unused imports/variables)
+        echo "▶️ Running Ruff auto-fix (with --unsafe-fixes)..."
+        ruff check --fix --unsafe-fixes . 2>&1 || true
         echo "✅ Ruff complete"
         echo ""
 

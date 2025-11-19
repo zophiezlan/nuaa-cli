@@ -1,12 +1,14 @@
-# NUAA Kit Quick Start Guide
+# NUAA Quick Start Guide
 
-**Welcome to the NUAA Kit!** This guide will help you start using the NUAA Kit to design programs, write proposals, and measure impact - all within your first week.
+**Welcome!** This guide will help you start using NUAA to design programs, write proposals, and measure impact - all within your first week.
+
+> **Note**: This guide assumes you've already run `uvx --from git+https://github.com/zophiezlan/nuaa-cli.git nuaa init .` in your project directory. If you haven't done that yet, see the [README](https://github.com/zophiezlan/nuaa-cli/blob/main/README.md) for installation instructions.
 
 ---
 
-## What is the NUAA Kit?
+## What is NUAA?
 
-The NUAA Kit is a **project management toolkit specifically for NUAA** that helps you:
+NUAA is a **project management toolkit** that helps you:
 
 1. **Design programs** with logic models, stakeholder journeys, and risk assessments
 2. **Write funding proposals** that tell compelling stories and secure resources
@@ -26,24 +28,57 @@ It's based on "Spec-Driven Development" from software engineering, adapted for n
 
 ---
 
+## What You Have After Init
+
+After running `nuaa init .` in your project, you now have:
+
+```
+your-project/
+├── .nuaa/
+│   ├── memory/          # Project constitution, context
+│   ├── scripts/         # Workflow scripts (bash/PowerShell)
+│   └── templates/       # All 19 document templates
+├── .claude/commands/    # (if you chose Claude)
+├── .github/agents/      # (if you chose Copilot)
+├── .gemini/commands/    # (if you chose Gemini)
+└── [your existing files]
+```
+
+**Key locations**:
+- **Templates**: `.nuaa/templates/` - All document templates
+- **Commands**: In your AI agent's folder (`.claude/commands/`, etc.)
+- **Scripts**: `.nuaa/scripts/` - Automation scripts for workflows
+
+---
+
 ## Quick Start: Your First Week
 
 ### Week 1, Day 1: Orientation (30 minutes)
 
-**1. Read the README**
+**1. Choose Your Interface**
 
-- Open `nuaa-kit/README.md`
-- Skim the overview and features
-- Understand the core commands:
-  - **Program Design**: `/nuaa.design` - Design programs with logic models
-  - **Funding**: `/nuaa.propose` - Write funding proposals
-  - **Evaluation**: `/nuaa.measure` - Create impact frameworks
-  - **Planning**: `/nuaa.engage`, `/nuaa.partner`, `/nuaa.risk` - Stakeholder engagement, partnerships, risk management
-  - **Events & Training**: `/nuaa.event`, `/nuaa.train` - Plan events and design training curricula
+You have two ways to use NUAA:
 
-**2. Explore the Templates**
+**Option A: WebUI (Recommended for most users)**
+```bash
+python .nuaa/scripts/start_webui.py
+# Then open http://localhost:5000 in your browser
+```
 
-The NUAA Kit includes **19 comprehensive templates** in `nuaa-kit/templates/`:
+**Option B: AI Assistant Commands**
+If you're using Claude Code, GitHub Copilot, or another AI assistant, use slash commands like `/nuaa.design`
+
+**2. Understand the Core Commands**
+
+- **Program Design**: `/nuaa.design` or WebUI → "Program Design"
+- **Funding**: `/nuaa.propose` or WebUI → "Funding Proposal"
+- **Evaluation**: `/nuaa.measure` or WebUI → "Impact Framework"
+- **Planning**: `/nuaa.engage`, `/nuaa.partner`, `/nuaa.risk`
+- **Events & Training**: `/nuaa.event`, `/nuaa.train`
+
+**3. Explore Your Templates**
+
+Your project now has **19 comprehensive templates** in `.nuaa/templates/`:
 
 **Core templates**:
 - `program-design.md` - Program design structure
@@ -59,27 +94,25 @@ The NUAA Kit includes **19 comprehensive templates** in `nuaa-kit/templates/`:
 - `event-plan.md` - Event and workshop planning
 - `training-curriculum.md` - Training design
 
-See `templates/README.md` for the complete catalog of all 19 templates.
+See `.nuaa/templates/README.md` for the complete catalog of all 19 templates.
 
-**3. Review the Commands**
+**4. Try Your First Command**
 
-Look at the commands in `nuaa-kit/commands/`:
+Depending on your interface choice:
 
-**Core commands**:
-- `design.md` - How `/nuaa.design` works
-- `propose.md` - How `/nuaa.propose` works
-- `measure.md` - How `/nuaa.measure` works
+**If using WebUI**:
+1. Start the WebUI: `python .nuaa/scripts/start_webui.py`
+2. Open browser to `http://localhost:5000`
+3. Click "Program Design" and fill in the form
+4. See your generated program design!
 
-**Planning commands**:
-- `engage.md` - How `/nuaa.engage` creates stakeholder plans
-- `partner.md` - How `/nuaa.partner` generates MOUs
-- `risk.md` - How `/nuaa.risk` builds risk registers
+**If using AI Assistant**:
+1. Open your AI assistant (Claude, Copilot, etc.)
+2. Type: `/nuaa.design Create a peer-led hepatitis C education program`
+3. Answer the assistant's questions
+4. Review the generated document
 
-**Event & training commands**:
-- `event.md` - How `/nuaa.event` plans events
-- `train.md` - How `/nuaa.train` designs curricula
-
-**Action**: By end of Day 1, you should understand what the NUAA Kit does and how it can help your work.
+**Action**: By end of Day 1, you should understand what NUAA does and how it can help your work.
 
 ---
 
@@ -106,10 +139,16 @@ Before using `/nuaa.design`, collect:
 - **Resources**: What do you have?
   - Example: "$30K budget, 1 peer educator (0.6 FTE), partnership with Western Sydney LHD"
 
-**Step 2: Use the Command** (with AI agent like GitHub Copilot, Claude, Gemini, etc.)
+**Step 2: Use NUAA to Create the Design**
 
+**Option A: Using WebUI**
+1. Start WebUI: `python .nuaa/scripts/start_webui.py`
+2. Click "Program Design"
+3. Fill in the form with your inputs from Step 1
+4. Click "Generate" and review the output
+
+**Option B: Using AI Assistant**
 In your AI chat interface, type:
-
 ```
 /nuaa.design "Peer-Led Hepatitis C Education" "people who inject drugs in Western Sydney" "6 months"
 ```
@@ -160,10 +199,17 @@ Before using `/nuaa.propose`, collect:
 - **Application guidelines**: What do they require?
   - Example: "10-page proposal, specific budget template, 3 x letters of support"
 
-**Step 2: Use the Command**
+**Step 2: Use NUAA to Create the Proposal**
 
+**Option A: Using WebUI**
+1. Start WebUI: `python .nuaa/scripts/start_webui.py`
+2. Click "Funding Proposal"
+3. Select your program design as the basis
+4. Fill in funder details
+5. Click "Generate" and review the output
+
+**Option B: Using AI Assistant**
 In your AI chat interface, type:
-
 ```
 /nuaa.propose "Peer-Led Hepatitis C Education" "NSW Health" "$30000" "6 months"
 ```
@@ -217,10 +263,17 @@ Before using `/nuaa.measure`, collect:
   - Outcome: Did knowledge and confidence increase?
   - Impact: Did more people access treatment?
 
-**Step 2: Use the Command**
+**Step 2: Use NUAA to Create the Framework**
 
+**Option A: Using WebUI**
+1. Start WebUI: `python .nuaa/scripts/start_webui.py`
+2. Click "Impact Framework"
+3. Select your program design
+4. Enter evaluation period and budget
+5. Click "Generate" and review the indicators
+
+**Option B: Using AI Assistant**
 In your AI chat interface, type:
-
 ```
 /nuaa.measure "Peer-Led Hepatitis C Education" "9 months" "$3000"
 ```

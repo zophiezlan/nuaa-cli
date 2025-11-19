@@ -1,8 +1,21 @@
-# Contributing to NUAA Project
+# Contributing to NUAA CLI Tool Development
 
-Hi there! We're thrilled that you'd like to contribute to the NUAA Project. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
+> **Note for End Users**: This guide is for developers who want to contribute to the NUAA CLI tool itself. If you're looking to **use** NUAA for your projects, see the [README](README.md) instead, which explains how to install and use NUAA via `uvx --from git+... nuaa init .`
+
+---
+
+Hi there! We're thrilled that you'd like to contribute to developing the NUAA CLI tool. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+## Two Distinct Audiences
+
+As explained in [PROJECT_CONTEXT_FOR_AI.md](PROJECT_CONTEXT_FOR_AI.md), this project has two audiences:
+
+1. **Tool Developers (You!)** - ~3 people working on the CLI tool itself
+2. **End Users** - Hundreds/thousands of users who install NUAA via `uvx` into their projects
+
+This guide is for **Tool Developers**. Everything below assumes you're working in the `nuaa-cli` repository to develop the tool.
 
 ## Prerequisites for running and testing code
 

@@ -24,11 +24,15 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def design(
-        program_name: str = typer.Argument(..., help="Program name (used to derive feature folder)"),
+        program_name: str = typer.Argument(
+            ..., help="Program name (used to derive feature folder)"
+        ),
         target_population: str = typer.Argument(..., help="Target population description"),
         duration: str = typer.Argument(..., help="Program duration (e.g., '6 months')"),
         here: bool = typer.Option(True, help="Create under ./nuaa (current project)"),
-        feature: Optional[str] = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
+        feature: Optional[str] = typer.Option(
+            None, help="Override feature slug (e.g., '001-custom-slug')"
+        ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a new NUAA program design with logic model and framework.
@@ -92,7 +96,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
         # Validate inputs
         program_name = validate_program_name(program_name, console)
-        target_population = validate_text_field(target_population, "target_population", 500, console)
+        target_population = validate_text_field(
+            target_population, "target_population", 500, console
+        )
         duration = validate_text_field(duration, "duration", 100, console)
 
         # Determine feature directory
@@ -187,7 +193,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         # Changelog bootstrap
         changelog = feature_dir / "CHANGELOG.md"
         if not changelog.exists():
-            content = f"# Changelog for {num_str}-{slug}\n\n- {_stamp()} - Initialized program design\n"
+            content = (
+                f"# Changelog for {num_str}-{slug}\n\n- {_stamp()} - Initialized program design\n"
+            )
             write_markdown_if_needed(changelog, content, force=True, console=console)
 
         console.print(

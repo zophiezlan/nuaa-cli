@@ -92,7 +92,9 @@ def rate_limit(max_requests=100, window_seconds=3600):
 
             # Clean old timestamps
             request_timestamps[client_id][endpoint] = [
-                ts for ts in request_timestamps[client_id][endpoint] if now - ts < timedelta(seconds=window_seconds)
+                ts
+                for ts in request_timestamps[client_id][endpoint]
+                if now - ts < timedelta(seconds=window_seconds)
             ]
 
             # Check rate limit
@@ -129,7 +131,9 @@ def inject_csrf_token():
 
 def allowed_file(filename):
     """Check if file extension is allowed"""
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
+    return (
+        "." in filename and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
+    )
 
 
 # ===== Routes =====
@@ -223,13 +227,17 @@ def submit_form():
     with open(output_file, "w") as f:
         f.write(content)
         f.write("\n\n---\n\n")
-        f.write(f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(
+            f"**Submitted via Web Interface**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
         f.write(f"**Team**: {TEAMS[team_id]['name']}\n")
 
         if attachments:
             f.write(f"\n**Attachments**: {', '.join(attachments)}\n")
 
-    return jsonify({"success": True, "file": str(output_file), "message": "Form submitted successfully!"})
+    return jsonify(
+        {"success": True, "file": str(output_file), "message": "Form submitted successfully!"}
+    )
 
 
 @app.route("/quick-submit", methods=["POST"])
@@ -327,7 +335,9 @@ def api_documents(team_id):
 
     # Get all markdown files
     docs = []
-    for doc_path in sorted(team_dir.rglob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:limit]:
+    for doc_path in sorted(team_dir.rglob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[
+        :limit
+    ]:
         docs.append(
             {
                 "id": hashlib.md5(str(doc_path).encode()).hexdigest(),

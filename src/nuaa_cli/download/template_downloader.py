@@ -125,9 +125,7 @@ def download_template_from_github(
         try:
             release_data = response.json()
         except ValueError as je:
-            raise RuntimeError(
-                f"Failed to parse release JSON: {je}\nRaw (truncated 400): {response.text[:400]}"
-            )
+            raise RuntimeError(f"Failed to parse release JSON: {je}\nRaw (truncated 400): {response.text[:400]}")
     except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError) as e:
         error_type = type(e).__name__
         if isinstance(e, httpx.TimeoutException):
@@ -152,9 +150,7 @@ def download_template_from_github(
     assets = release_data.get("assets", [])
     # Expected asset name pattern: nuaa-template-<agent>-<script>-<version>.zip
     pattern = f"nuaa-template-{ai_assistant}-{script_type}"
-    matching_assets = [
-        asset for asset in assets if pattern in asset["name"] and asset["name"].endswith(".zip")
-    ]
+    matching_assets = [asset for asset in assets if pattern in asset["name"] and asset["name"].endswith(".zip")]
 
     asset = matching_assets[0] if matching_assets else None
 
@@ -196,13 +192,9 @@ def download_template_from_github(
         ) as response:
             if response.status_code != 200:
                 # Handle rate-limiting on download as well
-                error_msg = format_rate_limit_error(
-                    response.status_code, response.headers, download_url
-                )
+                error_msg = format_rate_limit_error(response.status_code, response.headers, download_url)
                 if debug:
-                    error_msg += (
-                        f"\n\n[dim]Response body (truncated 400):[/dim]\n{response.text[:400]}"
-                    )
+                    error_msg += f"\n\n[dim]Response body (truncated 400):[/dim]\n{response.text[:400]}"
                 raise RuntimeError(error_msg)
             total_size = int(response.headers.get("content-length", 0))
             with open(zip_path, "wb") as f:
@@ -397,9 +389,7 @@ def download_and_extract_template(
                         tracker.start("extracted-summary")
                         tracker.complete("extracted-summary", f"temp {len(extracted_items)} items")
                     elif verbose:
-                        console.print(
-                            f"[cyan]Extracted {len(extracted_items)} items to temp location[/cyan]"
-                        )
+                        console.print(f"[cyan]Extracted {len(extracted_items)} items to temp location[/cyan]")
 
                     source_dir = temp_path
                     if len(extracted_items) == 1 and extracted_items[0].is_dir():
@@ -415,19 +405,14 @@ def download_and_extract_template(
                         if item.is_dir():
                             if dest_path.exists():
                                 if verbose and not tracker:
-                                    console.print(
-                                        f"[yellow]Merging directory:[/yellow] {item.name}"
-                                    )
+                                    console.print(f"[yellow]Merging directory:[/yellow] {item.name}")
                                 for sub_item in item.rglob("*"):
                                     if sub_item.is_file():
                                         rel_path = sub_item.relative_to(item)
                                         dest_file = dest_path / rel_path
                                         dest_file.parent.mkdir(parents=True, exist_ok=True)
                                         # Special handling for .vscode/settings.json - merge instead of overwrite
-                                        if (
-                                            dest_file.name == "settings.json"
-                                            and dest_file.parent.name == ".vscode"
-                                        ):
+                                        if dest_file.name == "settings.json" and dest_file.parent.name == ".vscode":
                                             handle_vscode_settings(
                                                 sub_item,
                                                 dest_file,
@@ -454,9 +439,7 @@ def download_and_extract_template(
                     tracker.start("extracted-summary")
                     tracker.complete("extracted-summary", f"{len(extracted_items)} top-level items")
                 elif verbose:
-                    console.print(
-                        f"[cyan]Extracted {len(extracted_items)} items to {project_path}:[/cyan]"
-                    )
+                    console.print(f"[cyan]Extracted {len(extracted_items)} items to {project_path}:[/cyan]")
                     for item in extracted_items:
                         console.print(f"  - {item.name} ({'dir' if item.is_dir() else 'file'})")
 

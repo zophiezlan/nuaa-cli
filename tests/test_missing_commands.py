@@ -23,9 +23,7 @@ class TestProposeCommand:
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
-            result = runner.invoke(
-                app, ["propose", "Peer Support Network", "NSW Health", "$75000", "12 months"]
-            )
+            result = runner.invoke(app, ["propose", "Peer Support Network", "NSW Health", "$75000", "12 months"])
 
             # Should succeed or fail gracefully
             assert result.exit_code in [0, 1]
@@ -43,9 +41,7 @@ class TestProposeCommand:
                 content = proposal_files[0].read_text()
                 # Program name is sanitized to "Peer-Support-Network"
                 assert (
-                    "Peer-Support-Network" in content
-                    or "Peer Support Network" in content
-                    or "PROGRAM_NAME" in content
+                    "Peer-Support-Network" in content or "Peer Support Network" in content or "PROGRAM_NAME" in content
                 )
                 assert "NSW Health" in content or "FUNDER" in content
         finally:
@@ -58,15 +54,11 @@ class TestProposeCommand:
             os.chdir(tmp_path)
 
             # Create first proposal
-            result1 = runner.invoke(
-                app, ["propose", "Test Program", "Funder A", "$50000", "6 months"]
-            )
+            result1 = runner.invoke(app, ["propose", "Test Program", "Funder A", "$50000", "6 months"])
 
             if result1.exit_code == 0:
                 # Create second proposal with force flag
-                result2 = runner.invoke(
-                    app, ["propose", "Test Program", "Funder B", "$100000", "12 months", "--force"]
-                )
+                result2 = runner.invoke(app, ["propose", "Test Program", "Funder B", "$100000", "12 months", "--force"])
 
                 # Should succeed
                 assert result2.exit_code == 0
@@ -88,15 +80,11 @@ class TestProposeCommand:
             os.chdir(tmp_path)
 
             # Create first proposal
-            result1 = runner.invoke(
-                app, ["propose", "Test Program", "Funder A", "$50000", "6 months"]
-            )
+            result1 = runner.invoke(app, ["propose", "Test Program", "Funder A", "$50000", "6 months"])
 
             if result1.exit_code == 0:
                 # Try to create second proposal without force
-                result2 = runner.invoke(
-                    app, ["propose", "Test Program", "Funder B", "$100000", "12 months"]
-                )
+                result2 = runner.invoke(app, ["propose", "Test Program", "Funder B", "$100000", "12 months"])
 
                 # May succeed or fail depending on implementation
                 # If it doesn't overwrite, exit code might be 1
@@ -121,9 +109,7 @@ class TestProposeCommand:
         try:
             os.chdir(tmp_path)
             # Test with valid program name
-            result = runner.invoke(
-                app, ["propose", "Valid Program Name", "Funder", "$1000", "1 year"]
-            )
+            result = runner.invoke(app, ["propose", "Valid Program Name", "Funder", "$1000", "1 year"])
             # Should succeed or fail gracefully, not crash
             assert result.exit_code in [0, 1]
         finally:
@@ -156,9 +142,7 @@ class TestMeasureCommand:
                 content = framework_files[0].read_text()
                 # Program name is sanitized to "Peer-Support-Network"
                 assert (
-                    "Peer-Support-Network" in content
-                    or "Peer Support Network" in content
-                    or "PROGRAM_NAME" in content
+                    "Peer-Support-Network" in content or "Peer Support Network" in content or "PROGRAM_NAME" in content
                 )
         finally:
             os.chdir(old_cwd)
@@ -174,9 +158,7 @@ class TestMeasureCommand:
 
             if result1.exit_code == 0:
                 # Update with force flag
-                result2 = runner.invoke(
-                    app, ["measure", "Test Program", "12 months", "$10000", "--force"]
-                )
+                result2 = runner.invoke(app, ["measure", "Test Program", "12 months", "$10000", "--force"])
 
                 # Should succeed
                 assert result2.exit_code == 0
@@ -314,9 +296,7 @@ class TestReportCommand:
             report_types = ["final", "progress", "quarterly", "annual", "mid-program"]
 
             for report_type in report_types:
-                result = runner.invoke(
-                    app, ["report", f"Program_{report_type}", "--type", report_type]
-                )
+                result = runner.invoke(app, ["report", f"Program_{report_type}", "--type", report_type])
 
                 # Should succeed or fail gracefully
                 assert result.exit_code in [0, 1]
@@ -342,9 +322,7 @@ class TestReportCommand:
 
             if result1.exit_code == 0:
                 # Update with force
-                result2 = runner.invoke(
-                    app, ["report", "Test Program", "--type", "annual", "--force"]
-                )
+                result2 = runner.invoke(app, ["report", "Test Program", "--type", "annual", "--force"])
 
                 # Should succeed
                 assert result2.exit_code == 0
@@ -513,9 +491,7 @@ class TestMissingCommandsIntegration:
             program_name = "Comprehensive Program"
 
             # Create proposal
-            result1 = runner.invoke(
-                app, ["propose", program_name, "Test Funder", "$50000", "12 months"]
-            )
+            result1 = runner.invoke(app, ["propose", program_name, "Test Funder", "$50000", "12 months"])
 
             # Create impact framework
             result2 = runner.invoke(app, ["measure", program_name, "1 year", "$5000"])

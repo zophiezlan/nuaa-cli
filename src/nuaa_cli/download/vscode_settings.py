@@ -75,9 +75,7 @@ def handle_vscode_settings(
             new_settings = json.load(f)
 
         if dest_file.exists():
-            merged = merge_json_files(
-                dest_file, new_settings, verbose=verbose and not tracker, console=console
-            )
+            merged = merge_json_files(dest_file, new_settings, verbose=verbose and not tracker, console=console)
             with open(dest_file, "w", encoding="utf-8") as f:
                 json.dump(merged, f, indent=4)
                 f.write("\n")

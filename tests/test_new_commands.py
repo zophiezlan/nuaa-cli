@@ -26,10 +26,7 @@ class TestEngageCommand:
             assert result.exit_code == 0
 
             # Should mention stakeholder engagement plan
-            assert (
-                "stakeholder-engagement-plan" in result.output.lower()
-                or "engagement plan" in result.output.lower()
-            )
+            assert "stakeholder-engagement-plan" in result.output.lower() or "engagement plan" in result.output.lower()
 
             # Check if file was created
             nuaa_dir = tmp_path / "nuaa"
@@ -38,11 +35,7 @@ class TestEngageCommand:
                 if files:
                     content = files[0].read_text()
                     # Program name is sanitized to "Peer-Support-Program"
-                    assert (
-                        "Peer-Support-Program" in content
-                        or "Peer Support Program" in content
-                        or "[Name]" in content
-                    )
+                    assert "Peer-Support-Program" in content or "Peer Support Program" in content or "[Name]" in content
         finally:
             os.chdir(old_cwd)
 
@@ -183,11 +176,7 @@ class TestRiskCommand:
                 if files:
                     content = files[0].read_text()
                     # Program name is sanitized to "Community-Outreach"
-                    assert (
-                        "Community-Outreach" in content
-                        or "Community Outreach" in content
-                        or "[Name]" in content
-                    )
+                    assert "Community-Outreach" in content or "Community Outreach" in content or "[Name]" in content
         finally:
             os.chdir(old_cwd)
 

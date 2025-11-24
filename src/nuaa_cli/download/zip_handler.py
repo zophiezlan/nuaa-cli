@@ -26,7 +26,9 @@ import typer
 from rich.console import Console
 
 
-def safe_extract_zip(zip_ref: zipfile.ZipFile, extract_path: Path, console: Console = Console()) -> None:
+def safe_extract_zip(
+    zip_ref: zipfile.ZipFile, extract_path: Path, console: Console = Console()
+) -> None:
     """
     Safely extract ZIP file contents, preventing path traversal attacks.
 

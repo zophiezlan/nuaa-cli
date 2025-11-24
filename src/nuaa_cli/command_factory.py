@@ -207,7 +207,10 @@ class TemplateCommandHandler:
             try:
                 template = _load_template(template_name)
                 filled = _apply_replacements(template, mapping)
-                meta = {"title": f"{validated_program} - {output_name}", "feature": f"{num_str}-{slug}"}
+                meta = {
+                    "title": f"{validated_program} - {output_name}",
+                    "feature": f"{num_str}-{slug}",
+                }
                 text = _prepend_metadata(filled, meta)
                 dest = feature_dir / output_name
                 write_markdown_if_needed(dest, text, force=force, console=console)
@@ -280,12 +283,17 @@ class TemplateCommandHandler:
         }
 
         if len(field_values) != len(self.config.fields):
-            console.print(f"[red]Error:[/red] Expected {len(self.config.fields)} field(s), " f"got {len(field_values)}")
+            console.print(
+                f"[red]Error:[/red] Expected {len(self.config.fields)} field(s), "
+                f"got {len(field_values)}"
+            )
             raise typer.Exit(1)
 
         for field_cfg, value in zip(self.config.fields, field_values):
             # Validate field
-            validated_value = validate_text_field(value, field_cfg.name, field_cfg.max_length, console)
+            validated_value = validate_text_field(
+                value, field_cfg.name, field_cfg.max_length, console
+            )
 
             # Add to mapping (uppercase for template placeholders)
             mapping[field_cfg.name.upper()] = validated_value

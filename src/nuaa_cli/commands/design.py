@@ -87,11 +87,15 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def design(
-        program_name: str = typer.Argument(..., help="Program name (used to derive feature folder)"),
+        program_name: str = typer.Argument(
+            ..., help="Program name (used to derive feature folder)"
+        ),
         target_population: str = typer.Argument(..., help="Target population description"),
         duration: str = typer.Argument(..., help="Program duration (e.g., '6 months')"),
         here: bool = typer.Option(True, help="Create under ./nuaa (current project)"),
-        feature: str | None = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
+        feature: str | None = typer.Option(
+            None, help="Override feature slug (e.g., '001-custom-slug')"
+        ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a new NUAA program design with logic model and framework."""

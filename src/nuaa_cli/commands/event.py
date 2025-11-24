@@ -43,7 +43,9 @@ CONFIG = TemplateCommandConfig(
     """,
     fields=[
         FieldConfig("event_type", "Event type (e.g., 'Workshop', 'Forum')", max_length=100),
-        FieldConfig("expected_attendance", "Expected attendance (e.g., '50 people')", max_length=100),
+        FieldConfig(
+            "expected_attendance", "Expected attendance (e.g., '50 people')", max_length=100
+        ),
     ],
     primary_field_name="EVENT_NAME",
 )
@@ -59,9 +61,15 @@ def register(app, show_banner_fn=None, console: Console | None = None):
     @app.command()
     def event(
         event_name: str = typer.Argument(..., help="Event name (e.g., 'Peer Forum Launch')"),
-        event_type: str = typer.Argument(..., help="Event type (e.g., 'Workshop', 'Forum', 'Training')"),
-        expected_attendance: str = typer.Argument(..., help="Expected attendance (e.g., '50 people')"),
-        feature: str | None = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
+        event_type: str = typer.Argument(
+            ..., help="Event type (e.g., 'Workshop', 'Forum', 'Training')"
+        ),
+        expected_attendance: str = typer.Argument(
+            ..., help="Expected attendance (e.g., '50 people')"
+        ),
+        feature: str | None = typer.Option(
+            None, help="Override feature slug (e.g., '001-custom-slug')"
+        ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create an event plan for workshops, forums, launches, or celebrations."""

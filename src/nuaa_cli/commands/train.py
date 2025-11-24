@@ -60,10 +60,14 @@ def register(app, show_banner_fn=None, console: Console | None = None):
 
     @app.command()
     def train(
-        training_name: str = typer.Argument(..., help="Training name (e.g., 'Peer Worker Induction')"),
+        training_name: str = typer.Argument(
+            ..., help="Training name (e.g., 'Peer Worker Induction')"
+        ),
         target_audience: str = typer.Argument(..., help="Target audience (e.g., 'Peer workers')"),
         duration: str = typer.Argument(..., help="Training duration (e.g., '2 days', '8 weeks')"),
-        feature: str | None = typer.Option(None, help="Override feature slug (e.g., '001-custom-slug')"),
+        feature: str | None = typer.Option(
+            None, help="Override feature slug (e.g., '001-custom-slug')"
+        ),
         force: bool = typer.Option(False, help="Overwrite existing files if present"),
     ):
         """Create a training curriculum for peer workforce development."""

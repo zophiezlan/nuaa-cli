@@ -95,7 +95,10 @@ class StepTracker:
                     line = f"{symbol} [bright_black]{label}[/bright_black]"
             else:
                 if detail_text:
-                    line = f"{symbol} [white]{label}[/white] " f"[bright_black]({detail_text})[/bright_black]"
+                    line = (
+                        f"{symbol} [white]{label}[/white] "
+                        f"[bright_black]({detail_text})[/bright_black]"
+                    )
                 else:
                     line = f"{symbol} [white]{label}[/white]"
 
@@ -170,7 +173,9 @@ def validate_length(value: str, field_name: str, max_length: int, console: Conso
         typer.Exit: If validation fails
     """
     if len(value) > max_length:
-        console.print(f"[red]Error:[/red] {field_name} is too long (max {max_length} characters, got {len(value)})")
+        console.print(
+            f"[red]Error:[/red] {field_name} is too long (max {max_length} characters, got {len(value)})"
+        )
         raise typer.Exit(1)
     return value
 

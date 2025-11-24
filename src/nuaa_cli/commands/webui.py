@@ -141,7 +141,8 @@ def _webui_command(
 
     console.print(
         Panel.fit(
-            "[bold cyan]NUAA WebUI Launcher[/bold cyan]\n" "[dim]Starting the Simple Web Interface...[/dim]",
+            "[bold cyan]NUAA WebUI Launcher[/bold cyan]\n"
+            "[dim]Starting the Simple Web Interface...[/dim]",
             border_style="cyan",
         )
     )
@@ -225,7 +226,9 @@ def register(app: typer.Typer, show_banner=None, console: Console = None) -> Non
     def webui(
         host: str = typer.Option("127.0.0.1", "--host", "-h", help="Host to bind to"),
         port: int = typer.Option(5000, "--port", "-p", help="Port to bind to"),
-        no_browser: bool = typer.Option(False, "--no-browser", help="Don't open browser automatically"),
+        no_browser: bool = typer.Option(
+            False, "--no-browser", help="Don't open browser automatically"
+        ),
     ):
         """Start the NUAA Simple Web Interface."""
         _webui_command(host, port, no_browser, console or Console())

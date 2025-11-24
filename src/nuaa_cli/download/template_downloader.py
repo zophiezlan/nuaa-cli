@@ -36,7 +36,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from .github_client import get_auth_headers, format_rate_limit_error
+from ..github_client import get_auth_headers, format_rate_limit_error
+from ..error_handler import print_error, display_debug_environment
 from .vscode_settings import handle_vscode_settings
 from .zip_handler import safe_extract_zip
 from ..utils import StepTracker
@@ -127,33 +128,25 @@ def download_template_from_github(
             raise RuntimeError(
                 f"Failed to parse release JSON: {je}\nRaw (truncated 400): {response.text[:400]}"
             )
-    except httpx.TimeoutException:
-        console.print("[red]Error fetching release information[/red]")
-        console.print(
-            Panel(
-                "Request timed out connecting to GitHub API",
-                title="Fetch Error",
-                border_style="red",
-            )
-        )
-        raise typer.Exit(1)
-    except httpx.ConnectError:
-        console.print("[red]Error fetching release information[/red]")
-        console.print(
-            Panel(
+    except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError) as e:
+        error_type = type(e).__name__
+        if isinstance(e, httpx.TimeoutException):
+            title, message = "Fetch Error", "Request timed out connecting to GitHub API"
+        elif isinstance(e, httpx.ConnectError):
+            title, message = (
+                "Fetch Error",
                 "Could not connect to GitHub API. Check your internet connection.",
-                title="Fetch Error",
-                border_style="red",
             )
-        )
-        raise typer.Exit(1)
-    except httpx.HTTPError as e:
-        console.print("[red]Error fetching release information[/red]")
-        console.print(Panel(f"HTTP error occurred: {e}", title="Fetch Error", border_style="red"))
+        else:
+            title, message = "Fetch Error", f"HTTP error occurred: {e}"
+        print_error(console, title, message)
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
     except RuntimeError as e:
-        console.print("[red]Error fetching release information[/red]")
-        console.print(Panel(str(e), title="Fetch Error", border_style="red"))
+        print_error(console, "Fetch Error", str(e))
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
 
     assets = release_data.get("assets", [])
@@ -242,57 +235,39 @@ def download_template_from_github(
             "asset_url": download_url,
         }
         return zip_path, metadata
-    except httpx.TimeoutException:
-        console.print("[red]Error downloading template[/red]")
+    except (httpx.TimeoutException, httpx.ConnectError, httpx.HTTPError) as e:
         if zip_path.exists():
             zip_path.unlink()
-        console.print(
-            Panel(
-                "Download timed out. Please try again.", title="Download Error", border_style="red"
-            )
-        )
-        raise typer.Exit(1)
-    except httpx.ConnectError:
-        console.print("[red]Error downloading template[/red]")
-        if zip_path.exists():
-            zip_path.unlink()
-        console.print(
-            Panel(
+        if isinstance(e, httpx.TimeoutException):
+            title, message = "Download Error", "Download timed out. Please try again."
+        elif isinstance(e, httpx.ConnectError):
+            title, message = (
+                "Download Error",
                 "Could not connect to GitHub. Check your internet connection.",
-                title="Download Error",
-                border_style="red",
             )
-        )
+        else:
+            title, message = "Download Error", f"HTTP error: {e}"
+        print_error(console, title, message)
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
-    except httpx.HTTPError as e:
-        console.print("[red]Error downloading template[/red]")
+    except (PermissionError, OSError) as e:
         if zip_path.exists():
             zip_path.unlink()
-        console.print(Panel(f"HTTP error: {e}", title="Download Error", border_style="red"))
-        raise typer.Exit(1)
-    except PermissionError:
-        console.print("[red]Error downloading template[/red]")
-        if zip_path.exists():
-            zip_path.unlink()
-        console.print(
-            Panel(
-                f"Permission denied writing to: {zip_path}",
-                title="Download Error",
-                border_style="red",
-            )
-        )
-        raise typer.Exit(1)
-    except OSError as e:
-        console.print("[red]Error downloading template[/red]")
-        if zip_path.exists():
-            zip_path.unlink()
-        console.print(Panel(f"File system error: {e}", title="Download Error", border_style="red"))
+        if isinstance(e, PermissionError):
+            title, message = "Download Error", f"Permission denied writing to: {zip_path}"
+        else:
+            title, message = "Download Error", f"File system error: {e}"
+        print_error(console, title, message)
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
     except RuntimeError as e:
-        console.print("[red]Error downloading template[/red]")
         if zip_path.exists():
             zip_path.unlink()
-        console.print(Panel(str(e), title="Download Error", border_style="red"))
+        print_error(console, "Download Error", str(e))
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
     finally:
         if close_client:
@@ -501,46 +476,36 @@ def download_and_extract_template(
                         console.print("[cyan]Flattened nested directory structure[/cyan]")
 
     except zipfile.BadZipFile:
+        error_msg = "Invalid or corrupted ZIP file"
         if tracker:
-            tracker.error("extract", "Invalid or corrupted ZIP file")
+            tracker.error("extract", error_msg)
         else:
-            if verbose:
-                console.print("[red]Error extracting template:[/red] Invalid or corrupted ZIP file")
-                if debug:
-                    console.print(
-                        Panel(
-                            "The downloaded file is not a valid ZIP archive",
-                            title="Extraction Error",
-                            border_style="red",
-                        )
-                    )
-
+            print_error(
+                console,
+                "Extraction Error",
+                error_msg,
+                "The downloaded file is not a valid ZIP archive" if debug else None,
+            )
         if not is_current_dir and project_path.exists():
             shutil.rmtree(project_path)
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
-    except PermissionError as e:
-        if tracker:
-            tracker.error("extract", f"Permission denied: {e}")
+    except (PermissionError, OSError) as e:
+        if isinstance(e, PermissionError):
+            error_msg = f"Permission denied: {e}"
         else:
-            if verbose:
-                console.print("[red]Error extracting template:[/red] Permission denied")
-                if debug:
-                    console.print(Panel(str(e), title="Extraction Error", border_style="red"))
+            error_msg = f"File system error: {e}"
+
+        if tracker:
+            tracker.error("extract", error_msg)
+        else:
+            print_error(console, "Extraction Error", error_msg)
 
         if not is_current_dir and project_path.exists():
             shutil.rmtree(project_path)
-        raise typer.Exit(1)
-    except OSError as e:
-        if tracker:
-            tracker.error("extract", f"File system error: {e}")
-        else:
-            if verbose:
-                console.print(f"[red]Error extracting template:[/red] File system error: {e}")
-                if debug:
-                    console.print(Panel(str(e), title="Extraction Error", border_style="red"))
-
-        if not is_current_dir and project_path.exists():
-            shutil.rmtree(project_path)
+        if debug:
+            display_debug_environment(console)
         raise typer.Exit(1)
     else:
         if tracker:

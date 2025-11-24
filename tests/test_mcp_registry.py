@@ -576,25 +576,13 @@ class TestMCPRegistryIntegration:
         assert tools[0].name == "calculator"
 
         # Validate inputs
-        assert registry.validate("calculator", {
-            "operation": "add",
-            "a": 5,
-            "b": 3
-        })
+        assert registry.validate("calculator", {"operation": "add", "a": 5, "b": 3})
 
         # Call tool
-        result = registry.call("calculator", {
-            "operation": "add",
-            "a": 5,
-            "b": 3
-        })
+        result = registry.call("calculator", {"operation": "add", "a": 5, "b": 3})
         assert result == 8
 
-        result = registry.call("calculator", {
-            "operation": "multiply",
-            "a": 4,
-            "b": 7
-        })
+        result = registry.call("calculator", {"operation": "multiply", "a": 4, "b": 7})
         assert result == 28
 
     def test_multiple_tools_workflow(self):

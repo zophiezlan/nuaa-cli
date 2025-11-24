@@ -133,7 +133,10 @@ def download_template_from_github(
         if isinstance(e, httpx.TimeoutException):
             title, message = "Fetch Error", "Request timed out connecting to GitHub API"
         elif isinstance(e, httpx.ConnectError):
-            title, message = "Fetch Error", "Could not connect to GitHub API. Check your internet connection."
+            title, message = (
+                "Fetch Error",
+                "Could not connect to GitHub API. Check your internet connection.",
+            )
         else:
             title, message = "Fetch Error", f"HTTP error occurred: {e}"
         print_error(console, title, message)
@@ -238,7 +241,10 @@ def download_template_from_github(
         if isinstance(e, httpx.TimeoutException):
             title, message = "Download Error", "Download timed out. Please try again."
         elif isinstance(e, httpx.ConnectError):
-            title, message = "Download Error", "Could not connect to GitHub. Check your internet connection."
+            title, message = (
+                "Download Error",
+                "Could not connect to GitHub. Check your internet connection.",
+            )
         else:
             title, message = "Download Error", f"HTTP error: {e}"
         print_error(console, title, message)
@@ -469,13 +475,17 @@ def download_and_extract_template(
                     elif verbose:
                         console.print("[cyan]Flattened nested directory structure[/cyan]")
 
-    except zipfile.BadZipFile as e:
+    except zipfile.BadZipFile:
         error_msg = "Invalid or corrupted ZIP file"
         if tracker:
             tracker.error("extract", error_msg)
         else:
-            print_error(console, "Extraction Error", error_msg,
-                       "The downloaded file is not a valid ZIP archive" if debug else None)
+            print_error(
+                console,
+                "Extraction Error",
+                error_msg,
+                "The downloaded file is not a valid ZIP archive" if debug else None,
+            )
         if not is_current_dir and project_path.exists():
             shutil.rmtree(project_path)
         if debug:

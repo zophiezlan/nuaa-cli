@@ -139,8 +139,18 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                 # Task 4: Create manifest
                 task4 = progress.add_task("Creating manifest...", total=None)
                 _create_manifest(
-                    work_dir, name, version, description, agent, include_mcp, include_a2a,
-                    author, license, marketplace, dependencies, console
+                    work_dir,
+                    name,
+                    version,
+                    description,
+                    agent,
+                    include_mcp,
+                    include_a2a,
+                    author,
+                    license,
+                    marketplace,
+                    dependencies,
+                    console,
                 )
                 progress.update(task4, completed=True)
 
@@ -224,11 +234,8 @@ def _create_a2a_config(work_dir: Path, console: Console) -> None:
         "version": "1.0",
         "protocol": "a2a",
         "agents": [],
-        "coordinator": {
-            "max_history": 100,
-            "timeout": 30
-        },
-        "capabilities": []
+        "coordinator": {"max_history": 100, "timeout": 30},
+        "capabilities": [],
     }
 
     a2a_file = work_dir / "a2a.json"

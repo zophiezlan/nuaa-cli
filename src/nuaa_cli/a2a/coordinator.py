@@ -201,9 +201,7 @@ class A2ACoordinator:
                 f"Failed to deliver message to '{message.to_agent}': {str(e)}"
             ) from e
 
-    def broadcast(
-        self, message: A2AMessage, capability: Optional[str] = None
-    ) -> dict[str, Any]:
+    def broadcast(self, message: A2AMessage, capability: Optional[str] = None) -> dict[str, Any]:
         """
         Broadcast a message to all agents (or those with specific capability).
 
@@ -243,9 +241,7 @@ class A2ACoordinator:
 
         return responses
 
-    def find_agents(
-        self, capability: str, exclude: Optional[list[str]] = None
-    ) -> list[A2AAgent]:
+    def find_agents(self, capability: str, exclude: Optional[list[str]] = None) -> list[A2AAgent]:
         """
         Find agents with a specific capability.
 

@@ -39,6 +39,7 @@ Author: NUAA Project
 License: MIT
 """
 
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -46,12 +47,16 @@ from typing import Any, Callable, Optional
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
 
 from .scaffold import (
     _apply_replacements,
+    _ensure_nuaa_root,
     _load_template,
+    _next_feature_dir,
     _prepend_metadata,
-    get_or_create_feature_dir,
+    _slugify,
+    _stamp,
     write_markdown_if_needed,
 )
 from .utils import validate_program_name, validate_text_field
@@ -96,6 +101,9 @@ class TemplateCommandConfig:
         requires_program: Whether command requires program_name argument (default: True)
         metadata_generator: Optional function to generate custom metadata dict
         additional_outputs: Optional list of additional files to create
+        create_changelog: Whether to create a CHANGELOG.md if it doesn't exist (default: False)
+        primary_field_name: Name for the primary field in mapping (default: "PROGRAM_NAME")
+            For commands like "event" that use EVENT_NAME instead of PROGRAM_NAME
 
     Example:
         >>> config = TemplateCommandConfig(
@@ -115,6 +123,8 @@ class TemplateCommandConfig:
     requires_program: bool = True
     metadata_generator: Optional[Callable[[str, dict[str, str]], dict[str, Any]]] = None
     additional_outputs: list[tuple[str, str]] = field(default_factory=list)  # (template, output)
+    create_changelog: bool = False
+    primary_field_name: str = "PROGRAM_NAME"
 
 
 class TemplateCommandHandler:
@@ -139,6 +149,7 @@ class TemplateCommandHandler:
         self,
         program_name: str,
         *field_values: str,
+        feature: Optional[str] = None,
         force: bool = False,
         show_banner_fn: Optional[Callable] = None,
         console: Optional[Console] = None,
@@ -149,6 +160,7 @@ class TemplateCommandHandler:
         Args:
             program_name: Program name
             *field_values: Variable length field values matching config.fields order
+            feature: Optional custom feature slug (e.g., '001-custom-slug' or 'custom-slug')
             force: Whether to overwrite existing files
             show_banner_fn: Optional banner display function
             console: Optional Rich console
@@ -171,8 +183,12 @@ class TemplateCommandHandler:
             console=console,
         )
 
-        # Get or create feature directory
-        feature_dir = get_or_create_feature_dir(validated_program)
+        # Get or create feature directory with optional custom slug
+        feature_dir, num_str, slug = self._get_feature_dir(validated_program, feature, console)
+
+        # Add feature info to mapping
+        mapping["FEATURE_ID"] = num_str
+        mapping["SLUG"] = slug
 
         # Process main template
         _process_template(
@@ -180,6 +196,8 @@ class TemplateCommandHandler:
             feature_dir=feature_dir,
             mapping=mapping,
             program_name=validated_program,
+            num_str=num_str,
+            slug=slug,
             force=force,
             console=console,
         )
@@ -189,7 +207,10 @@ class TemplateCommandHandler:
             try:
                 template = _load_template(template_name)
                 filled = _apply_replacements(template, mapping)
-                meta = {"title": f"{validated_program} - {output_name}"}
+                meta = {
+                    "title": f"{validated_program} - {output_name}",
+                    "feature": f"{num_str}-{slug}",
+                }
                 text = _prepend_metadata(filled, meta)
                 dest = feature_dir / output_name
                 write_markdown_if_needed(dest, text, force=force, console=console)
@@ -197,6 +218,57 @@ class TemplateCommandHandler:
                 console.print(f"[yellow]Optional template not found:[/yellow] {template_name}")
             except (PermissionError, OSError) as e:
                 console.print(f"[yellow]Could not create {output_name}:[/yellow] {e}")
+
+        # Create CHANGELOG if configured and doesn't exist
+        if self.config.create_changelog:
+            changelog = feature_dir / "CHANGELOG.md"
+            if not changelog.exists():
+                content = f"# Changelog for {num_str}-{slug}\n\n- {_stamp()} - Initialized {self.config.command_name}\n"
+                write_markdown_if_needed(changelog, content, force=True, console=console)
+
+        # Print success message
+        console.print(
+            Panel(
+                f"Feature ready: [cyan]{feature_dir}[/cyan]",
+                title=f"{self.config.command_name.title()} Created",
+                border_style="green",
+            )
+        )
+
+    def _get_feature_dir(
+        self,
+        program_name: str,
+        feature: Optional[str],
+        console: Console,
+    ) -> tuple[Path, str, str]:
+        """
+        Get or create feature directory with optional custom slug.
+
+        Args:
+            program_name: Program name
+            feature: Optional custom feature slug
+            console: Rich console
+
+        Returns:
+            Tuple of (feature_dir, num_str, slug)
+        """
+        if feature:
+            # If full number provided (e.g., "001-custom-slug"), respect it
+            if re.match(r"^\d{3}-", feature):
+                feature_dir = _ensure_nuaa_root() / feature
+                feature_dir.mkdir(parents=True, exist_ok=True)
+                num_str = feature[:3]
+                slug = feature.split("-", 1)[1]
+                return feature_dir, num_str, slug
+            else:
+                # Treat as slug only; compute next number
+                slug = _slugify(feature)
+                feature_dir, num_str, _ = _next_feature_dir(slug)
+                return feature_dir, num_str, slug
+        else:
+            # Auto-generate from program name
+            feature_dir, num_str, slug = _next_feature_dir(program_name)
+            return feature_dir, num_str, slug
 
     def _build_field_mapping_from_args(
         self,
@@ -206,7 +278,7 @@ class TemplateCommandHandler:
     ) -> dict[str, str]:
         """Build field mapping from positional arguments."""
         mapping = {
-            "PROGRAM_NAME": program_name,
+            self.config.primary_field_name: program_name,
             "DATE": datetime.now().strftime("%Y-%m-%d"),
         }
 
@@ -234,6 +306,8 @@ def _process_template(
     feature_dir: Path,
     mapping: dict[str, str],
     program_name: str,
+    num_str: str,
+    slug: str,
     force: bool,
     console: Console,
 ) -> None:
@@ -247,6 +321,8 @@ def _process_template(
         feature_dir: Feature directory path
         mapping: Field mapping for replacements
         program_name: Program name
+        num_str: Feature number string (e.g., "001")
+        slug: Feature slug string
         force: Whether to overwrite existing files
         console: Rich console for output
 
@@ -267,6 +343,8 @@ def _process_template(
             metadata = {
                 "title": f"{program_name} - {config.command_name.title()}",
                 "created": mapping["DATE"],
+                "feature": f"{num_str}-{slug}",
+                "status": "draft",
             }
 
         # Prepend YAML frontmatter

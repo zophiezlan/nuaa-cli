@@ -130,9 +130,18 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                     _create_mcp_config(work_dir, console)
                     progress.update(task3, completed=True)
 
+                # Task 3.5: Include A2A config
+                if include_a2a:
+                    task3_5 = progress.add_task("Including A2A configuration...", total=None)
+                    _create_a2a_config(work_dir, console)
+                    progress.update(task3_5, completed=True)
+
                 # Task 4: Create manifest
                 task4 = progress.add_task("Creating manifest...", total=None)
-                _create_manifest(work_dir, name, version, description, agent, include_mcp, console)
+                _create_manifest(
+                    work_dir, name, version, description, agent, include_mcp, include_a2a,
+                    author, license, marketplace, dependencies, console
+                )
                 progress.update(task4, completed=True)
 
                 # Task 5: Package bundle
@@ -209,6 +218,24 @@ def _create_mcp_config(work_dir: Path, console: Console) -> None:
     console.print("  [green]✓[/green] Created MCP configuration")
 
 
+def _create_a2a_config(work_dir: Path, console: Console) -> None:
+    """Create A2A coordinator configuration file."""
+    a2a_config = {
+        "version": "1.0",
+        "protocol": "a2a",
+        "agents": [],
+        "coordinator": {
+            "max_history": 100,
+            "timeout": 30
+        },
+        "capabilities": []
+    }
+
+    a2a_file = work_dir / "a2a.json"
+    a2a_file.write_text(json.dumps(a2a_config, indent=2))
+    console.print("  [green]✓[/green] Created A2A configuration")
+
+
 def _create_manifest(
     work_dir: Path,
     name: str,
@@ -216,9 +243,14 @@ def _create_manifest(
     description: Optional[str],
     agent: Optional[str],
     include_mcp: bool,
+    include_a2a: bool,
+    author: Optional[str],
+    license: str,
+    marketplace: bool,
+    dependencies: Optional[str],
     console: Console,
 ) -> None:
-    """Create bundle manifest file."""
+    """Create bundle manifest file with enhanced metadata."""
     manifest = {
         "name": name,
         "version": version,
@@ -226,9 +258,29 @@ def _create_manifest(
         "created": datetime.now().isoformat(),
         "agents": [agent] if agent else "all",
         "includes_mcp": include_mcp,
+        "includes_a2a": include_a2a,
         "includes_templates": True,
-        "nuaa_cli_version": "0.3.0",
+        "nuaa_cli_version": "0.4.0",
+        "author": author,
+        "license": license,
     }
+
+    # Add dependencies
+    if dependencies:
+        manifest["dependencies"] = [dep.strip() for dep in dependencies.split(",")]
+    else:
+        manifest["dependencies"] = []
+
+    # Add marketplace metadata if requested
+    if marketplace:
+        manifest["marketplace"] = {
+            "category": "agent-bundles",
+            "tags": ["nuaa", "harm-reduction", "agent-kit"],
+            "compatible_with": ["nuaa-cli>=0.4.0"],
+            "support_url": None,
+            "homepage": None,
+            "repository": None,
+        }
 
     manifest_file = work_dir / "manifest.json"
     manifest_file.write_text(json.dumps(manifest, indent=2))

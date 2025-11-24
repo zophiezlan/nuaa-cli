@@ -18,94 +18,96 @@ import typer
 from rich.console import Console
 
 from nuaa_cli.download import (
-    _github_token,
-    _github_auth_headers,
-    _parse_rate_limit_headers,
-    _format_rate_limit_error,
-    _safe_extract_zip,
     handle_vscode_settings,
     merge_json_files,
     download_template_from_github,
     download_and_extract_template,
 )
+from nuaa_cli.github_client import (
+    get_github_token,
+    get_auth_headers,
+    parse_rate_limit_headers,
+    format_rate_limit_error,
+)
+from nuaa_cli.download.zip_handler import safe_extract_zip
 from nuaa_cli.utils import StepTracker
 
 
 class TestGitHubHelpers:
     """Tests for GitHub API helper functions."""
 
-    def test_github_token_with_cli_token(self):
-        """Test _github_token returns CLI token when provided."""
-        result = _github_token("ghp_cli_token_123")
+    def testget_github_token_with_cli_token(self):
+        """Test get_github_token returns CLI token when provided."""
+        result = get_github_token("ghp_cli_token_123")
         assert result == "ghp_cli_token_123"
 
-    def test_github_token_strips_whitespace(self):
-        """Test _github_token strips whitespace from CLI token."""
-        result = _github_token("  ghp_token_with_spaces  ")
+    def testget_github_token_strips_whitespace(self):
+        """Test get_github_token strips whitespace from CLI token."""
+        result = get_github_token("  ghp_token_with_spaces  ")
         assert result == "ghp_token_with_spaces"
 
     @patch.dict(os.environ, {"GH_TOKEN": "ghp_env_gh_token"}, clear=True)
-    def test_github_token_from_gh_token_env(self):
-        """Test _github_token falls back to GH_TOKEN environment variable."""
-        result = _github_token()
+    def testget_github_token_from_gh_token_env(self):
+        """Test get_github_token falls back to GH_TOKEN environment variable."""
+        result = get_github_token()
         assert result == "ghp_env_gh_token"
 
-    @patch.dict(os.environ, {"GITHUB_TOKEN": "ghp_env_github_token"}, clear=True)
-    def test_github_token_from_github_token_env(self):
-        """Test _github_token falls back to GITHUB_TOKEN environment variable."""
-        result = _github_token()
-        assert result == "ghp_env_github_token"
+    @patch.dict(os.environ, {"GITHUB_TOKEN": "ghp_envget_github_token"}, clear=True)
+    def testget_github_token_fromget_github_token_env(self):
+        """Test get_github_token falls back to GITHUB_TOKEN environment variable."""
+        result = get_github_token()
+        assert result == "ghp_envget_github_token"
 
     @patch.dict(
         os.environ,
-        {"GH_TOKEN": "ghp_gh_token", "GITHUB_TOKEN": "ghp_github_token"},
+        {"GH_TOKEN": "ghp_gh_token", "GITHUB_TOKEN": "ghpget_github_token"},
         clear=True,
     )
-    def test_github_token_prefers_gh_token_over_github_token(self):
-        """Test _github_token prefers GH_TOKEN over GITHUB_TOKEN."""
-        result = _github_token()
+    def testget_github_token_prefers_gh_token_overget_github_token(self):
+        """Test get_github_token prefers GH_TOKEN over GITHUB_TOKEN."""
+        result = get_github_token()
         assert result == "ghp_gh_token"
 
     @patch.dict(os.environ, {}, clear=True)
-    def test_github_token_returns_none_when_no_token(self):
-        """Test _github_token returns None when no token is available."""
-        result = _github_token()
+    def testget_github_token_returns_none_when_no_token(self):
+        """Test get_github_token returns None when no token is available."""
+        result = get_github_token()
         assert result is None
 
     @patch.dict(os.environ, {"GH_TOKEN": "  "}, clear=True)
-    def test_github_token_returns_none_for_whitespace_only(self):
-        """Test _github_token returns None for whitespace-only token."""
-        result = _github_token()
+    def testget_github_token_returns_none_for_whitespace_only(self):
+        """Test get_github_token returns None for whitespace-only token."""
+        result = get_github_token()
         assert result is None
 
-    def test_github_token_cli_overrides_env(self):
+    def testget_github_token_cli_overrides_env(self):
         """Test CLI token takes priority over environment variables."""
         with patch.dict(
             os.environ,
-            {"GH_TOKEN": "ghp_env_token", "GITHUB_TOKEN": "ghp_github_token"},
+            {"GH_TOKEN": "ghp_env_token", "GITHUB_TOKEN": "ghpget_github_token"},
         ):
-            result = _github_token("ghp_cli_token")
+            result = get_github_token("ghp_cli_token")
             assert result == "ghp_cli_token"
 
-    def test_github_auth_headers_with_token(self):
-        """Test _github_auth_headers returns Authorization header with token."""
-        headers = _github_auth_headers("ghp_test_token")
+    def testget_auth_headers_with_token(self):
+        """Test get_auth_headers returns Authorization header with token."""
+        headers = get_auth_headers("ghp_test_token")
         assert headers == {"Authorization": "Bearer ghp_test_token"}
 
     @patch.dict(os.environ, {}, clear=True)
-    def test_github_auth_headers_without_token(self):
-        """Test _github_auth_headers returns empty dict without token."""
-        headers = _github_auth_headers()
+    def testget_auth_headers_without_token(self):
+        """Test get_auth_headers returns empty dict without token."""
+        headers = get_auth_headers()
         assert headers == {}
 
     @patch.dict(os.environ, {"GH_TOKEN": "ghp_env_token"}, clear=True)
-    def test_github_auth_headers_from_env(self):
-        """Test _github_auth_headers uses environment token."""
-        headers = _github_auth_headers()
+    def testget_auth_headers_from_env(self):
+        """Test get_auth_headers uses environment token."""
+        headers = get_auth_headers()
         assert headers == {"Authorization": "Bearer ghp_env_token"}
 
-    def test_parse_rate_limit_headers_complete(self):
-        """Test _parse_rate_limit_headers with all rate limit headers."""
+    def testparse_rate_limit_headers_complete(self):
+        """Test parse_rate_limit_headers with all rate limit headers."""
         headers = httpx.Headers(
             {
                 "X-RateLimit-Limit": "5000",
@@ -114,7 +116,7 @@ class TestGitHubHelpers:
                 "Retry-After": "60",
             }
         )
-        info = _parse_rate_limit_headers(headers)
+        info = parse_rate_limit_headers(headers)
 
         assert info["limit"] == "5000"
         assert info["remaining"] == "4999"
@@ -123,49 +125,49 @@ class TestGitHubHelpers:
         assert "reset_local" in info
         assert info["retry_after_seconds"] == 60
 
-    def test_parse_rate_limit_headers_partial(self):
-        """Test _parse_rate_limit_headers with partial headers."""
+    def testparse_rate_limit_headers_partial(self):
+        """Test parse_rate_limit_headers with partial headers."""
         headers = httpx.Headers(
             {
                 "X-RateLimit-Limit": "60",
                 "X-RateLimit-Remaining": "0",
             }
         )
-        info = _parse_rate_limit_headers(headers)
+        info = parse_rate_limit_headers(headers)
 
         assert info["limit"] == "60"
         assert info["remaining"] == "0"
         assert "reset_epoch" not in info
 
-    def test_parse_rate_limit_headers_empty(self):
-        """Test _parse_rate_limit_headers with no rate limit headers."""
+    def testparse_rate_limit_headers_empty(self):
+        """Test parse_rate_limit_headers with no rate limit headers."""
         headers = httpx.Headers({})
-        info = _parse_rate_limit_headers(headers)
+        info = parse_rate_limit_headers(headers)
 
         assert info == {}
 
-    def test_parse_rate_limit_headers_reset_time_conversion(self):
-        """Test _parse_rate_limit_headers converts reset timestamp to datetime."""
+    def testparse_rate_limit_headers_reset_time_conversion(self):
+        """Test parse_rate_limit_headers converts reset timestamp to datetime."""
         reset_epoch = 1700000000
         headers = httpx.Headers({"X-RateLimit-Reset": str(reset_epoch)})
-        info = _parse_rate_limit_headers(headers)
+        info = parse_rate_limit_headers(headers)
 
         assert info["reset_epoch"] == reset_epoch
         assert isinstance(info["reset_time"], datetime)
         assert info["reset_time"].tzinfo == timezone.utc
         assert isinstance(info["reset_local"], datetime)
 
-    def test_parse_rate_limit_headers_retry_after_http_date(self):
-        """Test _parse_rate_limit_headers with HTTP-date format for Retry-After."""
+    def testparse_rate_limit_headers_retry_after_http_date(self):
+        """Test parse_rate_limit_headers with HTTP-date format for Retry-After."""
         headers = httpx.Headers({"Retry-After": "Wed, 21 Oct 2015 07:28:00 GMT"})
-        info = _parse_rate_limit_headers(headers)
+        info = parse_rate_limit_headers(headers)
 
         assert "retry_after" in info
         assert info["retry_after"] == "Wed, 21 Oct 2015 07:28:00 GMT"
         assert "retry_after_seconds" not in info
 
-    def test_format_rate_limit_error_with_complete_info(self):
-        """Test _format_rate_limit_error with full rate limit information."""
+    def testformat_rate_limit_error_with_complete_info(self):
+        """Test format_rate_limit_error with full rate limit information."""
         headers = httpx.Headers(
             {
                 "X-RateLimit-Limit": "60",
@@ -174,7 +176,7 @@ class TestGitHubHelpers:
                 "Retry-After": "3600",
             }
         )
-        error_msg = _format_rate_limit_error(403, headers, "https://api.github.com/test")
+        error_msg = format_rate_limit_error(403, headers, "https://api.github.com/test")
 
         assert "403" in error_msg
         assert "https://api.github.com/test" in error_msg
@@ -186,19 +188,19 @@ class TestGitHubHelpers:
         assert "Troubleshooting Tips" in error_msg
         assert "GitHub token" in error_msg
 
-    def test_format_rate_limit_error_without_rate_info(self):
-        """Test _format_rate_limit_error without rate limit headers."""
+    def testformat_rate_limit_error_without_rate_info(self):
+        """Test format_rate_limit_error without rate limit headers."""
         headers = httpx.Headers({})
-        error_msg = _format_rate_limit_error(500, headers, "https://api.github.com/test")
+        error_msg = format_rate_limit_error(500, headers, "https://api.github.com/test")
 
         assert "500" in error_msg
         assert "https://api.github.com/test" in error_msg
         assert "Troubleshooting Tips" in error_msg
 
-    def test_format_rate_limit_error_429_status(self):
-        """Test _format_rate_limit_error with 429 Too Many Requests status."""
+    def testformat_rate_limit_error_429_status(self):
+        """Test format_rate_limit_error with 429 Too Many Requests status."""
         headers = httpx.Headers({"X-RateLimit-Remaining": "0", "Retry-After": "120"})
-        error_msg = _format_rate_limit_error(429, headers, "https://api.github.com/test")
+        error_msg = format_rate_limit_error(429, headers, "https://api.github.com/test")
 
         assert "429" in error_msg
         assert "Remaining: 0" in error_msg
@@ -209,7 +211,7 @@ class TestSafeExtractZip:
     """Tests for secure ZIP extraction with path traversal protection."""
 
     def test_safe_extract_normal_zip(self, tmp_path):
-        """Test _safe_extract_zip with normal ZIP file."""
+        """Test safe_extract_zip with normal ZIP file."""
         # Create a test ZIP file with safe paths
         zip_path = tmp_path / "test.zip"
         extract_path = tmp_path / "extract"
@@ -220,7 +222,7 @@ class TestSafeExtractZip:
             zf.writestr("dir1/file2.txt", "content2")
 
         with zipfile.ZipFile(zip_path, "r") as zf:
-            _safe_extract_zip(zf, extract_path)
+            safe_extract_zip(zf, extract_path)
 
         assert (extract_path / "file1.txt").exists()
         assert (extract_path / "dir1" / "file2.txt").exists()
@@ -228,7 +230,7 @@ class TestSafeExtractZip:
         assert (extract_path / "dir1" / "file2.txt").read_text() == "content2"
 
     def test_safe_extract_path_traversal_attack(self, tmp_path):
-        """Test _safe_extract_zip prevents path traversal attack."""
+        """Test safe_extract_zip prevents path traversal attack."""
         # Create a malicious ZIP file with path traversal
         zip_path = tmp_path / "malicious.zip"
         extract_path = tmp_path / "extract"
@@ -242,7 +244,7 @@ class TestSafeExtractZip:
         console = Mock(spec=Console)
         with zipfile.ZipFile(zip_path, "r") as zf:
             with pytest.raises(typer.Exit) as exc_info:
-                _safe_extract_zip(zf, extract_path, console=console)
+                safe_extract_zip(zf, extract_path, console=console)
 
         assert exc_info.value.exit_code == 1
         console.print.assert_called()
@@ -251,7 +253,7 @@ class TestSafeExtractZip:
         assert any("Security Error" in str(call) for call in calls)
 
     def test_safe_extract_absolute_path_in_zip(self, tmp_path):
-        """Test _safe_extract_zip handles absolute paths in ZIP (edge case)."""
+        """Test safe_extract_zip handles absolute paths in ZIP (edge case)."""
         zip_path = tmp_path / "absolute.zip"
         extract_path = tmp_path / "extract"
         extract_path.mkdir()
@@ -263,12 +265,12 @@ class TestSafeExtractZip:
 
         with zipfile.ZipFile(zip_path, "r") as zf:
             # Should work fine with normal paths
-            _safe_extract_zip(zf, extract_path)
+            safe_extract_zip(zf, extract_path)
 
         assert (extract_path / "normal" / "file.txt").exists()
 
     def test_safe_extract_nested_directories(self, tmp_path):
-        """Test _safe_extract_zip with deeply nested directory structure."""
+        """Test safe_extract_zip with deeply nested directory structure."""
         zip_path = tmp_path / "nested.zip"
         extract_path = tmp_path / "extract"
         extract_path.mkdir()
@@ -277,12 +279,12 @@ class TestSafeExtractZip:
             zf.writestr("a/b/c/d/e/f/deep.txt", "nested content")
 
         with zipfile.ZipFile(zip_path, "r") as zf:
-            _safe_extract_zip(zf, extract_path)
+            safe_extract_zip(zf, extract_path)
 
         assert (extract_path / "a" / "b" / "c" / "d" / "e" / "f" / "deep.txt").exists()
 
     def test_safe_extract_console_warnings(self, tmp_path):
-        """Test _safe_extract_zip prints security warnings via console."""
+        """Test safe_extract_zip prints security warnings via console."""
         zip_path = tmp_path / "bad.zip"
         extract_path = tmp_path / "extract"
         extract_path.mkdir()
@@ -293,7 +295,7 @@ class TestSafeExtractZip:
         console = Mock(spec=Console)
         with zipfile.ZipFile(zip_path, "r") as zf:
             with pytest.raises(typer.Exit):
-                _safe_extract_zip(zf, extract_path, console=console)
+                safe_extract_zip(zf, extract_path, console=console)
 
         # Should have printed error messages
         assert console.print.call_count >= 2
@@ -302,7 +304,7 @@ class TestSafeExtractZip:
         assert any("malicious" in str(msg).lower() for msg in error_calls)
 
     def test_safe_extract_empty_zip(self, tmp_path):
-        """Test _safe_extract_zip with empty ZIP file."""
+        """Test safe_extract_zip with empty ZIP file."""
         zip_path = tmp_path / "empty.zip"
         extract_path = tmp_path / "extract"
         extract_path.mkdir()
@@ -311,7 +313,7 @@ class TestSafeExtractZip:
             pass  # Empty ZIP
 
         with zipfile.ZipFile(zip_path, "r") as zf:
-            _safe_extract_zip(zf, extract_path)
+            safe_extract_zip(zf, extract_path)
 
         # Should succeed without errors
         assert extract_path.exists()
@@ -764,7 +766,7 @@ class TestDownloadTemplateFromGithub:
             )
 
     @patch("nuaa_cli.download.httpx.Client")
-    def test_download_template_with_github_token(self, mock_client_class, tmp_path):
+    def test_download_template_withget_github_token(self, mock_client_class, tmp_path):
         """Test download_template_from_github uses GitHub token for authentication."""
         release_response = Mock(spec=httpx.Response)
         release_response.status_code = 200

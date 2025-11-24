@@ -55,21 +55,27 @@ NUAA CLI supports multiple AI agents by generating agent-specific command files 
 
 Follow these steps to add a new agent (using a hypothetical new agent as an example):
 
-#### 1. Add to AGENT_CONFIG
+#### 1. Add to agents.json
 
 **IMPORTANT**: Use the actual CLI tool name as the key, not a shortened version.
 
-Add the new agent to the `AGENT_CONFIG` dictionary in `src/nuaa_cli/__init__.py` (formerly `src/specify_cli/__init__.py`). This is the **single source of truth** for all agent metadata:
+Add the new agent to `agents.json` in `src/nuaa_cli/`. This is the **single source of truth** for all agent metadata:
 
-```python
-AGENT_CONFIG = {
-    # ... existing agents ...
-    "new-agent-cli": {  # Use the ACTUAL CLI tool name (what users type in terminal)
-        "name": "New Agent Display Name",
-        "folder": ".newagent/",  # Directory for agent files
-        "install_url": "https://example.com/install",  # URL for installation docs (or None if IDE-based)
-        "requires_cli": True,  # True if CLI tool required, False for IDE-based agents
-    },
+```json
+{
+  "new-agent-cli": {
+    "name": "New Agent Display Name",
+    "folder": ".newagent/",
+    "format": "Markdown",
+    "cli_tool": "new-agent-cli",
+    "description": "Description of the agent",
+    "requires_cli": true,
+    "install_url": "https://example.com/install",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
+  }
 }
 ```
 
@@ -80,12 +86,60 @@ AGENT_CONFIG = {
 
 This eliminates the need for special-case mappings throughout the codebase.
 
-**Field Explanations**:
+**Core Field Explanations**:
 
 - `name`: Human-readable display name shown to users
 - `folder`: Directory where agent-specific files are stored (relative to project root)
-- `install_url`: Installation documentation URL (set to `None` for IDE-based agents)
+- `format`: Command file format (`"Markdown"`, `"TOML"`, etc.)
+- `cli_tool`: Actual CLI executable name (or `null` for IDE-based)
+- `description`: Brief description of the agent
 - `requires_cli`: Whether the agent requires a CLI tool check during initialization
+- `install_url`: Installation documentation URL (set to `null` for IDE-based agents)
+
+**Protocol Fields** (New in v0.4.0):
+
+- `protocol`: Communication protocol type
+  - `"native"`: Agent's native protocol (default for most agents)
+  - `"mcp"`: Model Context Protocol compliant
+  - `"a2a"`: Agent-to-Agent protocol (future)
+- `requires_mcp`: Whether agent **requires** MCP to function (`true`/`false`)
+  - Use `true` only if agent cannot work without MCP
+  - Most agents should be `false` (MCP is optional enhancement)
+- `supports_mcp`: Whether agent **supports** MCP tools (`true`/`false`)
+  - `true`: Agent can use MCP tools if available (Claude, Cursor, Windsurf)
+  - `false`: Agent does not support MCP
+- `agent_framework`: Associated framework identifier (or `null`)
+  - `"copilot"`: GitHub Copilot framework
+  - `"copilotkit"`: CopilotKit framework (future)
+  - `null`: No specific framework
+
+**Protocol Field Examples**:
+
+```json
+// Agent with MCP support
+{
+  "protocol": "native",
+  "requires_mcp": false,
+  "supports_mcp": true,
+  "agent_framework": null
+}
+
+// IDE-based agent with framework
+{
+  "protocol": "native",
+  "requires_mcp": false,
+  "supports_mcp": false,
+  "agent_framework": "copilot"
+}
+
+// Future: MCP-native agent
+{
+  "protocol": "mcp",
+  "requires_mcp": true,
+  "supports_mcp": true,
+  "agent_framework": null
+}
+```
 
 #### 2. Update CLI Help Text
 

@@ -32,12 +32,8 @@ def register(app, show_banner_fn=None, console: Console | None = None):
     @app.command()
     def bundle(
         name: str = typer.Argument(..., help="Bundle name"),
-        output: str = typer.Option(
-            "./dist", "--output", "-o", help="Output directory for bundle"
-        ),
-        include_mcp: bool = typer.Option(
-            False, "--include-mcp", help="Include MCP configuration"
-        ),
+        output: str = typer.Option("./dist", "--output", "-o", help="Output directory for bundle"),
+        include_mcp: bool = typer.Option(False, "--include-mcp", help="Include MCP configuration"),
         include_templates: bool = typer.Option(
             True, "--include-templates", help="Include project templates"
         ),
@@ -246,7 +242,7 @@ def _create_zip(source_dir: Path, output_path: Path, console: Console) -> None:
             if file.is_file():
                 arcname = file.relative_to(source_dir)
                 zipf.write(file, arcname)
-    console.print(f"  [green]✓[/green] Created archive")
+    console.print("  [green]✓[/green] Created archive")
 
 
 def _format_size(bytes: int) -> str:

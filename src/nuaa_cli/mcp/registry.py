@@ -185,9 +185,7 @@ class MCPRegistry:
 
         # Check allowlist
         if self._allowlist is not None and descriptor.name not in self._allowlist:
-            raise ToolRegistrationError(
-                f"Tool '{descriptor.name}' is not in the allowlist"
-            )
+            raise ToolRegistrationError(f"Tool '{descriptor.name}' is not in the allowlist")
 
         # Register the tool
         self._tools[descriptor.name] = descriptor
@@ -242,9 +240,7 @@ class MCPRegistry:
         try:
             return descriptor.handler(inputs)
         except Exception as e:
-            raise ToolExecutionError(
-                f"Tool '{tool_name}' execution failed: {str(e)}"
-            ) from e
+            raise ToolExecutionError(f"Tool '{tool_name}' execution failed: {str(e)}") from e
 
     def validate(self, tool_name: str, inputs: dict[str, Any]) -> bool:
         """

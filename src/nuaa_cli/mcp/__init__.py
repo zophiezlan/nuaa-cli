@@ -25,7 +25,13 @@ License: MIT
 """
 
 from .registry import MCPRegistry, MCPTool, MCPToolDescriptor
-from .exceptions import MCPError, ToolNotFoundError, ToolValidationError
+from .exceptions import (
+    MCPError,
+    ToolNotFoundError,
+    ToolValidationError,
+    ToolExecutionError,
+    ToolRegistrationError,
+)
 
 __all__ = [
     "MCPRegistry",
@@ -34,4 +40,6 @@ __all__ = [
     "MCPError",
     "ToolNotFoundError",
     "ToolValidationError",
+    "ToolExecutionError",
+    "ToolRegistrationError",
 ]

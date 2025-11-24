@@ -1,0 +1,104 @@
+/**
+ * Styles for NUAA AG-UI Widget
+ */
+
+.nuaa-widget {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.widget-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.widget-header .status {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+.widget-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.widget-actions button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.widget-actions button:hover {
+  background: #0056b3;
+}
+
+.widget-actions button:active {
+  transform: translateY(1px);
+}
+
+.widget-events {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 12px;
+}
+
+.widget-events h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.widget-events ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.widget-events li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.widget-events li:last-child {
+  border-bottom: none;
+}
+
+.event-type {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.event-time {
+  color: #999;
+  font-size: 12px;
+}

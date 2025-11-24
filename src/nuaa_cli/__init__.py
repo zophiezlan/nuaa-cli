@@ -320,6 +320,14 @@ except Exception:
     # Safe fallback: ignore registration failure; command suite still usable
     pass
 
+try:
+    from .commands.bundle import register as _register_bundle
+
+    _register_bundle(app, show_banner, console)
+except Exception:
+    # Safe fallback: ignore registration failure; command suite still usable
+    pass
+
 
 def main():
     app()

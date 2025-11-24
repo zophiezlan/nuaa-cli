@@ -1,0 +1,51 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "version": "1.0.0",
+  "description": "CopilotKit configuration for {{PROJECT_NAME}}",
+  "created": "{{DATE}}",
+  "actions": [
+    {
+      "name": "design_program",
+      "description": "Create a new NUAA program design",
+      "parameters": {
+        "program_name": {
+          "type": "string",
+          "description": "Name of the program"
+        },
+        "target_population": {
+          "type": "string",
+          "description": "Target population description"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Program duration (e.g., '6 months')"
+        }
+      },
+      "handler": "nuaa.design"
+    },
+    {
+      "name": "create_proposal",
+      "description": "Generate a funding proposal",
+      "parameters": {
+        "program_name": {
+          "type": "string",
+          "description": "Program name"
+        },
+        "funder": {
+          "type": "string",
+          "description": "Funder name or grant program"
+        },
+        "amount": {
+          "type": "string",
+          "description": "Amount requested (e.g., '$50000')"
+        }
+      },
+      "handler": "nuaa.propose"
+    }
+  ],
+  "tools": [],
+  "integrations": {
+    "mcp": true,
+    "filesystem": true
+  }
+}

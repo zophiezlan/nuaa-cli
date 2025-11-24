@@ -6,7 +6,11 @@
     "cli_tool": "claude",
     "description": "Anthropic's Claude Code CLI",
     "requires_cli": true,
-    "install_url": "https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool"
+    "install_url": "https://docs.anthropic.com/claude/docs/code-interpreter-and-cli-tool",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": true,
+    "agent_framework": null
   },
   "gemini": {
     "name": "Gemini CLI",
@@ -15,7 +19,11 @@
     "cli_tool": "gemini",
     "description": "Google's Gemini CLI",
     "requires_cli": true,
-    "install_url": "https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md"
+    "install_url": "https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/gemini/cli.md",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "copilot": {
     "name": "GitHub Copilot",
@@ -24,7 +32,11 @@
     "cli_tool": null,
     "description": "GitHub Copilot in VS Code",
     "requires_cli": false,
-    "install_url": null
+    "install_url": null,
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": "copilot"
   },
   "cursor-agent": {
     "name": "Cursor",
@@ -33,7 +45,11 @@
     "cli_tool": "cursor-agent",
     "description": "Cursor CLI",
     "requires_cli": true,
-    "install_url": "https://cursor.sh/docs/cli"
+    "install_url": "https://cursor.sh/docs/cli",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": true,
+    "agent_framework": null
   },
   "qwen": {
     "name": "Qwen Code",
@@ -42,7 +58,11 @@
     "cli_tool": "qwen",
     "description": "Alibaba's Qwen Code CLI",
     "requires_cli": true,
-    "install_url": "https://help.aliyun.com/document_detail/2601612.html"
+    "install_url": "https://help.aliyun.com/document_detail/2601612.html",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "opencode": {
     "name": "opencode",
@@ -51,7 +71,11 @@
     "cli_tool": "opencode",
     "description": "opencode CLI",
     "requires_cli": true,
-    "install_url": "https://www.opencode.com/docs/cli"
+    "install_url": "https://www.opencode.com/docs/cli",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "codex": {
     "name": "Codex CLI",
@@ -60,7 +84,11 @@
     "cli_tool": "codex",
     "description": "Codex CLI",
     "requires_cli": true,
-    "install_url": "https://www.npmjs.com/package/@openai/codex-cli"
+    "install_url": "https://www.npmjs.com/package/@openai/codex-cli",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "windsurf": {
     "name": "Windsurf",
@@ -69,7 +97,11 @@
     "cli_tool": null,
     "description": "Windsurf IDE workflows",
     "requires_cli": false,
-    "install_url": null
+    "install_url": null,
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": true,
+    "agent_framework": null
   },
   "kilocode": {
     "name": "Kilo Code",
@@ -78,7 +110,11 @@
     "cli_tool": null,
     "description": "Kilo Code IDE",
     "requires_cli": false,
-    "install_url": null
+    "install_url": null,
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "auggie": {
     "name": "Auggie CLI",
@@ -87,7 +123,11 @@
     "cli_tool": "auggie",
     "description": "Auggie CLI",
     "requires_cli": true,
-    "install_url": "https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md"
+    "install_url": "https://github.com/cpbuildtools/dev-docs/blob/main/auggie/README.md",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "roo": {
     "name": "Roo Code",
@@ -96,7 +136,11 @@
     "cli_tool": null,
     "description": "Roo Code IDE",
     "requires_cli": false,
-    "install_url": null
+    "install_url": null,
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "codebuddy": {
     "name": "CodeBuddy CLI",
@@ -105,7 +149,11 @@
     "cli_tool": "codebuddy",
     "description": "CodeBuddy CLI",
     "requires_cli": true,
-    "install_url": "https://www.npmjs.com/package/codebuddy-cli"
+    "install_url": "https://www.npmjs.com/package/codebuddy-cli",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "q": {
     "name": "Amazon Q Developer CLI",
@@ -114,7 +162,11 @@
     "cli_tool": "q",
     "description": "Amazon Q Developer CLI",
     "requires_cli": true,
-    "install_url": "https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html"
+    "install_url": "https://docs.aws.amazon.com/amazonq/latest/aws-builder-use-ug/cli-install.html",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   },
   "amp": {
     "name": "Amp",
@@ -123,6 +175,10 @@
     "cli_tool": "amp",
     "description": "Amp CLI",
     "requires_cli": true,
-    "install_url": "https://docs.amp.computer/cli/overview"
+    "install_url": "https://docs.amp.computer/cli/overview",
+    "protocol": "native",
+    "requires_mcp": false,
+    "supports_mcp": false,
+    "agent_framework": null
   }
 }

@@ -5,13 +5,9 @@ These tests verify that commands work end-to-end, creating actual files
 and directories with proper content.
 """
 
-import tempfile
-from pathlib import Path
-import pytest
 from typer.testing import CliRunner
 
 from nuaa_cli import app
-from nuaa_cli.scaffold import _find_templates_root
 
 
 runner = CliRunner()
@@ -245,8 +241,12 @@ class TestCommandErrorHandling:
         result = runner.invoke(app, ["design"])
         assert result.exit_code != 0
         # Should show usage or error about missing arguments
-        assert ("Missing argument" in result.output or "Missing option" in result.output or
-                "required" in result.output.lower() or "Usage:" in result.output)
+        assert (
+            "Missing argument" in result.output
+            or "Missing option" in result.output
+            or "required" in result.output.lower()
+            or "Usage:" in result.output
+        )
 
     def test_empty_program_name(self):
         """Test handling of empty program name."""

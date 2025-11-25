@@ -104,24 +104,58 @@ def _ensure_nuaa_root(root: Path | None = None) -> Path:
 
 
 def _next_feature_dir(program_name: str, root: Path | None = None) -> tuple[Path, str, str]:
-    """Compute next feature directory and return (path, num_str, slug)."""
+    """
+    Compute next feature directory and return (path, num_str, slug).
+
+    This function implements atomic directory creation to prevent race conditions
+    when multiple processes try to create directories simultaneously. It will retry
+    up to 100 times if a directory already exists.
+
+    Args:
+        program_name: Name of the program for slugification
+        root: Optional root path (defaults to current working directory)
+
+    Returns:
+        Tuple of (feature_dir, num_str, slug)
+
+    Raises:
+        RuntimeError: If unable to create a unique directory after maximum retries
+    """
     nuaa_root = _ensure_nuaa_root(root)
-    # Find highest NNN prefix
-    highest = 0
-    for child in nuaa_root.iterdir() if nuaa_root.exists() else []:
-        if child.is_dir():
-            m = re.match(r"^(\d{3})-", child.name)
-            if m:
-                try:
-                    highest = max(highest, int(m.group(1)))
-                except ValueError:
-                    pass
-    next_num = highest + 1
-    num_str = f"{next_num:03d}"
     slug = _slugify(program_name)
-    feature_dir = nuaa_root / f"{num_str}-{slug}"
-    feature_dir.mkdir(parents=True, exist_ok=True)
-    return feature_dir, num_str, slug
+
+    # Maximum retries to prevent infinite loops
+    max_retries = 100
+
+    for attempt in range(max_retries):
+        # Find highest NNN prefix (refresh on each attempt to handle concurrent creation)
+        highest = 0
+        for child in nuaa_root.iterdir() if nuaa_root.exists() else []:
+            if child.is_dir():
+                m = re.match(r"^(\d{3})-", child.name)
+                if m:
+                    try:
+                        highest = max(highest, int(m.group(1)))
+                    except ValueError:
+                        pass
+
+        next_num = highest + 1
+        num_str = f"{next_num:03d}"
+        feature_dir = nuaa_root / f"{num_str}-{slug}"
+
+        try:
+            # Atomic operation: create directory only if it doesn't exist
+            feature_dir.mkdir(parents=True, exist_ok=False)
+            return feature_dir, num_str, slug
+        except FileExistsError:
+            # Another process created this directory, retry with next number
+            continue
+
+    # If we exhausted all retries, raise an error
+    raise RuntimeError(
+        f"Failed to create unique feature directory after {max_retries} attempts. "
+        f"This may indicate a problem with concurrent directory creation."
+    )
 
 
 def _find_feature_dir_by_program(program_name: str, root: Path | None = None) -> Path | None:

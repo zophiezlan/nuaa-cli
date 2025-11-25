@@ -86,6 +86,11 @@ from .scaffold import (
     _stamp,
 )
 
+from .logging_config import get_logger
+
+# Get logger for command registration
+_logger = get_logger("cli")
+
 
 def _load_agent_config() -> dict:
     """Load agent configuration from the agents.json file."""
@@ -200,133 +205,185 @@ def check():
 
 
 # Register externalized commands
+# Each command registration is wrapped in a try-except to allow partial functionality
+# if some commands fail to load. Errors are logged for debugging.
+
 try:
     from .commands.init import register as _register_init
 
     _register_init(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'init' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'init' command: {e}", exc_info=True)
+    # In debug mode, we might want to see these errors immediately
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.version import register as _register_version
 
     _register_version(app)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'version' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'version' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.check import register as _register_check
 
     _register_check(app, AGENT_CONFIG, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'check' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'check' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.design import register as _register_design
 
     _register_design(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'design' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'design' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.propose import register as _register_propose
 
     _register_propose(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'propose' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'propose' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.measure import register as _register_measure
 
     _register_measure(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'measure' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'measure' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.document import register as _register_document
 
     _register_document(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'document' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'document' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.report import register as _register_report
 
     _register_report(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'report' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'report' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.refine import register as _register_refine
 
     _register_refine(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'refine' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'refine' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.engage import register as _register_engage
 
     _register_engage(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'engage' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'engage' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.partner import register as _register_partner
 
     _register_partner(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'partner' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'partner' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.train import register as _register_train
 
     _register_train(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'train' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'train' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.event import register as _register_event
 
     _register_event(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'event' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'event' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.risk import register as _register_risk
 
     _register_risk(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'risk' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'risk' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.webui import register as _register_webui
 
     _register_webui(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'webui' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'webui' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 try:
     from .commands.bundle import register as _register_bundle
 
     _register_bundle(app, show_banner, console)
-except Exception:
-    # Safe fallback: ignore registration failure; command suite still usable
-    pass
+except ImportError as e:
+    _logger.warning(f"Failed to register 'bundle' command (module not found): {e}")
+except Exception as e:
+    _logger.error(f"Failed to register 'bundle' command: {e}", exc_info=True)
+    if os.getenv("DEBUG") or os.getenv("NUAA_DEBUG"):
+        raise
 
 
 def main():

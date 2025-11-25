@@ -13,12 +13,15 @@ Functions:
 """
 
 from pathlib import Path
-from typing import Optional, List, Tuple
+from typing import Optional, List, Tuple, TYPE_CHECKING
 import shutil
 import sys
 import typer
 from rich.console import Console
 from rich.panel import Panel
+
+if TYPE_CHECKING:
+    from .utils import StepTracker
 
 
 def print_error(
@@ -54,7 +57,7 @@ def handle_network_error(
     action: str,
     console: Console,
     cleanup_path: Optional[Path] = None,
-    tracker: Optional[object] = None,
+    tracker: Optional["StepTracker"] = None,
     debug: bool = False,
     exit_code: int = 1,
 ) -> None:

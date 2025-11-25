@@ -17,7 +17,7 @@ import shutil
 import zipfile
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import typer
 from rich.console import Console
@@ -37,6 +37,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         include_templates: bool = typer.Option(
             True, "--include-templates", help="Include project templates"
         ),
+        include_a2a: bool = typer.Option(True, "--include-a2a", help="Include Agent-to-Agent configuration"),
         agent: Optional[str] = typer.Option(
             None, "--agent", "-a", help="Specific agent to bundle (e.g., 'claude', 'copilot')"
         ),
@@ -44,6 +45,10 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         description: Optional[str] = typer.Option(
             None, "--description", "-d", help="Bundle description"
         ),
+        author: Optional[str] = typer.Option(None, "--author", help="Bundle author name"),
+        license: str = typer.Option("MIT", "--license", help="Bundle license"),
+        marketplace: bool = typer.Option(False, "--marketplace", help="Prepare bundle for marketplace distribution"),
+        dependencies: Optional[str] = typer.Option(None, "--dependencies", help="Additional dependencies (comma-separated)"),
     ):
         """
         Package agent configurations and templates into a distributable bundle.
@@ -52,6 +57,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         - Agent command files (.claude/, .github/agents/, etc.)
         - Templates (if --include-templates)
         - MCP configuration (if --include-mcp)
+        - A2A configuration (if --include-a2a)
         - Manifest with metadata
 
         The bundle can be shared with others, uploaded to marketplaces,
@@ -62,9 +68,14 @@ def register(app, show_banner_fn=None, console: Console | None = None):
             output: Output directory (default: ./dist)
             include_mcp: Include MCP registry configuration
             include_templates: Include NUAA templates
+            include_a2a: Include Agent-to-Agent configuration
             agent: Specific agent to bundle (if None, bundles all)
             version: Bundle version string
             description: Optional bundle description
+            author: Bundle author name
+            license: Bundle license (default: MIT)
+            marketplace: Prepare bundle for marketplace distribution
+            dependencies: Additional dependencies (comma-separated)
 
         Examples:
             Create a basic bundle:
@@ -77,7 +88,7 @@ def register(app, show_banner_fn=None, console: Console | None = None):
                 $ nuaa bundle mcp-enabled --include-mcp
 
             Bundle for distribution:
-                $ nuaa bundle nuaa-complete --version 2.0.0 --description "Complete NUAA setup"
+                $ nuaa bundle nuaa-complete --version 2.0.0 --description "Complete NUAA setup" --author "Your Name"
         """
         if show_banner_fn:
             show_banner_fn()
@@ -258,7 +269,7 @@ def _create_manifest(
     console: Console,
 ) -> None:
     """Create bundle manifest file with enhanced metadata."""
-    manifest = {
+    manifest: dict[str, Any] = {
         "name": name,
         "version": version,
         "description": description or f"{name} agent bundle",
@@ -306,8 +317,9 @@ def _create_zip(source_dir: Path, output_path: Path, console: Console) -> None:
 
 def _format_size(bytes: int) -> str:
     """Format file size in human-readable format."""
+    size = float(bytes)
     for unit in ["B", "KB", "MB", "GB"]:
-        if bytes < 1024.0:
-            return f"{bytes:.1f} {unit}"
-        bytes /= 1024.0
-    return f"{bytes:.1f} TB"
+        if size < 1024.0:
+            return f"{size:.1f} {unit}"
+        size /= 1024.0
+    return f"{size:.1f} TB"

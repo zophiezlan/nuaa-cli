@@ -1,5 +1,10 @@
 # NUAA Microsoft Teams Bot
 
+> **⚠️ PLANNED FEATURE - NOT YET IMPLEMENTED**
+>
+> This document describes a planned feature that is currently under consideration for future development.
+> The Microsoft Teams bot is not currently available in this version of NUAA CLI.
+
 **Create reports and documents directly in Microsoft Teams - no CLI, no separate tools.**
 
 ## Overview

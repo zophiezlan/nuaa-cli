@@ -1,0 +1,431 @@
+# Thai translations for NUAA CLI
+# Copyright (C) 2025 NUAA
+# This file is distributed under the same license as the NUAA CLI package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NUAA CLI 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 00:00+0000\n"
+"PO-Revision-Date: 2025-11-25 00:00+0000\n"
+"Last-Translator: NUAA Team\n"
+"Language-Team: Thai\n"
+"Language: th_TH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Common UI strings
+msgid "Welcome"
+msgstr "ยินดีต้อนรับ"
+
+msgid "Hello"
+msgstr "สวัสดี"
+
+msgid "Goodbye"
+msgstr "ลาก่อน"
+
+msgid "Thank you"
+msgstr "ขอบคุณ"
+
+msgid "Please wait"
+msgstr "โปรดรอสักครู่"
+
+msgid "Loading"
+msgstr "กำลังโหลด"
+
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+msgid "Warning"
+msgstr "คำเตือน"
+
+msgid "Success"
+msgstr "สำเร็จ"
+
+msgid "Failed"
+msgstr "ล้มเหลว"
+
+msgid "Cancelled"
+msgstr "ยกเลิกแล้ว"
+
+# CLI Commands
+msgid "Initialize project"
+msgstr "เริ่มต้นโครงการ"
+
+msgid "Create program design"
+msgstr "สร้างการออกแบบโปรแกรม"
+
+msgid "Create proposal"
+msgstr "สร้างข้อเสนอ"
+
+msgid "Create measurement framework"
+msgstr "สร้างกรอบการวัด"
+
+msgid "Generate evidence summary"
+msgstr "สร้างสรุปหลักฐาน"
+
+msgid "Validate document"
+msgstr "ตรวจสอบเอกสาร"
+
+msgid "Create bundle"
+msgstr "สร้างชุด"
+
+msgid "Register MCP tools"
+msgstr "ลงทะเบียนเครื่องมือ MCP"
+
+msgid "List templates"
+msgstr "รายการเทมเพลต"
+
+msgid "Configure settings"
+msgstr "กำหนดค่าการตั้งค่า"
+
+msgid "Export document"
+msgstr "ส่งออกเอกสาร"
+
+msgid "Import data"
+msgstr "นำเข้าข้อมูล"
+
+msgid "Search templates"
+msgstr "ค้นหาเทมเพลต"
+
+msgid "Show statistics"
+msgstr "แสดงสถิติ"
+
+msgid "Update components"
+msgstr "อัปเดตส่วนประกอบ"
+
+# Status messages
+msgid "Initializing NUAA CLI..."
+msgstr "กำลังเริ่มต้น NUAA CLI..."
+
+msgid "Project initialized successfully"
+msgstr "เริ่มต้นโครงการสำเร็จ"
+
+msgid "Creating document..."
+msgstr "กำลังสร้างเอกสาร..."
+
+msgid "Document created successfully"
+msgstr "สร้างเอกสารสำเร็จ"
+
+msgid "Validating..."
+msgstr "กำลังตรวจสอบ..."
+
+msgid "Validation complete"
+msgstr "ตรวจสอบเสร็จสิ้น"
+
+msgid "No issues found"
+msgstr "ไม่พบปัญหา"
+
+msgid "Found {count} issues"
+msgstr "พบปัญหา {count} รายการ"
+
+msgid "Processing..."
+msgstr "กำลังประมวลผล..."
+
+msgid "Complete"
+msgstr "เสร็จสมบูรณ์"
+
+# Error messages
+msgid "File not found"
+msgstr "ไม่พบไฟล์"
+
+msgid "Permission denied"
+msgstr "ปฏิเสธการอนุญาต"
+
+msgid "Invalid configuration"
+msgstr "การกำหนดค่าไม่ถูกต้อง"
+
+msgid "Network error"
+msgstr "ข้อผิดพลาดของเครือข่าย"
+
+msgid "Operation failed"
+msgstr "การดำเนินการล้มเหลว"
+
+msgid "Invalid input"
+msgstr "ข้อมูลนำเข้าไม่ถูกต้อง"
+
+msgid "Missing required field"
+msgstr "ขาดฟิลด์ที่จำเป็น"
+
+msgid "Unknown error occurred"
+msgstr "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ"
+
+# Confirmation prompts
+msgid "Are you sure?"
+msgstr "คุณแน่ใจหรือไม่?"
+
+msgid "Continue?"
+msgstr "ดำเนินการต่อหรือไม่?"
+
+msgid "Overwrite existing file?"
+msgstr "เขียนทับไฟล์ที่มีอยู่หรือไม่?"
+
+msgid "Delete this item?"
+msgstr "ลบรายการนี้หรือไม่?"
+
+msgid "Save changes?"
+msgstr "บันทึกการเปลี่ยนแปลงหรือไม่?"
+
+# General actions
+msgid "Yes"
+msgstr "ใช่"
+
+msgid "No"
+msgstr "ไม่"
+
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgid "Save"
+msgstr "บันทึก"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "View"
+msgstr "ดู"
+
+msgid "Create"
+msgstr "สร้าง"
+
+msgid "Update"
+msgstr "อัปเดต"
+
+msgid "Exit"
+msgstr "ออก"
+
+msgid "Help"
+msgstr "ช่วยเหลือ"
+
+msgid "Back"
+msgstr "กลับ"
+
+msgid "Next"
+msgstr "ถัดไป"
+
+msgid "Previous"
+msgstr "ก่อนหน้า"
+
+msgid "Finish"
+msgstr "เสร็จสิ้น"
+
+# Document types
+msgid "Program Design"
+msgstr "การออกแบบโปรแกรม"
+
+msgid "Proposal"
+msgstr "ข้อเสนอ"
+
+msgid "Measurement Framework"
+msgstr "กรอบการวัด"
+
+msgid "Evidence Summary"
+msgstr "สรุปหลักฐาน"
+
+msgid "Risk Assessment"
+msgstr "การประเมินความเสี่ยง"
+
+msgid "Partner Agreement"
+msgstr "ข้อตกลงพันธมิตร"
+
+# Template-related
+msgid "Template"
+msgstr "เทมเพลต"
+
+msgid "Available templates"
+msgstr "เทมเพลตที่มีอยู่"
+
+msgid "No templates found"
+msgstr "ไม่พบเทมเพลต"
+
+msgid "Select a template"
+msgstr "เลือกเทมเพลต"
+
+msgid "Template loaded"
+msgstr "โหลดเทมเพลตแล้ว"
+
+# Configuration
+msgid "Configuration"
+msgstr "การกำหนดค่า"
+
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+msgid "Preferences"
+msgstr "ความต้องการ"
+
+msgid "Language"
+msgstr "ภาษา"
+
+msgid "Theme"
+msgstr "ธีม"
+
+msgid "Output format"
+msgstr "รูปแบบผลลัพธ์"
+
+# Accessibility
+msgid "Accessibility mode enabled"
+msgstr "เปิดใช้งานโหมดการเข้าถึง"
+
+msgid "High contrast mode"
+msgstr "โหมดความคมชัดสูง"
+
+msgid "Screen reader support"
+msgstr "รองรับโปรแกรมอ่านหน้าจอ"
+
+msgid "Keyboard shortcuts"
+msgstr "แป้นพิมพ์ลัด"
+
+# Agent-related
+msgid "Agent"
+msgstr "ตัวแทน"
+
+msgid "Available agents"
+msgstr "ตัวแทนที่มีอยู่"
+
+msgid "Select agent"
+msgstr "เลือกตัวแทน"
+
+msgid "Agent registered"
+msgstr "ลงทะเบียนตัวแทนแล้ว"
+
+msgid "Agent not found"
+msgstr "ไม่พบตัวแทน"
+
+# Progress indicators
+msgid "Step {current} of {total}"
+msgstr "ขั้นตอน {current} จาก {total}"
+
+msgid "{percent}% complete"
+msgstr "เสร็จสิ้น {percent}%"
+
+msgid "Estimated time remaining: {time}"
+msgstr "เวลาโดยประมาณที่เหลือ: {time}"
+
+# File operations
+msgid "File"
+msgstr "ไฟล์"
+
+msgid "Folder"
+msgstr "โฟลเดอร์"
+
+msgid "Path"
+msgstr "เส้นทาง"
+
+msgid "Size"
+msgstr "ขนาด"
+
+msgid "Modified"
+msgstr "แก้ไขแล้ว"
+
+msgid "Created"
+msgstr "สร้างแล้ว"
+
+msgid "Reading file..."
+msgstr "กำลังอ่านไฟล์..."
+
+msgid "Writing file..."
+msgstr "กำลังเขียนไฟล์..."
+
+msgid "File saved successfully"
+msgstr "บันทึกไฟล์สำเร็จ"
+
+msgid "Export complete"
+msgstr "ส่งออกเสร็จสมบูรณ์"
+
+msgid "Import complete"
+msgstr "นำเข้าเสร็จสมบูรณ์"
+
+# Harm reduction specific
+msgid "Person-first language"
+msgstr "ภาษาที่เน้นบุคคลเป็นหลัก"
+
+msgid "Anti-stigma check"
+msgstr "การตรวจสอบต่อต้านการตีตรา"
+
+msgid "Inclusive language"
+msgstr "ภาษาที่ครอบคลุม"
+
+msgid "Trauma-informed approach"
+msgstr "แนวทางที่คำนึงถึงบาดแผลทางจิตใจ"
+
+msgid "Cultural sensitivity"
+msgstr "ความไวต่อวัฒนธรรม"
+
+msgid "Peer support"
+msgstr "การสนับสนุนจากเพื่อน"
+
+msgid "Harm reduction"
+msgstr "การลดอันตราย"
+
+msgid "Community-based"
+msgstr "อิงตามชุมชน"
+
+msgid "Evidence-based"
+msgstr "อิงตามหลักฐาน"
+
+# Date and time
+msgid "Today"
+msgstr "วันนี้"
+
+msgid "Yesterday"
+msgstr "เมื่อวาน"
+
+msgid "Tomorrow"
+msgstr "พรุ่งนี้"
+
+msgid "Now"
+msgstr "ตอนนี้"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Time"
+msgstr "เวลา"
+
+# Quantities
+msgid "All"
+msgstr "ทั้งหมด"
+
+msgid "None"
+msgstr "ไม่มี"
+
+msgid "Some"
+msgstr "บางอย่าง"
+
+msgid "Many"
+msgstr "มาก"
+
+msgid "Few"
+msgstr "น้อย"
+
+# Quality indicators
+msgid "Excellent"
+msgstr "ยอดเยี่ยม"
+
+msgid "Good"
+msgstr "ดี"
+
+msgid "Fair"
+msgstr "พอใช้"
+
+msgid "Poor"
+msgstr "แย่"
+
+# Priority levels
+msgid "Critical"
+msgstr "วิกฤต"
+
+msgid "High priority"
+msgstr "ลำดับความสำคัญสูง"
+
+msgid "Medium priority"
+msgstr "ลำดับความสำคัญปานกลาง"
+
+msgid "Low priority"
+msgstr "ลำดับความสำคัญต่ำ"

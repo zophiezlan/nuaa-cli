@@ -1,0 +1,431 @@
+# English (Australia) translations for NUAA CLI
+# Copyright (C) 2025 NUAA
+# This file is distributed under the same license as the NUAA CLI package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NUAA CLI 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 00:00+0000\n"
+"PO-Revision-Date: 2025-11-25 00:00+0000\n"
+"Last-Translator: NUAA Team\n"
+"Language-Team: English (Australia)\n"
+"Language: en_AU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Common UI strings
+msgid "Welcome"
+msgstr "Welcome"
+
+msgid "Hello"
+msgstr "Hello"
+
+msgid "Goodbye"
+msgstr "Goodbye"
+
+msgid "Thank you"
+msgstr "Thank you"
+
+msgid "Please wait"
+msgstr "Please wait"
+
+msgid "Loading"
+msgstr "Loading"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+# CLI Commands
+msgid "Initialize project"
+msgstr "Initialise project"
+
+msgid "Create program design"
+msgstr "Create programme design"
+
+msgid "Create proposal"
+msgstr "Create proposal"
+
+msgid "Create measurement framework"
+msgstr "Create measurement framework"
+
+msgid "Generate evidence summary"
+msgstr "Generate evidence summary"
+
+msgid "Validate document"
+msgstr "Validate document"
+
+msgid "Create bundle"
+msgstr "Create bundle"
+
+msgid "Register MCP tools"
+msgstr "Register MCP tools"
+
+msgid "List templates"
+msgstr "List templates"
+
+msgid "Configure settings"
+msgstr "Configure settings"
+
+msgid "Export document"
+msgstr "Export document"
+
+msgid "Import data"
+msgstr "Import data"
+
+msgid "Search templates"
+msgstr "Search templates"
+
+msgid "Show statistics"
+msgstr "Show statistics"
+
+msgid "Update components"
+msgstr "Update components"
+
+# Status messages
+msgid "Initializing NUAA CLI..."
+msgstr "Initialising NUAA CLI..."
+
+msgid "Project initialized successfully"
+msgstr "Project initialised successfully"
+
+msgid "Creating document..."
+msgstr "Creating document..."
+
+msgid "Document created successfully"
+msgstr "Document created successfully"
+
+msgid "Validating..."
+msgstr "Validating..."
+
+msgid "Validation complete"
+msgstr "Validation complete"
+
+msgid "No issues found"
+msgstr "No issues found"
+
+msgid "Found {count} issues"
+msgstr "Found {count} issues"
+
+msgid "Processing..."
+msgstr "Processing..."
+
+msgid "Complete"
+msgstr "Complete"
+
+# Error messages
+msgid "File not found"
+msgstr "File not found"
+
+msgid "Permission denied"
+msgstr "Permission denied"
+
+msgid "Invalid configuration"
+msgstr "Invalid configuration"
+
+msgid "Network error"
+msgstr "Network error"
+
+msgid "Operation failed"
+msgstr "Operation failed"
+
+msgid "Invalid input"
+msgstr "Invalid input"
+
+msgid "Missing required field"
+msgstr "Missing required field"
+
+msgid "Unknown error occurred"
+msgstr "Unknown error occurred"
+
+# Confirmation prompts
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgid "Continue?"
+msgstr "Continue?"
+
+msgid "Overwrite existing file?"
+msgstr "Overwrite existing file?"
+
+msgid "Delete this item?"
+msgstr "Delete this item?"
+
+msgid "Save changes?"
+msgstr "Save changes?"
+
+# General actions
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "View"
+msgstr "View"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Exit"
+msgstr "Exit"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Finish"
+msgstr "Finish"
+
+# Document types
+msgid "Program Design"
+msgstr "Programme Design"
+
+msgid "Proposal"
+msgstr "Proposal"
+
+msgid "Measurement Framework"
+msgstr "Measurement Framework"
+
+msgid "Evidence Summary"
+msgstr "Evidence Summary"
+
+msgid "Risk Assessment"
+msgstr "Risk Assessment"
+
+msgid "Partner Agreement"
+msgstr "Partner Agreement"
+
+# Template-related
+msgid "Template"
+msgstr "Template"
+
+msgid "Available templates"
+msgstr "Available templates"
+
+msgid "No templates found"
+msgstr "No templates found"
+
+msgid "Select a template"
+msgstr "Select a template"
+
+msgid "Template loaded"
+msgstr "Template loaded"
+
+# Configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Theme"
+msgstr "Theme"
+
+msgid "Output format"
+msgstr "Output format"
+
+# Accessibility
+msgid "Accessibility mode enabled"
+msgstr "Accessibility mode enabled"
+
+msgid "High contrast mode"
+msgstr "High contrast mode"
+
+msgid "Screen reader support"
+msgstr "Screen reader support"
+
+msgid "Keyboard shortcuts"
+msgstr "Keyboard shortcuts"
+
+# Agent-related
+msgid "Agent"
+msgstr "Agent"
+
+msgid "Available agents"
+msgstr "Available agents"
+
+msgid "Select agent"
+msgstr "Select agent"
+
+msgid "Agent registered"
+msgstr "Agent registered"
+
+msgid "Agent not found"
+msgstr "Agent not found"
+
+# Progress indicators
+msgid "Step {current} of {total}"
+msgstr "Step {current} of {total}"
+
+msgid "{percent}% complete"
+msgstr "{percent}% complete"
+
+msgid "Estimated time remaining: {time}"
+msgstr "Estimated time remaining: {time}"
+
+# File operations
+msgid "File"
+msgstr "File"
+
+msgid "Folder"
+msgstr "Folder"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Modified"
+msgstr "Modified"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Reading file..."
+msgstr "Reading file..."
+
+msgid "Writing file..."
+msgstr "Writing file..."
+
+msgid "File saved successfully"
+msgstr "File saved successfully"
+
+msgid "Export complete"
+msgstr "Export complete"
+
+msgid "Import complete"
+msgstr "Import complete"
+
+# Harm reduction specific
+msgid "Person-first language"
+msgstr "Person-first language"
+
+msgid "Anti-stigma check"
+msgstr "Anti-stigma check"
+
+msgid "Inclusive language"
+msgstr "Inclusive language"
+
+msgid "Trauma-informed approach"
+msgstr "Trauma-informed approach"
+
+msgid "Cultural sensitivity"
+msgstr "Cultural sensitivity"
+
+msgid "Peer support"
+msgstr "Peer support"
+
+msgid "Harm reduction"
+msgstr "Harm reduction"
+
+msgid "Community-based"
+msgstr "Community-based"
+
+msgid "Evidence-based"
+msgstr "Evidence-based"
+
+# Date and time
+msgid "Today"
+msgstr "Today"
+
+msgid "Yesterday"
+msgstr "Yesterday"
+
+msgid "Tomorrow"
+msgstr "Tomorrow"
+
+msgid "Now"
+msgstr "Now"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Time"
+msgstr "Time"
+
+# Quantities
+msgid "All"
+msgstr "All"
+
+msgid "None"
+msgstr "None"
+
+msgid "Some"
+msgstr "Some"
+
+msgid "Many"
+msgstr "Many"
+
+msgid "Few"
+msgstr "Few"
+
+# Quality indicators
+msgid "Excellent"
+msgstr "Excellent"
+
+msgid "Good"
+msgstr "Good"
+
+msgid "Fair"
+msgstr "Fair"
+
+msgid "Poor"
+msgstr "Poor"
+
+# Priority levels
+msgid "Critical"
+msgstr "Critical"
+
+msgid "High priority"
+msgstr "High priority"
+
+msgid "Medium priority"
+msgstr "Medium priority"
+
+msgid "Low priority"
+msgstr "Low priority"

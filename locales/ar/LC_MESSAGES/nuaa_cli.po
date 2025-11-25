@@ -1,0 +1,431 @@
+# Arabic translations for NUAA CLI
+# Copyright (C) 2025 NUAA
+# This file is distributed under the same license as the NUAA CLI package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NUAA CLI 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 00:00+0000\n"
+"PO-Revision-Date: 2025-11-25 00:00+0000\n"
+"Last-Translator: NUAA Team\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+# Common UI strings
+msgid "Welcome"
+msgstr "مرحباً"
+
+msgid "Hello"
+msgstr "السلام عليكم"
+
+msgid "Goodbye"
+msgstr "وداعاً"
+
+msgid "Thank you"
+msgstr "شكراً لك"
+
+msgid "Please wait"
+msgstr "الرجاء الانتظار"
+
+msgid "Loading"
+msgstr "جارٍ التحميل"
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "Warning"
+msgstr "تحذير"
+
+msgid "Success"
+msgstr "نجح"
+
+msgid "Failed"
+msgstr "فشل"
+
+msgid "Cancelled"
+msgstr "ملغى"
+
+# CLI Commands
+msgid "Initialize project"
+msgstr "تهيئة المشروع"
+
+msgid "Create program design"
+msgstr "إنشاء تصميم البرنامج"
+
+msgid "Create proposal"
+msgstr "إنشاء اقتراح"
+
+msgid "Create measurement framework"
+msgstr "إنشاء إطار القياس"
+
+msgid "Generate evidence summary"
+msgstr "إنشاء ملخص الأدلة"
+
+msgid "Validate document"
+msgstr "التحقق من المستند"
+
+msgid "Create bundle"
+msgstr "إنشاء حزمة"
+
+msgid "Register MCP tools"
+msgstr "تسجيل أدوات MCP"
+
+msgid "List templates"
+msgstr "قائمة القوالب"
+
+msgid "Configure settings"
+msgstr "تكوين الإعدادات"
+
+msgid "Export document"
+msgstr "تصدير المستند"
+
+msgid "Import data"
+msgstr "استيراد البيانات"
+
+msgid "Search templates"
+msgstr "البحث في القوالب"
+
+msgid "Show statistics"
+msgstr "عرض الإحصائيات"
+
+msgid "Update components"
+msgstr "تحديث المكونات"
+
+# Status messages
+msgid "Initializing NUAA CLI..."
+msgstr "جارٍ تهيئة NUAA CLI..."
+
+msgid "Project initialized successfully"
+msgstr "تمت تهيئة المشروع بنجاح"
+
+msgid "Creating document..."
+msgstr "جارٍ إنشاء المستند..."
+
+msgid "Document created successfully"
+msgstr "تم إنشاء المستند بنجاح"
+
+msgid "Validating..."
+msgstr "جارٍ التحقق..."
+
+msgid "Validation complete"
+msgstr "اكتمل التحقق"
+
+msgid "No issues found"
+msgstr "لم يتم العثور على مشاكل"
+
+msgid "Found {count} issues"
+msgstr "تم العثور على {count} مشاكل"
+
+msgid "Processing..."
+msgstr "جارٍ المعالجة..."
+
+msgid "Complete"
+msgstr "مكتمل"
+
+# Error messages
+msgid "File not found"
+msgstr "لم يتم العثور على الملف"
+
+msgid "Permission denied"
+msgstr "تم رفض الإذن"
+
+msgid "Invalid configuration"
+msgstr "تكوين غير صالح"
+
+msgid "Network error"
+msgstr "خطأ في الشبكة"
+
+msgid "Operation failed"
+msgstr "فشلت العملية"
+
+msgid "Invalid input"
+msgstr "إدخال غير صالح"
+
+msgid "Missing required field"
+msgstr "حقل مطلوب مفقود"
+
+msgid "Unknown error occurred"
+msgstr "حدث خطأ غير معروف"
+
+# Confirmation prompts
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+msgid "Continue?"
+msgstr "الاستمرار؟"
+
+msgid "Overwrite existing file?"
+msgstr "الكتابة فوق الملف الموجود؟"
+
+msgid "Delete this item?"
+msgstr "حذف هذا العنصر؟"
+
+msgid "Save changes?"
+msgstr "حفظ التغييرات؟"
+
+# General actions
+msgid "Yes"
+msgstr "نعم"
+
+msgid "No"
+msgstr "لا"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "View"
+msgstr "عرض"
+
+msgid "Create"
+msgstr "إنشاء"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Exit"
+msgstr "خروج"
+
+msgid "Help"
+msgstr "مساعدة"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Finish"
+msgstr "إنهاء"
+
+# Document types
+msgid "Program Design"
+msgstr "تصميم البرنامج"
+
+msgid "Proposal"
+msgstr "اقتراح"
+
+msgid "Measurement Framework"
+msgstr "إطار القياس"
+
+msgid "Evidence Summary"
+msgstr "ملخص الأدلة"
+
+msgid "Risk Assessment"
+msgstr "تقييم المخاطر"
+
+msgid "Partner Agreement"
+msgstr "اتفاقية الشريك"
+
+# Template-related
+msgid "Template"
+msgstr "قالب"
+
+msgid "Available templates"
+msgstr "القوالب المتاحة"
+
+msgid "No templates found"
+msgstr "لم يتم العثور على قوالب"
+
+msgid "Select a template"
+msgstr "اختر قالباً"
+
+msgid "Template loaded"
+msgstr "تم تحميل القالب"
+
+# Configuration
+msgid "Configuration"
+msgstr "تكوين"
+
+msgid "Settings"
+msgstr "إعدادات"
+
+msgid "Preferences"
+msgstr "تفضيلات"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Theme"
+msgstr "السمة"
+
+msgid "Output format"
+msgstr "تنسيق الإخراج"
+
+# Accessibility
+msgid "Accessibility mode enabled"
+msgstr "تم تفعيل وضع إمكانية الوصول"
+
+msgid "High contrast mode"
+msgstr "وضع التباين العالي"
+
+msgid "Screen reader support"
+msgstr "دعم قارئ الشاشة"
+
+msgid "Keyboard shortcuts"
+msgstr "اختصارات لوحة المفاتيح"
+
+# Agent-related
+msgid "Agent"
+msgstr "وكيل"
+
+msgid "Available agents"
+msgstr "الوكلاء المتاحون"
+
+msgid "Select agent"
+msgstr "اختر وكيلاً"
+
+msgid "Agent registered"
+msgstr "تم تسجيل الوكيل"
+
+msgid "Agent not found"
+msgstr "لم يتم العثور على الوكيل"
+
+# Progress indicators
+msgid "Step {current} of {total}"
+msgstr "الخطوة {current} من {total}"
+
+msgid "{percent}% complete"
+msgstr "{percent}% مكتمل"
+
+msgid "Estimated time remaining: {time}"
+msgstr "الوقت المتبقي المقدر: {time}"
+
+# File operations
+msgid "File"
+msgstr "ملف"
+
+msgid "Folder"
+msgstr "مجلد"
+
+msgid "Path"
+msgstr "المسار"
+
+msgid "Size"
+msgstr "الحجم"
+
+msgid "Modified"
+msgstr "معدّل"
+
+msgid "Created"
+msgstr "مُنشأ"
+
+msgid "Reading file..."
+msgstr "جارٍ قراءة الملف..."
+
+msgid "Writing file..."
+msgstr "جارٍ كتابة الملف..."
+
+msgid "File saved successfully"
+msgstr "تم حفظ الملف بنجاح"
+
+msgid "Export complete"
+msgstr "اكتمل التصدير"
+
+msgid "Import complete"
+msgstr "اكتمل الاستيراد"
+
+# Harm reduction specific
+msgid "Person-first language"
+msgstr "لغة تضع الإنسان أولاً"
+
+msgid "Anti-stigma check"
+msgstr "فحص مكافحة الوصم"
+
+msgid "Inclusive language"
+msgstr "لغة شاملة"
+
+msgid "Trauma-informed approach"
+msgstr "نهج مراعٍ للصدمات"
+
+msgid "Cultural sensitivity"
+msgstr "الحساسية الثقافية"
+
+msgid "Peer support"
+msgstr "دعم الأقران"
+
+msgid "Harm reduction"
+msgstr "الحد من الضرر"
+
+msgid "Community-based"
+msgstr "قائم على المجتمع"
+
+msgid "Evidence-based"
+msgstr "قائم على الأدلة"
+
+# Date and time
+msgid "Today"
+msgstr "اليوم"
+
+msgid "Yesterday"
+msgstr "أمس"
+
+msgid "Tomorrow"
+msgstr "غداً"
+
+msgid "Now"
+msgstr "الآن"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Time"
+msgstr "الوقت"
+
+# Quantities
+msgid "All"
+msgstr "الكل"
+
+msgid "None"
+msgstr "لا شيء"
+
+msgid "Some"
+msgstr "بعض"
+
+msgid "Many"
+msgstr "كثير"
+
+msgid "Few"
+msgstr "قليل"
+
+# Quality indicators
+msgid "Excellent"
+msgstr "ممتاز"
+
+msgid "Good"
+msgstr "جيد"
+
+msgid "Fair"
+msgstr "مقبول"
+
+msgid "Poor"
+msgstr "ضعيف"
+
+# Priority levels
+msgid "Critical"
+msgstr "حرج"
+
+msgid "High priority"
+msgstr "أولوية عالية"
+
+msgid "Medium priority"
+msgstr "أولوية متوسطة"
+
+msgid "Low priority"
+msgstr "أولوية منخفضة"

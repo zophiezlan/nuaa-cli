@@ -37,7 +37,9 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         include_templates: bool = typer.Option(
             True, "--include-templates", help="Include project templates"
         ),
-        include_a2a: bool = typer.Option(True, "--include-a2a", help="Include Agent-to-Agent configuration"),
+        include_a2a: bool = typer.Option(
+            True, "--include-a2a", help="Include Agent-to-Agent configuration"
+        ),
         agent: Optional[str] = typer.Option(
             None, "--agent", "-a", help="Specific agent to bundle (e.g., 'claude', 'copilot')"
         ),
@@ -47,8 +49,12 @@ def register(app, show_banner_fn=None, console: Console | None = None):
         ),
         author: Optional[str] = typer.Option(None, "--author", help="Bundle author name"),
         license: str = typer.Option("MIT", "--license", help="Bundle license"),
-        marketplace: bool = typer.Option(False, "--marketplace", help="Prepare bundle for marketplace distribution"),
-        dependencies: Optional[str] = typer.Option(None, "--dependencies", help="Additional dependencies (comma-separated)"),
+        marketplace: bool = typer.Option(
+            False, "--marketplace", help="Prepare bundle for marketplace distribution"
+        ),
+        dependencies: Optional[str] = typer.Option(
+            None, "--dependencies", help="Additional dependencies (comma-separated)"
+        ),
     ):
         """
         Package agent configurations and templates into a distributable bundle.

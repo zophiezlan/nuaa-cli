@@ -6,10 +6,10 @@ for compliance reporting and forensic analysis.
 """
 
 import json
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Dict, Any, Iterator
+from typing import List, Optional, Dict, Any
 import re
 
 from .events import AuditEvent, EventType, Severity
@@ -200,9 +200,7 @@ def query_all_logs() -> List[AuditEvent]:
     return all_events
 
 
-def get_events_by_date_range(
-    start_date: datetime, end_date: datetime
-) -> List[AuditEvent]:
+def get_events_by_date_range(start_date: datetime, end_date: datetime) -> List[AuditEvent]:
     """
     Get all events within a date range.
 
@@ -270,9 +268,7 @@ def get_events_with_pii() -> List[AuditEvent]:
     return query_audit_logs(query)
 
 
-def generate_compliance_report(
-    start_date: datetime, end_date: datetime
-) -> Dict[str, Any]:
+def generate_compliance_report(start_date: datetime, end_date: datetime) -> Dict[str, Any]:
     """
     Generate a compliance report for a date range.
 

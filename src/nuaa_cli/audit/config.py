@@ -36,7 +36,9 @@ class AuditConfig:
     """
 
     # Storage configuration
-    audit_dir: Path = field(default_factory=lambda: Path(user_data_dir("nuaa-cli", "NUAA")) / "audit")
+    audit_dir: Path = field(
+        default_factory=lambda: Path(user_data_dir("nuaa-cli", "NUAA")) / "audit"
+    )
     log_file: str = "audit.log"
 
     # Rotation configuration

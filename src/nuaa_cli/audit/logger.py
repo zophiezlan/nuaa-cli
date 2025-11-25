@@ -242,7 +242,9 @@ class AuditLogger:
 
                             # Verify previous checksum chain
                             if stored_prev != prev_checksum:
-                                print(f"Integrity violation at line {line_num}: broken checksum chain")
+                                print(
+                                    f"Integrity violation at line {line_num}: broken checksum chain"
+                                )
                                 return False
 
                             # Verify current checksum
@@ -250,9 +252,7 @@ class AuditLogger:
                             calculated = hashlib.sha256(event_json.encode()).hexdigest()
 
                             if calculated != stored_checksum:
-                                print(
-                                    f"Integrity violation at line {line_num}: checksum mismatch"
-                                )
+                                print(f"Integrity violation at line {line_num}: checksum mismatch")
                                 return False
 
                             prev_checksum = stored_checksum

@@ -6,8 +6,6 @@ This script compiles all translation files in the locales/ directory
 without requiring the external msgfmt tool.
 """
 
-import os
-import struct
 import array
 from pathlib import Path
 
@@ -144,7 +142,7 @@ def compile_all_translations():
             print(f"  ✗ Error compiling {po_file.name}: {e}")
             error_count += 1
 
-    print(f"\nCompilation complete!")
+    print("\nCompilation complete!")
     print(f"  Compiled: {compiled_count}")
     if error_count > 0:
         print(f"  Errors: {error_count}")

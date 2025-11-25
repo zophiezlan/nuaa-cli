@@ -9,7 +9,6 @@ import tempfile
 from datetime import datetime, timedelta
 from pathlib import Path
 
-import pytest
 
 from nuaa_cli.audit import (
     AuditLogger,
@@ -110,9 +109,7 @@ class TestAuditEvents:
         """Test alert requirement detection."""
         critical_event = AuditEvent(severity=Severity.CRITICAL)
         error_event = AuditEvent(severity=Severity.ERROR)
-        auth_failure = AuditEvent(
-            event_type=EventType.AUTH_FAILURE, severity=Severity.WARNING
-        )
+        auth_failure = AuditEvent(event_type=EventType.AUTH_FAILURE, severity=Severity.WARNING)
         regular_event = AuditEvent()
 
         assert critical_event.requires_immediate_alert()
@@ -157,9 +154,7 @@ class TestAuditConfig:
 
     def test_is_event_allowed(self):
         """Test event filtering."""
-        config = AuditConfig(
-            enabled=True, allowed_event_types=[EventType.DOCUMENT_CREATED.value]
-        )
+        config = AuditConfig(enabled=True, allowed_event_types=[EventType.DOCUMENT_CREATED.value])
 
         assert config.is_event_allowed(EventType.DOCUMENT_CREATED.value)
         assert not config.is_event_allowed(EventType.DOCUMENT_DELETED.value)
@@ -192,9 +187,7 @@ class TestAuditLogger:
             config = AuditConfig(audit_dir=Path(tmpdir))
             logger = AuditLogger(config)
 
-            event = AuditEvent(
-                event_type=EventType.DOCUMENT_CREATED, action="test_create"
-            )
+            event = AuditEvent(event_type=EventType.DOCUMENT_CREATED, action="test_create")
 
             result = logger.log(event)
 
@@ -230,9 +223,7 @@ class TestAuditLogger:
             config = AuditConfig(audit_dir=Path(tmpdir), include_pii=False)
             logger = AuditLogger(config)
 
-            event = AuditEvent(
-                contains_pii=True, metadata={"sensitive": "data", "name": "Alice"}
-            )
+            event = AuditEvent(contains_pii=True, metadata={"sensitive": "data", "name": "Alice"})
 
             logger.log(event)
 
@@ -269,8 +260,8 @@ class TestAuditLogger:
             # Log many events to trigger rotation
             for i in range(100):
                 event = AuditEvent(
-                    action=f"test_{i}", metadata={"data": "x" * 100}  # Bulk up event
-                )
+                    action=f"test_{i}", metadata={"data": "x" * 100}
+                )  # Bulk up event
                 logger.log(event)
 
             # Check if rotated file exists
@@ -341,9 +332,7 @@ class TestAuditQuery:
             logger = AuditLogger(config)
 
             # Log events
-            past_event = AuditEvent(
-                timestamp=datetime.utcnow() - timedelta(days=10), action="old"
-            )
+            past_event = AuditEvent(timestamp=datetime.utcnow() - timedelta(days=10), action="old")
             recent_event = AuditEvent(
                 timestamp=datetime.utcnow() - timedelta(hours=1), action="recent"
             )

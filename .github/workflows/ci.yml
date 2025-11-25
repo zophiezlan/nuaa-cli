@@ -40,7 +40,6 @@ jobs:
 
             - name: Type check (mypy)
               run: mypy .
-              continue-on-error: true
 
             - name: Pre-commit (format and basic checks)
               run: pre-commit run --all-files --show-diff-on-failure

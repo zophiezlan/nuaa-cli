@@ -1,5 +1,10 @@
 # NUAA Email Bridge
 
+> **⚠️ PLANNED FEATURE - NOT YET IMPLEMENTED**
+>
+> This document describes a planned feature that is currently under consideration for future development.
+> The Email Bridge is not currently available in this version of NUAA CLI.
+
 **Make NUAA tools accessible via email for users who only use email.**
 
 ## Overview

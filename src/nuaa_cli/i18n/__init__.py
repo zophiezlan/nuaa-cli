@@ -9,7 +9,7 @@ import gettext
 import locale
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 # Supported languages with their locale codes
 SUPPORTED_LANGUAGES = {
@@ -25,8 +25,8 @@ SUPPORTED_LANGUAGES = {
 DEFAULT_LANGUAGE = "en_AU"
 
 # Global translation function
-_translate = None
-_current_locale = None
+_translate: Optional[Callable[[str], str]] = None
+_current_locale: Optional[str] = None
 
 
 def get_locale_dir() -> Path:
@@ -118,6 +118,7 @@ def _(message: str) -> str:
     if _translate is None:
         initialize()
 
+    assert _translate is not None, "Translation function should be initialized"
     return _translate(message)
 
 
@@ -125,6 +126,8 @@ def get_current_locale() -> str:
     """Get the current locale code."""
     if _current_locale is None:
         initialize()
+
+    assert _current_locale is not None, "Locale should be initialized"
     return _current_locale
 
 
